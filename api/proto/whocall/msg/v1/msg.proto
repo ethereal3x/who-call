@@ -3,3 +3,172 @@ syntax = "proto3";
 package whocall.msg.v1;
 
 option go_package = "github.com/ethereal3x/who-call/api/gen/go/whocall/msg/v1;msgv1";
+
+import "google/api/annotations.proto";
+import "whocall/common/v1/common.proto";
+
+enum SessionType {
+    SESSION_TYPE_UNSPECIFIED = 0;
+    SESSION_TYPE_SINGLE = 1;
+    SESSION_TYPE_GROUP = 2;
+    SESSION_TYPE_NOTIFICATION = 3;
+}
+
+enum ContentType {
+    CONTENT_TYPE_UNSPECIFIED = 0;
+    CONTENT_TYPE_TEXT = 101;
+    CONTENT_TYPE_IMAGE = 102;
+    CONTENT_TYPE_FILE = 103;
+    CONTENT_TYPE_REVOKE = 201;
+    CONTENT_TYPE_READ_RECEIPT = 202;
+    CONTENT_TYPE_CUSTOM = 900;
+}
+
+message MsgData {
+    // 客户端消息ID
+    string client_msg_id = 1;
+    // 服务端消息ID
+    string server_msg_id = 2;
+    // 发送者ID
+    string send_id = 3;
+    // 接收者ID
+    string recv_id = 4;
+    // 群组ID
+    string group_id = 5;
+    // 会话ID
+    string conversation_id = 6;
+    // 会话序列号
+    int64 conversation_seq = 7;
+    // 会话类型
+    SessionType session_type = 8;
+    // 内容类型
+    ContentType content_type = 9;
+    // 消息内容
+    bytes content = 10;
+    // 发送时间，毫秒时间戳
+    int64 send_time = 11;
+    // 操作ID
+    string operation_id = 12;
+    // 消息选项
+    map<string, bool> options = 13;
+}
+
+service MsgService {
+    rpc SendMsg(SendMsgRequest) returns (SendMsgResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/messages/send"
+            body: "*"
+        };
+    }
+    rpc GetNewestSeq(GetNewestSeqRequest) returns (GetNewestSeqResponse);
+    rpc PullMsgBySeqList(PullMsgBySeqListRequest) returns (PullMsgBySeqListResponse);
+    rpc MarkConversationRead(MarkConversationReadRequest) returns (MarkConversationReadResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/messages/mark_read"
+            body: "*"
+        };
+    }
+    rpc RevokeMsg(RevokeMsgRequest) returns (RevokeMsgResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/messages/revoke"
+            body: "*"
+        };
+    }
+}
+
+message SendMsgRequest {
+    // 请求元信息
+    whocall.common.v1.RequestMeta meta = 1;
+    // 消息数据
+    MsgData msg_data = 2;
+}
+
+message SendMsgResponse {
+    // 响应头
+    whocall.common.v1.ResponseHeader header = 1;
+    // 服务端消息ID
+    string server_msg_id = 2;
+    // 客户端消息ID
+    string client_msg_id = 3;
+    // 发送时间，毫秒时间戳
+    int64 send_time = 4;
+    // 会话序列号
+    int64 conversation_seq = 5;
+}
+
+message GetNewestSeqRequest {
+    // 请求元信息
+    whocall.common.v1.RequestMeta meta = 1;
+    // 用户ID
+    string user_id = 2;
+    // 会话ID列表
+    repeated string conversation_ids = 3;
+}
+
+message ConversationSeq {
+    // 会话ID
+    string conversation_id = 1;
+    // 最大序列号
+    int64 max_seq = 2;
+    // 已读序列号
+    int64 read_seq = 3;
+}
+
+message GetNewestSeqResponse {
+    // 响应头
+    whocall.common.v1.ResponseHeader header = 1;
+    // 会话序列号列表
+    repeated ConversationSeq seqs = 2;
+}
+
+message PullMsgBySeqListRequest {
+    // 请求元信息
+    whocall.common.v1.RequestMeta meta = 1;
+    // 会话ID
+    string conversation_id = 2;
+    // 待拉取序列号列表
+    repeated int64 seqs = 3;
+}
+
+message PullMsgBySeqListResponse {
+    // 响应头
+    whocall.common.v1.ResponseHeader header = 1;
+    // 消息列表
+    repeated MsgData messages = 2;
+    // 缺失序列号列表
+    repeated int64 missing_seqs = 3;
+}
+
+message MarkConversationReadRequest {
+    // 请求元信息
+    whocall.common.v1.RequestMeta meta = 1;
+    // 用户ID
+    string user_id = 2;
+    // 会话ID
+    string conversation_id = 3;
+    // 已读序列号
+    int64 read_seq = 4;
+}
+
+message MarkConversationReadResponse {
+    // 响应头
+    whocall.common.v1.ResponseHeader header = 1;
+    // 已读序列号
+    int64 read_seq = 2;
+}
+
+message RevokeMsgRequest {
+    // 请求元信息
+    whocall.common.v1.RequestMeta meta = 1;
+    // 操作者用户ID
+    string operator_user_id = 2;
+    // 会话ID
+    string conversation_id = 3;
+    // 服务端消息ID
+    string server_msg_id = 4;
+}
+
+message RevokeMsgResponse {
+    // 响应头
+    whocall.common.v1.ResponseHeader header = 1;
+}

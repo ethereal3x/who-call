@@ -9,6 +9,12 @@
       "name": "AuthService"
     },
     {
+      "name": "MsgService"
+    },
+    {
+      "name": "GatewayInternalService"
+    },
+    {
       "name": "UserService"
     }
   ],
@@ -176,6 +182,102 @@
         ],
         "tags": [
           "AuthService"
+        ]
+      }
+    },
+    "/api/v1/messages/mark_read": {
+      "post": {
+        "operationId": "MsgService_MarkConversationRead",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1MarkConversationReadResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1MarkConversationReadRequest"
+            }
+          }
+        ],
+        "tags": [
+          "MsgService"
+        ]
+      }
+    },
+    "/api/v1/messages/revoke": {
+      "post": {
+        "operationId": "MsgService_RevokeMsg",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RevokeMsgResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RevokeMsgRequest"
+            }
+          }
+        ],
+        "tags": [
+          "MsgService"
+        ]
+      }
+    },
+    "/api/v1/messages/send": {
+      "post": {
+        "operationId": "MsgService_SendMsg",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SendMsgResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1SendMsgRequest"
+            }
+          }
+        ],
+        "tags": [
+          "MsgService"
         ]
       }
     },
@@ -355,6 +457,19 @@
         }
       }
     },
+    "v1ContentType": {
+      "type": "string",
+      "enum": [
+        "CONTENT_TYPE_UNSPECIFIED",
+        "CONTENT_TYPE_TEXT",
+        "CONTENT_TYPE_IMAGE",
+        "CONTENT_TYPE_FILE",
+        "CONTENT_TYPE_REVOKE",
+        "CONTENT_TYPE_READ_RECEIPT",
+        "CONTENT_TYPE_CUSTOM"
+      ],
+      "default": "CONTENT_TYPE_UNSPECIFIED"
+    },
     "v1ForceLogoutRequest": {
       "type": "object",
       "properties": {
@@ -489,6 +604,105 @@
         }
       }
     },
+    "v1MarkConversationReadRequest": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息"
+        },
+        "userId": {
+          "type": "string",
+          "title": "用户ID"
+        },
+        "conversationId": {
+          "type": "string",
+          "title": "会话ID"
+        },
+        "readSeq": {
+          "type": "string",
+          "format": "int64",
+          "title": "已读序列号"
+        }
+      }
+    },
+    "v1MarkConversationReadResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头"
+        },
+        "readSeq": {
+          "type": "string",
+          "format": "int64",
+          "title": "已读序列号"
+        }
+      }
+    },
+    "v1MsgData": {
+      "type": "object",
+      "properties": {
+        "clientMsgId": {
+          "type": "string",
+          "title": "客户端消息ID"
+        },
+        "serverMsgId": {
+          "type": "string",
+          "title": "服务端消息ID"
+        },
+        "sendId": {
+          "type": "string",
+          "title": "发送者ID"
+        },
+        "recvId": {
+          "type": "string",
+          "title": "接收者ID"
+        },
+        "groupId": {
+          "type": "string",
+          "title": "群组ID"
+        },
+        "conversationId": {
+          "type": "string",
+          "title": "会话ID"
+        },
+        "conversationSeq": {
+          "type": "string",
+          "format": "int64",
+          "title": "会话序列号"
+        },
+        "sessionType": {
+          "$ref": "#/definitions/v1SessionType",
+          "title": "会话类型"
+        },
+        "contentType": {
+          "$ref": "#/definitions/v1ContentType",
+          "title": "内容类型"
+        },
+        "content": {
+          "type": "string",
+          "format": "byte",
+          "title": "消息内容"
+        },
+        "sendTime": {
+          "type": "string",
+          "format": "int64",
+          "title": "发送时间，毫秒时间戳"
+        },
+        "operationId": {
+          "type": "string",
+          "title": "操作ID"
+        },
+        "options": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "boolean"
+          },
+          "title": "消息选项"
+        }
+      }
+    },
     "v1RefreshTokenRequest": {
       "type": "object",
       "properties": {
@@ -583,6 +797,86 @@
           "type": "string"
         }
       }
+    },
+    "v1RevokeMsgRequest": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息"
+        },
+        "operatorUserId": {
+          "type": "string",
+          "title": "操作者用户ID"
+        },
+        "conversationId": {
+          "type": "string",
+          "title": "会话ID"
+        },
+        "serverMsgId": {
+          "type": "string",
+          "title": "服务端消息ID"
+        }
+      }
+    },
+    "v1RevokeMsgResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头"
+        }
+      }
+    },
+    "v1SendMsgRequest": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息"
+        },
+        "msgData": {
+          "$ref": "#/definitions/v1MsgData",
+          "title": "消息数据"
+        }
+      }
+    },
+    "v1SendMsgResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头"
+        },
+        "serverMsgId": {
+          "type": "string",
+          "title": "服务端消息ID"
+        },
+        "clientMsgId": {
+          "type": "string",
+          "title": "客户端消息ID"
+        },
+        "sendTime": {
+          "type": "string",
+          "format": "int64",
+          "title": "发送时间，毫秒时间戳"
+        },
+        "conversationSeq": {
+          "type": "string",
+          "format": "int64",
+          "title": "会话序列号"
+        }
+      }
+    },
+    "v1SessionType": {
+      "type": "string",
+      "enum": [
+        "SESSION_TYPE_UNSPECIFIED",
+        "SESSION_TYPE_SINGLE",
+        "SESSION_TYPE_GROUP",
+        "SESSION_TYPE_NOTIFICATION"
+      ],
+      "default": "SESSION_TYPE_UNSPECIFIED"
     },
     "v1UpdateProfileResponse": {
       "type": "object",

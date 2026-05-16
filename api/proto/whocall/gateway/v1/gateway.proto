@@ -3,3 +3,45 @@ syntax = "proto3";
 package whocall.gateway.v1;
 
 option go_package = "github.com/ethereal3x/who-call/api/gen/go/whocall/gateway/v1;gatewayv1";
+
+import "whocall/common/v1/common.proto";
+import "whocall/msg/v1/msg.proto";
+
+service GatewayInternalService {
+    rpc PushMsg(PushMsgRequest) returns (PushMsgResponse);
+    rpc KickOnline(KickOnlineRequest) returns (KickOnlineResponse);
+}
+
+message PushMsgRequest {
+    // 请求元信息
+    whocall.common.v1.RequestMeta meta = 1;
+    // 用户ID
+    string user_id = 2;
+    // 消息数据
+    whocall.msg.v1.MsgData msg_data = 3;
+}
+
+message PushMsgResponse {
+    // 响应头
+    whocall.common.v1.ResponseHeader header = 1;
+    // 已投递连接ID列表
+    repeated string delivered_conn_ids = 2;
+}
+
+message KickOnlineRequest {
+    // 请求元信息
+    whocall.common.v1.RequestMeta meta = 1;
+    // 用户ID
+    string user_id = 2;
+    // 平台ID
+    int32 platform_id = 3;
+    // 踢下线原因
+    string reason = 4;
+}
+
+message KickOnlineResponse {
+    // 响应头
+    whocall.common.v1.ResponseHeader header = 1;
+    // 踢下线数量
+    int32 kicked_count = 2;
+}

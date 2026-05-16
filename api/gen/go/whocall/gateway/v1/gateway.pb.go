@@ -7,9 +7,12 @@
 package gatewayv1
 
 import (
+	v1 "github.com/ethereal3x/who-call/api/gen/go/whocall/common/v1"
+	v11 "github.com/ethereal3x/who-call/api/gen/go/whocall/msg/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
+	sync "sync"
 	unsafe "unsafe"
 )
 
@@ -20,19 +23,312 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type PushMsgRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 用户ID
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 消息数据
+	MsgData       *v11.MsgData `protobuf:"bytes,3,opt,name=msg_data,json=msgData,proto3" json:"msg_data,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *PushMsgRequest) Reset() {
+	*x = PushMsgRequest{}
+	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PushMsgRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PushMsgRequest) ProtoMessage() {}
+
+func (x *PushMsgRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PushMsgRequest.ProtoReflect.Descriptor instead.
+func (*PushMsgRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_gateway_v1_gateway_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *PushMsgRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *PushMsgRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *PushMsgRequest) GetMsgData() *v11.MsgData {
+	if x != nil {
+		return x.MsgData
+	}
+	return nil
+}
+
+type PushMsgResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 已投递连接ID列表
+	DeliveredConnIds []string `protobuf:"bytes,2,rep,name=delivered_conn_ids,json=deliveredConnIds,proto3" json:"delivered_conn_ids,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
+}
+
+func (x *PushMsgResponse) Reset() {
+	*x = PushMsgResponse{}
+	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PushMsgResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PushMsgResponse) ProtoMessage() {}
+
+func (x *PushMsgResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PushMsgResponse.ProtoReflect.Descriptor instead.
+func (*PushMsgResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_gateway_v1_gateway_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *PushMsgResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *PushMsgResponse) GetDeliveredConnIds() []string {
+	if x != nil {
+		return x.DeliveredConnIds
+	}
+	return nil
+}
+
+type KickOnlineRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 用户ID
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 平台ID
+	PlatformId int32 `protobuf:"varint,3,opt,name=platform_id,json=platformId,proto3" json:"platform_id,omitempty"`
+	// 踢下线原因
+	Reason        string `protobuf:"bytes,4,opt,name=reason,proto3" json:"reason,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *KickOnlineRequest) Reset() {
+	*x = KickOnlineRequest{}
+	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *KickOnlineRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*KickOnlineRequest) ProtoMessage() {}
+
+func (x *KickOnlineRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use KickOnlineRequest.ProtoReflect.Descriptor instead.
+func (*KickOnlineRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_gateway_v1_gateway_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *KickOnlineRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *KickOnlineRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *KickOnlineRequest) GetPlatformId() int32 {
+	if x != nil {
+		return x.PlatformId
+	}
+	return 0
+}
+
+func (x *KickOnlineRequest) GetReason() string {
+	if x != nil {
+		return x.Reason
+	}
+	return ""
+}
+
+type KickOnlineResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 踢下线数量
+	KickedCount   int32 `protobuf:"varint,2,opt,name=kicked_count,json=kickedCount,proto3" json:"kicked_count,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *KickOnlineResponse) Reset() {
+	*x = KickOnlineResponse{}
+	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *KickOnlineResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*KickOnlineResponse) ProtoMessage() {}
+
+func (x *KickOnlineResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use KickOnlineResponse.ProtoReflect.Descriptor instead.
+func (*KickOnlineResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_gateway_v1_gateway_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *KickOnlineResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *KickOnlineResponse) GetKickedCount() int32 {
+	if x != nil {
+		return x.KickedCount
+	}
+	return 0
+}
+
 var File_whocall_gateway_v1_gateway_proto protoreflect.FileDescriptor
 
 const file_whocall_gateway_v1_gateway_proto_rawDesc = "" +
 	"\n" +
-	" whocall/gateway/v1/gateway.proto\x12\x12whocall.gateway.v1BHZFgithub.com/ethereal3x/who-call/api/gen/go/whocall/gateway/v1;gatewayv1b\x06proto3"
+	" whocall/gateway/v1/gateway.proto\x12\x12whocall.gateway.v1\x1a\x1ewhocall/common/v1/common.proto\x1a\x18whocall/msg/v1/msg.proto\"\x91\x01\n" +
+	"\x0ePushMsgRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x122\n" +
+	"\bmsg_data\x18\x03 \x01(\v2\x17.whocall.msg.v1.MsgDataR\amsgData\"z\n" +
+	"\x0fPushMsgResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12,\n" +
+	"\x12delivered_conn_ids\x18\x02 \x03(\tR\x10deliveredConnIds\"\x99\x01\n" +
+	"\x11KickOnlineRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x12\x1f\n" +
+	"\vplatform_id\x18\x03 \x01(\x05R\n" +
+	"platformId\x12\x16\n" +
+	"\x06reason\x18\x04 \x01(\tR\x06reason\"r\n" +
+	"\x12KickOnlineResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12!\n" +
+	"\fkicked_count\x18\x02 \x01(\x05R\vkickedCount2\xc9\x01\n" +
+	"\x16GatewayInternalService\x12R\n" +
+	"\aPushMsg\x12\".whocall.gateway.v1.PushMsgRequest\x1a#.whocall.gateway.v1.PushMsgResponse\x12[\n" +
+	"\n" +
+	"KickOnline\x12%.whocall.gateway.v1.KickOnlineRequest\x1a&.whocall.gateway.v1.KickOnlineResponseBHZFgithub.com/ethereal3x/who-call/api/gen/go/whocall/gateway/v1;gatewayv1b\x06proto3"
 
-var file_whocall_gateway_v1_gateway_proto_goTypes = []any{}
+var (
+	file_whocall_gateway_v1_gateway_proto_rawDescOnce sync.Once
+	file_whocall_gateway_v1_gateway_proto_rawDescData []byte
+)
+
+func file_whocall_gateway_v1_gateway_proto_rawDescGZIP() []byte {
+	file_whocall_gateway_v1_gateway_proto_rawDescOnce.Do(func() {
+		file_whocall_gateway_v1_gateway_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_whocall_gateway_v1_gateway_proto_rawDesc), len(file_whocall_gateway_v1_gateway_proto_rawDesc)))
+	})
+	return file_whocall_gateway_v1_gateway_proto_rawDescData
+}
+
+var file_whocall_gateway_v1_gateway_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_whocall_gateway_v1_gateway_proto_goTypes = []any{
+	(*PushMsgRequest)(nil),     // 0: whocall.gateway.v1.PushMsgRequest
+	(*PushMsgResponse)(nil),    // 1: whocall.gateway.v1.PushMsgResponse
+	(*KickOnlineRequest)(nil),  // 2: whocall.gateway.v1.KickOnlineRequest
+	(*KickOnlineResponse)(nil), // 3: whocall.gateway.v1.KickOnlineResponse
+	(*v1.RequestMeta)(nil),     // 4: whocall.common.v1.RequestMeta
+	(*v11.MsgData)(nil),        // 5: whocall.msg.v1.MsgData
+	(*v1.ResponseHeader)(nil),  // 6: whocall.common.v1.ResponseHeader
+}
 var file_whocall_gateway_v1_gateway_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	4, // 0: whocall.gateway.v1.PushMsgRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	5, // 1: whocall.gateway.v1.PushMsgRequest.msg_data:type_name -> whocall.msg.v1.MsgData
+	6, // 2: whocall.gateway.v1.PushMsgResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	4, // 3: whocall.gateway.v1.KickOnlineRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	6, // 4: whocall.gateway.v1.KickOnlineResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	0, // 5: whocall.gateway.v1.GatewayInternalService.PushMsg:input_type -> whocall.gateway.v1.PushMsgRequest
+	2, // 6: whocall.gateway.v1.GatewayInternalService.KickOnline:input_type -> whocall.gateway.v1.KickOnlineRequest
+	1, // 7: whocall.gateway.v1.GatewayInternalService.PushMsg:output_type -> whocall.gateway.v1.PushMsgResponse
+	3, // 8: whocall.gateway.v1.GatewayInternalService.KickOnline:output_type -> whocall.gateway.v1.KickOnlineResponse
+	7, // [7:9] is the sub-list for method output_type
+	5, // [5:7] is the sub-list for method input_type
+	5, // [5:5] is the sub-list for extension type_name
+	5, // [5:5] is the sub-list for extension extendee
+	0, // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_whocall_gateway_v1_gateway_proto_init() }
@@ -46,12 +342,13 @@ func file_whocall_gateway_v1_gateway_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_whocall_gateway_v1_gateway_proto_rawDesc), len(file_whocall_gateway_v1_gateway_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   0,
+			NumMessages:   4,
 			NumExtensions: 0,
-			NumServices:   0,
+			NumServices:   1,
 		},
 		GoTypes:           file_whocall_gateway_v1_gateway_proto_goTypes,
 		DependencyIndexes: file_whocall_gateway_v1_gateway_proto_depIdxs,
+		MessageInfos:      file_whocall_gateway_v1_gateway_proto_msgTypes,
 	}.Build()
 	File_whocall_gateway_v1_gateway_proto = out.File
 	file_whocall_gateway_v1_gateway_proto_goTypes = nil
