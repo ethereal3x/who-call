@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package whocall.auth.v1;
+
+option go_package = "github.com/ethereal3x/who-call/api/gen/go/whocall/auth/v1;authv1";
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "whocall/common/v1/common.proto";
+
+service AuthService {
+    rpc Register(RegisterRequest) returns (RegisterResponse) {
+        option (google.api.http) = { post: "/api/v1/auth/register" body: "*" };
+    }
+    rpc Login(LoginRequest) returns (LoginResponse) {
+        option (google.api.http) = { post: "/api/v1/auth/login" body: "*" };
+    }
+    rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse) {
+        option (google.api.http) = { post: "/api/v1/auth/refresh" body: "*" };
+    }
+    rpc Logout(LogoutRequest) returns (LogoutResponse) {
+        option (google.api.http) = { post: "/api/v1/auth/logout" body: "*" };
+    }
+    rpc ForceLogout(ForceLogoutRequest) returns (ForceLogoutResponse) {
+        option (google.api.http) = { post: "/api/v1/auth/force_logout" body: "*" };
+    }
+    rpc ParseToken(ParseTokenRequest) returns (ParseTokenResponse);
+}
+
+message RegisterRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string username = 2;
+    string password = 3;
+    string nickname = 4;
+    string avatar_url = 5;
+}
+
+message RegisterResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    string user_id = 2;
+}
+
+message LoginRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string username = 2;
+    string password = 3;
+    int32 platform_id = 4;
+    string device_id = 5;
+}
+
+message LoginResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    string user_id = 2;
+    string access_token = 3;
+    string refresh_token = 4;
+    google.protobuf.Timestamp expire_at = 5;
+}
+
+message RefreshTokenRequest { whocall.common.v1.RequestMeta meta = 1; string refresh_token = 2; }
+message RefreshTokenResponse { whocall.common.v1.ResponseHeader header = 1; string access_token = 2; google.protobuf.Timestamp expire_at = 3; }
+message LogoutRequest { whocall.common.v1.RequestMeta meta = 1; string user_id = 2; int32 platform_id = 3; string device_id = 4; }
+message LogoutResponse { whocall.common.v1.ResponseHeader header = 1; }
+message ForceLogoutRequest { whocall.common.v1.RequestMeta meta = 1; string user_id = 2; int32 platform_id = 3; string reason = 4; }
+message ForceLogoutResponse { whocall.common.v1.ResponseHeader header = 1; }
+message ParseTokenRequest { whocall.common.v1.RequestMeta meta = 1; string access_token = 2; }
+message ParseTokenResponse { whocall.common.v1.ResponseHeader header = 1; string user_id = 2; int32 platform_id = 3; string device_id = 4; string token_status = 5; }

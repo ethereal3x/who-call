@@ -1,0 +1,5 @@
+syntax = "proto3";
+
+package whocall.msg.v1;
+
+option go_package = "github.com/ethereal3x/who-call/api/gen/go/whocall/msg/v1;msgv1";

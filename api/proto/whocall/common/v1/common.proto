@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package whocall.common.v1;
+
+option go_package = "github.com/ethereal3x/who-call/api/gen/go/whocall/common/v1;commonv1";
+
+message RequestMeta {
+    string operation_id = 1;
+    string trace_id = 2;
+    string caller = 3;
+    string platform = 4;
+    string device_id = 5;
+}
+
+message ResponseHeader {
+    int32 code = 1;
+    string message = 2;
+    string operation_id = 3;
+    string trace_id = 4;
+}
+
+message PaginationRequest {
+    int32 page = 1;
+    int32 size = 2;
+    string cursor = 3;
+}
+
+message PaginationResponse {
+    int64 total = 1;
+    string next_cursor = 2;
+    bool has_more = 3;
+}
+
+message UserRef {
+    string user_id = 1;
+    string nickname = 2;
+    string avatar_url = 3;
+}

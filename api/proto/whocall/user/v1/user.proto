@@ -1,0 +1,37 @@
+// api/proto/user/v1/user.proto
+syntax = "proto3";
+
+package whocall.user.v1;
+
+option go_package = "github.com/ethereal3x/who-call/api/gen/go/whocall/user/v1;userv1";
+
+import "google/api/annotations.proto";
+import "whocall/common/v1/common.proto";
+
+service UserService {
+    rpc GetProfile(GetProfileRequest) returns (GetProfileResponse) {
+        option (google.api.http) = { get: "/api/v1/users/{user_id}" };
+    }
+    rpc UpdateProfile(UpdateProfileRequest) returns (UpdateProfileResponse) {
+        option (google.api.http) = { patch: "/api/v1/users/{user_id}" body: "*" };
+    }
+    rpc GetUsersOnlineStatus(GetUsersOnlineStatusRequest) returns (GetUsersOnlineStatusResponse) {
+        option (google.api.http) = { post: "/api/v1/users/online_status" body: "*" };
+    }
+}
+
+message UserProfile {
+    string user_id = 1;
+    string nickname = 2;
+    string avatar_url = 3;
+    int32 status = 4;
+    int32 global_recv_msg_opt = 5;
+}
+
+message GetProfileRequest { whocall.common.v1.RequestMeta meta = 1; string user_id = 2; }
+message GetProfileResponse { whocall.common.v1.ResponseHeader header = 1; UserProfile user = 2; }
+message UpdateProfileRequest { whocall.common.v1.RequestMeta meta = 1; string user_id = 2; string nickname = 3; string avatar_url = 4; int32 global_recv_msg_opt = 5; }
+message UpdateProfileResponse { whocall.common.v1.ResponseHeader header = 1; UserProfile user = 2; }
+message GetUsersOnlineStatusRequest { whocall.common.v1.RequestMeta meta = 1; repeated string user_ids = 2; }
+message UserOnlineStatus { string user_id = 1; bool online = 2; repeated int32 platform_ids = 3; }
+message GetUsersOnlineStatusResponse { whocall.common.v1.ResponseHeader header = 1; repeated UserOnlineStatus statuses = 2; }
