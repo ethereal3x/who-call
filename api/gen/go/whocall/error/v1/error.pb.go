@@ -24,22 +24,56 @@ const (
 type ErrorCode int32
 
 const (
-	ErrorCode_ERROR_CODE_UNSPECIFIED           ErrorCode = 0
-	ErrorCode_ERROR_CODE_OK                    ErrorCode = 200
-	ErrorCode_ERROR_CODE_BAD_REQUEST           ErrorCode = 40000
-	ErrorCode_ERROR_CODE_UNAUTHORIZED          ErrorCode = 40100
-	ErrorCode_ERROR_CODE_FORBIDDEN             ErrorCode = 40300
-	ErrorCode_ERROR_CODE_NOT_FOUND             ErrorCode = 40400
-	ErrorCode_ERROR_CODE_CONFLICT              ErrorCode = 40900
-	ErrorCode_ERROR_CODE_RATE_LIMITED          ErrorCode = 42900
-	ErrorCode_ERROR_CODE_INTERNAL              ErrorCode = 50000
-	ErrorCode_ERROR_CODE_TOKEN_KICKED          ErrorCode = 40110
-	ErrorCode_ERROR_CODE_TOKEN_REVOKED         ErrorCode = 40111
-	ErrorCode_ERROR_CODE_USER_BANNED           ErrorCode = 40310
-	ErrorCode_ERROR_CODE_FRIEND_REQUIRED       ErrorCode = 40320
-	ErrorCode_ERROR_CODE_GROUP_MEMBER_REQUIRED ErrorCode = 40330
-	ErrorCode_ERROR_CODE_DUPLICATE_CLIENT_MSG  ErrorCode = 40910
-	ErrorCode_ERROR_CODE_SEQ_CONFLICT          ErrorCode = 40911
+	ErrorCode_ERROR_CODE_UNSPECIFIED               ErrorCode = 0
+	ErrorCode_ERROR_CODE_OK                        ErrorCode = 200
+	ErrorCode_ERROR_CODE_BAD_REQUEST               ErrorCode = 40000
+	ErrorCode_ERROR_CODE_UNAUTHORIZED              ErrorCode = 40100
+	ErrorCode_ERROR_CODE_FORBIDDEN                 ErrorCode = 40300
+	ErrorCode_ERROR_CODE_NOT_FOUND                 ErrorCode = 40400
+	ErrorCode_ERROR_CODE_CONFLICT                  ErrorCode = 40900
+	ErrorCode_ERROR_CODE_GONE                      ErrorCode = 41000
+	ErrorCode_ERROR_CODE_UNPROCESSABLE_ENTITY      ErrorCode = 42200
+	ErrorCode_ERROR_CODE_RATE_LIMITED              ErrorCode = 42900
+	ErrorCode_ERROR_CODE_INTERNAL                  ErrorCode = 50000
+	ErrorCode_ERROR_CODE_UNAVAILABLE               ErrorCode = 50300
+	ErrorCode_ERROR_CODE_TOKEN_EXPIRED             ErrorCode = 40101
+	ErrorCode_ERROR_CODE_TOKEN_INVALID             ErrorCode = 40102
+	ErrorCode_ERROR_CODE_TOKEN_REVOKED             ErrorCode = 40103
+	ErrorCode_ERROR_CODE_TOKEN_KICKED              ErrorCode = 40110
+	ErrorCode_ERROR_CODE_DEVICE_NOT_LOGIN          ErrorCode = 40111
+	ErrorCode_ERROR_CODE_USER_BANNED               ErrorCode = 40310
+	ErrorCode_ERROR_CODE_USER_NOT_FOUND            ErrorCode = 40410
+	ErrorCode_ERROR_CODE_USERNAME_EXISTS           ErrorCode = 40901
+	ErrorCode_ERROR_CODE_FRIEND_REQUIRED           ErrorCode = 40320
+	ErrorCode_ERROR_CODE_BLOCKED_BY_PEER           ErrorCode = 40321
+	ErrorCode_ERROR_CODE_FRIEND_REQUEST_NOT_FOUND  ErrorCode = 40420
+	ErrorCode_ERROR_CODE_FRIEND_REQUEST_HANDLED    ErrorCode = 40920
+	ErrorCode_ERROR_CODE_ALREADY_FRIEND            ErrorCode = 40921
+	ErrorCode_ERROR_CODE_GROUP_MEMBER_REQUIRED     ErrorCode = 40330
+	ErrorCode_ERROR_CODE_GROUP_ADMIN_REQUIRED      ErrorCode = 40331
+	ErrorCode_ERROR_CODE_GROUP_OWNER_REQUIRED      ErrorCode = 40332
+	ErrorCode_ERROR_CODE_GROUP_MUTED               ErrorCode = 40333
+	ErrorCode_ERROR_CODE_GROUP_MEMBER_MUTED        ErrorCode = 40334
+	ErrorCode_ERROR_CODE_GROUP_NOT_FOUND           ErrorCode = 40430
+	ErrorCode_ERROR_CODE_GROUP_DISMISSED           ErrorCode = 40930
+	ErrorCode_ERROR_CODE_GROUP_MEMBER_EXISTS       ErrorCode = 40931
+	ErrorCode_ERROR_CODE_GROUP_APPLICATION_HANDLED ErrorCode = 40932
+	ErrorCode_ERROR_CODE_DUPLICATE_CLIENT_MSG      ErrorCode = 40910
+	ErrorCode_ERROR_CODE_MSG_NOT_FOUND             ErrorCode = 40440
+	ErrorCode_ERROR_CODE_MSG_ALREADY_REVOKED       ErrorCode = 40911
+	ErrorCode_ERROR_CODE_MSG_REVOKE_EXPIRED        ErrorCode = 40913
+	ErrorCode_ERROR_CODE_SEQ_CONFLICT              ErrorCode = 40912
+	ErrorCode_ERROR_CODE_CONTENT_TYPE_UNSUPPORTED  ErrorCode = 42210
+	ErrorCode_ERROR_CODE_CONVERSATION_NOT_FOUND    ErrorCode = 40450
+	ErrorCode_ERROR_CODE_CONVERSATION_MUTED        ErrorCode = 40350
+	ErrorCode_ERROR_CODE_FILE_NOT_FOUND            ErrorCode = 40460
+	ErrorCode_ERROR_CODE_FILE_UPLOAD_EXPIRED       ErrorCode = 41010
+	ErrorCode_ERROR_CODE_FILE_TOO_LARGE            ErrorCode = 42260
+	ErrorCode_ERROR_CODE_PUSH_TOKEN_INVALID        ErrorCode = 42220
+	ErrorCode_ERROR_CODE_PUSH_PROVIDER_UNAVAILABLE ErrorCode = 50320
+	ErrorCode_ERROR_CODE_OUTBOX_PUBLISH_FAILED     ErrorCode = 50310
+	ErrorCode_ERROR_CODE_DLQ_REPLAY_REJECTED       ErrorCode = 40950
+	ErrorCode_ERROR_CODE_CRONTASK_LOCKED           ErrorCode = 40951
 )
 
 // Enum value maps for ErrorCode.
@@ -52,33 +86,101 @@ var (
 		40300: "ERROR_CODE_FORBIDDEN",
 		40400: "ERROR_CODE_NOT_FOUND",
 		40900: "ERROR_CODE_CONFLICT",
+		41000: "ERROR_CODE_GONE",
+		42200: "ERROR_CODE_UNPROCESSABLE_ENTITY",
 		42900: "ERROR_CODE_RATE_LIMITED",
 		50000: "ERROR_CODE_INTERNAL",
+		50300: "ERROR_CODE_UNAVAILABLE",
+		40101: "ERROR_CODE_TOKEN_EXPIRED",
+		40102: "ERROR_CODE_TOKEN_INVALID",
+		40103: "ERROR_CODE_TOKEN_REVOKED",
 		40110: "ERROR_CODE_TOKEN_KICKED",
-		40111: "ERROR_CODE_TOKEN_REVOKED",
+		40111: "ERROR_CODE_DEVICE_NOT_LOGIN",
 		40310: "ERROR_CODE_USER_BANNED",
+		40410: "ERROR_CODE_USER_NOT_FOUND",
+		40901: "ERROR_CODE_USERNAME_EXISTS",
 		40320: "ERROR_CODE_FRIEND_REQUIRED",
+		40321: "ERROR_CODE_BLOCKED_BY_PEER",
+		40420: "ERROR_CODE_FRIEND_REQUEST_NOT_FOUND",
+		40920: "ERROR_CODE_FRIEND_REQUEST_HANDLED",
+		40921: "ERROR_CODE_ALREADY_FRIEND",
 		40330: "ERROR_CODE_GROUP_MEMBER_REQUIRED",
+		40331: "ERROR_CODE_GROUP_ADMIN_REQUIRED",
+		40332: "ERROR_CODE_GROUP_OWNER_REQUIRED",
+		40333: "ERROR_CODE_GROUP_MUTED",
+		40334: "ERROR_CODE_GROUP_MEMBER_MUTED",
+		40430: "ERROR_CODE_GROUP_NOT_FOUND",
+		40930: "ERROR_CODE_GROUP_DISMISSED",
+		40931: "ERROR_CODE_GROUP_MEMBER_EXISTS",
+		40932: "ERROR_CODE_GROUP_APPLICATION_HANDLED",
 		40910: "ERROR_CODE_DUPLICATE_CLIENT_MSG",
-		40911: "ERROR_CODE_SEQ_CONFLICT",
+		40440: "ERROR_CODE_MSG_NOT_FOUND",
+		40911: "ERROR_CODE_MSG_ALREADY_REVOKED",
+		40913: "ERROR_CODE_MSG_REVOKE_EXPIRED",
+		40912: "ERROR_CODE_SEQ_CONFLICT",
+		42210: "ERROR_CODE_CONTENT_TYPE_UNSUPPORTED",
+		40450: "ERROR_CODE_CONVERSATION_NOT_FOUND",
+		40350: "ERROR_CODE_CONVERSATION_MUTED",
+		40460: "ERROR_CODE_FILE_NOT_FOUND",
+		41010: "ERROR_CODE_FILE_UPLOAD_EXPIRED",
+		42260: "ERROR_CODE_FILE_TOO_LARGE",
+		42220: "ERROR_CODE_PUSH_TOKEN_INVALID",
+		50320: "ERROR_CODE_PUSH_PROVIDER_UNAVAILABLE",
+		50310: "ERROR_CODE_OUTBOX_PUBLISH_FAILED",
+		40950: "ERROR_CODE_DLQ_REPLAY_REJECTED",
+		40951: "ERROR_CODE_CRONTASK_LOCKED",
 	}
 	ErrorCode_value = map[string]int32{
-		"ERROR_CODE_UNSPECIFIED":           0,
-		"ERROR_CODE_OK":                    200,
-		"ERROR_CODE_BAD_REQUEST":           40000,
-		"ERROR_CODE_UNAUTHORIZED":          40100,
-		"ERROR_CODE_FORBIDDEN":             40300,
-		"ERROR_CODE_NOT_FOUND":             40400,
-		"ERROR_CODE_CONFLICT":              40900,
-		"ERROR_CODE_RATE_LIMITED":          42900,
-		"ERROR_CODE_INTERNAL":              50000,
-		"ERROR_CODE_TOKEN_KICKED":          40110,
-		"ERROR_CODE_TOKEN_REVOKED":         40111,
-		"ERROR_CODE_USER_BANNED":           40310,
-		"ERROR_CODE_FRIEND_REQUIRED":       40320,
-		"ERROR_CODE_GROUP_MEMBER_REQUIRED": 40330,
-		"ERROR_CODE_DUPLICATE_CLIENT_MSG":  40910,
-		"ERROR_CODE_SEQ_CONFLICT":          40911,
+		"ERROR_CODE_UNSPECIFIED":               0,
+		"ERROR_CODE_OK":                        200,
+		"ERROR_CODE_BAD_REQUEST":               40000,
+		"ERROR_CODE_UNAUTHORIZED":              40100,
+		"ERROR_CODE_FORBIDDEN":                 40300,
+		"ERROR_CODE_NOT_FOUND":                 40400,
+		"ERROR_CODE_CONFLICT":                  40900,
+		"ERROR_CODE_GONE":                      41000,
+		"ERROR_CODE_UNPROCESSABLE_ENTITY":      42200,
+		"ERROR_CODE_RATE_LIMITED":              42900,
+		"ERROR_CODE_INTERNAL":                  50000,
+		"ERROR_CODE_UNAVAILABLE":               50300,
+		"ERROR_CODE_TOKEN_EXPIRED":             40101,
+		"ERROR_CODE_TOKEN_INVALID":             40102,
+		"ERROR_CODE_TOKEN_REVOKED":             40103,
+		"ERROR_CODE_TOKEN_KICKED":              40110,
+		"ERROR_CODE_DEVICE_NOT_LOGIN":          40111,
+		"ERROR_CODE_USER_BANNED":               40310,
+		"ERROR_CODE_USER_NOT_FOUND":            40410,
+		"ERROR_CODE_USERNAME_EXISTS":           40901,
+		"ERROR_CODE_FRIEND_REQUIRED":           40320,
+		"ERROR_CODE_BLOCKED_BY_PEER":           40321,
+		"ERROR_CODE_FRIEND_REQUEST_NOT_FOUND":  40420,
+		"ERROR_CODE_FRIEND_REQUEST_HANDLED":    40920,
+		"ERROR_CODE_ALREADY_FRIEND":            40921,
+		"ERROR_CODE_GROUP_MEMBER_REQUIRED":     40330,
+		"ERROR_CODE_GROUP_ADMIN_REQUIRED":      40331,
+		"ERROR_CODE_GROUP_OWNER_REQUIRED":      40332,
+		"ERROR_CODE_GROUP_MUTED":               40333,
+		"ERROR_CODE_GROUP_MEMBER_MUTED":        40334,
+		"ERROR_CODE_GROUP_NOT_FOUND":           40430,
+		"ERROR_CODE_GROUP_DISMISSED":           40930,
+		"ERROR_CODE_GROUP_MEMBER_EXISTS":       40931,
+		"ERROR_CODE_GROUP_APPLICATION_HANDLED": 40932,
+		"ERROR_CODE_DUPLICATE_CLIENT_MSG":      40910,
+		"ERROR_CODE_MSG_NOT_FOUND":             40440,
+		"ERROR_CODE_MSG_ALREADY_REVOKED":       40911,
+		"ERROR_CODE_MSG_REVOKE_EXPIRED":        40913,
+		"ERROR_CODE_SEQ_CONFLICT":              40912,
+		"ERROR_CODE_CONTENT_TYPE_UNSUPPORTED":  42210,
+		"ERROR_CODE_CONVERSATION_NOT_FOUND":    40450,
+		"ERROR_CODE_CONVERSATION_MUTED":        40350,
+		"ERROR_CODE_FILE_NOT_FOUND":            40460,
+		"ERROR_CODE_FILE_UPLOAD_EXPIRED":       41010,
+		"ERROR_CODE_FILE_TOO_LARGE":            42260,
+		"ERROR_CODE_PUSH_TOKEN_INVALID":        42220,
+		"ERROR_CODE_PUSH_PROVIDER_UNAVAILABLE": 50320,
+		"ERROR_CODE_OUTBOX_PUBLISH_FAILED":     50310,
+		"ERROR_CODE_DLQ_REPLAY_REJECTED":       40950,
+		"ERROR_CODE_CRONTASK_LOCKED":           40951,
 	}
 )
 
@@ -109,11 +211,78 @@ func (ErrorCode) EnumDescriptor() ([]byte, []int) {
 	return file_whocall_error_v1_error_proto_rawDescGZIP(), []int{0}
 }
 
+type ReliabilityErrorClass int32
+
+const (
+	ReliabilityErrorClass_RELIABILITY_ERROR_CLASS_UNSPECIFIED          ReliabilityErrorClass = 0
+	ReliabilityErrorClass_RELIABILITY_ERROR_CLASS_TRANSIENT_NETWORK    ReliabilityErrorClass = 1
+	ReliabilityErrorClass_RELIABILITY_ERROR_CLASS_PROVIDER_RATE_LIMIT  ReliabilityErrorClass = 2
+	ReliabilityErrorClass_RELIABILITY_ERROR_CLASS_SCHEMA_INCOMPATIBLE  ReliabilityErrorClass = 3
+	ReliabilityErrorClass_RELIABILITY_ERROR_CLASS_POISON_MESSAGE       ReliabilityErrorClass = 4
+	ReliabilityErrorClass_RELIABILITY_ERROR_CLASS_IDEMPOTENCY_CONFLICT ReliabilityErrorClass = 5
+	ReliabilityErrorClass_RELIABILITY_ERROR_CLASS_PERMISSION_DENIED    ReliabilityErrorClass = 6
+	ReliabilityErrorClass_RELIABILITY_ERROR_CLASS_SECRET_OR_CREDENTIAL ReliabilityErrorClass = 7
+	ReliabilityErrorClass_RELIABILITY_ERROR_CLASS_DATA_INCONSISTENT    ReliabilityErrorClass = 8
+)
+
+// Enum value maps for ReliabilityErrorClass.
+var (
+	ReliabilityErrorClass_name = map[int32]string{
+		0: "RELIABILITY_ERROR_CLASS_UNSPECIFIED",
+		1: "RELIABILITY_ERROR_CLASS_TRANSIENT_NETWORK",
+		2: "RELIABILITY_ERROR_CLASS_PROVIDER_RATE_LIMIT",
+		3: "RELIABILITY_ERROR_CLASS_SCHEMA_INCOMPATIBLE",
+		4: "RELIABILITY_ERROR_CLASS_POISON_MESSAGE",
+		5: "RELIABILITY_ERROR_CLASS_IDEMPOTENCY_CONFLICT",
+		6: "RELIABILITY_ERROR_CLASS_PERMISSION_DENIED",
+		7: "RELIABILITY_ERROR_CLASS_SECRET_OR_CREDENTIAL",
+		8: "RELIABILITY_ERROR_CLASS_DATA_INCONSISTENT",
+	}
+	ReliabilityErrorClass_value = map[string]int32{
+		"RELIABILITY_ERROR_CLASS_UNSPECIFIED":          0,
+		"RELIABILITY_ERROR_CLASS_TRANSIENT_NETWORK":    1,
+		"RELIABILITY_ERROR_CLASS_PROVIDER_RATE_LIMIT":  2,
+		"RELIABILITY_ERROR_CLASS_SCHEMA_INCOMPATIBLE":  3,
+		"RELIABILITY_ERROR_CLASS_POISON_MESSAGE":       4,
+		"RELIABILITY_ERROR_CLASS_IDEMPOTENCY_CONFLICT": 5,
+		"RELIABILITY_ERROR_CLASS_PERMISSION_DENIED":    6,
+		"RELIABILITY_ERROR_CLASS_SECRET_OR_CREDENTIAL": 7,
+		"RELIABILITY_ERROR_CLASS_DATA_INCONSISTENT":    8,
+	}
+)
+
+func (x ReliabilityErrorClass) Enum() *ReliabilityErrorClass {
+	p := new(ReliabilityErrorClass)
+	*p = x
+	return p
+}
+
+func (x ReliabilityErrorClass) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (ReliabilityErrorClass) Descriptor() protoreflect.EnumDescriptor {
+	return file_whocall_error_v1_error_proto_enumTypes[1].Descriptor()
+}
+
+func (ReliabilityErrorClass) Type() protoreflect.EnumType {
+	return &file_whocall_error_v1_error_proto_enumTypes[1]
+}
+
+func (x ReliabilityErrorClass) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use ReliabilityErrorClass.Descriptor instead.
+func (ReliabilityErrorClass) EnumDescriptor() ([]byte, []int) {
+	return file_whocall_error_v1_error_proto_rawDescGZIP(), []int{1}
+}
+
 var File_whocall_error_v1_error_proto protoreflect.FileDescriptor
 
 const file_whocall_error_v1_error_proto_rawDesc = "" +
 	"\n" +
-	"\x1cwhocall/error/v1/error.proto\x12\x10whocall.error.v1*\xf2\x03\n" +
+	"\x1cwhocall/error/v1/error.proto\x12\x10whocall.error.v1*\xbf\r\n" +
 	"\tErrorCode\x12\x1a\n" +
 	"\x16ERROR_CODE_UNSPECIFIED\x10\x00\x12\x12\n" +
 	"\rERROR_CODE_OK\x10\xc8\x01\x12\x1c\n" +
@@ -121,16 +290,60 @@ const file_whocall_error_v1_error_proto_rawDesc = "" +
 	"\x17ERROR_CODE_UNAUTHORIZED\x10\xa4\xb9\x02\x12\x1a\n" +
 	"\x14ERROR_CODE_FORBIDDEN\x10\xec\xba\x02\x12\x1a\n" +
 	"\x14ERROR_CODE_NOT_FOUND\x10л\x02\x12\x19\n" +
-	"\x13ERROR_CODE_CONFLICT\x10Ŀ\x02\x12\x1d\n" +
+	"\x13ERROR_CODE_CONFLICT\x10Ŀ\x02\x12\x15\n" +
+	"\x0fERROR_CODE_GONE\x10\xa8\xc0\x02\x12%\n" +
+	"\x1fERROR_CODE_UNPROCESSABLE_ENTITY\x10\xd8\xc9\x02\x12\x1d\n" +
 	"\x17ERROR_CODE_RATE_LIMITED\x10\x94\xcf\x02\x12\x19\n" +
-	"\x13ERROR_CODE_INTERNAL\x10І\x03\x12\x1d\n" +
-	"\x17ERROR_CODE_TOKEN_KICKED\x10\xae\xb9\x02\x12\x1e\n" +
-	"\x18ERROR_CODE_TOKEN_REVOKED\x10\xaf\xb9\x02\x12\x1c\n" +
-	"\x16ERROR_CODE_USER_BANNED\x10\xf6\xba\x02\x12 \n" +
-	"\x1aERROR_CODE_FRIEND_REQUIRED\x10\x80\xbb\x02\x12&\n" +
+	"\x13ERROR_CODE_INTERNAL\x10І\x03\x12\x1c\n" +
+	"\x16ERROR_CODE_UNAVAILABLE\x10\xfc\x88\x03\x12\x1e\n" +
+	"\x18ERROR_CODE_TOKEN_EXPIRED\x10\xa5\xb9\x02\x12\x1e\n" +
+	"\x18ERROR_CODE_TOKEN_INVALID\x10\xa6\xb9\x02\x12\x1e\n" +
+	"\x18ERROR_CODE_TOKEN_REVOKED\x10\xa7\xb9\x02\x12\x1d\n" +
+	"\x17ERROR_CODE_TOKEN_KICKED\x10\xae\xb9\x02\x12!\n" +
+	"\x1bERROR_CODE_DEVICE_NOT_LOGIN\x10\xaf\xb9\x02\x12\x1c\n" +
+	"\x16ERROR_CODE_USER_BANNED\x10\xf6\xba\x02\x12\x1f\n" +
+	"\x19ERROR_CODE_USER_NOT_FOUND\x10ڻ\x02\x12 \n" +
+	"\x1aERROR_CODE_USERNAME_EXISTS\x10ſ\x02\x12 \n" +
+	"\x1aERROR_CODE_FRIEND_REQUIRED\x10\x80\xbb\x02\x12 \n" +
+	"\x1aERROR_CODE_BLOCKED_BY_PEER\x10\x81\xbb\x02\x12)\n" +
+	"#ERROR_CODE_FRIEND_REQUEST_NOT_FOUND\x10\xe4\xbb\x02\x12'\n" +
+	"!ERROR_CODE_FRIEND_REQUEST_HANDLED\x10ؿ\x02\x12\x1f\n" +
+	"\x19ERROR_CODE_ALREADY_FRIEND\x10ٿ\x02\x12&\n" +
 	" ERROR_CODE_GROUP_MEMBER_REQUIRED\x10\x8a\xbb\x02\x12%\n" +
-	"\x1fERROR_CODE_DUPLICATE_CLIENT_MSG\x10ο\x02\x12\x1d\n" +
-	"\x17ERROR_CODE_SEQ_CONFLICT\x10Ͽ\x02BDZBgithub.com/ethereal3x/who-call/api/gen/go/whocall/error/v1;errorv1b\x06proto3"
+	"\x1fERROR_CODE_GROUP_ADMIN_REQUIRED\x10\x8b\xbb\x02\x12%\n" +
+	"\x1fERROR_CODE_GROUP_OWNER_REQUIRED\x10\x8c\xbb\x02\x12\x1c\n" +
+	"\x16ERROR_CODE_GROUP_MUTED\x10\x8d\xbb\x02\x12#\n" +
+	"\x1dERROR_CODE_GROUP_MEMBER_MUTED\x10\x8e\xbb\x02\x12 \n" +
+	"\x1aERROR_CODE_GROUP_NOT_FOUND\x10\xee\xbb\x02\x12 \n" +
+	"\x1aERROR_CODE_GROUP_DISMISSED\x10\xe2\xbf\x02\x12$\n" +
+	"\x1eERROR_CODE_GROUP_MEMBER_EXISTS\x10\xe3\xbf\x02\x12*\n" +
+	"$ERROR_CODE_GROUP_APPLICATION_HANDLED\x10\xe4\xbf\x02\x12%\n" +
+	"\x1fERROR_CODE_DUPLICATE_CLIENT_MSG\x10ο\x02\x12\x1e\n" +
+	"\x18ERROR_CODE_MSG_NOT_FOUND\x10\xf8\xbb\x02\x12$\n" +
+	"\x1eERROR_CODE_MSG_ALREADY_REVOKED\x10Ͽ\x02\x12#\n" +
+	"\x1dERROR_CODE_MSG_REVOKE_EXPIRED\x10ѿ\x02\x12\x1d\n" +
+	"\x17ERROR_CODE_SEQ_CONFLICT\x10п\x02\x12)\n" +
+	"#ERROR_CODE_CONTENT_TYPE_UNSUPPORTED\x10\xe2\xc9\x02\x12'\n" +
+	"!ERROR_CODE_CONVERSATION_NOT_FOUND\x10\x82\xbc\x02\x12#\n" +
+	"\x1dERROR_CODE_CONVERSATION_MUTED\x10\x9e\xbb\x02\x12\x1f\n" +
+	"\x19ERROR_CODE_FILE_NOT_FOUND\x10\x8c\xbc\x02\x12$\n" +
+	"\x1eERROR_CODE_FILE_UPLOAD_EXPIRED\x10\xb2\xc0\x02\x12\x1f\n" +
+	"\x19ERROR_CODE_FILE_TOO_LARGE\x10\x94\xca\x02\x12#\n" +
+	"\x1dERROR_CODE_PUSH_TOKEN_INVALID\x10\xec\xc9\x02\x12*\n" +
+	"$ERROR_CODE_PUSH_PROVIDER_UNAVAILABLE\x10\x90\x89\x03\x12&\n" +
+	" ERROR_CODE_OUTBOX_PUBLISH_FAILED\x10\x86\x89\x03\x12$\n" +
+	"\x1eERROR_CODE_DLQ_REPLAY_REJECTED\x10\xf6\xbf\x02\x12 \n" +
+	"\x1aERROR_CODE_CRONTASK_LOCKED\x10\xf7\xbf\x02*\xbf\x03\n" +
+	"\x15ReliabilityErrorClass\x12'\n" +
+	"#RELIABILITY_ERROR_CLASS_UNSPECIFIED\x10\x00\x12-\n" +
+	")RELIABILITY_ERROR_CLASS_TRANSIENT_NETWORK\x10\x01\x12/\n" +
+	"+RELIABILITY_ERROR_CLASS_PROVIDER_RATE_LIMIT\x10\x02\x12/\n" +
+	"+RELIABILITY_ERROR_CLASS_SCHEMA_INCOMPATIBLE\x10\x03\x12*\n" +
+	"&RELIABILITY_ERROR_CLASS_POISON_MESSAGE\x10\x04\x120\n" +
+	",RELIABILITY_ERROR_CLASS_IDEMPOTENCY_CONFLICT\x10\x05\x12-\n" +
+	")RELIABILITY_ERROR_CLASS_PERMISSION_DENIED\x10\x06\x120\n" +
+	",RELIABILITY_ERROR_CLASS_SECRET_OR_CREDENTIAL\x10\a\x12-\n" +
+	")RELIABILITY_ERROR_CLASS_DATA_INCONSISTENT\x10\bBDZBgithub.com/ethereal3x/who-call/api/gen/go/whocall/error/v1;errorv1b\x06proto3"
 
 var (
 	file_whocall_error_v1_error_proto_rawDescOnce sync.Once
@@ -144,9 +357,10 @@ func file_whocall_error_v1_error_proto_rawDescGZIP() []byte {
 	return file_whocall_error_v1_error_proto_rawDescData
 }
 
-var file_whocall_error_v1_error_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+var file_whocall_error_v1_error_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
 var file_whocall_error_v1_error_proto_goTypes = []any{
-	(ErrorCode)(0), // 0: whocall.error.v1.ErrorCode
+	(ErrorCode)(0),             // 0: whocall.error.v1.ErrorCode
+	(ReliabilityErrorClass)(0), // 1: whocall.error.v1.ReliabilityErrorClass
 }
 var file_whocall_error_v1_error_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
@@ -166,7 +380,7 @@ func file_whocall_error_v1_error_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_whocall_error_v1_error_proto_rawDesc), len(file_whocall_error_v1_error_proto_rawDesc)),
-			NumEnums:      1,
+			NumEnums:      2,
 			NumMessages:   0,
 			NumExtensions: 0,
 			NumServices:   0,

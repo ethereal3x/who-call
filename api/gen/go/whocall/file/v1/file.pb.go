@@ -7,9 +7,12 @@
 package filev1
 
 import (
+	v1 "github.com/ethereal3x/who-call/api/gen/go/whocall/common/v1"
+	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
+	sync "sync"
 	unsafe "unsafe"
 )
 
@@ -20,19 +23,1043 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type FileBizType int32
+
+const (
+	FileBizType_FILE_BIZ_TYPE_UNSPECIFIED   FileBizType = 0
+	FileBizType_FILE_BIZ_TYPE_AVATAR        FileBizType = 1
+	FileBizType_FILE_BIZ_TYPE_MESSAGE_IMAGE FileBizType = 2
+	FileBizType_FILE_BIZ_TYPE_MESSAGE_VOICE FileBizType = 3
+	FileBizType_FILE_BIZ_TYPE_MESSAGE_VIDEO FileBizType = 4
+	FileBizType_FILE_BIZ_TYPE_MESSAGE_FILE  FileBizType = 5
+	FileBizType_FILE_BIZ_TYPE_GROUP_AVATAR  FileBizType = 6
+	FileBizType_FILE_BIZ_TYPE_LOG           FileBizType = 100
+)
+
+// Enum value maps for FileBizType.
+var (
+	FileBizType_name = map[int32]string{
+		0:   "FILE_BIZ_TYPE_UNSPECIFIED",
+		1:   "FILE_BIZ_TYPE_AVATAR",
+		2:   "FILE_BIZ_TYPE_MESSAGE_IMAGE",
+		3:   "FILE_BIZ_TYPE_MESSAGE_VOICE",
+		4:   "FILE_BIZ_TYPE_MESSAGE_VIDEO",
+		5:   "FILE_BIZ_TYPE_MESSAGE_FILE",
+		6:   "FILE_BIZ_TYPE_GROUP_AVATAR",
+		100: "FILE_BIZ_TYPE_LOG",
+	}
+	FileBizType_value = map[string]int32{
+		"FILE_BIZ_TYPE_UNSPECIFIED":   0,
+		"FILE_BIZ_TYPE_AVATAR":        1,
+		"FILE_BIZ_TYPE_MESSAGE_IMAGE": 2,
+		"FILE_BIZ_TYPE_MESSAGE_VOICE": 3,
+		"FILE_BIZ_TYPE_MESSAGE_VIDEO": 4,
+		"FILE_BIZ_TYPE_MESSAGE_FILE":  5,
+		"FILE_BIZ_TYPE_GROUP_AVATAR":  6,
+		"FILE_BIZ_TYPE_LOG":           100,
+	}
+)
+
+func (x FileBizType) Enum() *FileBizType {
+	p := new(FileBizType)
+	*p = x
+	return p
+}
+
+func (x FileBizType) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (FileBizType) Descriptor() protoreflect.EnumDescriptor {
+	return file_whocall_file_v1_file_proto_enumTypes[0].Descriptor()
+}
+
+func (FileBizType) Type() protoreflect.EnumType {
+	return &file_whocall_file_v1_file_proto_enumTypes[0]
+}
+
+func (x FileBizType) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use FileBizType.Descriptor instead.
+func (FileBizType) EnumDescriptor() ([]byte, []int) {
+	return file_whocall_file_v1_file_proto_rawDescGZIP(), []int{0}
+}
+
+type UploadStatus int32
+
+const (
+	UploadStatus_UPLOAD_STATUS_UNSPECIFIED UploadStatus = 0
+	UploadStatus_UPLOAD_STATUS_INITIATED   UploadStatus = 1
+	UploadStatus_UPLOAD_STATUS_UPLOADING   UploadStatus = 2
+	UploadStatus_UPLOAD_STATUS_COMPLETED   UploadStatus = 3
+	UploadStatus_UPLOAD_STATUS_ABORTED     UploadStatus = 4
+	UploadStatus_UPLOAD_STATUS_EXPIRED     UploadStatus = 5
+)
+
+// Enum value maps for UploadStatus.
+var (
+	UploadStatus_name = map[int32]string{
+		0: "UPLOAD_STATUS_UNSPECIFIED",
+		1: "UPLOAD_STATUS_INITIATED",
+		2: "UPLOAD_STATUS_UPLOADING",
+		3: "UPLOAD_STATUS_COMPLETED",
+		4: "UPLOAD_STATUS_ABORTED",
+		5: "UPLOAD_STATUS_EXPIRED",
+	}
+	UploadStatus_value = map[string]int32{
+		"UPLOAD_STATUS_UNSPECIFIED": 0,
+		"UPLOAD_STATUS_INITIATED":   1,
+		"UPLOAD_STATUS_UPLOADING":   2,
+		"UPLOAD_STATUS_COMPLETED":   3,
+		"UPLOAD_STATUS_ABORTED":     4,
+		"UPLOAD_STATUS_EXPIRED":     5,
+	}
+)
+
+func (x UploadStatus) Enum() *UploadStatus {
+	p := new(UploadStatus)
+	*p = x
+	return p
+}
+
+func (x UploadStatus) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (UploadStatus) Descriptor() protoreflect.EnumDescriptor {
+	return file_whocall_file_v1_file_proto_enumTypes[1].Descriptor()
+}
+
+func (UploadStatus) Type() protoreflect.EnumType {
+	return &file_whocall_file_v1_file_proto_enumTypes[1]
+}
+
+func (x UploadStatus) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use UploadStatus.Descriptor instead.
+func (UploadStatus) EnumDescriptor() ([]byte, []int) {
+	return file_whocall_file_v1_file_proto_rawDescGZIP(), []int{1}
+}
+
+type FileInfo struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	FileId        string                 `protobuf:"bytes,1,opt,name=file_id,json=fileId,proto3" json:"file_id,omitempty"`
+	OwnerUserId   string                 `protobuf:"bytes,2,opt,name=owner_user_id,json=ownerUserId,proto3" json:"owner_user_id,omitempty"`
+	BizType       FileBizType            `protobuf:"varint,3,opt,name=biz_type,json=bizType,proto3,enum=whocall.file.v1.FileBizType" json:"biz_type,omitempty"`
+	FileName      string                 `protobuf:"bytes,4,opt,name=file_name,json=fileName,proto3" json:"file_name,omitempty"`
+	ObjectKey     string                 `protobuf:"bytes,5,opt,name=object_key,json=objectKey,proto3" json:"object_key,omitempty"`
+	Url           string                 `protobuf:"bytes,6,opt,name=url,proto3" json:"url,omitempty"`
+	MimeType      string                 `protobuf:"bytes,7,opt,name=mime_type,json=mimeType,proto3" json:"mime_type,omitempty"`
+	Size          int64                  `protobuf:"varint,8,opt,name=size,proto3" json:"size,omitempty"`
+	Checksum      string                 `protobuf:"bytes,9,opt,name=checksum,proto3" json:"checksum,omitempty"`
+	CreateTimeMs  int64                  `protobuf:"varint,10,opt,name=create_time_ms,json=createTimeMs,proto3" json:"create_time_ms,omitempty"`
+	Ex            string                 `protobuf:"bytes,11,opt,name=ex,proto3" json:"ex,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *FileInfo) Reset() {
+	*x = FileInfo{}
+	mi := &file_whocall_file_v1_file_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *FileInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FileInfo) ProtoMessage() {}
+
+func (x *FileInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_file_v1_file_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FileInfo.ProtoReflect.Descriptor instead.
+func (*FileInfo) Descriptor() ([]byte, []int) {
+	return file_whocall_file_v1_file_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *FileInfo) GetFileId() string {
+	if x != nil {
+		return x.FileId
+	}
+	return ""
+}
+
+func (x *FileInfo) GetOwnerUserId() string {
+	if x != nil {
+		return x.OwnerUserId
+	}
+	return ""
+}
+
+func (x *FileInfo) GetBizType() FileBizType {
+	if x != nil {
+		return x.BizType
+	}
+	return FileBizType_FILE_BIZ_TYPE_UNSPECIFIED
+}
+
+func (x *FileInfo) GetFileName() string {
+	if x != nil {
+		return x.FileName
+	}
+	return ""
+}
+
+func (x *FileInfo) GetObjectKey() string {
+	if x != nil {
+		return x.ObjectKey
+	}
+	return ""
+}
+
+func (x *FileInfo) GetUrl() string {
+	if x != nil {
+		return x.Url
+	}
+	return ""
+}
+
+func (x *FileInfo) GetMimeType() string {
+	if x != nil {
+		return x.MimeType
+	}
+	return ""
+}
+
+func (x *FileInfo) GetSize() int64 {
+	if x != nil {
+		return x.Size
+	}
+	return 0
+}
+
+func (x *FileInfo) GetChecksum() string {
+	if x != nil {
+		return x.Checksum
+	}
+	return ""
+}
+
+func (x *FileInfo) GetCreateTimeMs() int64 {
+	if x != nil {
+		return x.CreateTimeMs
+	}
+	return 0
+}
+
+func (x *FileInfo) GetEx() string {
+	if x != nil {
+		return x.Ex
+	}
+	return ""
+}
+
+type UploadPart struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	PartNumber    int32                  `protobuf:"varint,1,opt,name=part_number,json=partNumber,proto3" json:"part_number,omitempty"`
+	UploadUrl     string                 `protobuf:"bytes,2,opt,name=upload_url,json=uploadUrl,proto3" json:"upload_url,omitempty"`
+	Headers       map[string]string      `protobuf:"bytes,3,rep,name=headers,proto3" json:"headers,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	PartSize      int64                  `protobuf:"varint,4,opt,name=part_size,json=partSize,proto3" json:"part_size,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UploadPart) Reset() {
+	*x = UploadPart{}
+	mi := &file_whocall_file_v1_file_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UploadPart) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UploadPart) ProtoMessage() {}
+
+func (x *UploadPart) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_file_v1_file_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UploadPart.ProtoReflect.Descriptor instead.
+func (*UploadPart) Descriptor() ([]byte, []int) {
+	return file_whocall_file_v1_file_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *UploadPart) GetPartNumber() int32 {
+	if x != nil {
+		return x.PartNumber
+	}
+	return 0
+}
+
+func (x *UploadPart) GetUploadUrl() string {
+	if x != nil {
+		return x.UploadUrl
+	}
+	return ""
+}
+
+func (x *UploadPart) GetHeaders() map[string]string {
+	if x != nil {
+		return x.Headers
+	}
+	return nil
+}
+
+func (x *UploadPart) GetPartSize() int64 {
+	if x != nil {
+		return x.PartSize
+	}
+	return 0
+}
+
+type CreateUploadRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	OwnerUserId   string                 `protobuf:"bytes,2,opt,name=owner_user_id,json=ownerUserId,proto3" json:"owner_user_id,omitempty"`
+	BizType       FileBizType            `protobuf:"varint,3,opt,name=biz_type,json=bizType,proto3,enum=whocall.file.v1.FileBizType" json:"biz_type,omitempty"`
+	FileName      string                 `protobuf:"bytes,4,opt,name=file_name,json=fileName,proto3" json:"file_name,omitempty"`
+	MimeType      string                 `protobuf:"bytes,5,opt,name=mime_type,json=mimeType,proto3" json:"mime_type,omitempty"`
+	Size          int64                  `protobuf:"varint,6,opt,name=size,proto3" json:"size,omitempty"`
+	Checksum      string                 `protobuf:"bytes,7,opt,name=checksum,proto3" json:"checksum,omitempty"`
+	PartCount     int32                  `protobuf:"varint,8,opt,name=part_count,json=partCount,proto3" json:"part_count,omitempty"`
+	Ex            string                 `protobuf:"bytes,9,opt,name=ex,proto3" json:"ex,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateUploadRequest) Reset() {
+	*x = CreateUploadRequest{}
+	mi := &file_whocall_file_v1_file_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateUploadRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateUploadRequest) ProtoMessage() {}
+
+func (x *CreateUploadRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_file_v1_file_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateUploadRequest.ProtoReflect.Descriptor instead.
+func (*CreateUploadRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_file_v1_file_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *CreateUploadRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *CreateUploadRequest) GetOwnerUserId() string {
+	if x != nil {
+		return x.OwnerUserId
+	}
+	return ""
+}
+
+func (x *CreateUploadRequest) GetBizType() FileBizType {
+	if x != nil {
+		return x.BizType
+	}
+	return FileBizType_FILE_BIZ_TYPE_UNSPECIFIED
+}
+
+func (x *CreateUploadRequest) GetFileName() string {
+	if x != nil {
+		return x.FileName
+	}
+	return ""
+}
+
+func (x *CreateUploadRequest) GetMimeType() string {
+	if x != nil {
+		return x.MimeType
+	}
+	return ""
+}
+
+func (x *CreateUploadRequest) GetSize() int64 {
+	if x != nil {
+		return x.Size
+	}
+	return 0
+}
+
+func (x *CreateUploadRequest) GetChecksum() string {
+	if x != nil {
+		return x.Checksum
+	}
+	return ""
+}
+
+func (x *CreateUploadRequest) GetPartCount() int32 {
+	if x != nil {
+		return x.PartCount
+	}
+	return 0
+}
+
+func (x *CreateUploadRequest) GetEx() string {
+	if x != nil {
+		return x.Ex
+	}
+	return ""
+}
+
+type CreateUploadResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	UploadId      string                 `protobuf:"bytes,2,opt,name=upload_id,json=uploadId,proto3" json:"upload_id,omitempty"`
+	FileId        string                 `protobuf:"bytes,3,opt,name=file_id,json=fileId,proto3" json:"file_id,omitempty"`
+	ObjectKey     string                 `protobuf:"bytes,4,opt,name=object_key,json=objectKey,proto3" json:"object_key,omitempty"`
+	UploadUrl     string                 `protobuf:"bytes,5,opt,name=upload_url,json=uploadUrl,proto3" json:"upload_url,omitempty"`
+	Parts         []*UploadPart          `protobuf:"bytes,6,rep,name=parts,proto3" json:"parts,omitempty"`
+	ExpireTimeMs  int64                  `protobuf:"varint,7,opt,name=expire_time_ms,json=expireTimeMs,proto3" json:"expire_time_ms,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateUploadResponse) Reset() {
+	*x = CreateUploadResponse{}
+	mi := &file_whocall_file_v1_file_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateUploadResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateUploadResponse) ProtoMessage() {}
+
+func (x *CreateUploadResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_file_v1_file_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateUploadResponse.ProtoReflect.Descriptor instead.
+func (*CreateUploadResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_file_v1_file_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *CreateUploadResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *CreateUploadResponse) GetUploadId() string {
+	if x != nil {
+		return x.UploadId
+	}
+	return ""
+}
+
+func (x *CreateUploadResponse) GetFileId() string {
+	if x != nil {
+		return x.FileId
+	}
+	return ""
+}
+
+func (x *CreateUploadResponse) GetObjectKey() string {
+	if x != nil {
+		return x.ObjectKey
+	}
+	return ""
+}
+
+func (x *CreateUploadResponse) GetUploadUrl() string {
+	if x != nil {
+		return x.UploadUrl
+	}
+	return ""
+}
+
+func (x *CreateUploadResponse) GetParts() []*UploadPart {
+	if x != nil {
+		return x.Parts
+	}
+	return nil
+}
+
+func (x *CreateUploadResponse) GetExpireTimeMs() int64 {
+	if x != nil {
+		return x.ExpireTimeMs
+	}
+	return 0
+}
+
+type CompleteUploadRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UploadId      string                 `protobuf:"bytes,2,opt,name=upload_id,json=uploadId,proto3" json:"upload_id,omitempty"`
+	FileId        string                 `protobuf:"bytes,3,opt,name=file_id,json=fileId,proto3" json:"file_id,omitempty"`
+	PartEtags     []string               `protobuf:"bytes,4,rep,name=part_etags,json=partEtags,proto3" json:"part_etags,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CompleteUploadRequest) Reset() {
+	*x = CompleteUploadRequest{}
+	mi := &file_whocall_file_v1_file_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CompleteUploadRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CompleteUploadRequest) ProtoMessage() {}
+
+func (x *CompleteUploadRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_file_v1_file_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CompleteUploadRequest.ProtoReflect.Descriptor instead.
+func (*CompleteUploadRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_file_v1_file_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *CompleteUploadRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *CompleteUploadRequest) GetUploadId() string {
+	if x != nil {
+		return x.UploadId
+	}
+	return ""
+}
+
+func (x *CompleteUploadRequest) GetFileId() string {
+	if x != nil {
+		return x.FileId
+	}
+	return ""
+}
+
+func (x *CompleteUploadRequest) GetPartEtags() []string {
+	if x != nil {
+		return x.PartEtags
+	}
+	return nil
+}
+
+type CompleteUploadResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	File          *FileInfo              `protobuf:"bytes,2,opt,name=file,proto3" json:"file,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CompleteUploadResponse) Reset() {
+	*x = CompleteUploadResponse{}
+	mi := &file_whocall_file_v1_file_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CompleteUploadResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CompleteUploadResponse) ProtoMessage() {}
+
+func (x *CompleteUploadResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_file_v1_file_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CompleteUploadResponse.ProtoReflect.Descriptor instead.
+func (*CompleteUploadResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_file_v1_file_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *CompleteUploadResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *CompleteUploadResponse) GetFile() *FileInfo {
+	if x != nil {
+		return x.File
+	}
+	return nil
+}
+
+type GetDownloadUrlRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	FileId        string                 `protobuf:"bytes,2,opt,name=file_id,json=fileId,proto3" json:"file_id,omitempty"`
+	UserId        string                 `protobuf:"bytes,3,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetDownloadUrlRequest) Reset() {
+	*x = GetDownloadUrlRequest{}
+	mi := &file_whocall_file_v1_file_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetDownloadUrlRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetDownloadUrlRequest) ProtoMessage() {}
+
+func (x *GetDownloadUrlRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_file_v1_file_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetDownloadUrlRequest.ProtoReflect.Descriptor instead.
+func (*GetDownloadUrlRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_file_v1_file_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *GetDownloadUrlRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *GetDownloadUrlRequest) GetFileId() string {
+	if x != nil {
+		return x.FileId
+	}
+	return ""
+}
+
+func (x *GetDownloadUrlRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+type GetDownloadUrlResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	DownloadUrl   string                 `protobuf:"bytes,2,opt,name=download_url,json=downloadUrl,proto3" json:"download_url,omitempty"`
+	Headers       map[string]string      `protobuf:"bytes,3,rep,name=headers,proto3" json:"headers,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	ExpireTimeMs  int64                  `protobuf:"varint,4,opt,name=expire_time_ms,json=expireTimeMs,proto3" json:"expire_time_ms,omitempty"`
+	File          *FileInfo              `protobuf:"bytes,5,opt,name=file,proto3" json:"file,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetDownloadUrlResponse) Reset() {
+	*x = GetDownloadUrlResponse{}
+	mi := &file_whocall_file_v1_file_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetDownloadUrlResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetDownloadUrlResponse) ProtoMessage() {}
+
+func (x *GetDownloadUrlResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_file_v1_file_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetDownloadUrlResponse.ProtoReflect.Descriptor instead.
+func (*GetDownloadUrlResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_file_v1_file_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *GetDownloadUrlResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *GetDownloadUrlResponse) GetDownloadUrl() string {
+	if x != nil {
+		return x.DownloadUrl
+	}
+	return ""
+}
+
+func (x *GetDownloadUrlResponse) GetHeaders() map[string]string {
+	if x != nil {
+		return x.Headers
+	}
+	return nil
+}
+
+func (x *GetDownloadUrlResponse) GetExpireTimeMs() int64 {
+	if x != nil {
+		return x.ExpireTimeMs
+	}
+	return 0
+}
+
+func (x *GetDownloadUrlResponse) GetFile() *FileInfo {
+	if x != nil {
+		return x.File
+	}
+	return nil
+}
+
+type DeleteFileRequest struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Meta           *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	FileId         string                 `protobuf:"bytes,2,opt,name=file_id,json=fileId,proto3" json:"file_id,omitempty"`
+	OperatorUserId string                 `protobuf:"bytes,3,opt,name=operator_user_id,json=operatorUserId,proto3" json:"operator_user_id,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *DeleteFileRequest) Reset() {
+	*x = DeleteFileRequest{}
+	mi := &file_whocall_file_v1_file_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteFileRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteFileRequest) ProtoMessage() {}
+
+func (x *DeleteFileRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_file_v1_file_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteFileRequest.ProtoReflect.Descriptor instead.
+func (*DeleteFileRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_file_v1_file_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *DeleteFileRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *DeleteFileRequest) GetFileId() string {
+	if x != nil {
+		return x.FileId
+	}
+	return ""
+}
+
+func (x *DeleteFileRequest) GetOperatorUserId() string {
+	if x != nil {
+		return x.OperatorUserId
+	}
+	return ""
+}
+
+type DeleteFileResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteFileResponse) Reset() {
+	*x = DeleteFileResponse{}
+	mi := &file_whocall_file_v1_file_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteFileResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteFileResponse) ProtoMessage() {}
+
+func (x *DeleteFileResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_file_v1_file_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteFileResponse.ProtoReflect.Descriptor instead.
+func (*DeleteFileResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_file_v1_file_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *DeleteFileResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
 var File_whocall_file_v1_file_proto protoreflect.FileDescriptor
 
 const file_whocall_file_v1_file_proto_rawDesc = "" +
 	"\n" +
-	"\x1awhocall/file/v1/file.proto\x12\x0fwhocall.file.v1BBZ@github.com/ethereal3x/who-call/api/gen/go/whocall/file/v1;filev1b\x06proto3"
+	"\x1awhocall/file/v1/file.proto\x12\x0fwhocall.file.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x1ewhocall/common/v1/common.proto\"\xd1\x02\n" +
+	"\bFileInfo\x12\x17\n" +
+	"\afile_id\x18\x01 \x01(\tR\x06fileId\x12\"\n" +
+	"\rowner_user_id\x18\x02 \x01(\tR\vownerUserId\x127\n" +
+	"\bbiz_type\x18\x03 \x01(\x0e2\x1c.whocall.file.v1.FileBizTypeR\abizType\x12\x1b\n" +
+	"\tfile_name\x18\x04 \x01(\tR\bfileName\x12\x1d\n" +
+	"\n" +
+	"object_key\x18\x05 \x01(\tR\tobjectKey\x12\x10\n" +
+	"\x03url\x18\x06 \x01(\tR\x03url\x12\x1b\n" +
+	"\tmime_type\x18\a \x01(\tR\bmimeType\x12\x12\n" +
+	"\x04size\x18\b \x01(\x03R\x04size\x12\x1a\n" +
+	"\bchecksum\x18\t \x01(\tR\bchecksum\x12$\n" +
+	"\x0ecreate_time_ms\x18\n" +
+	" \x01(\x03R\fcreateTimeMs\x12\x0e\n" +
+	"\x02ex\x18\v \x01(\tR\x02ex\"\xe9\x01\n" +
+	"\n" +
+	"UploadPart\x12\x1f\n" +
+	"\vpart_number\x18\x01 \x01(\x05R\n" +
+	"partNumber\x12\x1d\n" +
+	"\n" +
+	"upload_url\x18\x02 \x01(\tR\tuploadUrl\x12B\n" +
+	"\aheaders\x18\x03 \x03(\v2(.whocall.file.v1.UploadPart.HeadersEntryR\aheaders\x12\x1b\n" +
+	"\tpart_size\x18\x04 \x01(\x03R\bpartSize\x1a:\n" +
+	"\fHeadersEntry\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\xbf\x02\n" +
+	"\x13CreateUploadRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\"\n" +
+	"\rowner_user_id\x18\x02 \x01(\tR\vownerUserId\x127\n" +
+	"\bbiz_type\x18\x03 \x01(\x0e2\x1c.whocall.file.v1.FileBizTypeR\abizType\x12\x1b\n" +
+	"\tfile_name\x18\x04 \x01(\tR\bfileName\x12\x1b\n" +
+	"\tmime_type\x18\x05 \x01(\tR\bmimeType\x12\x12\n" +
+	"\x04size\x18\x06 \x01(\x03R\x04size\x12\x1a\n" +
+	"\bchecksum\x18\a \x01(\tR\bchecksum\x12\x1d\n" +
+	"\n" +
+	"part_count\x18\b \x01(\x05R\tpartCount\x12\x0e\n" +
+	"\x02ex\x18\t \x01(\tR\x02ex\"\x9e\x02\n" +
+	"\x14CreateUploadResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12\x1b\n" +
+	"\tupload_id\x18\x02 \x01(\tR\buploadId\x12\x17\n" +
+	"\afile_id\x18\x03 \x01(\tR\x06fileId\x12\x1d\n" +
+	"\n" +
+	"object_key\x18\x04 \x01(\tR\tobjectKey\x12\x1d\n" +
+	"\n" +
+	"upload_url\x18\x05 \x01(\tR\tuploadUrl\x121\n" +
+	"\x05parts\x18\x06 \x03(\v2\x1b.whocall.file.v1.UploadPartR\x05parts\x12$\n" +
+	"\x0eexpire_time_ms\x18\a \x01(\x03R\fexpireTimeMs\"\xa0\x01\n" +
+	"\x15CompleteUploadRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x1b\n" +
+	"\tupload_id\x18\x02 \x01(\tR\buploadId\x12\x17\n" +
+	"\afile_id\x18\x03 \x01(\tR\x06fileId\x12\x1d\n" +
+	"\n" +
+	"part_etags\x18\x04 \x03(\tR\tpartEtags\"\x82\x01\n" +
+	"\x16CompleteUploadResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12-\n" +
+	"\x04file\x18\x02 \x01(\v2\x19.whocall.file.v1.FileInfoR\x04file\"}\n" +
+	"\x15GetDownloadUrlRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x17\n" +
+	"\afile_id\x18\x02 \x01(\tR\x06fileId\x12\x17\n" +
+	"\auser_id\x18\x03 \x01(\tR\x06userId\"\xd7\x02\n" +
+	"\x16GetDownloadUrlResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12!\n" +
+	"\fdownload_url\x18\x02 \x01(\tR\vdownloadUrl\x12N\n" +
+	"\aheaders\x18\x03 \x03(\v24.whocall.file.v1.GetDownloadUrlResponse.HeadersEntryR\aheaders\x12$\n" +
+	"\x0eexpire_time_ms\x18\x04 \x01(\x03R\fexpireTimeMs\x12-\n" +
+	"\x04file\x18\x05 \x01(\v2\x19.whocall.file.v1.FileInfoR\x04file\x1a:\n" +
+	"\fHeadersEntry\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\x8a\x01\n" +
+	"\x11DeleteFileRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x17\n" +
+	"\afile_id\x18\x02 \x01(\tR\x06fileId\x12(\n" +
+	"\x10operator_user_id\x18\x03 \x01(\tR\x0eoperatorUserId\"O\n" +
+	"\x12DeleteFileResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header*\x80\x02\n" +
+	"\vFileBizType\x12\x1d\n" +
+	"\x19FILE_BIZ_TYPE_UNSPECIFIED\x10\x00\x12\x18\n" +
+	"\x14FILE_BIZ_TYPE_AVATAR\x10\x01\x12\x1f\n" +
+	"\x1bFILE_BIZ_TYPE_MESSAGE_IMAGE\x10\x02\x12\x1f\n" +
+	"\x1bFILE_BIZ_TYPE_MESSAGE_VOICE\x10\x03\x12\x1f\n" +
+	"\x1bFILE_BIZ_TYPE_MESSAGE_VIDEO\x10\x04\x12\x1e\n" +
+	"\x1aFILE_BIZ_TYPE_MESSAGE_FILE\x10\x05\x12\x1e\n" +
+	"\x1aFILE_BIZ_TYPE_GROUP_AVATAR\x10\x06\x12\x15\n" +
+	"\x11FILE_BIZ_TYPE_LOG\x10d*\xba\x01\n" +
+	"\fUploadStatus\x12\x1d\n" +
+	"\x19UPLOAD_STATUS_UNSPECIFIED\x10\x00\x12\x1b\n" +
+	"\x17UPLOAD_STATUS_INITIATED\x10\x01\x12\x1b\n" +
+	"\x17UPLOAD_STATUS_UPLOADING\x10\x02\x12\x1b\n" +
+	"\x17UPLOAD_STATUS_COMPLETED\x10\x03\x12\x19\n" +
+	"\x15UPLOAD_STATUS_ABORTED\x10\x04\x12\x19\n" +
+	"\x15UPLOAD_STATUS_EXPIRED\x10\x052\xb1\x04\n" +
+	"\vFileService\x12}\n" +
+	"\fCreateUpload\x12$.whocall.file.v1.CreateUploadRequest\x1a%.whocall.file.v1.CreateUploadResponse\" \x82\xd3\xe4\x93\x02\x1a:\x01*\"\x15/api/v1/files/uploads\x12\x98\x01\n" +
+	"\x0eCompleteUpload\x12&.whocall.file.v1.CompleteUploadRequest\x1a'.whocall.file.v1.CompleteUploadResponse\"5\x82\xd3\xe4\x93\x02/:\x01*\"*/api/v1/files/uploads/{upload_id}:complete\x12\x8f\x01\n" +
+	"\x0eGetDownloadUrl\x12&.whocall.file.v1.GetDownloadUrlRequest\x1a'.whocall.file.v1.GetDownloadUrlResponse\",\x82\xd3\xe4\x93\x02&\x12$/api/v1/files/{file_id}/download-url\x12v\n" +
+	"\n" +
+	"DeleteFile\x12\".whocall.file.v1.DeleteFileRequest\x1a#.whocall.file.v1.DeleteFileResponse\"\x1f\x82\xd3\xe4\x93\x02\x19*\x17/api/v1/files/{file_id}BBZ@github.com/ethereal3x/who-call/api/gen/go/whocall/file/v1;filev1b\x06proto3"
 
-var file_whocall_file_v1_file_proto_goTypes = []any{}
+var (
+	file_whocall_file_v1_file_proto_rawDescOnce sync.Once
+	file_whocall_file_v1_file_proto_rawDescData []byte
+)
+
+func file_whocall_file_v1_file_proto_rawDescGZIP() []byte {
+	file_whocall_file_v1_file_proto_rawDescOnce.Do(func() {
+		file_whocall_file_v1_file_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_whocall_file_v1_file_proto_rawDesc), len(file_whocall_file_v1_file_proto_rawDesc)))
+	})
+	return file_whocall_file_v1_file_proto_rawDescData
+}
+
+var file_whocall_file_v1_file_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
+var file_whocall_file_v1_file_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
+var file_whocall_file_v1_file_proto_goTypes = []any{
+	(FileBizType)(0),               // 0: whocall.file.v1.FileBizType
+	(UploadStatus)(0),              // 1: whocall.file.v1.UploadStatus
+	(*FileInfo)(nil),               // 2: whocall.file.v1.FileInfo
+	(*UploadPart)(nil),             // 3: whocall.file.v1.UploadPart
+	(*CreateUploadRequest)(nil),    // 4: whocall.file.v1.CreateUploadRequest
+	(*CreateUploadResponse)(nil),   // 5: whocall.file.v1.CreateUploadResponse
+	(*CompleteUploadRequest)(nil),  // 6: whocall.file.v1.CompleteUploadRequest
+	(*CompleteUploadResponse)(nil), // 7: whocall.file.v1.CompleteUploadResponse
+	(*GetDownloadUrlRequest)(nil),  // 8: whocall.file.v1.GetDownloadUrlRequest
+	(*GetDownloadUrlResponse)(nil), // 9: whocall.file.v1.GetDownloadUrlResponse
+	(*DeleteFileRequest)(nil),      // 10: whocall.file.v1.DeleteFileRequest
+	(*DeleteFileResponse)(nil),     // 11: whocall.file.v1.DeleteFileResponse
+	nil,                            // 12: whocall.file.v1.UploadPart.HeadersEntry
+	nil,                            // 13: whocall.file.v1.GetDownloadUrlResponse.HeadersEntry
+	(*v1.RequestMeta)(nil),         // 14: whocall.common.v1.RequestMeta
+	(*v1.ResponseHeader)(nil),      // 15: whocall.common.v1.ResponseHeader
+}
 var file_whocall_file_v1_file_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	0,  // 0: whocall.file.v1.FileInfo.biz_type:type_name -> whocall.file.v1.FileBizType
+	12, // 1: whocall.file.v1.UploadPart.headers:type_name -> whocall.file.v1.UploadPart.HeadersEntry
+	14, // 2: whocall.file.v1.CreateUploadRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	0,  // 3: whocall.file.v1.CreateUploadRequest.biz_type:type_name -> whocall.file.v1.FileBizType
+	15, // 4: whocall.file.v1.CreateUploadResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	3,  // 5: whocall.file.v1.CreateUploadResponse.parts:type_name -> whocall.file.v1.UploadPart
+	14, // 6: whocall.file.v1.CompleteUploadRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	15, // 7: whocall.file.v1.CompleteUploadResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	2,  // 8: whocall.file.v1.CompleteUploadResponse.file:type_name -> whocall.file.v1.FileInfo
+	14, // 9: whocall.file.v1.GetDownloadUrlRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	15, // 10: whocall.file.v1.GetDownloadUrlResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	13, // 11: whocall.file.v1.GetDownloadUrlResponse.headers:type_name -> whocall.file.v1.GetDownloadUrlResponse.HeadersEntry
+	2,  // 12: whocall.file.v1.GetDownloadUrlResponse.file:type_name -> whocall.file.v1.FileInfo
+	14, // 13: whocall.file.v1.DeleteFileRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	15, // 14: whocall.file.v1.DeleteFileResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	4,  // 15: whocall.file.v1.FileService.CreateUpload:input_type -> whocall.file.v1.CreateUploadRequest
+	6,  // 16: whocall.file.v1.FileService.CompleteUpload:input_type -> whocall.file.v1.CompleteUploadRequest
+	8,  // 17: whocall.file.v1.FileService.GetDownloadUrl:input_type -> whocall.file.v1.GetDownloadUrlRequest
+	10, // 18: whocall.file.v1.FileService.DeleteFile:input_type -> whocall.file.v1.DeleteFileRequest
+	5,  // 19: whocall.file.v1.FileService.CreateUpload:output_type -> whocall.file.v1.CreateUploadResponse
+	7,  // 20: whocall.file.v1.FileService.CompleteUpload:output_type -> whocall.file.v1.CompleteUploadResponse
+	9,  // 21: whocall.file.v1.FileService.GetDownloadUrl:output_type -> whocall.file.v1.GetDownloadUrlResponse
+	11, // 22: whocall.file.v1.FileService.DeleteFile:output_type -> whocall.file.v1.DeleteFileResponse
+	19, // [19:23] is the sub-list for method output_type
+	15, // [15:19] is the sub-list for method input_type
+	15, // [15:15] is the sub-list for extension type_name
+	15, // [15:15] is the sub-list for extension extendee
+	0,  // [0:15] is the sub-list for field type_name
 }
 
 func init() { file_whocall_file_v1_file_proto_init() }
@@ -45,13 +1072,15 @@ func file_whocall_file_v1_file_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_whocall_file_v1_file_proto_rawDesc), len(file_whocall_file_v1_file_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   0,
+			NumEnums:      2,
+			NumMessages:   12,
 			NumExtensions: 0,
-			NumServices:   0,
+			NumServices:   1,
 		},
 		GoTypes:           file_whocall_file_v1_file_proto_goTypes,
 		DependencyIndexes: file_whocall_file_v1_file_proto_depIdxs,
+		EnumInfos:         file_whocall_file_v1_file_proto_enumTypes,
+		MessageInfos:      file_whocall_file_v1_file_proto_msgTypes,
 	}.Build()
 	File_whocall_file_v1_file_proto = out.File
 	file_whocall_file_v1_file_proto_goTypes = nil

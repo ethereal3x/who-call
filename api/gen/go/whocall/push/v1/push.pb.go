@@ -7,9 +7,13 @@
 package pushv1
 
 import (
+	v1 "github.com/ethereal3x/who-call/api/gen/go/whocall/common/v1"
+	v11 "github.com/ethereal3x/who-call/api/gen/go/whocall/msg/v1"
+	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
+	sync "sync"
 	unsafe "unsafe"
 )
 
@@ -20,19 +24,1009 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type PushProvider int32
+
+const (
+	PushProvider_PUSH_PROVIDER_UNSPECIFIED PushProvider = 0
+	PushProvider_PUSH_PROVIDER_APNS        PushProvider = 1
+	PushProvider_PUSH_PROVIDER_FCM         PushProvider = 2
+	PushProvider_PUSH_PROVIDER_HUAWEI      PushProvider = 3
+	PushProvider_PUSH_PROVIDER_XIAOMI      PushProvider = 4
+	PushProvider_PUSH_PROVIDER_OPPO        PushProvider = 5
+	PushProvider_PUSH_PROVIDER_VIVO        PushProvider = 6
+	PushProvider_PUSH_PROVIDER_MEIZU       PushProvider = 7
+	PushProvider_PUSH_PROVIDER_WEB_PUSH    PushProvider = 8
+)
+
+// Enum value maps for PushProvider.
+var (
+	PushProvider_name = map[int32]string{
+		0: "PUSH_PROVIDER_UNSPECIFIED",
+		1: "PUSH_PROVIDER_APNS",
+		2: "PUSH_PROVIDER_FCM",
+		3: "PUSH_PROVIDER_HUAWEI",
+		4: "PUSH_PROVIDER_XIAOMI",
+		5: "PUSH_PROVIDER_OPPO",
+		6: "PUSH_PROVIDER_VIVO",
+		7: "PUSH_PROVIDER_MEIZU",
+		8: "PUSH_PROVIDER_WEB_PUSH",
+	}
+	PushProvider_value = map[string]int32{
+		"PUSH_PROVIDER_UNSPECIFIED": 0,
+		"PUSH_PROVIDER_APNS":        1,
+		"PUSH_PROVIDER_FCM":         2,
+		"PUSH_PROVIDER_HUAWEI":      3,
+		"PUSH_PROVIDER_XIAOMI":      4,
+		"PUSH_PROVIDER_OPPO":        5,
+		"PUSH_PROVIDER_VIVO":        6,
+		"PUSH_PROVIDER_MEIZU":       7,
+		"PUSH_PROVIDER_WEB_PUSH":    8,
+	}
+)
+
+func (x PushProvider) Enum() *PushProvider {
+	p := new(PushProvider)
+	*p = x
+	return p
+}
+
+func (x PushProvider) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (PushProvider) Descriptor() protoreflect.EnumDescriptor {
+	return file_whocall_push_v1_push_proto_enumTypes[0].Descriptor()
+}
+
+func (PushProvider) Type() protoreflect.EnumType {
+	return &file_whocall_push_v1_push_proto_enumTypes[0]
+}
+
+func (x PushProvider) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use PushProvider.Descriptor instead.
+func (PushProvider) EnumDescriptor() ([]byte, []int) {
+	return file_whocall_push_v1_push_proto_rawDescGZIP(), []int{0}
+}
+
+type PushTokenStatus int32
+
+const (
+	PushTokenStatus_PUSH_TOKEN_STATUS_UNSPECIFIED PushTokenStatus = 0
+	PushTokenStatus_PUSH_TOKEN_STATUS_ACTIVE      PushTokenStatus = 1
+	PushTokenStatus_PUSH_TOKEN_STATUS_INVALID     PushTokenStatus = 2
+	PushTokenStatus_PUSH_TOKEN_STATUS_DISABLED    PushTokenStatus = 3
+)
+
+// Enum value maps for PushTokenStatus.
+var (
+	PushTokenStatus_name = map[int32]string{
+		0: "PUSH_TOKEN_STATUS_UNSPECIFIED",
+		1: "PUSH_TOKEN_STATUS_ACTIVE",
+		2: "PUSH_TOKEN_STATUS_INVALID",
+		3: "PUSH_TOKEN_STATUS_DISABLED",
+	}
+	PushTokenStatus_value = map[string]int32{
+		"PUSH_TOKEN_STATUS_UNSPECIFIED": 0,
+		"PUSH_TOKEN_STATUS_ACTIVE":      1,
+		"PUSH_TOKEN_STATUS_INVALID":     2,
+		"PUSH_TOKEN_STATUS_DISABLED":    3,
+	}
+)
+
+func (x PushTokenStatus) Enum() *PushTokenStatus {
+	p := new(PushTokenStatus)
+	*p = x
+	return p
+}
+
+func (x PushTokenStatus) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (PushTokenStatus) Descriptor() protoreflect.EnumDescriptor {
+	return file_whocall_push_v1_push_proto_enumTypes[1].Descriptor()
+}
+
+func (PushTokenStatus) Type() protoreflect.EnumType {
+	return &file_whocall_push_v1_push_proto_enumTypes[1]
+}
+
+func (x PushTokenStatus) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use PushTokenStatus.Descriptor instead.
+func (PushTokenStatus) EnumDescriptor() ([]byte, []int) {
+	return file_whocall_push_v1_push_proto_rawDescGZIP(), []int{1}
+}
+
+type PushToken struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TokenId       string                 `protobuf:"bytes,1,opt,name=token_id,json=tokenId,proto3" json:"token_id,omitempty"`
+	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Platform      v1.Platform            `protobuf:"varint,3,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
+	Provider      PushProvider           `protobuf:"varint,4,opt,name=provider,proto3,enum=whocall.push.v1.PushProvider" json:"provider,omitempty"`
+	Token         string                 `protobuf:"bytes,5,opt,name=token,proto3" json:"token,omitempty"`
+	DeviceId      string                 `protobuf:"bytes,6,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
+	AppBundleId   string                 `protobuf:"bytes,7,opt,name=app_bundle_id,json=appBundleId,proto3" json:"app_bundle_id,omitempty"`
+	Status        PushTokenStatus        `protobuf:"varint,8,opt,name=status,proto3,enum=whocall.push.v1.PushTokenStatus" json:"status,omitempty"`
+	CreateTimeMs  int64                  `protobuf:"varint,9,opt,name=create_time_ms,json=createTimeMs,proto3" json:"create_time_ms,omitempty"`
+	UpdateTimeMs  int64                  `protobuf:"varint,10,opt,name=update_time_ms,json=updateTimeMs,proto3" json:"update_time_ms,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *PushToken) Reset() {
+	*x = PushToken{}
+	mi := &file_whocall_push_v1_push_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PushToken) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PushToken) ProtoMessage() {}
+
+func (x *PushToken) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_push_v1_push_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PushToken.ProtoReflect.Descriptor instead.
+func (*PushToken) Descriptor() ([]byte, []int) {
+	return file_whocall_push_v1_push_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *PushToken) GetTokenId() string {
+	if x != nil {
+		return x.TokenId
+	}
+	return ""
+}
+
+func (x *PushToken) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *PushToken) GetPlatform() v1.Platform {
+	if x != nil {
+		return x.Platform
+	}
+	return v1.Platform(0)
+}
+
+func (x *PushToken) GetProvider() PushProvider {
+	if x != nil {
+		return x.Provider
+	}
+	return PushProvider_PUSH_PROVIDER_UNSPECIFIED
+}
+
+func (x *PushToken) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
+func (x *PushToken) GetDeviceId() string {
+	if x != nil {
+		return x.DeviceId
+	}
+	return ""
+}
+
+func (x *PushToken) GetAppBundleId() string {
+	if x != nil {
+		return x.AppBundleId
+	}
+	return ""
+}
+
+func (x *PushToken) GetStatus() PushTokenStatus {
+	if x != nil {
+		return x.Status
+	}
+	return PushTokenStatus_PUSH_TOKEN_STATUS_UNSPECIFIED
+}
+
+func (x *PushToken) GetCreateTimeMs() int64 {
+	if x != nil {
+		return x.CreateTimeMs
+	}
+	return 0
+}
+
+func (x *PushToken) GetUpdateTimeMs() int64 {
+	if x != nil {
+		return x.UpdateTimeMs
+	}
+	return 0
+}
+
+type RegisterPushTokenRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Platform      v1.Platform            `protobuf:"varint,3,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
+	Provider      PushProvider           `protobuf:"varint,4,opt,name=provider,proto3,enum=whocall.push.v1.PushProvider" json:"provider,omitempty"`
+	Token         string                 `protobuf:"bytes,5,opt,name=token,proto3" json:"token,omitempty"`
+	DeviceId      string                 `protobuf:"bytes,6,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
+	AppBundleId   string                 `protobuf:"bytes,7,opt,name=app_bundle_id,json=appBundleId,proto3" json:"app_bundle_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RegisterPushTokenRequest) Reset() {
+	*x = RegisterPushTokenRequest{}
+	mi := &file_whocall_push_v1_push_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RegisterPushTokenRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RegisterPushTokenRequest) ProtoMessage() {}
+
+func (x *RegisterPushTokenRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_push_v1_push_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RegisterPushTokenRequest.ProtoReflect.Descriptor instead.
+func (*RegisterPushTokenRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_push_v1_push_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *RegisterPushTokenRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *RegisterPushTokenRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *RegisterPushTokenRequest) GetPlatform() v1.Platform {
+	if x != nil {
+		return x.Platform
+	}
+	return v1.Platform(0)
+}
+
+func (x *RegisterPushTokenRequest) GetProvider() PushProvider {
+	if x != nil {
+		return x.Provider
+	}
+	return PushProvider_PUSH_PROVIDER_UNSPECIFIED
+}
+
+func (x *RegisterPushTokenRequest) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
+func (x *RegisterPushTokenRequest) GetDeviceId() string {
+	if x != nil {
+		return x.DeviceId
+	}
+	return ""
+}
+
+func (x *RegisterPushTokenRequest) GetAppBundleId() string {
+	if x != nil {
+		return x.AppBundleId
+	}
+	return ""
+}
+
+type RegisterPushTokenResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	PushToken     *PushToken             `protobuf:"bytes,2,opt,name=push_token,json=pushToken,proto3" json:"push_token,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RegisterPushTokenResponse) Reset() {
+	*x = RegisterPushTokenResponse{}
+	mi := &file_whocall_push_v1_push_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RegisterPushTokenResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RegisterPushTokenResponse) ProtoMessage() {}
+
+func (x *RegisterPushTokenResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_push_v1_push_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RegisterPushTokenResponse.ProtoReflect.Descriptor instead.
+func (*RegisterPushTokenResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_push_v1_push_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *RegisterPushTokenResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *RegisterPushTokenResponse) GetPushToken() *PushToken {
+	if x != nil {
+		return x.PushToken
+	}
+	return nil
+}
+
+type UnregisterPushTokenRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	TokenId       string                 `protobuf:"bytes,2,opt,name=token_id,json=tokenId,proto3" json:"token_id,omitempty"`
+	UserId        string                 `protobuf:"bytes,3,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UnregisterPushTokenRequest) Reset() {
+	*x = UnregisterPushTokenRequest{}
+	mi := &file_whocall_push_v1_push_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UnregisterPushTokenRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UnregisterPushTokenRequest) ProtoMessage() {}
+
+func (x *UnregisterPushTokenRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_push_v1_push_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UnregisterPushTokenRequest.ProtoReflect.Descriptor instead.
+func (*UnregisterPushTokenRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_push_v1_push_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *UnregisterPushTokenRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *UnregisterPushTokenRequest) GetTokenId() string {
+	if x != nil {
+		return x.TokenId
+	}
+	return ""
+}
+
+func (x *UnregisterPushTokenRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+type UnregisterPushTokenResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UnregisterPushTokenResponse) Reset() {
+	*x = UnregisterPushTokenResponse{}
+	mi := &file_whocall_push_v1_push_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UnregisterPushTokenResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UnregisterPushTokenResponse) ProtoMessage() {}
+
+func (x *UnregisterPushTokenResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_push_v1_push_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UnregisterPushTokenResponse.ProtoReflect.Descriptor instead.
+func (*UnregisterPushTokenResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_push_v1_push_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *UnregisterPushTokenResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+type ListPushTokensRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListPushTokensRequest) Reset() {
+	*x = ListPushTokensRequest{}
+	mi := &file_whocall_push_v1_push_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListPushTokensRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListPushTokensRequest) ProtoMessage() {}
+
+func (x *ListPushTokensRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_push_v1_push_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListPushTokensRequest.ProtoReflect.Descriptor instead.
+func (*ListPushTokensRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_push_v1_push_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *ListPushTokensRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *ListPushTokensRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+type ListPushTokensResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	PushTokens    []*PushToken           `protobuf:"bytes,2,rep,name=push_tokens,json=pushTokens,proto3" json:"push_tokens,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListPushTokensResponse) Reset() {
+	*x = ListPushTokensResponse{}
+	mi := &file_whocall_push_v1_push_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListPushTokensResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListPushTokensResponse) ProtoMessage() {}
+
+func (x *ListPushTokensResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_push_v1_push_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListPushTokensResponse.ProtoReflect.Descriptor instead.
+func (*ListPushTokensResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_push_v1_push_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *ListPushTokensResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *ListPushTokensResponse) GetPushTokens() []*PushToken {
+	if x != nil {
+		return x.PushTokens
+	}
+	return nil
+}
+
+type PushOfflineMsgRequest struct {
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	Meta            *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UserIds         []string               `protobuf:"bytes,2,rep,name=user_ids,json=userIds,proto3" json:"user_ids,omitempty"`
+	MsgData         *v11.MsgData           `protobuf:"bytes,3,opt,name=msg_data,json=msgData,proto3" json:"msg_data,omitempty"`
+	OfflinePushInfo *v1.OfflinePushInfo    `protobuf:"bytes,4,opt,name=offline_push_info,json=offlinePushInfo,proto3" json:"offline_push_info,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *PushOfflineMsgRequest) Reset() {
+	*x = PushOfflineMsgRequest{}
+	mi := &file_whocall_push_v1_push_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PushOfflineMsgRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PushOfflineMsgRequest) ProtoMessage() {}
+
+func (x *PushOfflineMsgRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_push_v1_push_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PushOfflineMsgRequest.ProtoReflect.Descriptor instead.
+func (*PushOfflineMsgRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_push_v1_push_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *PushOfflineMsgRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *PushOfflineMsgRequest) GetUserIds() []string {
+	if x != nil {
+		return x.UserIds
+	}
+	return nil
+}
+
+func (x *PushOfflineMsgRequest) GetMsgData() *v11.MsgData {
+	if x != nil {
+		return x.MsgData
+	}
+	return nil
+}
+
+func (x *PushOfflineMsgRequest) GetOfflinePushInfo() *v1.OfflinePushInfo {
+	if x != nil {
+		return x.OfflinePushInfo
+	}
+	return nil
+}
+
+type PushOfflineMsgResponse struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Header         *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	SuccessUserIds []string               `protobuf:"bytes,2,rep,name=success_user_ids,json=successUserIds,proto3" json:"success_user_ids,omitempty"`
+	FailedUserIds  []string               `protobuf:"bytes,3,rep,name=failed_user_ids,json=failedUserIds,proto3" json:"failed_user_ids,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *PushOfflineMsgResponse) Reset() {
+	*x = PushOfflineMsgResponse{}
+	mi := &file_whocall_push_v1_push_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PushOfflineMsgResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PushOfflineMsgResponse) ProtoMessage() {}
+
+func (x *PushOfflineMsgResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_push_v1_push_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PushOfflineMsgResponse.ProtoReflect.Descriptor instead.
+func (*PushOfflineMsgResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_push_v1_push_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *PushOfflineMsgResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *PushOfflineMsgResponse) GetSuccessUserIds() []string {
+	if x != nil {
+		return x.SuccessUserIds
+	}
+	return nil
+}
+
+func (x *PushOfflineMsgResponse) GetFailedUserIds() []string {
+	if x != nil {
+		return x.FailedUserIds
+	}
+	return nil
+}
+
+type PushSystemNotificationRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UserIds       []string               `protobuf:"bytes,2,rep,name=user_ids,json=userIds,proto3" json:"user_ids,omitempty"`
+	Title         string                 `protobuf:"bytes,3,opt,name=title,proto3" json:"title,omitempty"`
+	Content       string                 `protobuf:"bytes,4,opt,name=content,proto3" json:"content,omitempty"`
+	Ext           string                 `protobuf:"bytes,5,opt,name=ext,proto3" json:"ext,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *PushSystemNotificationRequest) Reset() {
+	*x = PushSystemNotificationRequest{}
+	mi := &file_whocall_push_v1_push_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PushSystemNotificationRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PushSystemNotificationRequest) ProtoMessage() {}
+
+func (x *PushSystemNotificationRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_push_v1_push_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PushSystemNotificationRequest.ProtoReflect.Descriptor instead.
+func (*PushSystemNotificationRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_push_v1_push_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *PushSystemNotificationRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *PushSystemNotificationRequest) GetUserIds() []string {
+	if x != nil {
+		return x.UserIds
+	}
+	return nil
+}
+
+func (x *PushSystemNotificationRequest) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *PushSystemNotificationRequest) GetContent() string {
+	if x != nil {
+		return x.Content
+	}
+	return ""
+}
+
+func (x *PushSystemNotificationRequest) GetExt() string {
+	if x != nil {
+		return x.Ext
+	}
+	return ""
+}
+
+type PushSystemNotificationResponse struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Header         *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	SuccessUserIds []string               `protobuf:"bytes,2,rep,name=success_user_ids,json=successUserIds,proto3" json:"success_user_ids,omitempty"`
+	FailedUserIds  []string               `protobuf:"bytes,3,rep,name=failed_user_ids,json=failedUserIds,proto3" json:"failed_user_ids,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *PushSystemNotificationResponse) Reset() {
+	*x = PushSystemNotificationResponse{}
+	mi := &file_whocall_push_v1_push_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PushSystemNotificationResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PushSystemNotificationResponse) ProtoMessage() {}
+
+func (x *PushSystemNotificationResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_push_v1_push_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PushSystemNotificationResponse.ProtoReflect.Descriptor instead.
+func (*PushSystemNotificationResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_push_v1_push_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *PushSystemNotificationResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *PushSystemNotificationResponse) GetSuccessUserIds() []string {
+	if x != nil {
+		return x.SuccessUserIds
+	}
+	return nil
+}
+
+func (x *PushSystemNotificationResponse) GetFailedUserIds() []string {
+	if x != nil {
+		return x.FailedUserIds
+	}
+	return nil
+}
+
 var File_whocall_push_v1_push_proto protoreflect.FileDescriptor
 
 const file_whocall_push_v1_push_proto_rawDesc = "" +
 	"\n" +
-	"\x1awhocall/push/v1/push.proto\x12\x0fwhocall.push.v1BBZ@github.com/ethereal3x/who-call/api/gen/go/whocall/push/v1;pushv1b\x06proto3"
+	"\x1awhocall/push/v1/push.proto\x12\x0fwhocall.push.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x1ewhocall/common/v1/common.proto\x1a\x18whocall/msg/v1/msg.proto\"\x90\x03\n" +
+	"\tPushToken\x12\x19\n" +
+	"\btoken_id\x18\x01 \x01(\tR\atokenId\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x127\n" +
+	"\bplatform\x18\x03 \x01(\x0e2\x1b.whocall.common.v1.PlatformR\bplatform\x129\n" +
+	"\bprovider\x18\x04 \x01(\x0e2\x1d.whocall.push.v1.PushProviderR\bprovider\x12\x14\n" +
+	"\x05token\x18\x05 \x01(\tR\x05token\x12\x1b\n" +
+	"\tdevice_id\x18\x06 \x01(\tR\bdeviceId\x12\"\n" +
+	"\rapp_bundle_id\x18\a \x01(\tR\vappBundleId\x128\n" +
+	"\x06status\x18\b \x01(\x0e2 .whocall.push.v1.PushTokenStatusR\x06status\x12$\n" +
+	"\x0ecreate_time_ms\x18\t \x01(\x03R\fcreateTimeMs\x12$\n" +
+	"\x0eupdate_time_ms\x18\n" +
+	" \x01(\x03R\fupdateTimeMs\"\xb2\x02\n" +
+	"\x18RegisterPushTokenRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x127\n" +
+	"\bplatform\x18\x03 \x01(\x0e2\x1b.whocall.common.v1.PlatformR\bplatform\x129\n" +
+	"\bprovider\x18\x04 \x01(\x0e2\x1d.whocall.push.v1.PushProviderR\bprovider\x12\x14\n" +
+	"\x05token\x18\x05 \x01(\tR\x05token\x12\x1b\n" +
+	"\tdevice_id\x18\x06 \x01(\tR\bdeviceId\x12\"\n" +
+	"\rapp_bundle_id\x18\a \x01(\tR\vappBundleId\"\x91\x01\n" +
+	"\x19RegisterPushTokenResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x129\n" +
+	"\n" +
+	"push_token\x18\x02 \x01(\v2\x1a.whocall.push.v1.PushTokenR\tpushToken\"\x84\x01\n" +
+	"\x1aUnregisterPushTokenRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x19\n" +
+	"\btoken_id\x18\x02 \x01(\tR\atokenId\x12\x17\n" +
+	"\auser_id\x18\x03 \x01(\tR\x06userId\"X\n" +
+	"\x1bUnregisterPushTokenResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\"d\n" +
+	"\x15ListPushTokensRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\"\x90\x01\n" +
+	"\x16ListPushTokensResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12;\n" +
+	"\vpush_tokens\x18\x02 \x03(\v2\x1a.whocall.push.v1.PushTokenR\n" +
+	"pushTokens\"\xea\x01\n" +
+	"\x15PushOfflineMsgRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x19\n" +
+	"\buser_ids\x18\x02 \x03(\tR\auserIds\x122\n" +
+	"\bmsg_data\x18\x03 \x01(\v2\x17.whocall.msg.v1.MsgDataR\amsgData\x12N\n" +
+	"\x11offline_push_info\x18\x04 \x01(\v2\".whocall.common.v1.OfflinePushInfoR\x0fofflinePushInfo\"\xa5\x01\n" +
+	"\x16PushOfflineMsgResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12(\n" +
+	"\x10success_user_ids\x18\x02 \x03(\tR\x0esuccessUserIds\x12&\n" +
+	"\x0ffailed_user_ids\x18\x03 \x03(\tR\rfailedUserIds\"\xb0\x01\n" +
+	"\x1dPushSystemNotificationRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x19\n" +
+	"\buser_ids\x18\x02 \x03(\tR\auserIds\x12\x14\n" +
+	"\x05title\x18\x03 \x01(\tR\x05title\x12\x18\n" +
+	"\acontent\x18\x04 \x01(\tR\acontent\x12\x10\n" +
+	"\x03ext\x18\x05 \x01(\tR\x03ext\"\xad\x01\n" +
+	"\x1ePushSystemNotificationResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12(\n" +
+	"\x10success_user_ids\x18\x02 \x03(\tR\x0esuccessUserIds\x12&\n" +
+	"\x0ffailed_user_ids\x18\x03 \x03(\tR\rfailedUserIds*\xf5\x01\n" +
+	"\fPushProvider\x12\x1d\n" +
+	"\x19PUSH_PROVIDER_UNSPECIFIED\x10\x00\x12\x16\n" +
+	"\x12PUSH_PROVIDER_APNS\x10\x01\x12\x15\n" +
+	"\x11PUSH_PROVIDER_FCM\x10\x02\x12\x18\n" +
+	"\x14PUSH_PROVIDER_HUAWEI\x10\x03\x12\x18\n" +
+	"\x14PUSH_PROVIDER_XIAOMI\x10\x04\x12\x16\n" +
+	"\x12PUSH_PROVIDER_OPPO\x10\x05\x12\x16\n" +
+	"\x12PUSH_PROVIDER_VIVO\x10\x06\x12\x17\n" +
+	"\x13PUSH_PROVIDER_MEIZU\x10\a\x12\x1a\n" +
+	"\x16PUSH_PROVIDER_WEB_PUSH\x10\b*\x91\x01\n" +
+	"\x0fPushTokenStatus\x12!\n" +
+	"\x1dPUSH_TOKEN_STATUS_UNSPECIFIED\x10\x00\x12\x1c\n" +
+	"\x18PUSH_TOKEN_STATUS_ACTIVE\x10\x01\x12\x1d\n" +
+	"\x19PUSH_TOKEN_STATUS_INVALID\x10\x02\x12\x1e\n" +
+	"\x1aPUSH_TOKEN_STATUS_DISABLED\x10\x032\xd3\x05\n" +
+	"\vPushService\x12\x8a\x01\n" +
+	"\x11RegisterPushToken\x12).whocall.push.v1.RegisterPushTokenRequest\x1a*.whocall.push.v1.RegisterPushTokenResponse\"\x1e\x82\xd3\xe4\x93\x02\x18:\x01*\"\x13/api/v1/push/tokens\x12\x98\x01\n" +
+	"\x13UnregisterPushToken\x12+.whocall.push.v1.UnregisterPushTokenRequest\x1a,.whocall.push.v1.UnregisterPushTokenResponse\"&\x82\xd3\xe4\x93\x02 *\x1e/api/v1/push/tokens/{token_id}\x12\x8e\x01\n" +
+	"\x0eListPushTokens\x12&.whocall.push.v1.ListPushTokensRequest\x1a'.whocall.push.v1.ListPushTokensResponse\"+\x82\xd3\xe4\x93\x02%\x12#/api/v1/users/{user_id}/push/tokens\x12a\n" +
+	"\x0ePushOfflineMsg\x12&.whocall.push.v1.PushOfflineMsgRequest\x1a'.whocall.push.v1.PushOfflineMsgResponse\x12\xa7\x01\n" +
+	"\x16PushSystemNotification\x12..whocall.push.v1.PushSystemNotificationRequest\x1a/.whocall.push.v1.PushSystemNotificationResponse\",\x82\xd3\xe4\x93\x02&:\x01*\"!/api/v1/push/system-notificationsBBZ@github.com/ethereal3x/who-call/api/gen/go/whocall/push/v1;pushv1b\x06proto3"
 
-var file_whocall_push_v1_push_proto_goTypes = []any{}
+var (
+	file_whocall_push_v1_push_proto_rawDescOnce sync.Once
+	file_whocall_push_v1_push_proto_rawDescData []byte
+)
+
+func file_whocall_push_v1_push_proto_rawDescGZIP() []byte {
+	file_whocall_push_v1_push_proto_rawDescOnce.Do(func() {
+		file_whocall_push_v1_push_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_whocall_push_v1_push_proto_rawDesc), len(file_whocall_push_v1_push_proto_rawDesc)))
+	})
+	return file_whocall_push_v1_push_proto_rawDescData
+}
+
+var file_whocall_push_v1_push_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
+var file_whocall_push_v1_push_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+var file_whocall_push_v1_push_proto_goTypes = []any{
+	(PushProvider)(0),                      // 0: whocall.push.v1.PushProvider
+	(PushTokenStatus)(0),                   // 1: whocall.push.v1.PushTokenStatus
+	(*PushToken)(nil),                      // 2: whocall.push.v1.PushToken
+	(*RegisterPushTokenRequest)(nil),       // 3: whocall.push.v1.RegisterPushTokenRequest
+	(*RegisterPushTokenResponse)(nil),      // 4: whocall.push.v1.RegisterPushTokenResponse
+	(*UnregisterPushTokenRequest)(nil),     // 5: whocall.push.v1.UnregisterPushTokenRequest
+	(*UnregisterPushTokenResponse)(nil),    // 6: whocall.push.v1.UnregisterPushTokenResponse
+	(*ListPushTokensRequest)(nil),          // 7: whocall.push.v1.ListPushTokensRequest
+	(*ListPushTokensResponse)(nil),         // 8: whocall.push.v1.ListPushTokensResponse
+	(*PushOfflineMsgRequest)(nil),          // 9: whocall.push.v1.PushOfflineMsgRequest
+	(*PushOfflineMsgResponse)(nil),         // 10: whocall.push.v1.PushOfflineMsgResponse
+	(*PushSystemNotificationRequest)(nil),  // 11: whocall.push.v1.PushSystemNotificationRequest
+	(*PushSystemNotificationResponse)(nil), // 12: whocall.push.v1.PushSystemNotificationResponse
+	(v1.Platform)(0),                       // 13: whocall.common.v1.Platform
+	(*v1.RequestMeta)(nil),                 // 14: whocall.common.v1.RequestMeta
+	(*v1.ResponseHeader)(nil),              // 15: whocall.common.v1.ResponseHeader
+	(*v11.MsgData)(nil),                    // 16: whocall.msg.v1.MsgData
+	(*v1.OfflinePushInfo)(nil),             // 17: whocall.common.v1.OfflinePushInfo
+}
 var file_whocall_push_v1_push_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	13, // 0: whocall.push.v1.PushToken.platform:type_name -> whocall.common.v1.Platform
+	0,  // 1: whocall.push.v1.PushToken.provider:type_name -> whocall.push.v1.PushProvider
+	1,  // 2: whocall.push.v1.PushToken.status:type_name -> whocall.push.v1.PushTokenStatus
+	14, // 3: whocall.push.v1.RegisterPushTokenRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	13, // 4: whocall.push.v1.RegisterPushTokenRequest.platform:type_name -> whocall.common.v1.Platform
+	0,  // 5: whocall.push.v1.RegisterPushTokenRequest.provider:type_name -> whocall.push.v1.PushProvider
+	15, // 6: whocall.push.v1.RegisterPushTokenResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	2,  // 7: whocall.push.v1.RegisterPushTokenResponse.push_token:type_name -> whocall.push.v1.PushToken
+	14, // 8: whocall.push.v1.UnregisterPushTokenRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	15, // 9: whocall.push.v1.UnregisterPushTokenResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	14, // 10: whocall.push.v1.ListPushTokensRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	15, // 11: whocall.push.v1.ListPushTokensResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	2,  // 12: whocall.push.v1.ListPushTokensResponse.push_tokens:type_name -> whocall.push.v1.PushToken
+	14, // 13: whocall.push.v1.PushOfflineMsgRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	16, // 14: whocall.push.v1.PushOfflineMsgRequest.msg_data:type_name -> whocall.msg.v1.MsgData
+	17, // 15: whocall.push.v1.PushOfflineMsgRequest.offline_push_info:type_name -> whocall.common.v1.OfflinePushInfo
+	15, // 16: whocall.push.v1.PushOfflineMsgResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	14, // 17: whocall.push.v1.PushSystemNotificationRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	15, // 18: whocall.push.v1.PushSystemNotificationResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	3,  // 19: whocall.push.v1.PushService.RegisterPushToken:input_type -> whocall.push.v1.RegisterPushTokenRequest
+	5,  // 20: whocall.push.v1.PushService.UnregisterPushToken:input_type -> whocall.push.v1.UnregisterPushTokenRequest
+	7,  // 21: whocall.push.v1.PushService.ListPushTokens:input_type -> whocall.push.v1.ListPushTokensRequest
+	9,  // 22: whocall.push.v1.PushService.PushOfflineMsg:input_type -> whocall.push.v1.PushOfflineMsgRequest
+	11, // 23: whocall.push.v1.PushService.PushSystemNotification:input_type -> whocall.push.v1.PushSystemNotificationRequest
+	4,  // 24: whocall.push.v1.PushService.RegisterPushToken:output_type -> whocall.push.v1.RegisterPushTokenResponse
+	6,  // 25: whocall.push.v1.PushService.UnregisterPushToken:output_type -> whocall.push.v1.UnregisterPushTokenResponse
+	8,  // 26: whocall.push.v1.PushService.ListPushTokens:output_type -> whocall.push.v1.ListPushTokensResponse
+	10, // 27: whocall.push.v1.PushService.PushOfflineMsg:output_type -> whocall.push.v1.PushOfflineMsgResponse
+	12, // 28: whocall.push.v1.PushService.PushSystemNotification:output_type -> whocall.push.v1.PushSystemNotificationResponse
+	24, // [24:29] is the sub-list for method output_type
+	19, // [19:24] is the sub-list for method input_type
+	19, // [19:19] is the sub-list for extension type_name
+	19, // [19:19] is the sub-list for extension extendee
+	0,  // [0:19] is the sub-list for field type_name
 }
 
 func init() { file_whocall_push_v1_push_proto_init() }
@@ -45,13 +1039,15 @@ func file_whocall_push_v1_push_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_whocall_push_v1_push_proto_rawDesc), len(file_whocall_push_v1_push_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   0,
+			NumEnums:      2,
+			NumMessages:   11,
 			NumExtensions: 0,
-			NumServices:   0,
+			NumServices:   1,
 		},
 		GoTypes:           file_whocall_push_v1_push_proto_goTypes,
 		DependencyIndexes: file_whocall_push_v1_push_proto_depIdxs,
+		EnumInfos:         file_whocall_push_v1_push_proto_enumTypes,
+		MessageInfos:      file_whocall_push_v1_push_proto_msgTypes,
 	}.Build()
 	File_whocall_push_v1_push_proto = out.File
 	file_whocall_push_v1_push_proto_goTypes = nil

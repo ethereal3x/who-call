@@ -20,10 +20,14 @@ const _ = grpc.SupportPackageIsVersion9
 
 const (
 	MsgService_SendMsg_FullMethodName              = "/whocall.msg.v1.MsgService/SendMsg"
+	MsgService_BatchSendMsg_FullMethodName         = "/whocall.msg.v1.MsgService/BatchSendMsg"
 	MsgService_GetNewestSeq_FullMethodName         = "/whocall.msg.v1.MsgService/GetNewestSeq"
 	MsgService_PullMsgBySeqList_FullMethodName     = "/whocall.msg.v1.MsgService/PullMsgBySeqList"
+	MsgService_PullMsgBySeqRange_FullMethodName    = "/whocall.msg.v1.MsgService/PullMsgBySeqRange"
 	MsgService_MarkConversationRead_FullMethodName = "/whocall.msg.v1.MsgService/MarkConversationRead"
 	MsgService_RevokeMsg_FullMethodName            = "/whocall.msg.v1.MsgService/RevokeMsg"
+	MsgService_DeleteMsg_FullMethodName            = "/whocall.msg.v1.MsgService/DeleteMsg"
+	MsgService_GetMsg_FullMethodName               = "/whocall.msg.v1.MsgService/GetMsg"
 )
 
 // MsgServiceClient is the client API for MsgService service.
@@ -31,10 +35,14 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MsgServiceClient interface {
 	SendMsg(ctx context.Context, in *SendMsgRequest, opts ...grpc.CallOption) (*SendMsgResponse, error)
+	BatchSendMsg(ctx context.Context, in *BatchSendMsgRequest, opts ...grpc.CallOption) (*BatchSendMsgResponse, error)
 	GetNewestSeq(ctx context.Context, in *GetNewestSeqRequest, opts ...grpc.CallOption) (*GetNewestSeqResponse, error)
 	PullMsgBySeqList(ctx context.Context, in *PullMsgBySeqListRequest, opts ...grpc.CallOption) (*PullMsgBySeqListResponse, error)
+	PullMsgBySeqRange(ctx context.Context, in *PullMsgBySeqRangeRequest, opts ...grpc.CallOption) (*PullMsgBySeqRangeResponse, error)
 	MarkConversationRead(ctx context.Context, in *MarkConversationReadRequest, opts ...grpc.CallOption) (*MarkConversationReadResponse, error)
 	RevokeMsg(ctx context.Context, in *RevokeMsgRequest, opts ...grpc.CallOption) (*RevokeMsgResponse, error)
+	DeleteMsg(ctx context.Context, in *DeleteMsgRequest, opts ...grpc.CallOption) (*DeleteMsgResponse, error)
+	GetMsg(ctx context.Context, in *GetMsgRequest, opts ...grpc.CallOption) (*GetMsgResponse, error)
 }
 
 type msgServiceClient struct {
@@ -49,6 +57,16 @@ func (c *msgServiceClient) SendMsg(ctx context.Context, in *SendMsgRequest, opts
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(SendMsgResponse)
 	err := c.cc.Invoke(ctx, MsgService_SendMsg_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgServiceClient) BatchSendMsg(ctx context.Context, in *BatchSendMsgRequest, opts ...grpc.CallOption) (*BatchSendMsgResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BatchSendMsgResponse)
+	err := c.cc.Invoke(ctx, MsgService_BatchSendMsg_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -75,6 +93,16 @@ func (c *msgServiceClient) PullMsgBySeqList(ctx context.Context, in *PullMsgBySe
 	return out, nil
 }
 
+func (c *msgServiceClient) PullMsgBySeqRange(ctx context.Context, in *PullMsgBySeqRangeRequest, opts ...grpc.CallOption) (*PullMsgBySeqRangeResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(PullMsgBySeqRangeResponse)
+	err := c.cc.Invoke(ctx, MsgService_PullMsgBySeqRange_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *msgServiceClient) MarkConversationRead(ctx context.Context, in *MarkConversationReadRequest, opts ...grpc.CallOption) (*MarkConversationReadResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(MarkConversationReadResponse)
@@ -95,15 +123,39 @@ func (c *msgServiceClient) RevokeMsg(ctx context.Context, in *RevokeMsgRequest, 
 	return out, nil
 }
 
+func (c *msgServiceClient) DeleteMsg(ctx context.Context, in *DeleteMsgRequest, opts ...grpc.CallOption) (*DeleteMsgResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeleteMsgResponse)
+	err := c.cc.Invoke(ctx, MsgService_DeleteMsg_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgServiceClient) GetMsg(ctx context.Context, in *GetMsgRequest, opts ...grpc.CallOption) (*GetMsgResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetMsgResponse)
+	err := c.cc.Invoke(ctx, MsgService_GetMsg_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServiceServer is the server API for MsgService service.
 // All implementations should embed UnimplementedMsgServiceServer
 // for forward compatibility.
 type MsgServiceServer interface {
 	SendMsg(context.Context, *SendMsgRequest) (*SendMsgResponse, error)
+	BatchSendMsg(context.Context, *BatchSendMsgRequest) (*BatchSendMsgResponse, error)
 	GetNewestSeq(context.Context, *GetNewestSeqRequest) (*GetNewestSeqResponse, error)
 	PullMsgBySeqList(context.Context, *PullMsgBySeqListRequest) (*PullMsgBySeqListResponse, error)
+	PullMsgBySeqRange(context.Context, *PullMsgBySeqRangeRequest) (*PullMsgBySeqRangeResponse, error)
 	MarkConversationRead(context.Context, *MarkConversationReadRequest) (*MarkConversationReadResponse, error)
 	RevokeMsg(context.Context, *RevokeMsgRequest) (*RevokeMsgResponse, error)
+	DeleteMsg(context.Context, *DeleteMsgRequest) (*DeleteMsgResponse, error)
+	GetMsg(context.Context, *GetMsgRequest) (*GetMsgResponse, error)
 }
 
 // UnimplementedMsgServiceServer should be embedded to have
@@ -116,17 +168,29 @@ type UnimplementedMsgServiceServer struct{}
 func (UnimplementedMsgServiceServer) SendMsg(context.Context, *SendMsgRequest) (*SendMsgResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method SendMsg not implemented")
 }
+func (UnimplementedMsgServiceServer) BatchSendMsg(context.Context, *BatchSendMsgRequest) (*BatchSendMsgResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method BatchSendMsg not implemented")
+}
 func (UnimplementedMsgServiceServer) GetNewestSeq(context.Context, *GetNewestSeqRequest) (*GetNewestSeqResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetNewestSeq not implemented")
 }
 func (UnimplementedMsgServiceServer) PullMsgBySeqList(context.Context, *PullMsgBySeqListRequest) (*PullMsgBySeqListResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method PullMsgBySeqList not implemented")
 }
+func (UnimplementedMsgServiceServer) PullMsgBySeqRange(context.Context, *PullMsgBySeqRangeRequest) (*PullMsgBySeqRangeResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method PullMsgBySeqRange not implemented")
+}
 func (UnimplementedMsgServiceServer) MarkConversationRead(context.Context, *MarkConversationReadRequest) (*MarkConversationReadResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method MarkConversationRead not implemented")
 }
 func (UnimplementedMsgServiceServer) RevokeMsg(context.Context, *RevokeMsgRequest) (*RevokeMsgResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method RevokeMsg not implemented")
+}
+func (UnimplementedMsgServiceServer) DeleteMsg(context.Context, *DeleteMsgRequest) (*DeleteMsgResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method DeleteMsg not implemented")
+}
+func (UnimplementedMsgServiceServer) GetMsg(context.Context, *GetMsgRequest) (*GetMsgResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetMsg not implemented")
 }
 func (UnimplementedMsgServiceServer) testEmbeddedByValue() {}
 
@@ -162,6 +226,24 @@ func _MsgService_SendMsg_Handler(srv interface{}, ctx context.Context, dec func(
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServiceServer).SendMsg(ctx, req.(*SendMsgRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MsgService_BatchSendMsg_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BatchSendMsgRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServiceServer).BatchSendMsg(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MsgService_BatchSendMsg_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServiceServer).BatchSendMsg(ctx, req.(*BatchSendMsgRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -202,6 +284,24 @@ func _MsgService_PullMsgBySeqList_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MsgService_PullMsgBySeqRange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PullMsgBySeqRangeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServiceServer).PullMsgBySeqRange(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MsgService_PullMsgBySeqRange_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServiceServer).PullMsgBySeqRange(ctx, req.(*PullMsgBySeqRangeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _MsgService_MarkConversationRead_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(MarkConversationReadRequest)
 	if err := dec(in); err != nil {
@@ -238,6 +338,42 @@ func _MsgService_RevokeMsg_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MsgService_DeleteMsg_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteMsgRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServiceServer).DeleteMsg(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MsgService_DeleteMsg_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServiceServer).DeleteMsg(ctx, req.(*DeleteMsgRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MsgService_GetMsg_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMsgRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServiceServer).GetMsg(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MsgService_GetMsg_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServiceServer).GetMsg(ctx, req.(*GetMsgRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // MsgService_ServiceDesc is the grpc.ServiceDesc for MsgService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -250,6 +386,10 @@ var MsgService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _MsgService_SendMsg_Handler,
 		},
 		{
+			MethodName: "BatchSendMsg",
+			Handler:    _MsgService_BatchSendMsg_Handler,
+		},
+		{
 			MethodName: "GetNewestSeq",
 			Handler:    _MsgService_GetNewestSeq_Handler,
 		},
@@ -258,12 +398,24 @@ var MsgService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _MsgService_PullMsgBySeqList_Handler,
 		},
 		{
+			MethodName: "PullMsgBySeqRange",
+			Handler:    _MsgService_PullMsgBySeqRange_Handler,
+		},
+		{
 			MethodName: "MarkConversationRead",
 			Handler:    _MsgService_MarkConversationRead_Handler,
 		},
 		{
 			MethodName: "RevokeMsg",
 			Handler:    _MsgService_RevokeMsg_Handler,
+		},
+		{
+			MethodName: "DeleteMsg",
+			Handler:    _MsgService_DeleteMsg_Handler,
+		},
+		{
+			MethodName: "GetMsg",
+			Handler:    _MsgService_GetMsg_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

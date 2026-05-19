@@ -3,3 +3,121 @@ syntax = "proto3";
 package whocall.push.v1;
 
 option go_package = "github.com/ethereal3x/who-call/api/gen/go/whocall/push/v1;pushv1";
+
+import "google/api/annotations.proto";
+import "whocall/common/v1/common.proto";
+import "whocall/msg/v1/msg.proto";
+
+service PushService {
+    rpc RegisterPushToken(RegisterPushTokenRequest) returns (RegisterPushTokenResponse) {
+        option (google.api.http) = { post: "/api/v1/push/tokens" body: "*" };
+    }
+
+    rpc UnregisterPushToken(UnregisterPushTokenRequest) returns (UnregisterPushTokenResponse) {
+        option (google.api.http) = { delete: "/api/v1/push/tokens/{token_id}" };
+    }
+
+    rpc ListPushTokens(ListPushTokensRequest) returns (ListPushTokensResponse) {
+        option (google.api.http) = { get: "/api/v1/users/{user_id}/push/tokens" };
+    }
+
+    rpc PushOfflineMsg(PushOfflineMsgRequest) returns (PushOfflineMsgResponse);
+
+    rpc PushSystemNotification(PushSystemNotificationRequest) returns (PushSystemNotificationResponse) {
+        option (google.api.http) = { post: "/api/v1/push/system-notifications" body: "*" };
+    }
+}
+
+enum PushProvider {
+    PUSH_PROVIDER_UNSPECIFIED = 0;
+    PUSH_PROVIDER_APNS = 1;
+    PUSH_PROVIDER_FCM = 2;
+    PUSH_PROVIDER_HUAWEI = 3;
+    PUSH_PROVIDER_XIAOMI = 4;
+    PUSH_PROVIDER_OPPO = 5;
+    PUSH_PROVIDER_VIVO = 6;
+    PUSH_PROVIDER_MEIZU = 7;
+    PUSH_PROVIDER_WEB_PUSH = 8;
+}
+
+enum PushTokenStatus {
+    PUSH_TOKEN_STATUS_UNSPECIFIED = 0;
+    PUSH_TOKEN_STATUS_ACTIVE = 1;
+    PUSH_TOKEN_STATUS_INVALID = 2;
+    PUSH_TOKEN_STATUS_DISABLED = 3;
+}
+
+message PushToken {
+    string token_id = 1;
+    string user_id = 2;
+    whocall.common.v1.Platform platform = 3;
+    PushProvider provider = 4;
+    string token = 5;
+    string device_id = 6;
+    string app_bundle_id = 7;
+    PushTokenStatus status = 8;
+    int64 create_time_ms = 9;
+    int64 update_time_ms = 10;
+}
+
+message RegisterPushTokenRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string user_id = 2;
+    whocall.common.v1.Platform platform = 3;
+    PushProvider provider = 4;
+    string token = 5;
+    string device_id = 6;
+    string app_bundle_id = 7;
+}
+
+message RegisterPushTokenResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    PushToken push_token = 2;
+}
+
+message UnregisterPushTokenRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string token_id = 2;
+    string user_id = 3;
+}
+
+message UnregisterPushTokenResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+}
+
+message ListPushTokensRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string user_id = 2;
+}
+
+message ListPushTokensResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    repeated PushToken push_tokens = 2;
+}
+
+message PushOfflineMsgRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    repeated string user_ids = 2;
+    whocall.msg.v1.MsgData msg_data = 3;
+    whocall.common.v1.OfflinePushInfo offline_push_info = 4;
+}
+
+message PushOfflineMsgResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    repeated string success_user_ids = 2;
+    repeated string failed_user_ids = 3;
+}
+
+message PushSystemNotificationRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    repeated string user_ids = 2;
+    string title = 3;
+    string content = 4;
+    string ext = 5;
+}
+
+message PushSystemNotificationResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    repeated string success_user_ids = 2;
+    repeated string failed_user_ids = 3;
+}

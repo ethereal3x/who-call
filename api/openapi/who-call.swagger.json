@@ -12,7 +12,22 @@
       "name": "MsgService"
     },
     {
+      "name": "ConversationService"
+    },
+    {
+      "name": "FileService"
+    },
+    {
+      "name": "FriendService"
+    },
+    {
       "name": "GatewayInternalService"
+    },
+    {
+      "name": "GroupService"
+    },
+    {
+      "name": "PushService"
     },
     {
       "name": "UserService"
@@ -25,7 +40,7 @@
     "application/json"
   ],
   "paths": {
-    "/api/v1/auth/force_logout": {
+    "/api/v1/auth/force-logout": {
       "post": {
         "operationId": "AuthService_ForceLogout",
         "responses": {
@@ -121,6 +136,38 @@
         ]
       }
     },
+    "/api/v1/auth/parse-token": {
+      "post": {
+        "operationId": "AuthService_ParseToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ParseTokenResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ParseTokenRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AuthService"
+        ]
+      }
+    },
     "/api/v1/auth/refresh": {
       "post": {
         "operationId": "AuthService_RefreshToken",
@@ -185,7 +232,1636 @@
         ]
       }
     },
-    "/api/v1/messages/mark_read": {
+    "/api/v1/auth/users/{userId}/devices": {
+      "get": {
+        "operationId": "AuthService_ListLoginDevices",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListLoginDevicesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "meta.operationId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.traceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.caller",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.platform",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "PLATFORM_UNSPECIFIED",
+              "PLATFORM_IOS",
+              "PLATFORM_ANDROID",
+              "PLATFORM_WEB",
+              "PLATFORM_WINDOWS",
+              "PLATFORM_MACOS",
+              "PLATFORM_LINUX",
+              "PLATFORM_ADMIN",
+              "PLATFORM_SERVER"
+            ],
+            "default": "PLATFORM_UNSPECIFIED"
+          },
+          {
+            "name": "meta.deviceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.connId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.clientVersion",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.locale",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AuthService"
+        ]
+      }
+    },
+    "/api/v1/auth/users/{userId}/devices:kick": {
+      "post": {
+        "operationId": "AuthService_KickDevice",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1KickDeviceResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AuthServiceKickDeviceBody"
+            }
+          }
+        ],
+        "tags": [
+          "AuthService"
+        ]
+      }
+    },
+    "/api/v1/conversations/seq": {
+      "post": {
+        "operationId": "ConversationService_GetConversationSeq",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetConversationSeqResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetConversationSeqRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ConversationService"
+        ]
+      }
+    },
+    "/api/v1/conversations/single": {
+      "post": {
+        "operationId": "ConversationService_CreateOrGetSingleConversation",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateOrGetSingleConversationResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateOrGetSingleConversationRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ConversationService"
+        ]
+      }
+    },
+    "/api/v1/conversations/{conversationId}": {
+      "get": {
+        "operationId": "ConversationService_GetConversation",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetConversationResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "conversationId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "meta.operationId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.traceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.caller",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.platform",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "PLATFORM_UNSPECIFIED",
+              "PLATFORM_IOS",
+              "PLATFORM_ANDROID",
+              "PLATFORM_WEB",
+              "PLATFORM_WINDOWS",
+              "PLATFORM_MACOS",
+              "PLATFORM_LINUX",
+              "PLATFORM_ADMIN",
+              "PLATFORM_SERVER"
+            ],
+            "default": "PLATFORM_UNSPECIFIED"
+          },
+          {
+            "name": "meta.deviceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.connId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.clientVersion",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.locale",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ConversationService"
+        ]
+      }
+    },
+    "/api/v1/conversations/{conversationId}/settings": {
+      "patch": {
+        "operationId": "ConversationService_UpdateConversationSettings",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateConversationSettingsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "conversationId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ConversationServiceUpdateConversationSettingsBody"
+            }
+          }
+        ],
+        "tags": [
+          "ConversationService"
+        ]
+      }
+    },
+    "/api/v1/conversations/{conversationId}:clear-messages": {
+      "post": {
+        "operationId": "ConversationService_ClearConversationMessages",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ClearConversationMessagesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "conversationId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ConversationServiceClearConversationMessagesBody"
+            }
+          }
+        ],
+        "tags": [
+          "ConversationService"
+        ]
+      }
+    },
+    "/api/v1/files/uploads": {
+      "post": {
+        "operationId": "FileService_CreateUpload",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateUploadResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateUploadRequest"
+            }
+          }
+        ],
+        "tags": [
+          "FileService"
+        ]
+      }
+    },
+    "/api/v1/files/uploads/{uploadId}:complete": {
+      "post": {
+        "operationId": "FileService_CompleteUpload",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CompleteUploadResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "uploadId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FileServiceCompleteUploadBody"
+            }
+          }
+        ],
+        "tags": [
+          "FileService"
+        ]
+      }
+    },
+    "/api/v1/files/{fileId}": {
+      "delete": {
+        "operationId": "FileService_DeleteFile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteFileResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "fileId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "meta.operationId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.traceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.caller",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.platform",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "PLATFORM_UNSPECIFIED",
+              "PLATFORM_IOS",
+              "PLATFORM_ANDROID",
+              "PLATFORM_WEB",
+              "PLATFORM_WINDOWS",
+              "PLATFORM_MACOS",
+              "PLATFORM_LINUX",
+              "PLATFORM_ADMIN",
+              "PLATFORM_SERVER"
+            ],
+            "default": "PLATFORM_UNSPECIFIED"
+          },
+          {
+            "name": "meta.deviceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.connId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.clientVersion",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.locale",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "operatorUserId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "FileService"
+        ]
+      }
+    },
+    "/api/v1/files/{fileId}/download-url": {
+      "get": {
+        "operationId": "FileService_GetDownloadUrl",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetDownloadUrlResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "fileId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "meta.operationId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.traceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.caller",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.platform",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "PLATFORM_UNSPECIFIED",
+              "PLATFORM_IOS",
+              "PLATFORM_ANDROID",
+              "PLATFORM_WEB",
+              "PLATFORM_WINDOWS",
+              "PLATFORM_MACOS",
+              "PLATFORM_LINUX",
+              "PLATFORM_ADMIN",
+              "PLATFORM_SERVER"
+            ],
+            "default": "PLATFORM_UNSPECIFIED"
+          },
+          {
+            "name": "meta.deviceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.connId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.clientVersion",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.locale",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "FileService"
+        ]
+      }
+    },
+    "/api/v1/friends/applications": {
+      "post": {
+        "operationId": "FriendService_ApplyFriend",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ApplyFriendResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ApplyFriendRequest"
+            }
+          }
+        ],
+        "tags": [
+          "FriendService"
+        ]
+      }
+    },
+    "/api/v1/friends/applications/{applicationId}:respond": {
+      "post": {
+        "operationId": "FriendService_RespondFriendApplication",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RespondFriendApplicationResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "applicationId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FriendServiceRespondFriendApplicationBody"
+            }
+          }
+        ],
+        "tags": [
+          "FriendService"
+        ]
+      }
+    },
+    "/api/v1/friends:check": {
+      "post": {
+        "operationId": "FriendService_CheckFriend",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CheckFriendResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CheckFriendRequest"
+            }
+          }
+        ],
+        "tags": [
+          "FriendService"
+        ]
+      }
+    },
+    "/api/v1/groups": {
+      "post": {
+        "operationId": "GroupService_CreateGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateGroupResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateGroupRequest"
+            }
+          }
+        ],
+        "tags": [
+          "GroupService"
+        ]
+      }
+    },
+    "/api/v1/groups/applications/{applicationId}:respond": {
+      "post": {
+        "operationId": "GroupService_RespondGroupApplication",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RespondGroupApplicationResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "applicationId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GroupServiceRespondGroupApplicationBody"
+            }
+          }
+        ],
+        "tags": [
+          "GroupService"
+        ]
+      }
+    },
+    "/api/v1/groups/{groupId}": {
+      "get": {
+        "operationId": "GroupService_GetGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetGroupResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "meta.operationId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.traceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.caller",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.platform",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "PLATFORM_UNSPECIFIED",
+              "PLATFORM_IOS",
+              "PLATFORM_ANDROID",
+              "PLATFORM_WEB",
+              "PLATFORM_WINDOWS",
+              "PLATFORM_MACOS",
+              "PLATFORM_LINUX",
+              "PLATFORM_ADMIN",
+              "PLATFORM_SERVER"
+            ],
+            "default": "PLATFORM_UNSPECIFIED"
+          },
+          {
+            "name": "meta.deviceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.connId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.clientVersion",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.locale",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "GroupService"
+        ]
+      },
+      "patch": {
+        "operationId": "GroupService_UpdateGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateGroupResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GroupServiceUpdateGroupBody"
+            }
+          }
+        ],
+        "tags": [
+          "GroupService"
+        ]
+      }
+    },
+    "/api/v1/groups/{groupId}/applications": {
+      "get": {
+        "operationId": "GroupService_ListGroupApplications",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListGroupApplicationsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "meta.operationId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.traceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.caller",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.platform",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "PLATFORM_UNSPECIFIED",
+              "PLATFORM_IOS",
+              "PLATFORM_ANDROID",
+              "PLATFORM_WEB",
+              "PLATFORM_WINDOWS",
+              "PLATFORM_MACOS",
+              "PLATFORM_LINUX",
+              "PLATFORM_ADMIN",
+              "PLATFORM_SERVER"
+            ],
+            "default": "PLATFORM_UNSPECIFIED"
+          },
+          {
+            "name": "meta.deviceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.connId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.clientVersion",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.locale",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "GROUP_APPLICATION_STATUS_UNSPECIFIED",
+              "GROUP_APPLICATION_STATUS_PENDING",
+              "GROUP_APPLICATION_STATUS_ACCEPTED",
+              "GROUP_APPLICATION_STATUS_REJECTED",
+              "GROUP_APPLICATION_STATUS_CANCELED"
+            ],
+            "default": "GROUP_APPLICATION_STATUS_UNSPECIFIED"
+          },
+          {
+            "name": "pagination.page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pagination.size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pagination.cursor",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "GroupService"
+        ]
+      },
+      "post": {
+        "operationId": "GroupService_JoinGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1JoinGroupResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GroupServiceJoinGroupBody"
+            }
+          }
+        ],
+        "tags": [
+          "GroupService"
+        ]
+      }
+    },
+    "/api/v1/groups/{groupId}/members": {
+      "get": {
+        "operationId": "GroupService_ListGroupMembers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListGroupMembersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "meta.operationId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.traceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.caller",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.platform",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "PLATFORM_UNSPECIFIED",
+              "PLATFORM_IOS",
+              "PLATFORM_ANDROID",
+              "PLATFORM_WEB",
+              "PLATFORM_WINDOWS",
+              "PLATFORM_MACOS",
+              "PLATFORM_LINUX",
+              "PLATFORM_ADMIN",
+              "PLATFORM_SERVER"
+            ],
+            "default": "PLATFORM_UNSPECIFIED"
+          },
+          {
+            "name": "meta.deviceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.connId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.clientVersion",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.locale",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "role",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "GROUP_ROLE_UNSPECIFIED",
+              "GROUP_ROLE_MEMBER",
+              "GROUP_ROLE_ADMIN",
+              "GROUP_ROLE_OWNER"
+            ],
+            "default": "GROUP_ROLE_UNSPECIFIED"
+          },
+          {
+            "name": "pagination.page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pagination.size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pagination.cursor",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "GroupService"
+        ]
+      }
+    },
+    "/api/v1/groups/{groupId}/members/{memberUserId}/mute": {
+      "post": {
+        "operationId": "GroupService_MuteGroupMember",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1MuteGroupMemberResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "memberUserId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GroupServiceMuteGroupMemberBody"
+            }
+          }
+        ],
+        "tags": [
+          "GroupService"
+        ]
+      }
+    },
+    "/api/v1/groups/{groupId}/members/{memberUserId}/role": {
+      "post": {
+        "operationId": "GroupService_SetGroupMemberRole",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SetGroupMemberRoleResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "memberUserId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GroupServiceSetGroupMemberRoleBody"
+            }
+          }
+        ],
+        "tags": [
+          "GroupService"
+        ]
+      }
+    },
+    "/api/v1/groups/{groupId}/members:invite": {
+      "post": {
+        "operationId": "GroupService_InviteUsersToGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1InviteUsersToGroupResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GroupServiceInviteUsersToGroupBody"
+            }
+          }
+        ],
+        "tags": [
+          "GroupService"
+        ]
+      }
+    },
+    "/api/v1/groups/{groupId}/members:kick": {
+      "post": {
+        "operationId": "GroupService_KickGroupMembers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1KickGroupMembersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GroupServiceKickGroupMembersBody"
+            }
+          }
+        ],
+        "tags": [
+          "GroupService"
+        ]
+      }
+    },
+    "/api/v1/groups/{groupId}/mute": {
+      "post": {
+        "operationId": "GroupService_SetGroupMute",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SetGroupMuteResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GroupServiceSetGroupMuteBody"
+            }
+          }
+        ],
+        "tags": [
+          "GroupService"
+        ]
+      }
+    },
+    "/api/v1/groups/{groupId}:dismiss": {
+      "post": {
+        "operationId": "GroupService_DismissGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DismissGroupResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GroupServiceDismissGroupBody"
+            }
+          }
+        ],
+        "tags": [
+          "GroupService"
+        ]
+      }
+    },
+    "/api/v1/groups/{groupId}:quit": {
+      "post": {
+        "operationId": "GroupService_QuitGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1QuitGroupResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GroupServiceQuitGroupBody"
+            }
+          }
+        ],
+        "tags": [
+          "GroupService"
+        ]
+      }
+    },
+    "/api/v1/groups/{groupId}:transfer-owner": {
+      "post": {
+        "operationId": "GroupService_TransferGroupOwner",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1TransferGroupOwnerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GroupServiceTransferGroupOwnerBody"
+            }
+          }
+        ],
+        "tags": [
+          "GroupService"
+        ]
+      }
+    },
+    "/api/v1/messages/batch-send": {
+      "post": {
+        "operationId": "MsgService_BatchSendMsg",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1BatchSendMsgResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1BatchSendMsgRequest"
+            }
+          }
+        ],
+        "tags": [
+          "MsgService"
+        ]
+      }
+    },
+    "/api/v1/messages/delete": {
+      "post": {
+        "operationId": "MsgService_DeleteMsg",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteMsgResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1DeleteMsgRequest"
+            }
+          }
+        ],
+        "tags": [
+          "MsgService"
+        ]
+      }
+    },
+    "/api/v1/messages/mark-read": {
       "post": {
         "operationId": "MsgService_MarkConversationRead",
         "responses": {
@@ -209,6 +1885,102 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/v1MarkConversationReadRequest"
+            }
+          }
+        ],
+        "tags": [
+          "MsgService"
+        ]
+      }
+    },
+    "/api/v1/messages/newest-seq": {
+      "post": {
+        "operationId": "MsgService_GetNewestSeq",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetNewestSeqResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetNewestSeqRequest"
+            }
+          }
+        ],
+        "tags": [
+          "MsgService"
+        ]
+      }
+    },
+    "/api/v1/messages/pull-by-seq-list": {
+      "post": {
+        "operationId": "MsgService_PullMsgBySeqList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1PullMsgBySeqListResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1PullMsgBySeqListRequest"
+            }
+          }
+        ],
+        "tags": [
+          "MsgService"
+        ]
+      }
+    },
+    "/api/v1/messages/pull-by-seq-range": {
+      "post": {
+        "operationId": "MsgService_PullMsgBySeqRange",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1PullMsgBySeqRangeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1PullMsgBySeqRangeRequest"
             }
           }
         ],
@@ -281,7 +2053,281 @@
         ]
       }
     },
-    "/api/v1/users/online_status": {
+    "/api/v1/messages/{serverMsgId}": {
+      "get": {
+        "operationId": "MsgService_GetMsg",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetMsgResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "serverMsgId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "meta.operationId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.traceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.caller",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.platform",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "PLATFORM_UNSPECIFIED",
+              "PLATFORM_IOS",
+              "PLATFORM_ANDROID",
+              "PLATFORM_WEB",
+              "PLATFORM_WINDOWS",
+              "PLATFORM_MACOS",
+              "PLATFORM_LINUX",
+              "PLATFORM_ADMIN",
+              "PLATFORM_SERVER"
+            ],
+            "default": "PLATFORM_UNSPECIFIED"
+          },
+          {
+            "name": "meta.deviceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.connId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.clientVersion",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.locale",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "conversationId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "MsgService"
+        ]
+      }
+    },
+    "/api/v1/push/system-notifications": {
+      "post": {
+        "operationId": "PushService_PushSystemNotification",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1PushSystemNotificationResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1PushSystemNotificationRequest"
+            }
+          }
+        ],
+        "tags": [
+          "PushService"
+        ]
+      }
+    },
+    "/api/v1/push/tokens": {
+      "post": {
+        "operationId": "PushService_RegisterPushToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RegisterPushTokenResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RegisterPushTokenRequest"
+            }
+          }
+        ],
+        "tags": [
+          "PushService"
+        ]
+      }
+    },
+    "/api/v1/push/tokens/{tokenId}": {
+      "delete": {
+        "operationId": "PushService_UnregisterPushToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UnregisterPushTokenResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tokenId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "meta.operationId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.traceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.caller",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.platform",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "PLATFORM_UNSPECIFIED",
+              "PLATFORM_IOS",
+              "PLATFORM_ANDROID",
+              "PLATFORM_WEB",
+              "PLATFORM_WINDOWS",
+              "PLATFORM_MACOS",
+              "PLATFORM_LINUX",
+              "PLATFORM_ADMIN",
+              "PLATFORM_SERVER"
+            ],
+            "default": "PLATFORM_UNSPECIFIED"
+          },
+          {
+            "name": "meta.deviceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.connId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.clientVersion",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.locale",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "PushService"
+        ]
+      }
+    },
+    "/api/v1/users/online-status": {
       "post": {
         "operationId": "UserService_GetUsersOnlineStatus",
         "responses": {
@@ -359,10 +2405,46 @@
             "name": "meta.platform",
             "in": "query",
             "required": false,
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "PLATFORM_UNSPECIFIED",
+              "PLATFORM_IOS",
+              "PLATFORM_ANDROID",
+              "PLATFORM_WEB",
+              "PLATFORM_WINDOWS",
+              "PLATFORM_MACOS",
+              "PLATFORM_LINUX",
+              "PLATFORM_ADMIN",
+              "PLATFORM_SERVER"
+            ],
+            "default": "PLATFORM_UNSPECIFIED"
           },
           {
             "name": "meta.deviceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.connId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.clientVersion",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.locale",
             "in": "query",
             "required": false,
             "type": "string"
@@ -408,9 +2490,1730 @@
           "UserService"
         ]
       }
+    },
+    "/api/v1/users/{userId}/blacklist": {
+      "get": {
+        "operationId": "FriendService_ListBlack",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListBlackResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "meta.operationId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.traceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.caller",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.platform",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "PLATFORM_UNSPECIFIED",
+              "PLATFORM_IOS",
+              "PLATFORM_ANDROID",
+              "PLATFORM_WEB",
+              "PLATFORM_WINDOWS",
+              "PLATFORM_MACOS",
+              "PLATFORM_LINUX",
+              "PLATFORM_ADMIN",
+              "PLATFORM_SERVER"
+            ],
+            "default": "PLATFORM_UNSPECIFIED"
+          },
+          {
+            "name": "meta.deviceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.connId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.clientVersion",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.locale",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pagination.page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pagination.size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pagination.cursor",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "FriendService"
+        ]
+      },
+      "post": {
+        "operationId": "FriendService_AddBlack",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AddBlackResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FriendServiceAddBlackBody"
+            }
+          }
+        ],
+        "tags": [
+          "FriendService"
+        ]
+      }
+    },
+    "/api/v1/users/{userId}/blacklist/{blockedUserId}": {
+      "delete": {
+        "operationId": "FriendService_RemoveBlack",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RemoveBlackResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "blockedUserId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "meta.operationId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.traceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.caller",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.platform",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "PLATFORM_UNSPECIFIED",
+              "PLATFORM_IOS",
+              "PLATFORM_ANDROID",
+              "PLATFORM_WEB",
+              "PLATFORM_WINDOWS",
+              "PLATFORM_MACOS",
+              "PLATFORM_LINUX",
+              "PLATFORM_ADMIN",
+              "PLATFORM_SERVER"
+            ],
+            "default": "PLATFORM_UNSPECIFIED"
+          },
+          {
+            "name": "meta.deviceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.connId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.clientVersion",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.locale",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "FriendService"
+        ]
+      }
+    },
+    "/api/v1/users/{userId}/conversations": {
+      "get": {
+        "operationId": "ConversationService_ListConversations",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListConversationsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "meta.operationId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.traceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.caller",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.platform",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "PLATFORM_UNSPECIFIED",
+              "PLATFORM_IOS",
+              "PLATFORM_ANDROID",
+              "PLATFORM_WEB",
+              "PLATFORM_WINDOWS",
+              "PLATFORM_MACOS",
+              "PLATFORM_LINUX",
+              "PLATFORM_ADMIN",
+              "PLATFORM_SERVER"
+            ],
+            "default": "PLATFORM_UNSPECIFIED"
+          },
+          {
+            "name": "meta.deviceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.connId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.clientVersion",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.locale",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pagination.page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pagination.size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pagination.cursor",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ConversationService"
+        ]
+      }
+    },
+    "/api/v1/users/{userId}/conversations/{conversationId}": {
+      "delete": {
+        "operationId": "ConversationService_DeleteConversation",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteConversationResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "conversationId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "meta.operationId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.traceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.caller",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.platform",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "PLATFORM_UNSPECIFIED",
+              "PLATFORM_IOS",
+              "PLATFORM_ANDROID",
+              "PLATFORM_WEB",
+              "PLATFORM_WINDOWS",
+              "PLATFORM_MACOS",
+              "PLATFORM_LINUX",
+              "PLATFORM_ADMIN",
+              "PLATFORM_SERVER"
+            ],
+            "default": "PLATFORM_UNSPECIFIED"
+          },
+          {
+            "name": "meta.deviceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.connId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.clientVersion",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.locale",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ConversationService"
+        ]
+      }
+    },
+    "/api/v1/users/{userId}/friends": {
+      "get": {
+        "operationId": "FriendService_ListFriends",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListFriendsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "meta.operationId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.traceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.caller",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.platform",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "PLATFORM_UNSPECIFIED",
+              "PLATFORM_IOS",
+              "PLATFORM_ANDROID",
+              "PLATFORM_WEB",
+              "PLATFORM_WINDOWS",
+              "PLATFORM_MACOS",
+              "PLATFORM_LINUX",
+              "PLATFORM_ADMIN",
+              "PLATFORM_SERVER"
+            ],
+            "default": "PLATFORM_UNSPECIFIED"
+          },
+          {
+            "name": "meta.deviceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.connId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.clientVersion",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.locale",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pagination.page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pagination.size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pagination.cursor",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "FriendService"
+        ]
+      }
+    },
+    "/api/v1/users/{userId}/friends/applications": {
+      "get": {
+        "operationId": "FriendService_ListFriendApplications",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListFriendApplicationsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "meta.operationId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.traceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.caller",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.platform",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "PLATFORM_UNSPECIFIED",
+              "PLATFORM_IOS",
+              "PLATFORM_ANDROID",
+              "PLATFORM_WEB",
+              "PLATFORM_WINDOWS",
+              "PLATFORM_MACOS",
+              "PLATFORM_LINUX",
+              "PLATFORM_ADMIN",
+              "PLATFORM_SERVER"
+            ],
+            "default": "PLATFORM_UNSPECIFIED"
+          },
+          {
+            "name": "meta.deviceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.connId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.clientVersion",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.locale",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "FRIEND_APPLICATION_STATUS_UNSPECIFIED",
+              "FRIEND_APPLICATION_STATUS_PENDING",
+              "FRIEND_APPLICATION_STATUS_ACCEPTED",
+              "FRIEND_APPLICATION_STATUS_REJECTED",
+              "FRIEND_APPLICATION_STATUS_CANCELED"
+            ],
+            "default": "FRIEND_APPLICATION_STATUS_UNSPECIFIED"
+          },
+          {
+            "name": "incoming",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "pagination.page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pagination.size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pagination.cursor",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "FriendService"
+        ]
+      }
+    },
+    "/api/v1/users/{userId}/friends/{friendUserId}": {
+      "get": {
+        "operationId": "FriendService_GetFriendInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetFriendInfoResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "friendUserId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "meta.operationId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.traceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.caller",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.platform",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "PLATFORM_UNSPECIFIED",
+              "PLATFORM_IOS",
+              "PLATFORM_ANDROID",
+              "PLATFORM_WEB",
+              "PLATFORM_WINDOWS",
+              "PLATFORM_MACOS",
+              "PLATFORM_LINUX",
+              "PLATFORM_ADMIN",
+              "PLATFORM_SERVER"
+            ],
+            "default": "PLATFORM_UNSPECIFIED"
+          },
+          {
+            "name": "meta.deviceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.connId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.clientVersion",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.locale",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "FriendService"
+        ]
+      },
+      "delete": {
+        "operationId": "FriendService_DeleteFriend",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteFriendResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "friendUserId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "meta.operationId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.traceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.caller",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.platform",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "PLATFORM_UNSPECIFIED",
+              "PLATFORM_IOS",
+              "PLATFORM_ANDROID",
+              "PLATFORM_WEB",
+              "PLATFORM_WINDOWS",
+              "PLATFORM_MACOS",
+              "PLATFORM_LINUX",
+              "PLATFORM_ADMIN",
+              "PLATFORM_SERVER"
+            ],
+            "default": "PLATFORM_UNSPECIFIED"
+          },
+          {
+            "name": "meta.deviceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.connId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.clientVersion",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.locale",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "FriendService"
+        ]
+      }
+    },
+    "/api/v1/users/{userId}/friends/{friendUserId}/remark": {
+      "patch": {
+        "operationId": "FriendService_SetFriendRemark",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SetFriendRemarkResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "friendUserId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FriendServiceSetFriendRemarkBody"
+            }
+          }
+        ],
+        "tags": [
+          "FriendService"
+        ]
+      }
+    },
+    "/api/v1/users/{userId}/groups": {
+      "get": {
+        "operationId": "GroupService_ListJoinedGroups",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListJoinedGroupsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "meta.operationId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.traceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.caller",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.platform",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "PLATFORM_UNSPECIFIED",
+              "PLATFORM_IOS",
+              "PLATFORM_ANDROID",
+              "PLATFORM_WEB",
+              "PLATFORM_WINDOWS",
+              "PLATFORM_MACOS",
+              "PLATFORM_LINUX",
+              "PLATFORM_ADMIN",
+              "PLATFORM_SERVER"
+            ],
+            "default": "PLATFORM_UNSPECIFIED"
+          },
+          {
+            "name": "meta.deviceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.connId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.clientVersion",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.locale",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pagination.page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pagination.size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pagination.cursor",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "GroupService"
+        ]
+      }
+    },
+    "/api/v1/users/{userId}/push/tokens": {
+      "get": {
+        "operationId": "PushService_ListPushTokens",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListPushTokensResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "meta.operationId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.traceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.caller",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.platform",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "PLATFORM_UNSPECIFIED",
+              "PLATFORM_IOS",
+              "PLATFORM_ANDROID",
+              "PLATFORM_WEB",
+              "PLATFORM_WINDOWS",
+              "PLATFORM_MACOS",
+              "PLATFORM_LINUX",
+              "PLATFORM_ADMIN",
+              "PLATFORM_SERVER"
+            ],
+            "default": "PLATFORM_UNSPECIFIED"
+          },
+          {
+            "name": "meta.deviceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.connId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.clientVersion",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.locale",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "PushService"
+        ]
+      }
+    },
+    "/api/v1/users/{userId}/recv-msg-opt": {
+      "post": {
+        "operationId": "UserService_SetGlobalRecvMsgOpt",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SetGlobalRecvMsgOptResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserServiceSetGlobalRecvMsgOptBody"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/api/v1/users/{userId}/status": {
+      "post": {
+        "operationId": "UserService_SetUserStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SetUserStatusResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserServiceSetUserStatusBody"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/api/v1/users:batch-get": {
+      "post": {
+        "operationId": "UserService_BatchGetProfiles",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1BatchGetProfilesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1BatchGetProfilesRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/api/v1/users:search": {
+      "get": {
+        "operationId": "UserService_SearchUsers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SearchUsersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "meta.operationId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.traceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.caller",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.platform",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "PLATFORM_UNSPECIFIED",
+              "PLATFORM_IOS",
+              "PLATFORM_ANDROID",
+              "PLATFORM_WEB",
+              "PLATFORM_WINDOWS",
+              "PLATFORM_MACOS",
+              "PLATFORM_LINUX",
+              "PLATFORM_ADMIN",
+              "PLATFORM_SERVER"
+            ],
+            "default": "PLATFORM_UNSPECIFIED"
+          },
+          {
+            "name": "meta.deviceId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.connId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.clientVersion",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "meta.locale",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pagination.page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pagination.size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pagination.cursor",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
     }
   },
   "definitions": {
+    "AuthServiceKickDeviceBody": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "platform": {
+          "$ref": "#/definitions/v1Platform"
+        },
+        "deviceId": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
+    "ConversationServiceClearConversationMessagesBody": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "clearBeforeSeq": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "ConversationServiceUpdateConversationSettingsBody": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "settings": {
+          "$ref": "#/definitions/v1ConversationSettings"
+        }
+      }
+    },
+    "FileServiceCompleteUploadBody": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "fileId": {
+          "type": "string"
+        },
+        "partEtags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "FriendServiceAddBlackBody": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "blockedUserId": {
+          "type": "string"
+        }
+      }
+    },
+    "FriendServiceRespondFriendApplicationBody": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "handlerUserId": {
+          "type": "string"
+        },
+        "accept": {
+          "type": "boolean"
+        },
+        "handleMessage": {
+          "type": "string"
+        }
+      }
+    },
+    "FriendServiceSetFriendRemarkBody": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "remark": {
+          "type": "string"
+        }
+      }
+    },
+    "GroupServiceDismissGroupBody": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "operatorUserId": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
+    "GroupServiceInviteUsersToGroupBody": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "inviterUserId": {
+          "type": "string"
+        },
+        "memberUserIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
+    "GroupServiceJoinGroupBody": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "requestMessage": {
+          "type": "string"
+        },
+        "joinSource": {
+          "$ref": "#/definitions/v1GroupJoinSource"
+        },
+        "inviterUserId": {
+          "type": "string"
+        }
+      }
+    },
+    "GroupServiceKickGroupMembersBody": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "operatorUserId": {
+          "type": "string"
+        },
+        "memberUserIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
+    "GroupServiceMuteGroupMemberBody": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "operatorUserId": {
+          "type": "string"
+        },
+        "muteEndTimeMs": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "GroupServiceQuitGroupBody": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "userId": {
+          "type": "string"
+        }
+      }
+    },
+    "GroupServiceRespondGroupApplicationBody": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "handlerUserId": {
+          "type": "string"
+        },
+        "accept": {
+          "type": "boolean"
+        },
+        "handleMessage": {
+          "type": "string"
+        }
+      }
+    },
+    "GroupServiceSetGroupMemberRoleBody": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "operatorUserId": {
+          "type": "string"
+        },
+        "role": {
+          "$ref": "#/definitions/v1GroupRole"
+        }
+      }
+    },
+    "GroupServiceSetGroupMuteBody": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "operatorUserId": {
+          "type": "string"
+        },
+        "muted": {
+          "type": "boolean"
+        }
+      }
+    },
+    "GroupServiceTransferGroupOwnerBody": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "oldOwnerUserId": {
+          "type": "string"
+        },
+        "newOwnerUserId": {
+          "type": "string"
+        }
+      }
+    },
+    "GroupServiceUpdateGroupBody": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "operatorUserId": {
+          "type": "string"
+        },
+        "groupName": {
+          "type": "string"
+        },
+        "avatarUrl": {
+          "type": "string"
+        },
+        "introduction": {
+          "type": "string"
+        },
+        "notification": {
+          "type": "string"
+        },
+        "needVerification": {
+          "type": "boolean"
+        },
+        "ex": {
+          "type": "string"
+        }
+      }
+    },
+    "UserServiceSetGlobalRecvMsgOptBody": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "recvMsgOpt": {
+          "$ref": "#/definitions/v1ReceiveMessageOption"
+        }
+      }
+    },
+    "UserServiceSetUserStatusBody": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "status": {
+          "$ref": "#/definitions/v1UserStatus"
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
     "UserServiceUpdateProfileBody": {
       "type": "object",
       "properties": {
@@ -423,9 +4226,20 @@
         "avatarUrl": {
           "type": "string"
         },
+        "phone": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "gender": {
+          "$ref": "#/definitions/v1Gender"
+        },
         "globalRecvMsgOpt": {
-          "type": "integer",
-          "format": "int32"
+          "$ref": "#/definitions/v1ReceiveMessageOption"
+        },
+        "ex": {
+          "type": "string"
         }
       }
     },
@@ -457,18 +4271,623 @@
         }
       }
     },
+    "v1AddBlackResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "black": {
+          "$ref": "#/definitions/v1BlackInfo"
+        }
+      }
+    },
+    "v1ApplyFriendRequest": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "fromUserId": {
+          "type": "string"
+        },
+        "toUserId": {
+          "type": "string"
+        },
+        "requestMessage": {
+          "type": "string"
+        },
+        "ex": {
+          "type": "string"
+        }
+      }
+    },
+    "v1ApplyFriendResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "application": {
+          "$ref": "#/definitions/v1FriendApplication"
+        }
+      }
+    },
+    "v1BatchGetProfilesRequest": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "userIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "v1BatchGetProfilesResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1UserProfile"
+          }
+        }
+      }
+    },
+    "v1BatchSendMsgRequest": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "messages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1MsgData"
+          }
+        }
+      }
+    },
+    "v1BatchSendMsgResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1SendMsgResult"
+          }
+        }
+      }
+    },
+    "v1BlackInfo": {
+      "type": "object",
+      "properties": {
+        "ownerUserId": {
+          "type": "string"
+        },
+        "blockedUserId": {
+          "type": "string"
+        },
+        "blockedUser": {
+          "$ref": "#/definitions/v1UserRef"
+        },
+        "createTimeMs": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "v1CheckFriendRequest": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "targetUserIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "v1CheckFriendResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1FriendRelationCheckResult"
+          }
+        }
+      }
+    },
+    "v1ClearConversationMessagesResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "clearedMaxSeq": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "v1CompleteUploadResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "file": {
+          "$ref": "#/definitions/v1FileInfo"
+        }
+      }
+    },
     "v1ContentType": {
       "type": "string",
       "enum": [
         "CONTENT_TYPE_UNSPECIFIED",
         "CONTENT_TYPE_TEXT",
         "CONTENT_TYPE_IMAGE",
+        "CONTENT_TYPE_VOICE",
+        "CONTENT_TYPE_VIDEO",
         "CONTENT_TYPE_FILE",
+        "CONTENT_TYPE_LOCATION",
+        "CONTENT_TYPE_CARD",
+        "CONTENT_TYPE_MERGER",
+        "CONTENT_TYPE_AT_TEXT",
+        "CONTENT_TYPE_CUSTOM",
+        "CONTENT_TYPE_TYPING",
         "CONTENT_TYPE_REVOKE",
         "CONTENT_TYPE_READ_RECEIPT",
-        "CONTENT_TYPE_CUSTOM"
+        "CONTENT_TYPE_FRIEND_APPLICATION_NOTIFICATION",
+        "CONTENT_TYPE_GROUP_APPLICATION_NOTIFICATION",
+        "CONTENT_TYPE_GROUP_MEMBER_CHANGED_NOTIFICATION",
+        "CONTENT_TYPE_CONVERSATION_CHANGED_NOTIFICATION",
+        "CONTENT_TYPE_SYSTEM_NOTIFICATION"
       ],
       "default": "CONTENT_TYPE_UNSPECIFIED"
+    },
+    "v1ConversationInfo": {
+      "type": "object",
+      "properties": {
+        "ownerUserId": {
+          "type": "string"
+        },
+        "conversationId": {
+          "type": "string"
+        },
+        "conversationType": {
+          "$ref": "#/definitions/v1ConversationType"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "groupId": {
+          "type": "string"
+        },
+        "showName": {
+          "type": "string"
+        },
+        "faceUrl": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/v1ConversationStatus"
+        },
+        "settings": {
+          "$ref": "#/definitions/v1ConversationSettings"
+        },
+        "groupAtType": {
+          "$ref": "#/definitions/v1GroupAtType"
+        },
+        "minSeq": {
+          "type": "string",
+          "format": "int64"
+        },
+        "maxSeq": {
+          "type": "string",
+          "format": "int64"
+        },
+        "readSeq": {
+          "type": "string",
+          "format": "int64"
+        },
+        "unreadCount": {
+          "type": "string",
+          "format": "int64"
+        },
+        "latestMsg": {
+          "$ref": "#/definitions/v1MsgData"
+        },
+        "latestMsgSendTimeMs": {
+          "type": "string",
+          "format": "int64"
+        },
+        "createTimeMs": {
+          "type": "string",
+          "format": "int64"
+        },
+        "updateTimeMs": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "v1ConversationSeq": {
+      "type": "object",
+      "properties": {
+        "conversationId": {
+          "type": "string"
+        },
+        "minSeq": {
+          "type": "string",
+          "format": "int64"
+        },
+        "maxSeq": {
+          "type": "string",
+          "format": "int64"
+        },
+        "readSeq": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "v1ConversationSettings": {
+      "type": "object",
+      "properties": {
+        "isPinned": {
+          "type": "boolean"
+        },
+        "recvMsgOpt": {
+          "$ref": "#/definitions/v1ReceiveMessageOption"
+        },
+        "isPrivateChat": {
+          "type": "boolean"
+        },
+        "isMsgDestruct": {
+          "type": "boolean"
+        },
+        "burnDurationSeconds": {
+          "type": "string",
+          "format": "int64"
+        },
+        "msgDestructTimeMs": {
+          "type": "string",
+          "format": "int64"
+        },
+        "attachedInfo": {
+          "type": "string"
+        },
+        "ex": {
+          "type": "string"
+        }
+      }
+    },
+    "v1ConversationStatus": {
+      "type": "string",
+      "enum": [
+        "CONVERSATION_STATUS_UNSPECIFIED",
+        "CONVERSATION_STATUS_NORMAL",
+        "CONVERSATION_STATUS_DELETED",
+        "CONVERSATION_STATUS_ARCHIVED"
+      ],
+      "default": "CONVERSATION_STATUS_UNSPECIFIED"
+    },
+    "v1ConversationType": {
+      "type": "string",
+      "enum": [
+        "CONVERSATION_TYPE_UNSPECIFIED",
+        "CONVERSATION_TYPE_SINGLE",
+        "CONVERSATION_TYPE_GROUP",
+        "CONVERSATION_TYPE_NOTIFICATION",
+        "CONVERSATION_TYPE_SYSTEM"
+      ],
+      "default": "CONVERSATION_TYPE_UNSPECIFIED"
+    },
+    "v1CreateGroupRequest": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "ownerUserId": {
+          "type": "string"
+        },
+        "groupName": {
+          "type": "string"
+        },
+        "avatarUrl": {
+          "type": "string"
+        },
+        "introduction": {
+          "type": "string"
+        },
+        "groupType": {
+          "$ref": "#/definitions/v1GroupType"
+        },
+        "memberUserIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "adminUserIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "needVerification": {
+          "type": "boolean"
+        },
+        "ex": {
+          "type": "string"
+        }
+      }
+    },
+    "v1CreateGroupResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "group": {
+          "$ref": "#/definitions/v1GroupInfo"
+        },
+        "members": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1GroupMemberInfo"
+          }
+        }
+      }
+    },
+    "v1CreateOrGetSingleConversationRequest": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "ownerUserId": {
+          "type": "string"
+        },
+        "peerUserId": {
+          "type": "string"
+        }
+      }
+    },
+    "v1CreateOrGetSingleConversationResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "conversation": {
+          "$ref": "#/definitions/v1ConversationInfo"
+        }
+      }
+    },
+    "v1CreateUploadRequest": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "ownerUserId": {
+          "type": "string"
+        },
+        "bizType": {
+          "$ref": "#/definitions/v1FileBizType"
+        },
+        "fileName": {
+          "type": "string"
+        },
+        "mimeType": {
+          "type": "string"
+        },
+        "size": {
+          "type": "string",
+          "format": "int64"
+        },
+        "checksum": {
+          "type": "string"
+        },
+        "partCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ex": {
+          "type": "string"
+        }
+      }
+    },
+    "v1CreateUploadResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "uploadId": {
+          "type": "string"
+        },
+        "fileId": {
+          "type": "string"
+        },
+        "objectKey": {
+          "type": "string"
+        },
+        "uploadUrl": {
+          "type": "string"
+        },
+        "parts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1UploadPart"
+          }
+        },
+        "expireTimeMs": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "v1DeleteConversationResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        }
+      }
+    },
+    "v1DeleteFileResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        }
+      }
+    },
+    "v1DeleteFriendResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        }
+      }
+    },
+    "v1DeleteMsgRequest": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "operatorUserId": {
+          "type": "string"
+        },
+        "conversationId": {
+          "type": "string"
+        },
+        "serverMsgIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "deleteScope": {
+          "$ref": "#/definitions/v1DeleteScope"
+        }
+      }
+    },
+    "v1DeleteMsgResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "deletedServerMsgIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "v1DeleteScope": {
+      "type": "string",
+      "enum": [
+        "DELETE_SCOPE_UNSPECIFIED",
+        "DELETE_SCOPE_LOCAL",
+        "DELETE_SCOPE_ALL"
+      ],
+      "default": "DELETE_SCOPE_UNSPECIFIED"
+    },
+    "v1DismissGroupResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        }
+      }
+    },
+    "v1FileBizType": {
+      "type": "string",
+      "enum": [
+        "FILE_BIZ_TYPE_UNSPECIFIED",
+        "FILE_BIZ_TYPE_AVATAR",
+        "FILE_BIZ_TYPE_MESSAGE_IMAGE",
+        "FILE_BIZ_TYPE_MESSAGE_VOICE",
+        "FILE_BIZ_TYPE_MESSAGE_VIDEO",
+        "FILE_BIZ_TYPE_MESSAGE_FILE",
+        "FILE_BIZ_TYPE_GROUP_AVATAR",
+        "FILE_BIZ_TYPE_LOG"
+      ],
+      "default": "FILE_BIZ_TYPE_UNSPECIFIED"
+    },
+    "v1FileInfo": {
+      "type": "object",
+      "properties": {
+        "fileId": {
+          "type": "string"
+        },
+        "ownerUserId": {
+          "type": "string"
+        },
+        "bizType": {
+          "$ref": "#/definitions/v1FileBizType"
+        },
+        "fileName": {
+          "type": "string"
+        },
+        "objectKey": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "mimeType": {
+          "type": "string"
+        },
+        "size": {
+          "type": "string",
+          "format": "int64"
+        },
+        "checksum": {
+          "type": "string"
+        },
+        "createTimeMs": {
+          "type": "string",
+          "format": "int64"
+        },
+        "ex": {
+          "type": "string"
+        }
+      }
     },
     "v1ForceLogoutRequest": {
       "type": "object",
@@ -479,9 +4898,11 @@
         "userId": {
           "type": "string"
         },
-        "platformId": {
-          "type": "integer",
-          "format": "int32"
+        "platform": {
+          "$ref": "#/definitions/v1Platform"
+        },
+        "deviceId": {
+          "type": "string"
         },
         "reason": {
           "type": "string"
@@ -493,6 +4914,252 @@
       "properties": {
         "header": {
           "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "kickedCount": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "v1FriendApplication": {
+      "type": "object",
+      "properties": {
+        "applicationId": {
+          "type": "string"
+        },
+        "fromUserId": {
+          "type": "string"
+        },
+        "toUserId": {
+          "type": "string"
+        },
+        "fromUser": {
+          "$ref": "#/definitions/v1UserRef"
+        },
+        "toUser": {
+          "$ref": "#/definitions/v1UserRef"
+        },
+        "requestMessage": {
+          "type": "string"
+        },
+        "handleMessage": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/v1FriendApplicationStatus"
+        },
+        "createTimeMs": {
+          "type": "string",
+          "format": "int64"
+        },
+        "handleTimeMs": {
+          "type": "string",
+          "format": "int64"
+        },
+        "ex": {
+          "type": "string"
+        }
+      }
+    },
+    "v1FriendApplicationStatus": {
+      "type": "string",
+      "enum": [
+        "FRIEND_APPLICATION_STATUS_UNSPECIFIED",
+        "FRIEND_APPLICATION_STATUS_PENDING",
+        "FRIEND_APPLICATION_STATUS_ACCEPTED",
+        "FRIEND_APPLICATION_STATUS_REJECTED",
+        "FRIEND_APPLICATION_STATUS_CANCELED"
+      ],
+      "default": "FRIEND_APPLICATION_STATUS_UNSPECIFIED"
+    },
+    "v1FriendInfo": {
+      "type": "object",
+      "properties": {
+        "ownerUserId": {
+          "type": "string"
+        },
+        "friendUserId": {
+          "type": "string"
+        },
+        "remark": {
+          "type": "string"
+        },
+        "friend": {
+          "$ref": "#/definitions/v1UserRef"
+        },
+        "recvMsgOpt": {
+          "$ref": "#/definitions/v1ReceiveMessageOption"
+        },
+        "createTimeMs": {
+          "type": "string",
+          "format": "int64"
+        },
+        "ex": {
+          "type": "string"
+        }
+      }
+    },
+    "v1FriendRelationCheckResult": {
+      "type": "object",
+      "properties": {
+        "targetUserId": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/v1FriendRelationStatus"
+        }
+      }
+    },
+    "v1FriendRelationStatus": {
+      "type": "string",
+      "enum": [
+        "FRIEND_RELATION_STATUS_UNSPECIFIED",
+        "FRIEND_RELATION_STATUS_NONE",
+        "FRIEND_RELATION_STATUS_FRIEND",
+        "FRIEND_RELATION_STATUS_BLACKED",
+        "FRIEND_RELATION_STATUS_BLOCKED_BY_PEER"
+      ],
+      "default": "FRIEND_RELATION_STATUS_UNSPECIFIED"
+    },
+    "v1Gender": {
+      "type": "string",
+      "enum": [
+        "GENDER_UNSPECIFIED",
+        "GENDER_MALE",
+        "GENDER_FEMALE",
+        "GENDER_OTHER"
+      ],
+      "default": "GENDER_UNSPECIFIED"
+    },
+    "v1GetConversationResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "conversation": {
+          "$ref": "#/definitions/v1ConversationInfo"
+        }
+      }
+    },
+    "v1GetConversationSeqRequest": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "conversationIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "v1GetConversationSeqResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "seqs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1ConversationSeq"
+          }
+        }
+      }
+    },
+    "v1GetDownloadUrlResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "downloadUrl": {
+          "type": "string"
+        },
+        "headers": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "expireTimeMs": {
+          "type": "string",
+          "format": "int64"
+        },
+        "file": {
+          "$ref": "#/definitions/v1FileInfo"
+        }
+      }
+    },
+    "v1GetFriendInfoResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "friend": {
+          "$ref": "#/definitions/v1FriendInfo"
+        }
+      }
+    },
+    "v1GetGroupResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "group": {
+          "$ref": "#/definitions/v1GroupInfo"
+        }
+      }
+    },
+    "v1GetMsgResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "msgData": {
+          "$ref": "#/definitions/v1MsgData"
+        }
+      }
+    },
+    "v1GetNewestSeqRequest": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "conversationIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "v1GetNewestSeqResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "seqs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1ConversationSeq"
+          }
         }
       }
     },
@@ -536,6 +5203,466 @@
         }
       }
     },
+    "v1GroupApplication": {
+      "type": "object",
+      "properties": {
+        "applicationId": {
+          "type": "string"
+        },
+        "groupId": {
+          "type": "string"
+        },
+        "fromUserId": {
+          "type": "string"
+        },
+        "inviterUserId": {
+          "type": "string"
+        },
+        "handleUserId": {
+          "type": "string"
+        },
+        "requestMessage": {
+          "type": "string"
+        },
+        "handleMessage": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/v1GroupApplicationStatus"
+        },
+        "joinSource": {
+          "$ref": "#/definitions/v1GroupJoinSource"
+        },
+        "createTimeMs": {
+          "type": "string",
+          "format": "int64"
+        },
+        "handleTimeMs": {
+          "type": "string",
+          "format": "int64"
+        },
+        "ex": {
+          "type": "string"
+        }
+      }
+    },
+    "v1GroupApplicationStatus": {
+      "type": "string",
+      "enum": [
+        "GROUP_APPLICATION_STATUS_UNSPECIFIED",
+        "GROUP_APPLICATION_STATUS_PENDING",
+        "GROUP_APPLICATION_STATUS_ACCEPTED",
+        "GROUP_APPLICATION_STATUS_REJECTED",
+        "GROUP_APPLICATION_STATUS_CANCELED"
+      ],
+      "default": "GROUP_APPLICATION_STATUS_UNSPECIFIED"
+    },
+    "v1GroupAtType": {
+      "type": "string",
+      "enum": [
+        "GROUP_AT_TYPE_UNSPECIFIED",
+        "GROUP_AT_TYPE_NONE",
+        "GROUP_AT_TYPE_AT_ME",
+        "GROUP_AT_TYPE_AT_ALL",
+        "GROUP_AT_TYPE_AT_ALL_AT_ME"
+      ],
+      "default": "GROUP_AT_TYPE_UNSPECIFIED"
+    },
+    "v1GroupInfo": {
+      "type": "object",
+      "properties": {
+        "groupId": {
+          "type": "string"
+        },
+        "groupName": {
+          "type": "string"
+        },
+        "avatarUrl": {
+          "type": "string"
+        },
+        "introduction": {
+          "type": "string"
+        },
+        "notification": {
+          "type": "string"
+        },
+        "ownerUserId": {
+          "type": "string"
+        },
+        "groupType": {
+          "$ref": "#/definitions/v1GroupType"
+        },
+        "status": {
+          "$ref": "#/definitions/v1GroupStatus"
+        },
+        "memberCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "needVerification": {
+          "type": "boolean"
+        },
+        "createTimeMs": {
+          "type": "string",
+          "format": "int64"
+        },
+        "updateTimeMs": {
+          "type": "string",
+          "format": "int64"
+        },
+        "ex": {
+          "type": "string"
+        }
+      }
+    },
+    "v1GroupJoinSource": {
+      "type": "string",
+      "enum": [
+        "GROUP_JOIN_SOURCE_UNSPECIFIED",
+        "GROUP_JOIN_SOURCE_SEARCH",
+        "GROUP_JOIN_SOURCE_INVITE",
+        "GROUP_JOIN_SOURCE_QR_CODE",
+        "GROUP_JOIN_SOURCE_ADMIN"
+      ],
+      "default": "GROUP_JOIN_SOURCE_UNSPECIFIED"
+    },
+    "v1GroupMemberInfo": {
+      "type": "object",
+      "properties": {
+        "groupId": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "avatarUrl": {
+          "type": "string"
+        },
+        "groupNickname": {
+          "type": "string"
+        },
+        "role": {
+          "$ref": "#/definitions/v1GroupRole"
+        },
+        "recvMsgOpt": {
+          "$ref": "#/definitions/v1ReceiveMessageOption"
+        },
+        "muteEndTimeMs": {
+          "type": "string",
+          "format": "int64"
+        },
+        "joinTimeMs": {
+          "type": "string",
+          "format": "int64"
+        },
+        "joinSource": {
+          "$ref": "#/definitions/v1GroupJoinSource"
+        },
+        "inviterUserId": {
+          "type": "string"
+        },
+        "ex": {
+          "type": "string"
+        }
+      }
+    },
+    "v1GroupRole": {
+      "type": "string",
+      "enum": [
+        "GROUP_ROLE_UNSPECIFIED",
+        "GROUP_ROLE_MEMBER",
+        "GROUP_ROLE_ADMIN",
+        "GROUP_ROLE_OWNER"
+      ],
+      "default": "GROUP_ROLE_UNSPECIFIED"
+    },
+    "v1GroupStatus": {
+      "type": "string",
+      "enum": [
+        "GROUP_STATUS_UNSPECIFIED",
+        "GROUP_STATUS_NORMAL",
+        "GROUP_STATUS_MUTED",
+        "GROUP_STATUS_DISMISSED"
+      ],
+      "default": "GROUP_STATUS_UNSPECIFIED"
+    },
+    "v1GroupType": {
+      "type": "string",
+      "enum": [
+        "GROUP_TYPE_UNSPECIFIED",
+        "GROUP_TYPE_NORMAL",
+        "GROUP_TYPE_SUPER"
+      ],
+      "default": "GROUP_TYPE_UNSPECIFIED"
+    },
+    "v1InviteUsersToGroupResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "addedMembers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1GroupMemberInfo"
+          }
+        },
+        "applications": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1GroupApplication"
+          }
+        }
+      }
+    },
+    "v1JoinGroupResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "application": {
+          "$ref": "#/definitions/v1GroupApplication"
+        },
+        "member": {
+          "$ref": "#/definitions/v1GroupMemberInfo"
+        }
+      }
+    },
+    "v1KickDeviceResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "kickedCount": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "v1KickGroupMembersResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "kickedUserIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "v1ListBlackResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "blacks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1BlackInfo"
+          }
+        },
+        "pagination": {
+          "$ref": "#/definitions/v1PaginationResponse"
+        }
+      }
+    },
+    "v1ListConversationsResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "conversations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1ConversationInfo"
+          }
+        },
+        "pagination": {
+          "$ref": "#/definitions/v1PaginationResponse"
+        }
+      }
+    },
+    "v1ListFriendApplicationsResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "applications": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1FriendApplication"
+          }
+        },
+        "pagination": {
+          "$ref": "#/definitions/v1PaginationResponse"
+        }
+      }
+    },
+    "v1ListFriendsResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "friends": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1FriendInfo"
+          }
+        },
+        "pagination": {
+          "$ref": "#/definitions/v1PaginationResponse"
+        }
+      }
+    },
+    "v1ListGroupApplicationsResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "applications": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1GroupApplication"
+          }
+        },
+        "pagination": {
+          "$ref": "#/definitions/v1PaginationResponse"
+        }
+      }
+    },
+    "v1ListGroupMembersResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "members": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1GroupMemberInfo"
+          }
+        },
+        "pagination": {
+          "$ref": "#/definitions/v1PaginationResponse"
+        }
+      }
+    },
+    "v1ListJoinedGroupsResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1GroupInfo"
+          }
+        },
+        "pagination": {
+          "$ref": "#/definitions/v1PaginationResponse"
+        }
+      }
+    },
+    "v1ListLoginDevicesResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "devices": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1LoginDevice"
+          }
+        }
+      }
+    },
+    "v1ListPushTokensResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "pushTokens": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1PushToken"
+          }
+        }
+      }
+    },
+    "v1LoginDevice": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "platform": {
+          "$ref": "#/definitions/v1Platform"
+        },
+        "deviceId": {
+          "type": "string"
+        },
+        "deviceName": {
+          "type": "string"
+        },
+        "clientVersion": {
+          "type": "string"
+        },
+        "connId": {
+          "type": "string"
+        },
+        "lastLoginIp": {
+          "type": "string"
+        },
+        "lastLoginTimeMs": {
+          "type": "string",
+          "format": "int64"
+        },
+        "lastActiveTimeMs": {
+          "type": "string",
+          "format": "int64"
+        },
+        "tokenStatus": {
+          "$ref": "#/definitions/v1TokenStatus"
+        }
+      }
+    },
+    "v1LoginPolicy": {
+      "type": "string",
+      "enum": [
+        "LOGIN_POLICY_UNSPECIFIED",
+        "LOGIN_POLICY_MULTI_PLATFORM",
+        "LOGIN_POLICY_KICK_SAME_PLATFORM",
+        "LOGIN_POLICY_KICK_ALL_OLD"
+      ],
+      "default": "LOGIN_POLICY_UNSPECIFIED"
+    },
     "v1LoginRequest": {
       "type": "object",
       "properties": {
@@ -548,12 +5675,20 @@
         "password": {
           "type": "string"
         },
-        "platformId": {
-          "type": "integer",
-          "format": "int32"
+        "platform": {
+          "$ref": "#/definitions/v1Platform"
         },
         "deviceId": {
           "type": "string"
+        },
+        "deviceName": {
+          "type": "string"
+        },
+        "clientVersion": {
+          "type": "string"
+        },
+        "loginPolicy": {
+          "$ref": "#/definitions/v1LoginPolicy"
         }
       }
     },
@@ -572,7 +5707,11 @@
         "refreshToken": {
           "type": "string"
         },
-        "expireAt": {
+        "accessTokenExpireAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "refreshTokenExpireAt": {
           "type": "string",
           "format": "date-time"
         }
@@ -587,12 +5726,14 @@
         "userId": {
           "type": "string"
         },
-        "platformId": {
-          "type": "integer",
-          "format": "int32"
+        "platform": {
+          "$ref": "#/definitions/v1Platform"
         },
         "deviceId": {
           "type": "string"
+        },
+        "logoutAllDevices": {
+          "type": "boolean"
         }
       }
     },
@@ -608,21 +5749,17 @@
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta",
-          "title": "请求元信息"
+          "$ref": "#/definitions/v1RequestMeta"
         },
         "userId": {
-          "type": "string",
-          "title": "用户ID"
+          "type": "string"
         },
         "conversationId": {
-          "type": "string",
-          "title": "会话ID"
+          "type": "string"
         },
         "readSeq": {
           "type": "string",
-          "format": "int64",
-          "title": "已读序列号"
+          "format": "int64"
         }
       }
     },
@@ -630,78 +5767,506 @@
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader",
-          "title": "响应头"
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "conversationId": {
+          "type": "string"
         },
         "readSeq": {
           "type": "string",
-          "format": "int64",
-          "title": "已读序列号"
+          "format": "int64"
+        },
+        "unreadCount": {
+          "type": "string",
+          "format": "int64"
         }
       }
+    },
+    "v1MessageStatus": {
+      "type": "string",
+      "enum": [
+        "MESSAGE_STATUS_UNSPECIFIED",
+        "MESSAGE_STATUS_SENDING",
+        "MESSAGE_STATUS_SENT",
+        "MESSAGE_STATUS_PERSISTED",
+        "MESSAGE_STATUS_DELIVERED",
+        "MESSAGE_STATUS_READ",
+        "MESSAGE_STATUS_REVOKED",
+        "MESSAGE_STATUS_DELETED",
+        "MESSAGE_STATUS_FAILED"
+      ],
+      "default": "MESSAGE_STATUS_UNSPECIFIED"
     },
     "v1MsgData": {
       "type": "object",
       "properties": {
         "clientMsgId": {
-          "type": "string",
-          "title": "客户端消息ID"
+          "type": "string"
         },
         "serverMsgId": {
-          "type": "string",
-          "title": "服务端消息ID"
+          "type": "string"
         },
         "sendId": {
-          "type": "string",
-          "title": "发送者ID"
+          "type": "string"
         },
         "recvId": {
-          "type": "string",
-          "title": "接收者ID"
+          "type": "string"
         },
         "groupId": {
-          "type": "string",
-          "title": "群组ID"
+          "type": "string"
         },
         "conversationId": {
-          "type": "string",
-          "title": "会话ID"
+          "type": "string"
         },
         "conversationSeq": {
           "type": "string",
-          "format": "int64",
-          "title": "会话序列号"
+          "format": "int64"
         },
-        "sessionType": {
-          "$ref": "#/definitions/v1SessionType",
-          "title": "会话类型"
+        "conversationType": {
+          "$ref": "#/definitions/v1ConversationType"
+        },
+        "senderPlatform": {
+          "$ref": "#/definitions/v1Platform"
+        },
+        "senderNickname": {
+          "type": "string"
+        },
+        "senderAvatarUrl": {
+          "type": "string"
         },
         "contentType": {
-          "$ref": "#/definitions/v1ContentType",
-          "title": "内容类型"
+          "$ref": "#/definitions/v1ContentType"
         },
         "content": {
           "type": "string",
-          "format": "byte",
-          "title": "消息内容"
+          "format": "byte"
         },
-        "sendTime": {
-          "type": "string",
-          "format": "int64",
-          "title": "发送时间，毫秒时间戳"
+        "status": {
+          "$ref": "#/definitions/v1MessageStatus"
         },
-        "operationId": {
-          "type": "string",
-          "title": "操作ID"
+        "isRead": {
+          "type": "boolean"
         },
         "options": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "boolean"
-          },
-          "title": "消息选项"
+          "$ref": "#/definitions/v1MsgOptions"
+        },
+        "offlinePushInfo": {
+          "$ref": "#/definitions/v1OfflinePushInfo"
+        },
+        "atUserIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sendTimeMs": {
+          "type": "string",
+          "format": "int64"
+        },
+        "createTimeMs": {
+          "type": "string",
+          "format": "int64"
+        },
+        "operationId": {
+          "type": "string"
+        },
+        "attachedInfo": {
+          "type": "string"
+        },
+        "ex": {
+          "type": "string"
+        },
+        "quoteServerMsgId": {
+          "type": "string"
         }
       }
+    },
+    "v1MsgOptions": {
+      "type": "object",
+      "properties": {
+        "isPersistent": {
+          "type": "boolean"
+        },
+        "isOfflinePush": {
+          "type": "boolean"
+        },
+        "isHistory": {
+          "type": "boolean"
+        },
+        "isSenderSync": {
+          "type": "boolean"
+        },
+        "isUnreadCount": {
+          "type": "boolean"
+        },
+        "isConversationUpdate": {
+          "type": "boolean"
+        },
+        "isNotification": {
+          "type": "boolean"
+        },
+        "isReadReceipt": {
+          "type": "boolean"
+        }
+      }
+    },
+    "v1MuteGroupMemberResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "member": {
+          "$ref": "#/definitions/v1GroupMemberInfo"
+        }
+      }
+    },
+    "v1OfflinePushInfo": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "desc": {
+          "type": "string"
+        },
+        "ext": {
+          "type": "string"
+        },
+        "iosBadgeCount": {
+          "type": "string"
+        },
+        "iosPushSound": {
+          "type": "string"
+        },
+        "iosBadgeCountEnabled": {
+          "type": "boolean"
+        }
+      }
+    },
+    "v1OnlineStatus": {
+      "type": "string",
+      "enum": [
+        "ONLINE_STATUS_UNSPECIFIED",
+        "ONLINE_STATUS_OFFLINE",
+        "ONLINE_STATUS_ONLINE",
+        "ONLINE_STATUS_AWAY"
+      ],
+      "default": "ONLINE_STATUS_UNSPECIFIED"
+    },
+    "v1PaginationRequest": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "cursor": {
+          "type": "string"
+        }
+      }
+    },
+    "v1PaginationResponse": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "string",
+          "format": "int64"
+        },
+        "nextCursor": {
+          "type": "string"
+        },
+        "hasMore": {
+          "type": "boolean"
+        }
+      }
+    },
+    "v1ParseTokenRequest": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "accessToken": {
+          "type": "string"
+        }
+      }
+    },
+    "v1ParseTokenResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "platform": {
+          "$ref": "#/definitions/v1Platform"
+        },
+        "deviceId": {
+          "type": "string"
+        },
+        "tokenStatus": {
+          "$ref": "#/definitions/v1TokenStatus"
+        },
+        "expireAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "v1Platform": {
+      "type": "string",
+      "enum": [
+        "PLATFORM_UNSPECIFIED",
+        "PLATFORM_IOS",
+        "PLATFORM_ANDROID",
+        "PLATFORM_WEB",
+        "PLATFORM_WINDOWS",
+        "PLATFORM_MACOS",
+        "PLATFORM_LINUX",
+        "PLATFORM_ADMIN",
+        "PLATFORM_SERVER"
+      ],
+      "default": "PLATFORM_UNSPECIFIED"
+    },
+    "v1PullMsgBySeqListRequest": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "conversationId": {
+          "type": "string"
+        },
+        "seqs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "v1PullMsgBySeqListResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "messages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1MsgData"
+          }
+        },
+        "missingSeqs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "v1PullMsgBySeqRangeRequest": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "conversationId": {
+          "type": "string"
+        },
+        "beginSeq": {
+          "type": "string",
+          "format": "int64"
+        },
+        "endSeq": {
+          "type": "string",
+          "format": "int64"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "order": {
+          "$ref": "#/definitions/v1PullOrder"
+        }
+      }
+    },
+    "v1PullMsgBySeqRangeResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "messages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1MsgData"
+          }
+        },
+        "nextBeginSeq": {
+          "type": "string",
+          "format": "int64"
+        },
+        "hasMore": {
+          "type": "boolean"
+        },
+        "missingSeqs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "v1PullOrder": {
+      "type": "string",
+      "enum": [
+        "PULL_ORDER_UNSPECIFIED",
+        "PULL_ORDER_ASC",
+        "PULL_ORDER_DESC"
+      ],
+      "default": "PULL_ORDER_UNSPECIFIED"
+    },
+    "v1PushProvider": {
+      "type": "string",
+      "enum": [
+        "PUSH_PROVIDER_UNSPECIFIED",
+        "PUSH_PROVIDER_APNS",
+        "PUSH_PROVIDER_FCM",
+        "PUSH_PROVIDER_HUAWEI",
+        "PUSH_PROVIDER_XIAOMI",
+        "PUSH_PROVIDER_OPPO",
+        "PUSH_PROVIDER_VIVO",
+        "PUSH_PROVIDER_MEIZU",
+        "PUSH_PROVIDER_WEB_PUSH"
+      ],
+      "default": "PUSH_PROVIDER_UNSPECIFIED"
+    },
+    "v1PushSystemNotificationRequest": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "userIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "ext": {
+          "type": "string"
+        }
+      }
+    },
+    "v1PushSystemNotificationResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "successUserIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "failedUserIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "v1PushToken": {
+      "type": "object",
+      "properties": {
+        "tokenId": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "platform": {
+          "$ref": "#/definitions/v1Platform"
+        },
+        "provider": {
+          "$ref": "#/definitions/v1PushProvider"
+        },
+        "token": {
+          "type": "string"
+        },
+        "deviceId": {
+          "type": "string"
+        },
+        "appBundleId": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/v1PushTokenStatus"
+        },
+        "createTimeMs": {
+          "type": "string",
+          "format": "int64"
+        },
+        "updateTimeMs": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "v1PushTokenStatus": {
+      "type": "string",
+      "enum": [
+        "PUSH_TOKEN_STATUS_UNSPECIFIED",
+        "PUSH_TOKEN_STATUS_ACTIVE",
+        "PUSH_TOKEN_STATUS_INVALID",
+        "PUSH_TOKEN_STATUS_DISABLED"
+      ],
+      "default": "PUSH_TOKEN_STATUS_UNSPECIFIED"
+    },
+    "v1QuitGroupResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        }
+      }
+    },
+    "v1ReceiveMessageOption": {
+      "type": "string",
+      "enum": [
+        "RECEIVE_MESSAGE_OPTION_UNSPECIFIED",
+        "RECEIVE_MESSAGE_OPTION_RECEIVE",
+        "RECEIVE_MESSAGE_OPTION_NOT_NOTIFY",
+        "RECEIVE_MESSAGE_OPTION_NOT_RECEIVE"
+      ],
+      "default": "RECEIVE_MESSAGE_OPTION_UNSPECIFIED"
     },
     "v1RefreshTokenRequest": {
       "type": "object",
@@ -710,6 +6275,9 @@
           "$ref": "#/definitions/v1RequestMeta"
         },
         "refreshToken": {
+          "type": "string"
+        },
+        "deviceId": {
           "type": "string"
         }
       }
@@ -723,9 +6291,53 @@
         "accessToken": {
           "type": "string"
         },
-        "expireAt": {
+        "refreshToken": {
+          "type": "string"
+        },
+        "accessTokenExpireAt": {
           "type": "string",
           "format": "date-time"
+        },
+        "refreshTokenExpireAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "v1RegisterPushTokenRequest": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/v1RequestMeta"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "platform": {
+          "$ref": "#/definitions/v1Platform"
+        },
+        "provider": {
+          "$ref": "#/definitions/v1PushProvider"
+        },
+        "token": {
+          "type": "string"
+        },
+        "deviceId": {
+          "type": "string"
+        },
+        "appBundleId": {
+          "type": "string"
+        }
+      }
+    },
+    "v1RegisterPushTokenResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "pushToken": {
+          "$ref": "#/definitions/v1PushToken"
         }
       }
     },
@@ -746,6 +6358,12 @@
         },
         "avatarUrl": {
           "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
         }
       }
     },
@@ -757,6 +6375,14 @@
         },
         "userId": {
           "type": "string"
+        }
+      }
+    },
+    "v1RemoveBlackResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
         }
       }
     },
@@ -773,10 +6399,50 @@
           "type": "string"
         },
         "platform": {
-          "type": "string"
+          "$ref": "#/definitions/v1Platform"
         },
         "deviceId": {
           "type": "string"
+        },
+        "connId": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "clientVersion": {
+          "type": "string"
+        },
+        "locale": {
+          "type": "string"
+        }
+      }
+    },
+    "v1RespondFriendApplicationResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "application": {
+          "$ref": "#/definitions/v1FriendApplication"
+        },
+        "friend": {
+          "$ref": "#/definitions/v1FriendInfo"
+        }
+      }
+    },
+    "v1RespondGroupApplicationResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "application": {
+          "$ref": "#/definitions/v1GroupApplication"
+        },
+        "member": {
+          "$ref": "#/definitions/v1GroupMemberInfo"
         }
       }
     },
@@ -795,6 +6461,10 @@
         },
         "traceId": {
           "type": "string"
+        },
+        "serverTimeMs": {
+          "type": "string",
+          "format": "int64"
         }
       }
     },
@@ -802,20 +6472,19 @@
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta",
-          "title": "请求元信息"
+          "$ref": "#/definitions/v1RequestMeta"
         },
         "operatorUserId": {
-          "type": "string",
-          "title": "操作者用户ID"
+          "type": "string"
         },
         "conversationId": {
-          "type": "string",
-          "title": "会话ID"
+          "type": "string"
         },
         "serverMsgId": {
-          "type": "string",
-          "title": "服务端消息ID"
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
         }
       }
     },
@@ -823,8 +6492,28 @@
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader",
-          "title": "响应头"
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "revokeMsg": {
+          "$ref": "#/definitions/v1MsgData"
+        }
+      }
+    },
+    "v1SearchUsersResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1UserProfile"
+          }
+        },
+        "pagination": {
+          "$ref": "#/definitions/v1PaginationResponse"
         }
       }
     },
@@ -832,12 +6521,10 @@
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta",
-          "title": "请求元信息"
+          "$ref": "#/definitions/v1RequestMeta"
         },
         "msgData": {
-          "$ref": "#/definitions/v1MsgData",
-          "title": "消息数据"
+          "$ref": "#/definitions/v1MsgData"
         }
       }
     },
@@ -845,38 +6532,155 @@
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader",
-          "title": "响应头"
+          "$ref": "#/definitions/v1ResponseHeader"
         },
         "serverMsgId": {
-          "type": "string",
-          "title": "服务端消息ID"
+          "type": "string"
         },
         "clientMsgId": {
-          "type": "string",
-          "title": "客户端消息ID"
+          "type": "string"
         },
-        "sendTime": {
+        "sendTimeMs": {
           "type": "string",
-          "format": "int64",
-          "title": "发送时间，毫秒时间戳"
+          "format": "int64"
         },
         "conversationSeq": {
           "type": "string",
-          "format": "int64",
-          "title": "会话序列号"
+          "format": "int64"
+        },
+        "msgData": {
+          "$ref": "#/definitions/v1MsgData"
         }
       }
     },
-    "v1SessionType": {
+    "v1SendMsgResult": {
+      "type": "object",
+      "properties": {
+        "clientMsgId": {
+          "type": "string"
+        },
+        "serverMsgId": {
+          "type": "string"
+        },
+        "conversationSeq": {
+          "type": "string",
+          "format": "int64"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "v1SetFriendRemarkResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "friend": {
+          "$ref": "#/definitions/v1FriendInfo"
+        }
+      }
+    },
+    "v1SetGlobalRecvMsgOptResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "recvMsgOpt": {
+          "$ref": "#/definitions/v1ReceiveMessageOption"
+        }
+      }
+    },
+    "v1SetGroupMemberRoleResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "member": {
+          "$ref": "#/definitions/v1GroupMemberInfo"
+        }
+      }
+    },
+    "v1SetGroupMuteResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "group": {
+          "$ref": "#/definitions/v1GroupInfo"
+        }
+      }
+    },
+    "v1SetUserStatusResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "user": {
+          "$ref": "#/definitions/v1UserProfile"
+        }
+      }
+    },
+    "v1TokenStatus": {
       "type": "string",
       "enum": [
-        "SESSION_TYPE_UNSPECIFIED",
-        "SESSION_TYPE_SINGLE",
-        "SESSION_TYPE_GROUP",
-        "SESSION_TYPE_NOTIFICATION"
+        "TOKEN_STATUS_UNSPECIFIED",
+        "TOKEN_STATUS_VALID",
+        "TOKEN_STATUS_EXPIRED",
+        "TOKEN_STATUS_REVOKED",
+        "TOKEN_STATUS_KICKED"
       ],
-      "default": "SESSION_TYPE_UNSPECIFIED"
+      "default": "TOKEN_STATUS_UNSPECIFIED"
+    },
+    "v1TransferGroupOwnerResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "group": {
+          "$ref": "#/definitions/v1GroupInfo"
+        }
+      }
+    },
+    "v1UnregisterPushTokenResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        }
+      }
+    },
+    "v1UpdateConversationSettingsResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "conversation": {
+          "$ref": "#/definitions/v1ConversationInfo"
+        }
+      }
+    },
+    "v1UpdateGroupResponse": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/v1ResponseHeader"
+        },
+        "group": {
+          "$ref": "#/definitions/v1GroupInfo"
+        }
+      }
     },
     "v1UpdateProfileResponse": {
       "type": "object",
@@ -889,25 +6693,93 @@
         }
       }
     },
+    "v1UploadPart": {
+      "type": "object",
+      "properties": {
+        "partNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "uploadUrl": {
+          "type": "string"
+        },
+        "headers": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "partSize": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
     "v1UserOnlineStatus": {
       "type": "object",
       "properties": {
         "userId": {
           "type": "string"
         },
-        "online": {
-          "type": "boolean"
+        "onlineStatus": {
+          "$ref": "#/definitions/v1OnlineStatus"
         },
-        "platformIds": {
+        "platforms": {
           "type": "array",
           "items": {
-            "type": "integer",
-            "format": "int32"
+            "$ref": "#/definitions/v1Platform"
           }
+        },
+        "lastActiveTimeMs": {
+          "type": "string",
+          "format": "int64"
         }
       }
     },
     "v1UserProfile": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "avatarUrl": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "gender": {
+          "$ref": "#/definitions/v1Gender"
+        },
+        "status": {
+          "$ref": "#/definitions/v1UserStatus"
+        },
+        "globalRecvMsgOpt": {
+          "$ref": "#/definitions/v1ReceiveMessageOption"
+        },
+        "createTimeMs": {
+          "type": "string",
+          "format": "int64"
+        },
+        "updateTimeMs": {
+          "type": "string",
+          "format": "int64"
+        },
+        "ex": {
+          "type": "string"
+        }
+      }
+    },
+    "v1UserRef": {
       "type": "object",
       "properties": {
         "userId": {
@@ -918,16 +6790,18 @@
         },
         "avatarUrl": {
           "type": "string"
-        },
-        "status": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "globalRecvMsgOpt": {
-          "type": "integer",
-          "format": "int32"
         }
       }
+    },
+    "v1UserStatus": {
+      "type": "string",
+      "enum": [
+        "USER_STATUS_UNSPECIFIED",
+        "USER_STATUS_NORMAL",
+        "USER_STATUS_BANNED",
+        "USER_STATUS_DELETED"
+      ],
+      "default": "USER_STATUS_UNSPECIFIED"
     }
   }
 }

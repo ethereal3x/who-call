@@ -3,3 +3,123 @@ syntax = "proto3";
 package whocall.file.v1;
 
 option go_package = "github.com/ethereal3x/who-call/api/gen/go/whocall/file/v1;filev1";
+
+import "google/api/annotations.proto";
+import "whocall/common/v1/common.proto";
+
+service FileService {
+    rpc CreateUpload(CreateUploadRequest) returns (CreateUploadResponse) {
+        option (google.api.http) = { post: "/api/v1/files/uploads" body: "*" };
+    }
+
+    rpc CompleteUpload(CompleteUploadRequest) returns (CompleteUploadResponse) {
+        option (google.api.http) = { post: "/api/v1/files/uploads/{upload_id}:complete" body: "*" };
+    }
+
+    rpc GetDownloadUrl(GetDownloadUrlRequest) returns (GetDownloadUrlResponse) {
+        option (google.api.http) = { get: "/api/v1/files/{file_id}/download-url" };
+    }
+
+    rpc DeleteFile(DeleteFileRequest) returns (DeleteFileResponse) {
+        option (google.api.http) = { delete: "/api/v1/files/{file_id}" };
+    }
+}
+
+enum FileBizType {
+    FILE_BIZ_TYPE_UNSPECIFIED = 0;
+    FILE_BIZ_TYPE_AVATAR = 1;
+    FILE_BIZ_TYPE_MESSAGE_IMAGE = 2;
+    FILE_BIZ_TYPE_MESSAGE_VOICE = 3;
+    FILE_BIZ_TYPE_MESSAGE_VIDEO = 4;
+    FILE_BIZ_TYPE_MESSAGE_FILE = 5;
+    FILE_BIZ_TYPE_GROUP_AVATAR = 6;
+    FILE_BIZ_TYPE_LOG = 100;
+}
+
+enum UploadStatus {
+    UPLOAD_STATUS_UNSPECIFIED = 0;
+    UPLOAD_STATUS_INITIATED = 1;
+    UPLOAD_STATUS_UPLOADING = 2;
+    UPLOAD_STATUS_COMPLETED = 3;
+    UPLOAD_STATUS_ABORTED = 4;
+    UPLOAD_STATUS_EXPIRED = 5;
+}
+
+message FileInfo {
+    string file_id = 1;
+    string owner_user_id = 2;
+    FileBizType biz_type = 3;
+    string file_name = 4;
+    string object_key = 5;
+    string url = 6;
+    string mime_type = 7;
+    int64 size = 8;
+    string checksum = 9;
+    int64 create_time_ms = 10;
+    string ex = 11;
+}
+
+message UploadPart {
+    int32 part_number = 1;
+    string upload_url = 2;
+    map<string, string> headers = 3;
+    int64 part_size = 4;
+}
+
+message CreateUploadRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string owner_user_id = 2;
+    FileBizType biz_type = 3;
+    string file_name = 4;
+    string mime_type = 5;
+    int64 size = 6;
+    string checksum = 7;
+    int32 part_count = 8;
+    string ex = 9;
+}
+
+message CreateUploadResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    string upload_id = 2;
+    string file_id = 3;
+    string object_key = 4;
+    string upload_url = 5;
+    repeated UploadPart parts = 6;
+    int64 expire_time_ms = 7;
+}
+
+message CompleteUploadRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string upload_id = 2;
+    string file_id = 3;
+    repeated string part_etags = 4;
+}
+
+message CompleteUploadResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    FileInfo file = 2;
+}
+
+message GetDownloadUrlRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string file_id = 2;
+    string user_id = 3;
+}
+
+message GetDownloadUrlResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    string download_url = 2;
+    map<string, string> headers = 3;
+    int64 expire_time_ms = 4;
+    FileInfo file = 5;
+}
+
+message DeleteFileRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string file_id = 2;
+    string operator_user_id = 3;
+}
+
+message DeleteFileResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+}

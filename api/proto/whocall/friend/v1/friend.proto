@@ -3,3 +3,234 @@ syntax = "proto3";
 package whocall.friend.v1;
 
 option go_package = "github.com/ethereal3x/who-call/api/gen/go/whocall/friend/v1;friendv1";
+
+import "google/api/annotations.proto";
+import "whocall/common/v1/common.proto";
+
+service FriendService {
+    rpc ApplyFriend(ApplyFriendRequest) returns (ApplyFriendResponse) {
+        option (google.api.http) = { post: "/api/v1/friends/applications" body: "*" };
+    }
+
+    rpc RespondFriendApplication(RespondFriendApplicationRequest) returns (RespondFriendApplicationResponse) {
+        option (google.api.http) = { post: "/api/v1/friends/applications/{application_id}:respond" body: "*" };
+    }
+
+    rpc ListFriendApplications(ListFriendApplicationsRequest) returns (ListFriendApplicationsResponse) {
+        option (google.api.http) = { get: "/api/v1/users/{user_id}/friends/applications" };
+    }
+
+    rpc ListFriends(ListFriendsRequest) returns (ListFriendsResponse) {
+        option (google.api.http) = { get: "/api/v1/users/{user_id}/friends" };
+    }
+
+    rpc GetFriendInfo(GetFriendInfoRequest) returns (GetFriendInfoResponse) {
+        option (google.api.http) = { get: "/api/v1/users/{user_id}/friends/{friend_user_id}" };
+    }
+
+    rpc DeleteFriend(DeleteFriendRequest) returns (DeleteFriendResponse) {
+        option (google.api.http) = { delete: "/api/v1/users/{user_id}/friends/{friend_user_id}" };
+    }
+
+    rpc SetFriendRemark(SetFriendRemarkRequest) returns (SetFriendRemarkResponse) {
+        option (google.api.http) = { patch: "/api/v1/users/{user_id}/friends/{friend_user_id}/remark" body: "*" };
+    }
+
+    rpc CheckFriend(CheckFriendRequest) returns (CheckFriendResponse) {
+        option (google.api.http) = { post: "/api/v1/friends:check" body: "*" };
+    }
+
+    rpc AddBlack(AddBlackRequest) returns (AddBlackResponse) {
+        option (google.api.http) = { post: "/api/v1/users/{user_id}/blacklist" body: "*" };
+    }
+
+    rpc RemoveBlack(RemoveBlackRequest) returns (RemoveBlackResponse) {
+        option (google.api.http) = { delete: "/api/v1/users/{user_id}/blacklist/{blocked_user_id}" };
+    }
+
+    rpc ListBlack(ListBlackRequest) returns (ListBlackResponse) {
+        option (google.api.http) = { get: "/api/v1/users/{user_id}/blacklist" };
+    }
+}
+
+enum FriendApplicationStatus {
+    FRIEND_APPLICATION_STATUS_UNSPECIFIED = 0;
+    FRIEND_APPLICATION_STATUS_PENDING = 1;
+    FRIEND_APPLICATION_STATUS_ACCEPTED = 2;
+    FRIEND_APPLICATION_STATUS_REJECTED = 3;
+    FRIEND_APPLICATION_STATUS_CANCELED = 4;
+}
+
+enum FriendRelationStatus {
+    FRIEND_RELATION_STATUS_UNSPECIFIED = 0;
+    FRIEND_RELATION_STATUS_NONE = 1;
+    FRIEND_RELATION_STATUS_FRIEND = 2;
+    FRIEND_RELATION_STATUS_BLACKED = 3;
+    FRIEND_RELATION_STATUS_BLOCKED_BY_PEER = 4;
+}
+
+message FriendInfo {
+    string owner_user_id = 1;
+    string friend_user_id = 2;
+    string remark = 3;
+    whocall.common.v1.UserRef friend = 4;
+    whocall.common.v1.ReceiveMessageOption recv_msg_opt = 5;
+    int64 create_time_ms = 6;
+    string ex = 7;
+}
+
+message FriendApplication {
+    string application_id = 1;
+    string from_user_id = 2;
+    string to_user_id = 3;
+    whocall.common.v1.UserRef from_user = 4;
+    whocall.common.v1.UserRef to_user = 5;
+    string request_message = 6;
+    string handle_message = 7;
+    FriendApplicationStatus status = 8;
+    int64 create_time_ms = 9;
+    int64 handle_time_ms = 10;
+    string ex = 11;
+}
+
+message BlackInfo {
+    string owner_user_id = 1;
+    string blocked_user_id = 2;
+    whocall.common.v1.UserRef blocked_user = 3;
+    int64 create_time_ms = 4;
+}
+
+message ApplyFriendRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string from_user_id = 2;
+    string to_user_id = 3;
+    string request_message = 4;
+    string ex = 5;
+}
+
+message ApplyFriendResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    FriendApplication application = 2;
+}
+
+message RespondFriendApplicationRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string application_id = 2;
+    string handler_user_id = 3;
+    bool accept = 4;
+    string handle_message = 5;
+}
+
+message RespondFriendApplicationResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    FriendApplication application = 2;
+    FriendInfo friend = 3;
+}
+
+message ListFriendApplicationsRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string user_id = 2;
+    FriendApplicationStatus status = 3;
+    bool incoming = 4;
+    whocall.common.v1.PaginationRequest pagination = 5;
+}
+
+message ListFriendApplicationsResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    repeated FriendApplication applications = 2;
+    whocall.common.v1.PaginationResponse pagination = 3;
+}
+
+message ListFriendsRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string user_id = 2;
+    whocall.common.v1.PaginationRequest pagination = 3;
+}
+
+message ListFriendsResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    repeated FriendInfo friends = 2;
+    whocall.common.v1.PaginationResponse pagination = 3;
+}
+
+message GetFriendInfoRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string user_id = 2;
+    string friend_user_id = 3;
+}
+
+message GetFriendInfoResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    FriendInfo friend = 2;
+}
+
+message DeleteFriendRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string user_id = 2;
+    string friend_user_id = 3;
+}
+
+message DeleteFriendResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+}
+
+message SetFriendRemarkRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string user_id = 2;
+    string friend_user_id = 3;
+    string remark = 4;
+}
+
+message SetFriendRemarkResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    FriendInfo friend = 2;
+}
+
+message CheckFriendRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string user_id = 2;
+    repeated string target_user_ids = 3;
+}
+
+message FriendRelationCheckResult {
+    string target_user_id = 1;
+    FriendRelationStatus status = 2;
+}
+
+message CheckFriendResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    repeated FriendRelationCheckResult results = 2;
+}
+
+message AddBlackRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string user_id = 2;
+    string blocked_user_id = 3;
+}
+
+message AddBlackResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    BlackInfo black = 2;
+}
+
+message RemoveBlackRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string user_id = 2;
+    string blocked_user_id = 3;
+}
+
+message RemoveBlackResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+}
+
+message ListBlackRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string user_id = 2;
+    whocall.common.v1.PaginationRequest pagination = 3;
+}
+
+message ListBlackResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    repeated BlackInfo blacks = 2;
+    whocall.common.v1.PaginationResponse pagination = 3;
+}

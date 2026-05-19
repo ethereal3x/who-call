@@ -7,9 +7,12 @@
 package groupv1
 
 import (
+	v1 "github.com/ethereal3x/who-call/api/gen/go/whocall/common/v1"
+	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
+	sync "sync"
 	unsafe "unsafe"
 )
 
@@ -20,19 +23,3178 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type GroupType int32
+
+const (
+	GroupType_GROUP_TYPE_UNSPECIFIED GroupType = 0
+	GroupType_GROUP_TYPE_NORMAL      GroupType = 1
+	GroupType_GROUP_TYPE_SUPER       GroupType = 2
+)
+
+// Enum value maps for GroupType.
+var (
+	GroupType_name = map[int32]string{
+		0: "GROUP_TYPE_UNSPECIFIED",
+		1: "GROUP_TYPE_NORMAL",
+		2: "GROUP_TYPE_SUPER",
+	}
+	GroupType_value = map[string]int32{
+		"GROUP_TYPE_UNSPECIFIED": 0,
+		"GROUP_TYPE_NORMAL":      1,
+		"GROUP_TYPE_SUPER":       2,
+	}
+)
+
+func (x GroupType) Enum() *GroupType {
+	p := new(GroupType)
+	*p = x
+	return p
+}
+
+func (x GroupType) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (GroupType) Descriptor() protoreflect.EnumDescriptor {
+	return file_whocall_group_v1_group_proto_enumTypes[0].Descriptor()
+}
+
+func (GroupType) Type() protoreflect.EnumType {
+	return &file_whocall_group_v1_group_proto_enumTypes[0]
+}
+
+func (x GroupType) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use GroupType.Descriptor instead.
+func (GroupType) EnumDescriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{0}
+}
+
+type GroupStatus int32
+
+const (
+	GroupStatus_GROUP_STATUS_UNSPECIFIED GroupStatus = 0
+	GroupStatus_GROUP_STATUS_NORMAL      GroupStatus = 1
+	GroupStatus_GROUP_STATUS_MUTED       GroupStatus = 2
+	GroupStatus_GROUP_STATUS_DISMISSED   GroupStatus = 3
+)
+
+// Enum value maps for GroupStatus.
+var (
+	GroupStatus_name = map[int32]string{
+		0: "GROUP_STATUS_UNSPECIFIED",
+		1: "GROUP_STATUS_NORMAL",
+		2: "GROUP_STATUS_MUTED",
+		3: "GROUP_STATUS_DISMISSED",
+	}
+	GroupStatus_value = map[string]int32{
+		"GROUP_STATUS_UNSPECIFIED": 0,
+		"GROUP_STATUS_NORMAL":      1,
+		"GROUP_STATUS_MUTED":       2,
+		"GROUP_STATUS_DISMISSED":   3,
+	}
+)
+
+func (x GroupStatus) Enum() *GroupStatus {
+	p := new(GroupStatus)
+	*p = x
+	return p
+}
+
+func (x GroupStatus) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (GroupStatus) Descriptor() protoreflect.EnumDescriptor {
+	return file_whocall_group_v1_group_proto_enumTypes[1].Descriptor()
+}
+
+func (GroupStatus) Type() protoreflect.EnumType {
+	return &file_whocall_group_v1_group_proto_enumTypes[1]
+}
+
+func (x GroupStatus) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use GroupStatus.Descriptor instead.
+func (GroupStatus) EnumDescriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{1}
+}
+
+type GroupRole int32
+
+const (
+	GroupRole_GROUP_ROLE_UNSPECIFIED GroupRole = 0
+	GroupRole_GROUP_ROLE_MEMBER      GroupRole = 1
+	GroupRole_GROUP_ROLE_ADMIN       GroupRole = 2
+	GroupRole_GROUP_ROLE_OWNER       GroupRole = 3
+)
+
+// Enum value maps for GroupRole.
+var (
+	GroupRole_name = map[int32]string{
+		0: "GROUP_ROLE_UNSPECIFIED",
+		1: "GROUP_ROLE_MEMBER",
+		2: "GROUP_ROLE_ADMIN",
+		3: "GROUP_ROLE_OWNER",
+	}
+	GroupRole_value = map[string]int32{
+		"GROUP_ROLE_UNSPECIFIED": 0,
+		"GROUP_ROLE_MEMBER":      1,
+		"GROUP_ROLE_ADMIN":       2,
+		"GROUP_ROLE_OWNER":       3,
+	}
+)
+
+func (x GroupRole) Enum() *GroupRole {
+	p := new(GroupRole)
+	*p = x
+	return p
+}
+
+func (x GroupRole) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (GroupRole) Descriptor() protoreflect.EnumDescriptor {
+	return file_whocall_group_v1_group_proto_enumTypes[2].Descriptor()
+}
+
+func (GroupRole) Type() protoreflect.EnumType {
+	return &file_whocall_group_v1_group_proto_enumTypes[2]
+}
+
+func (x GroupRole) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use GroupRole.Descriptor instead.
+func (GroupRole) EnumDescriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{2}
+}
+
+type GroupApplicationStatus int32
+
+const (
+	GroupApplicationStatus_GROUP_APPLICATION_STATUS_UNSPECIFIED GroupApplicationStatus = 0
+	GroupApplicationStatus_GROUP_APPLICATION_STATUS_PENDING     GroupApplicationStatus = 1
+	GroupApplicationStatus_GROUP_APPLICATION_STATUS_ACCEPTED    GroupApplicationStatus = 2
+	GroupApplicationStatus_GROUP_APPLICATION_STATUS_REJECTED    GroupApplicationStatus = 3
+	GroupApplicationStatus_GROUP_APPLICATION_STATUS_CANCELED    GroupApplicationStatus = 4
+)
+
+// Enum value maps for GroupApplicationStatus.
+var (
+	GroupApplicationStatus_name = map[int32]string{
+		0: "GROUP_APPLICATION_STATUS_UNSPECIFIED",
+		1: "GROUP_APPLICATION_STATUS_PENDING",
+		2: "GROUP_APPLICATION_STATUS_ACCEPTED",
+		3: "GROUP_APPLICATION_STATUS_REJECTED",
+		4: "GROUP_APPLICATION_STATUS_CANCELED",
+	}
+	GroupApplicationStatus_value = map[string]int32{
+		"GROUP_APPLICATION_STATUS_UNSPECIFIED": 0,
+		"GROUP_APPLICATION_STATUS_PENDING":     1,
+		"GROUP_APPLICATION_STATUS_ACCEPTED":    2,
+		"GROUP_APPLICATION_STATUS_REJECTED":    3,
+		"GROUP_APPLICATION_STATUS_CANCELED":    4,
+	}
+)
+
+func (x GroupApplicationStatus) Enum() *GroupApplicationStatus {
+	p := new(GroupApplicationStatus)
+	*p = x
+	return p
+}
+
+func (x GroupApplicationStatus) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (GroupApplicationStatus) Descriptor() protoreflect.EnumDescriptor {
+	return file_whocall_group_v1_group_proto_enumTypes[3].Descriptor()
+}
+
+func (GroupApplicationStatus) Type() protoreflect.EnumType {
+	return &file_whocall_group_v1_group_proto_enumTypes[3]
+}
+
+func (x GroupApplicationStatus) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use GroupApplicationStatus.Descriptor instead.
+func (GroupApplicationStatus) EnumDescriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{3}
+}
+
+type GroupJoinSource int32
+
+const (
+	GroupJoinSource_GROUP_JOIN_SOURCE_UNSPECIFIED GroupJoinSource = 0
+	GroupJoinSource_GROUP_JOIN_SOURCE_SEARCH      GroupJoinSource = 1
+	GroupJoinSource_GROUP_JOIN_SOURCE_INVITE      GroupJoinSource = 2
+	GroupJoinSource_GROUP_JOIN_SOURCE_QR_CODE     GroupJoinSource = 3
+	GroupJoinSource_GROUP_JOIN_SOURCE_ADMIN       GroupJoinSource = 4
+)
+
+// Enum value maps for GroupJoinSource.
+var (
+	GroupJoinSource_name = map[int32]string{
+		0: "GROUP_JOIN_SOURCE_UNSPECIFIED",
+		1: "GROUP_JOIN_SOURCE_SEARCH",
+		2: "GROUP_JOIN_SOURCE_INVITE",
+		3: "GROUP_JOIN_SOURCE_QR_CODE",
+		4: "GROUP_JOIN_SOURCE_ADMIN",
+	}
+	GroupJoinSource_value = map[string]int32{
+		"GROUP_JOIN_SOURCE_UNSPECIFIED": 0,
+		"GROUP_JOIN_SOURCE_SEARCH":      1,
+		"GROUP_JOIN_SOURCE_INVITE":      2,
+		"GROUP_JOIN_SOURCE_QR_CODE":     3,
+		"GROUP_JOIN_SOURCE_ADMIN":       4,
+	}
+)
+
+func (x GroupJoinSource) Enum() *GroupJoinSource {
+	p := new(GroupJoinSource)
+	*p = x
+	return p
+}
+
+func (x GroupJoinSource) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (GroupJoinSource) Descriptor() protoreflect.EnumDescriptor {
+	return file_whocall_group_v1_group_proto_enumTypes[4].Descriptor()
+}
+
+func (GroupJoinSource) Type() protoreflect.EnumType {
+	return &file_whocall_group_v1_group_proto_enumTypes[4]
+}
+
+func (x GroupJoinSource) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use GroupJoinSource.Descriptor instead.
+func (GroupJoinSource) EnumDescriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{4}
+}
+
+type GroupInfo struct {
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	GroupId          string                 `protobuf:"bytes,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	GroupName        string                 `protobuf:"bytes,2,opt,name=group_name,json=groupName,proto3" json:"group_name,omitempty"`
+	AvatarUrl        string                 `protobuf:"bytes,3,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
+	Introduction     string                 `protobuf:"bytes,4,opt,name=introduction,proto3" json:"introduction,omitempty"`
+	Notification     string                 `protobuf:"bytes,5,opt,name=notification,proto3" json:"notification,omitempty"`
+	OwnerUserId      string                 `protobuf:"bytes,6,opt,name=owner_user_id,json=ownerUserId,proto3" json:"owner_user_id,omitempty"`
+	GroupType        GroupType              `protobuf:"varint,7,opt,name=group_type,json=groupType,proto3,enum=whocall.group.v1.GroupType" json:"group_type,omitempty"`
+	Status           GroupStatus            `protobuf:"varint,8,opt,name=status,proto3,enum=whocall.group.v1.GroupStatus" json:"status,omitempty"`
+	MemberCount      int32                  `protobuf:"varint,9,opt,name=member_count,json=memberCount,proto3" json:"member_count,omitempty"`
+	NeedVerification bool                   `protobuf:"varint,10,opt,name=need_verification,json=needVerification,proto3" json:"need_verification,omitempty"`
+	CreateTimeMs     int64                  `protobuf:"varint,11,opt,name=create_time_ms,json=createTimeMs,proto3" json:"create_time_ms,omitempty"`
+	UpdateTimeMs     int64                  `protobuf:"varint,12,opt,name=update_time_ms,json=updateTimeMs,proto3" json:"update_time_ms,omitempty"`
+	Ex               string                 `protobuf:"bytes,13,opt,name=ex,proto3" json:"ex,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
+}
+
+func (x *GroupInfo) Reset() {
+	*x = GroupInfo{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GroupInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GroupInfo) ProtoMessage() {}
+
+func (x *GroupInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GroupInfo.ProtoReflect.Descriptor instead.
+func (*GroupInfo) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *GroupInfo) GetGroupId() string {
+	if x != nil {
+		return x.GroupId
+	}
+	return ""
+}
+
+func (x *GroupInfo) GetGroupName() string {
+	if x != nil {
+		return x.GroupName
+	}
+	return ""
+}
+
+func (x *GroupInfo) GetAvatarUrl() string {
+	if x != nil {
+		return x.AvatarUrl
+	}
+	return ""
+}
+
+func (x *GroupInfo) GetIntroduction() string {
+	if x != nil {
+		return x.Introduction
+	}
+	return ""
+}
+
+func (x *GroupInfo) GetNotification() string {
+	if x != nil {
+		return x.Notification
+	}
+	return ""
+}
+
+func (x *GroupInfo) GetOwnerUserId() string {
+	if x != nil {
+		return x.OwnerUserId
+	}
+	return ""
+}
+
+func (x *GroupInfo) GetGroupType() GroupType {
+	if x != nil {
+		return x.GroupType
+	}
+	return GroupType_GROUP_TYPE_UNSPECIFIED
+}
+
+func (x *GroupInfo) GetStatus() GroupStatus {
+	if x != nil {
+		return x.Status
+	}
+	return GroupStatus_GROUP_STATUS_UNSPECIFIED
+}
+
+func (x *GroupInfo) GetMemberCount() int32 {
+	if x != nil {
+		return x.MemberCount
+	}
+	return 0
+}
+
+func (x *GroupInfo) GetNeedVerification() bool {
+	if x != nil {
+		return x.NeedVerification
+	}
+	return false
+}
+
+func (x *GroupInfo) GetCreateTimeMs() int64 {
+	if x != nil {
+		return x.CreateTimeMs
+	}
+	return 0
+}
+
+func (x *GroupInfo) GetUpdateTimeMs() int64 {
+	if x != nil {
+		return x.UpdateTimeMs
+	}
+	return 0
+}
+
+func (x *GroupInfo) GetEx() string {
+	if x != nil {
+		return x.Ex
+	}
+	return ""
+}
+
+type GroupMemberInfo struct {
+	state         protoimpl.MessageState  `protogen:"open.v1"`
+	GroupId       string                  `protobuf:"bytes,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	UserId        string                  `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Nickname      string                  `protobuf:"bytes,3,opt,name=nickname,proto3" json:"nickname,omitempty"`
+	AvatarUrl     string                  `protobuf:"bytes,4,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
+	GroupNickname string                  `protobuf:"bytes,5,opt,name=group_nickname,json=groupNickname,proto3" json:"group_nickname,omitempty"`
+	Role          GroupRole               `protobuf:"varint,6,opt,name=role,proto3,enum=whocall.group.v1.GroupRole" json:"role,omitempty"`
+	RecvMsgOpt    v1.ReceiveMessageOption `protobuf:"varint,7,opt,name=recv_msg_opt,json=recvMsgOpt,proto3,enum=whocall.common.v1.ReceiveMessageOption" json:"recv_msg_opt,omitempty"`
+	MuteEndTimeMs int64                   `protobuf:"varint,8,opt,name=mute_end_time_ms,json=muteEndTimeMs,proto3" json:"mute_end_time_ms,omitempty"`
+	JoinTimeMs    int64                   `protobuf:"varint,9,opt,name=join_time_ms,json=joinTimeMs,proto3" json:"join_time_ms,omitempty"`
+	JoinSource    GroupJoinSource         `protobuf:"varint,10,opt,name=join_source,json=joinSource,proto3,enum=whocall.group.v1.GroupJoinSource" json:"join_source,omitempty"`
+	InviterUserId string                  `protobuf:"bytes,11,opt,name=inviter_user_id,json=inviterUserId,proto3" json:"inviter_user_id,omitempty"`
+	Ex            string                  `protobuf:"bytes,12,opt,name=ex,proto3" json:"ex,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GroupMemberInfo) Reset() {
+	*x = GroupMemberInfo{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GroupMemberInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GroupMemberInfo) ProtoMessage() {}
+
+func (x *GroupMemberInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GroupMemberInfo.ProtoReflect.Descriptor instead.
+func (*GroupMemberInfo) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *GroupMemberInfo) GetGroupId() string {
+	if x != nil {
+		return x.GroupId
+	}
+	return ""
+}
+
+func (x *GroupMemberInfo) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *GroupMemberInfo) GetNickname() string {
+	if x != nil {
+		return x.Nickname
+	}
+	return ""
+}
+
+func (x *GroupMemberInfo) GetAvatarUrl() string {
+	if x != nil {
+		return x.AvatarUrl
+	}
+	return ""
+}
+
+func (x *GroupMemberInfo) GetGroupNickname() string {
+	if x != nil {
+		return x.GroupNickname
+	}
+	return ""
+}
+
+func (x *GroupMemberInfo) GetRole() GroupRole {
+	if x != nil {
+		return x.Role
+	}
+	return GroupRole_GROUP_ROLE_UNSPECIFIED
+}
+
+func (x *GroupMemberInfo) GetRecvMsgOpt() v1.ReceiveMessageOption {
+	if x != nil {
+		return x.RecvMsgOpt
+	}
+	return v1.ReceiveMessageOption(0)
+}
+
+func (x *GroupMemberInfo) GetMuteEndTimeMs() int64 {
+	if x != nil {
+		return x.MuteEndTimeMs
+	}
+	return 0
+}
+
+func (x *GroupMemberInfo) GetJoinTimeMs() int64 {
+	if x != nil {
+		return x.JoinTimeMs
+	}
+	return 0
+}
+
+func (x *GroupMemberInfo) GetJoinSource() GroupJoinSource {
+	if x != nil {
+		return x.JoinSource
+	}
+	return GroupJoinSource_GROUP_JOIN_SOURCE_UNSPECIFIED
+}
+
+func (x *GroupMemberInfo) GetInviterUserId() string {
+	if x != nil {
+		return x.InviterUserId
+	}
+	return ""
+}
+
+func (x *GroupMemberInfo) GetEx() string {
+	if x != nil {
+		return x.Ex
+	}
+	return ""
+}
+
+type GroupApplication struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	ApplicationId  string                 `protobuf:"bytes,1,opt,name=application_id,json=applicationId,proto3" json:"application_id,omitempty"`
+	GroupId        string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	FromUserId     string                 `protobuf:"bytes,3,opt,name=from_user_id,json=fromUserId,proto3" json:"from_user_id,omitempty"`
+	InviterUserId  string                 `protobuf:"bytes,4,opt,name=inviter_user_id,json=inviterUserId,proto3" json:"inviter_user_id,omitempty"`
+	HandleUserId   string                 `protobuf:"bytes,5,opt,name=handle_user_id,json=handleUserId,proto3" json:"handle_user_id,omitempty"`
+	RequestMessage string                 `protobuf:"bytes,6,opt,name=request_message,json=requestMessage,proto3" json:"request_message,omitempty"`
+	HandleMessage  string                 `protobuf:"bytes,7,opt,name=handle_message,json=handleMessage,proto3" json:"handle_message,omitempty"`
+	Status         GroupApplicationStatus `protobuf:"varint,8,opt,name=status,proto3,enum=whocall.group.v1.GroupApplicationStatus" json:"status,omitempty"`
+	JoinSource     GroupJoinSource        `protobuf:"varint,9,opt,name=join_source,json=joinSource,proto3,enum=whocall.group.v1.GroupJoinSource" json:"join_source,omitempty"`
+	CreateTimeMs   int64                  `protobuf:"varint,10,opt,name=create_time_ms,json=createTimeMs,proto3" json:"create_time_ms,omitempty"`
+	HandleTimeMs   int64                  `protobuf:"varint,11,opt,name=handle_time_ms,json=handleTimeMs,proto3" json:"handle_time_ms,omitempty"`
+	Ex             string                 `protobuf:"bytes,12,opt,name=ex,proto3" json:"ex,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *GroupApplication) Reset() {
+	*x = GroupApplication{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GroupApplication) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GroupApplication) ProtoMessage() {}
+
+func (x *GroupApplication) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GroupApplication.ProtoReflect.Descriptor instead.
+func (*GroupApplication) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *GroupApplication) GetApplicationId() string {
+	if x != nil {
+		return x.ApplicationId
+	}
+	return ""
+}
+
+func (x *GroupApplication) GetGroupId() string {
+	if x != nil {
+		return x.GroupId
+	}
+	return ""
+}
+
+func (x *GroupApplication) GetFromUserId() string {
+	if x != nil {
+		return x.FromUserId
+	}
+	return ""
+}
+
+func (x *GroupApplication) GetInviterUserId() string {
+	if x != nil {
+		return x.InviterUserId
+	}
+	return ""
+}
+
+func (x *GroupApplication) GetHandleUserId() string {
+	if x != nil {
+		return x.HandleUserId
+	}
+	return ""
+}
+
+func (x *GroupApplication) GetRequestMessage() string {
+	if x != nil {
+		return x.RequestMessage
+	}
+	return ""
+}
+
+func (x *GroupApplication) GetHandleMessage() string {
+	if x != nil {
+		return x.HandleMessage
+	}
+	return ""
+}
+
+func (x *GroupApplication) GetStatus() GroupApplicationStatus {
+	if x != nil {
+		return x.Status
+	}
+	return GroupApplicationStatus_GROUP_APPLICATION_STATUS_UNSPECIFIED
+}
+
+func (x *GroupApplication) GetJoinSource() GroupJoinSource {
+	if x != nil {
+		return x.JoinSource
+	}
+	return GroupJoinSource_GROUP_JOIN_SOURCE_UNSPECIFIED
+}
+
+func (x *GroupApplication) GetCreateTimeMs() int64 {
+	if x != nil {
+		return x.CreateTimeMs
+	}
+	return 0
+}
+
+func (x *GroupApplication) GetHandleTimeMs() int64 {
+	if x != nil {
+		return x.HandleTimeMs
+	}
+	return 0
+}
+
+func (x *GroupApplication) GetEx() string {
+	if x != nil {
+		return x.Ex
+	}
+	return ""
+}
+
+type CreateGroupRequest struct {
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	Meta             *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	OwnerUserId      string                 `protobuf:"bytes,2,opt,name=owner_user_id,json=ownerUserId,proto3" json:"owner_user_id,omitempty"`
+	GroupName        string                 `protobuf:"bytes,3,opt,name=group_name,json=groupName,proto3" json:"group_name,omitempty"`
+	AvatarUrl        string                 `protobuf:"bytes,4,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
+	Introduction     string                 `protobuf:"bytes,5,opt,name=introduction,proto3" json:"introduction,omitempty"`
+	GroupType        GroupType              `protobuf:"varint,6,opt,name=group_type,json=groupType,proto3,enum=whocall.group.v1.GroupType" json:"group_type,omitempty"`
+	MemberUserIds    []string               `protobuf:"bytes,7,rep,name=member_user_ids,json=memberUserIds,proto3" json:"member_user_ids,omitempty"`
+	AdminUserIds     []string               `protobuf:"bytes,8,rep,name=admin_user_ids,json=adminUserIds,proto3" json:"admin_user_ids,omitempty"`
+	NeedVerification bool                   `protobuf:"varint,9,opt,name=need_verification,json=needVerification,proto3" json:"need_verification,omitempty"`
+	Ex               string                 `protobuf:"bytes,10,opt,name=ex,proto3" json:"ex,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
+}
+
+func (x *CreateGroupRequest) Reset() {
+	*x = CreateGroupRequest{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateGroupRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateGroupRequest) ProtoMessage() {}
+
+func (x *CreateGroupRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateGroupRequest.ProtoReflect.Descriptor instead.
+func (*CreateGroupRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *CreateGroupRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *CreateGroupRequest) GetOwnerUserId() string {
+	if x != nil {
+		return x.OwnerUserId
+	}
+	return ""
+}
+
+func (x *CreateGroupRequest) GetGroupName() string {
+	if x != nil {
+		return x.GroupName
+	}
+	return ""
+}
+
+func (x *CreateGroupRequest) GetAvatarUrl() string {
+	if x != nil {
+		return x.AvatarUrl
+	}
+	return ""
+}
+
+func (x *CreateGroupRequest) GetIntroduction() string {
+	if x != nil {
+		return x.Introduction
+	}
+	return ""
+}
+
+func (x *CreateGroupRequest) GetGroupType() GroupType {
+	if x != nil {
+		return x.GroupType
+	}
+	return GroupType_GROUP_TYPE_UNSPECIFIED
+}
+
+func (x *CreateGroupRequest) GetMemberUserIds() []string {
+	if x != nil {
+		return x.MemberUserIds
+	}
+	return nil
+}
+
+func (x *CreateGroupRequest) GetAdminUserIds() []string {
+	if x != nil {
+		return x.AdminUserIds
+	}
+	return nil
+}
+
+func (x *CreateGroupRequest) GetNeedVerification() bool {
+	if x != nil {
+		return x.NeedVerification
+	}
+	return false
+}
+
+func (x *CreateGroupRequest) GetEx() string {
+	if x != nil {
+		return x.Ex
+	}
+	return ""
+}
+
+type CreateGroupResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Group         *GroupInfo             `protobuf:"bytes,2,opt,name=group,proto3" json:"group,omitempty"`
+	Members       []*GroupMemberInfo     `protobuf:"bytes,3,rep,name=members,proto3" json:"members,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateGroupResponse) Reset() {
+	*x = CreateGroupResponse{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateGroupResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateGroupResponse) ProtoMessage() {}
+
+func (x *CreateGroupResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateGroupResponse.ProtoReflect.Descriptor instead.
+func (*CreateGroupResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *CreateGroupResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *CreateGroupResponse) GetGroup() *GroupInfo {
+	if x != nil {
+		return x.Group
+	}
+	return nil
+}
+
+func (x *CreateGroupResponse) GetMembers() []*GroupMemberInfo {
+	if x != nil {
+		return x.Members
+	}
+	return nil
+}
+
+type GetGroupRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	GroupId       string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetGroupRequest) Reset() {
+	*x = GetGroupRequest{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetGroupRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetGroupRequest) ProtoMessage() {}
+
+func (x *GetGroupRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetGroupRequest.ProtoReflect.Descriptor instead.
+func (*GetGroupRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *GetGroupRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *GetGroupRequest) GetGroupId() string {
+	if x != nil {
+		return x.GroupId
+	}
+	return ""
+}
+
+type GetGroupResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Group         *GroupInfo             `protobuf:"bytes,2,opt,name=group,proto3" json:"group,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetGroupResponse) Reset() {
+	*x = GetGroupResponse{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetGroupResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetGroupResponse) ProtoMessage() {}
+
+func (x *GetGroupResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetGroupResponse.ProtoReflect.Descriptor instead.
+func (*GetGroupResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *GetGroupResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *GetGroupResponse) GetGroup() *GroupInfo {
+	if x != nil {
+		return x.Group
+	}
+	return nil
+}
+
+type UpdateGroupRequest struct {
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	Meta             *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	GroupId          string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	OperatorUserId   string                 `protobuf:"bytes,3,opt,name=operator_user_id,json=operatorUserId,proto3" json:"operator_user_id,omitempty"`
+	GroupName        string                 `protobuf:"bytes,4,opt,name=group_name,json=groupName,proto3" json:"group_name,omitempty"`
+	AvatarUrl        string                 `protobuf:"bytes,5,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
+	Introduction     string                 `protobuf:"bytes,6,opt,name=introduction,proto3" json:"introduction,omitempty"`
+	Notification     string                 `protobuf:"bytes,7,opt,name=notification,proto3" json:"notification,omitempty"`
+	NeedVerification bool                   `protobuf:"varint,8,opt,name=need_verification,json=needVerification,proto3" json:"need_verification,omitempty"`
+	Ex               string                 `protobuf:"bytes,9,opt,name=ex,proto3" json:"ex,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
+}
+
+func (x *UpdateGroupRequest) Reset() {
+	*x = UpdateGroupRequest{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateGroupRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateGroupRequest) ProtoMessage() {}
+
+func (x *UpdateGroupRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateGroupRequest.ProtoReflect.Descriptor instead.
+func (*UpdateGroupRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *UpdateGroupRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *UpdateGroupRequest) GetGroupId() string {
+	if x != nil {
+		return x.GroupId
+	}
+	return ""
+}
+
+func (x *UpdateGroupRequest) GetOperatorUserId() string {
+	if x != nil {
+		return x.OperatorUserId
+	}
+	return ""
+}
+
+func (x *UpdateGroupRequest) GetGroupName() string {
+	if x != nil {
+		return x.GroupName
+	}
+	return ""
+}
+
+func (x *UpdateGroupRequest) GetAvatarUrl() string {
+	if x != nil {
+		return x.AvatarUrl
+	}
+	return ""
+}
+
+func (x *UpdateGroupRequest) GetIntroduction() string {
+	if x != nil {
+		return x.Introduction
+	}
+	return ""
+}
+
+func (x *UpdateGroupRequest) GetNotification() string {
+	if x != nil {
+		return x.Notification
+	}
+	return ""
+}
+
+func (x *UpdateGroupRequest) GetNeedVerification() bool {
+	if x != nil {
+		return x.NeedVerification
+	}
+	return false
+}
+
+func (x *UpdateGroupRequest) GetEx() string {
+	if x != nil {
+		return x.Ex
+	}
+	return ""
+}
+
+type UpdateGroupResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Group         *GroupInfo             `protobuf:"bytes,2,opt,name=group,proto3" json:"group,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateGroupResponse) Reset() {
+	*x = UpdateGroupResponse{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateGroupResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateGroupResponse) ProtoMessage() {}
+
+func (x *UpdateGroupResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateGroupResponse.ProtoReflect.Descriptor instead.
+func (*UpdateGroupResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *UpdateGroupResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *UpdateGroupResponse) GetGroup() *GroupInfo {
+	if x != nil {
+		return x.Group
+	}
+	return nil
+}
+
+type DismissGroupRequest struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Meta           *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	GroupId        string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	OperatorUserId string                 `protobuf:"bytes,3,opt,name=operator_user_id,json=operatorUserId,proto3" json:"operator_user_id,omitempty"`
+	Reason         string                 `protobuf:"bytes,4,opt,name=reason,proto3" json:"reason,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *DismissGroupRequest) Reset() {
+	*x = DismissGroupRequest{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DismissGroupRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DismissGroupRequest) ProtoMessage() {}
+
+func (x *DismissGroupRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DismissGroupRequest.ProtoReflect.Descriptor instead.
+func (*DismissGroupRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *DismissGroupRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *DismissGroupRequest) GetGroupId() string {
+	if x != nil {
+		return x.GroupId
+	}
+	return ""
+}
+
+func (x *DismissGroupRequest) GetOperatorUserId() string {
+	if x != nil {
+		return x.OperatorUserId
+	}
+	return ""
+}
+
+func (x *DismissGroupRequest) GetReason() string {
+	if x != nil {
+		return x.Reason
+	}
+	return ""
+}
+
+type DismissGroupResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DismissGroupResponse) Reset() {
+	*x = DismissGroupResponse{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DismissGroupResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DismissGroupResponse) ProtoMessage() {}
+
+func (x *DismissGroupResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DismissGroupResponse.ProtoReflect.Descriptor instead.
+func (*DismissGroupResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *DismissGroupResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+type JoinGroupRequest struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Meta           *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	GroupId        string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	UserId         string                 `protobuf:"bytes,3,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	RequestMessage string                 `protobuf:"bytes,4,opt,name=request_message,json=requestMessage,proto3" json:"request_message,omitempty"`
+	JoinSource     GroupJoinSource        `protobuf:"varint,5,opt,name=join_source,json=joinSource,proto3,enum=whocall.group.v1.GroupJoinSource" json:"join_source,omitempty"`
+	InviterUserId  string                 `protobuf:"bytes,6,opt,name=inviter_user_id,json=inviterUserId,proto3" json:"inviter_user_id,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *JoinGroupRequest) Reset() {
+	*x = JoinGroupRequest{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *JoinGroupRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*JoinGroupRequest) ProtoMessage() {}
+
+func (x *JoinGroupRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use JoinGroupRequest.ProtoReflect.Descriptor instead.
+func (*JoinGroupRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *JoinGroupRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *JoinGroupRequest) GetGroupId() string {
+	if x != nil {
+		return x.GroupId
+	}
+	return ""
+}
+
+func (x *JoinGroupRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *JoinGroupRequest) GetRequestMessage() string {
+	if x != nil {
+		return x.RequestMessage
+	}
+	return ""
+}
+
+func (x *JoinGroupRequest) GetJoinSource() GroupJoinSource {
+	if x != nil {
+		return x.JoinSource
+	}
+	return GroupJoinSource_GROUP_JOIN_SOURCE_UNSPECIFIED
+}
+
+func (x *JoinGroupRequest) GetInviterUserId() string {
+	if x != nil {
+		return x.InviterUserId
+	}
+	return ""
+}
+
+type JoinGroupResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Application   *GroupApplication      `protobuf:"bytes,2,opt,name=application,proto3" json:"application,omitempty"`
+	Member        *GroupMemberInfo       `protobuf:"bytes,3,opt,name=member,proto3" json:"member,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *JoinGroupResponse) Reset() {
+	*x = JoinGroupResponse{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *JoinGroupResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*JoinGroupResponse) ProtoMessage() {}
+
+func (x *JoinGroupResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use JoinGroupResponse.ProtoReflect.Descriptor instead.
+func (*JoinGroupResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *JoinGroupResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *JoinGroupResponse) GetApplication() *GroupApplication {
+	if x != nil {
+		return x.Application
+	}
+	return nil
+}
+
+func (x *JoinGroupResponse) GetMember() *GroupMemberInfo {
+	if x != nil {
+		return x.Member
+	}
+	return nil
+}
+
+type RespondGroupApplicationRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	ApplicationId string                 `protobuf:"bytes,2,opt,name=application_id,json=applicationId,proto3" json:"application_id,omitempty"`
+	HandlerUserId string                 `protobuf:"bytes,3,opt,name=handler_user_id,json=handlerUserId,proto3" json:"handler_user_id,omitempty"`
+	Accept        bool                   `protobuf:"varint,4,opt,name=accept,proto3" json:"accept,omitempty"`
+	HandleMessage string                 `protobuf:"bytes,5,opt,name=handle_message,json=handleMessage,proto3" json:"handle_message,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RespondGroupApplicationRequest) Reset() {
+	*x = RespondGroupApplicationRequest{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RespondGroupApplicationRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RespondGroupApplicationRequest) ProtoMessage() {}
+
+func (x *RespondGroupApplicationRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RespondGroupApplicationRequest.ProtoReflect.Descriptor instead.
+func (*RespondGroupApplicationRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *RespondGroupApplicationRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *RespondGroupApplicationRequest) GetApplicationId() string {
+	if x != nil {
+		return x.ApplicationId
+	}
+	return ""
+}
+
+func (x *RespondGroupApplicationRequest) GetHandlerUserId() string {
+	if x != nil {
+		return x.HandlerUserId
+	}
+	return ""
+}
+
+func (x *RespondGroupApplicationRequest) GetAccept() bool {
+	if x != nil {
+		return x.Accept
+	}
+	return false
+}
+
+func (x *RespondGroupApplicationRequest) GetHandleMessage() string {
+	if x != nil {
+		return x.HandleMessage
+	}
+	return ""
+}
+
+type RespondGroupApplicationResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Application   *GroupApplication      `protobuf:"bytes,2,opt,name=application,proto3" json:"application,omitempty"`
+	Member        *GroupMemberInfo       `protobuf:"bytes,3,opt,name=member,proto3" json:"member,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RespondGroupApplicationResponse) Reset() {
+	*x = RespondGroupApplicationResponse{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RespondGroupApplicationResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RespondGroupApplicationResponse) ProtoMessage() {}
+
+func (x *RespondGroupApplicationResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RespondGroupApplicationResponse.ProtoReflect.Descriptor instead.
+func (*RespondGroupApplicationResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *RespondGroupApplicationResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *RespondGroupApplicationResponse) GetApplication() *GroupApplication {
+	if x != nil {
+		return x.Application
+	}
+	return nil
+}
+
+func (x *RespondGroupApplicationResponse) GetMember() *GroupMemberInfo {
+	if x != nil {
+		return x.Member
+	}
+	return nil
+}
+
+type ListGroupApplicationsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	GroupId       string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	Status        GroupApplicationStatus `protobuf:"varint,3,opt,name=status,proto3,enum=whocall.group.v1.GroupApplicationStatus" json:"status,omitempty"`
+	Pagination    *v1.PaginationRequest  `protobuf:"bytes,4,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListGroupApplicationsRequest) Reset() {
+	*x = ListGroupApplicationsRequest{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListGroupApplicationsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListGroupApplicationsRequest) ProtoMessage() {}
+
+func (x *ListGroupApplicationsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListGroupApplicationsRequest.ProtoReflect.Descriptor instead.
+func (*ListGroupApplicationsRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *ListGroupApplicationsRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *ListGroupApplicationsRequest) GetGroupId() string {
+	if x != nil {
+		return x.GroupId
+	}
+	return ""
+}
+
+func (x *ListGroupApplicationsRequest) GetStatus() GroupApplicationStatus {
+	if x != nil {
+		return x.Status
+	}
+	return GroupApplicationStatus_GROUP_APPLICATION_STATUS_UNSPECIFIED
+}
+
+func (x *ListGroupApplicationsRequest) GetPagination() *v1.PaginationRequest {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
+type ListGroupApplicationsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Applications  []*GroupApplication    `protobuf:"bytes,2,rep,name=applications,proto3" json:"applications,omitempty"`
+	Pagination    *v1.PaginationResponse `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListGroupApplicationsResponse) Reset() {
+	*x = ListGroupApplicationsResponse{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListGroupApplicationsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListGroupApplicationsResponse) ProtoMessage() {}
+
+func (x *ListGroupApplicationsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListGroupApplicationsResponse.ProtoReflect.Descriptor instead.
+func (*ListGroupApplicationsResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *ListGroupApplicationsResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *ListGroupApplicationsResponse) GetApplications() []*GroupApplication {
+	if x != nil {
+		return x.Applications
+	}
+	return nil
+}
+
+func (x *ListGroupApplicationsResponse) GetPagination() *v1.PaginationResponse {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
+type QuitGroupRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	GroupId       string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	UserId        string                 `protobuf:"bytes,3,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *QuitGroupRequest) Reset() {
+	*x = QuitGroupRequest{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *QuitGroupRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*QuitGroupRequest) ProtoMessage() {}
+
+func (x *QuitGroupRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use QuitGroupRequest.ProtoReflect.Descriptor instead.
+func (*QuitGroupRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *QuitGroupRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *QuitGroupRequest) GetGroupId() string {
+	if x != nil {
+		return x.GroupId
+	}
+	return ""
+}
+
+func (x *QuitGroupRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+type QuitGroupResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *QuitGroupResponse) Reset() {
+	*x = QuitGroupResponse{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *QuitGroupResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*QuitGroupResponse) ProtoMessage() {}
+
+func (x *QuitGroupResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use QuitGroupResponse.ProtoReflect.Descriptor instead.
+func (*QuitGroupResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *QuitGroupResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+type InviteUsersToGroupRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	GroupId       string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	InviterUserId string                 `protobuf:"bytes,3,opt,name=inviter_user_id,json=inviterUserId,proto3" json:"inviter_user_id,omitempty"`
+	MemberUserIds []string               `protobuf:"bytes,4,rep,name=member_user_ids,json=memberUserIds,proto3" json:"member_user_ids,omitempty"`
+	Reason        string                 `protobuf:"bytes,5,opt,name=reason,proto3" json:"reason,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *InviteUsersToGroupRequest) Reset() {
+	*x = InviteUsersToGroupRequest{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[19]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *InviteUsersToGroupRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InviteUsersToGroupRequest) ProtoMessage() {}
+
+func (x *InviteUsersToGroupRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[19]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InviteUsersToGroupRequest.ProtoReflect.Descriptor instead.
+func (*InviteUsersToGroupRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *InviteUsersToGroupRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *InviteUsersToGroupRequest) GetGroupId() string {
+	if x != nil {
+		return x.GroupId
+	}
+	return ""
+}
+
+func (x *InviteUsersToGroupRequest) GetInviterUserId() string {
+	if x != nil {
+		return x.InviterUserId
+	}
+	return ""
+}
+
+func (x *InviteUsersToGroupRequest) GetMemberUserIds() []string {
+	if x != nil {
+		return x.MemberUserIds
+	}
+	return nil
+}
+
+func (x *InviteUsersToGroupRequest) GetReason() string {
+	if x != nil {
+		return x.Reason
+	}
+	return ""
+}
+
+type InviteUsersToGroupResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	AddedMembers  []*GroupMemberInfo     `protobuf:"bytes,2,rep,name=added_members,json=addedMembers,proto3" json:"added_members,omitempty"`
+	Applications  []*GroupApplication    `protobuf:"bytes,3,rep,name=applications,proto3" json:"applications,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *InviteUsersToGroupResponse) Reset() {
+	*x = InviteUsersToGroupResponse{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[20]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *InviteUsersToGroupResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InviteUsersToGroupResponse) ProtoMessage() {}
+
+func (x *InviteUsersToGroupResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[20]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InviteUsersToGroupResponse.ProtoReflect.Descriptor instead.
+func (*InviteUsersToGroupResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *InviteUsersToGroupResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *InviteUsersToGroupResponse) GetAddedMembers() []*GroupMemberInfo {
+	if x != nil {
+		return x.AddedMembers
+	}
+	return nil
+}
+
+func (x *InviteUsersToGroupResponse) GetApplications() []*GroupApplication {
+	if x != nil {
+		return x.Applications
+	}
+	return nil
+}
+
+type KickGroupMembersRequest struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Meta           *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	GroupId        string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	OperatorUserId string                 `protobuf:"bytes,3,opt,name=operator_user_id,json=operatorUserId,proto3" json:"operator_user_id,omitempty"`
+	MemberUserIds  []string               `protobuf:"bytes,4,rep,name=member_user_ids,json=memberUserIds,proto3" json:"member_user_ids,omitempty"`
+	Reason         string                 `protobuf:"bytes,5,opt,name=reason,proto3" json:"reason,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *KickGroupMembersRequest) Reset() {
+	*x = KickGroupMembersRequest{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[21]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *KickGroupMembersRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*KickGroupMembersRequest) ProtoMessage() {}
+
+func (x *KickGroupMembersRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[21]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use KickGroupMembersRequest.ProtoReflect.Descriptor instead.
+func (*KickGroupMembersRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *KickGroupMembersRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *KickGroupMembersRequest) GetGroupId() string {
+	if x != nil {
+		return x.GroupId
+	}
+	return ""
+}
+
+func (x *KickGroupMembersRequest) GetOperatorUserId() string {
+	if x != nil {
+		return x.OperatorUserId
+	}
+	return ""
+}
+
+func (x *KickGroupMembersRequest) GetMemberUserIds() []string {
+	if x != nil {
+		return x.MemberUserIds
+	}
+	return nil
+}
+
+func (x *KickGroupMembersRequest) GetReason() string {
+	if x != nil {
+		return x.Reason
+	}
+	return ""
+}
+
+type KickGroupMembersResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	KickedUserIds []string               `protobuf:"bytes,2,rep,name=kicked_user_ids,json=kickedUserIds,proto3" json:"kicked_user_ids,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *KickGroupMembersResponse) Reset() {
+	*x = KickGroupMembersResponse{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[22]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *KickGroupMembersResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*KickGroupMembersResponse) ProtoMessage() {}
+
+func (x *KickGroupMembersResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[22]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use KickGroupMembersResponse.ProtoReflect.Descriptor instead.
+func (*KickGroupMembersResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{22}
+}
+
+func (x *KickGroupMembersResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *KickGroupMembersResponse) GetKickedUserIds() []string {
+	if x != nil {
+		return x.KickedUserIds
+	}
+	return nil
+}
+
+type ListGroupMembersRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	GroupId       string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	Role          GroupRole              `protobuf:"varint,3,opt,name=role,proto3,enum=whocall.group.v1.GroupRole" json:"role,omitempty"`
+	Pagination    *v1.PaginationRequest  `protobuf:"bytes,4,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListGroupMembersRequest) Reset() {
+	*x = ListGroupMembersRequest{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[23]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListGroupMembersRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListGroupMembersRequest) ProtoMessage() {}
+
+func (x *ListGroupMembersRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[23]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListGroupMembersRequest.ProtoReflect.Descriptor instead.
+func (*ListGroupMembersRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{23}
+}
+
+func (x *ListGroupMembersRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *ListGroupMembersRequest) GetGroupId() string {
+	if x != nil {
+		return x.GroupId
+	}
+	return ""
+}
+
+func (x *ListGroupMembersRequest) GetRole() GroupRole {
+	if x != nil {
+		return x.Role
+	}
+	return GroupRole_GROUP_ROLE_UNSPECIFIED
+}
+
+func (x *ListGroupMembersRequest) GetPagination() *v1.PaginationRequest {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
+type ListGroupMembersResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Members       []*GroupMemberInfo     `protobuf:"bytes,2,rep,name=members,proto3" json:"members,omitempty"`
+	Pagination    *v1.PaginationResponse `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListGroupMembersResponse) Reset() {
+	*x = ListGroupMembersResponse{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[24]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListGroupMembersResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListGroupMembersResponse) ProtoMessage() {}
+
+func (x *ListGroupMembersResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[24]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListGroupMembersResponse.ProtoReflect.Descriptor instead.
+func (*ListGroupMembersResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{24}
+}
+
+func (x *ListGroupMembersResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *ListGroupMembersResponse) GetMembers() []*GroupMemberInfo {
+	if x != nil {
+		return x.Members
+	}
+	return nil
+}
+
+func (x *ListGroupMembersResponse) GetPagination() *v1.PaginationResponse {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
+type SetGroupMemberRoleRequest struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Meta           *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	GroupId        string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	OperatorUserId string                 `protobuf:"bytes,3,opt,name=operator_user_id,json=operatorUserId,proto3" json:"operator_user_id,omitempty"`
+	MemberUserId   string                 `protobuf:"bytes,4,opt,name=member_user_id,json=memberUserId,proto3" json:"member_user_id,omitempty"`
+	Role           GroupRole              `protobuf:"varint,5,opt,name=role,proto3,enum=whocall.group.v1.GroupRole" json:"role,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *SetGroupMemberRoleRequest) Reset() {
+	*x = SetGroupMemberRoleRequest{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[25]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetGroupMemberRoleRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetGroupMemberRoleRequest) ProtoMessage() {}
+
+func (x *SetGroupMemberRoleRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[25]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetGroupMemberRoleRequest.ProtoReflect.Descriptor instead.
+func (*SetGroupMemberRoleRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{25}
+}
+
+func (x *SetGroupMemberRoleRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *SetGroupMemberRoleRequest) GetGroupId() string {
+	if x != nil {
+		return x.GroupId
+	}
+	return ""
+}
+
+func (x *SetGroupMemberRoleRequest) GetOperatorUserId() string {
+	if x != nil {
+		return x.OperatorUserId
+	}
+	return ""
+}
+
+func (x *SetGroupMemberRoleRequest) GetMemberUserId() string {
+	if x != nil {
+		return x.MemberUserId
+	}
+	return ""
+}
+
+func (x *SetGroupMemberRoleRequest) GetRole() GroupRole {
+	if x != nil {
+		return x.Role
+	}
+	return GroupRole_GROUP_ROLE_UNSPECIFIED
+}
+
+type SetGroupMemberRoleResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Member        *GroupMemberInfo       `protobuf:"bytes,2,opt,name=member,proto3" json:"member,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SetGroupMemberRoleResponse) Reset() {
+	*x = SetGroupMemberRoleResponse{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[26]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetGroupMemberRoleResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetGroupMemberRoleResponse) ProtoMessage() {}
+
+func (x *SetGroupMemberRoleResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[26]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetGroupMemberRoleResponse.ProtoReflect.Descriptor instead.
+func (*SetGroupMemberRoleResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{26}
+}
+
+func (x *SetGroupMemberRoleResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *SetGroupMemberRoleResponse) GetMember() *GroupMemberInfo {
+	if x != nil {
+		return x.Member
+	}
+	return nil
+}
+
+type MuteGroupMemberRequest struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Meta           *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	GroupId        string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	OperatorUserId string                 `protobuf:"bytes,3,opt,name=operator_user_id,json=operatorUserId,proto3" json:"operator_user_id,omitempty"`
+	MemberUserId   string                 `protobuf:"bytes,4,opt,name=member_user_id,json=memberUserId,proto3" json:"member_user_id,omitempty"`
+	MuteEndTimeMs  int64                  `protobuf:"varint,5,opt,name=mute_end_time_ms,json=muteEndTimeMs,proto3" json:"mute_end_time_ms,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *MuteGroupMemberRequest) Reset() {
+	*x = MuteGroupMemberRequest{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[27]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MuteGroupMemberRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MuteGroupMemberRequest) ProtoMessage() {}
+
+func (x *MuteGroupMemberRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[27]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MuteGroupMemberRequest.ProtoReflect.Descriptor instead.
+func (*MuteGroupMemberRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{27}
+}
+
+func (x *MuteGroupMemberRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *MuteGroupMemberRequest) GetGroupId() string {
+	if x != nil {
+		return x.GroupId
+	}
+	return ""
+}
+
+func (x *MuteGroupMemberRequest) GetOperatorUserId() string {
+	if x != nil {
+		return x.OperatorUserId
+	}
+	return ""
+}
+
+func (x *MuteGroupMemberRequest) GetMemberUserId() string {
+	if x != nil {
+		return x.MemberUserId
+	}
+	return ""
+}
+
+func (x *MuteGroupMemberRequest) GetMuteEndTimeMs() int64 {
+	if x != nil {
+		return x.MuteEndTimeMs
+	}
+	return 0
+}
+
+type MuteGroupMemberResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Member        *GroupMemberInfo       `protobuf:"bytes,2,opt,name=member,proto3" json:"member,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MuteGroupMemberResponse) Reset() {
+	*x = MuteGroupMemberResponse{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[28]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MuteGroupMemberResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MuteGroupMemberResponse) ProtoMessage() {}
+
+func (x *MuteGroupMemberResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[28]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MuteGroupMemberResponse.ProtoReflect.Descriptor instead.
+func (*MuteGroupMemberResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{28}
+}
+
+func (x *MuteGroupMemberResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *MuteGroupMemberResponse) GetMember() *GroupMemberInfo {
+	if x != nil {
+		return x.Member
+	}
+	return nil
+}
+
+type SetGroupMuteRequest struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Meta           *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	GroupId        string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	OperatorUserId string                 `protobuf:"bytes,3,opt,name=operator_user_id,json=operatorUserId,proto3" json:"operator_user_id,omitempty"`
+	Muted          bool                   `protobuf:"varint,4,opt,name=muted,proto3" json:"muted,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *SetGroupMuteRequest) Reset() {
+	*x = SetGroupMuteRequest{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[29]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetGroupMuteRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetGroupMuteRequest) ProtoMessage() {}
+
+func (x *SetGroupMuteRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[29]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetGroupMuteRequest.ProtoReflect.Descriptor instead.
+func (*SetGroupMuteRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{29}
+}
+
+func (x *SetGroupMuteRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *SetGroupMuteRequest) GetGroupId() string {
+	if x != nil {
+		return x.GroupId
+	}
+	return ""
+}
+
+func (x *SetGroupMuteRequest) GetOperatorUserId() string {
+	if x != nil {
+		return x.OperatorUserId
+	}
+	return ""
+}
+
+func (x *SetGroupMuteRequest) GetMuted() bool {
+	if x != nil {
+		return x.Muted
+	}
+	return false
+}
+
+type SetGroupMuteResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Group         *GroupInfo             `protobuf:"bytes,2,opt,name=group,proto3" json:"group,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SetGroupMuteResponse) Reset() {
+	*x = SetGroupMuteResponse{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[30]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetGroupMuteResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetGroupMuteResponse) ProtoMessage() {}
+
+func (x *SetGroupMuteResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[30]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetGroupMuteResponse.ProtoReflect.Descriptor instead.
+func (*SetGroupMuteResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{30}
+}
+
+func (x *SetGroupMuteResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *SetGroupMuteResponse) GetGroup() *GroupInfo {
+	if x != nil {
+		return x.Group
+	}
+	return nil
+}
+
+type TransferGroupOwnerRequest struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Meta           *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	GroupId        string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	OldOwnerUserId string                 `protobuf:"bytes,3,opt,name=old_owner_user_id,json=oldOwnerUserId,proto3" json:"old_owner_user_id,omitempty"`
+	NewOwnerUserId string                 `protobuf:"bytes,4,opt,name=new_owner_user_id,json=newOwnerUserId,proto3" json:"new_owner_user_id,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *TransferGroupOwnerRequest) Reset() {
+	*x = TransferGroupOwnerRequest{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[31]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TransferGroupOwnerRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TransferGroupOwnerRequest) ProtoMessage() {}
+
+func (x *TransferGroupOwnerRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[31]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TransferGroupOwnerRequest.ProtoReflect.Descriptor instead.
+func (*TransferGroupOwnerRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{31}
+}
+
+func (x *TransferGroupOwnerRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *TransferGroupOwnerRequest) GetGroupId() string {
+	if x != nil {
+		return x.GroupId
+	}
+	return ""
+}
+
+func (x *TransferGroupOwnerRequest) GetOldOwnerUserId() string {
+	if x != nil {
+		return x.OldOwnerUserId
+	}
+	return ""
+}
+
+func (x *TransferGroupOwnerRequest) GetNewOwnerUserId() string {
+	if x != nil {
+		return x.NewOwnerUserId
+	}
+	return ""
+}
+
+type TransferGroupOwnerResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Group         *GroupInfo             `protobuf:"bytes,2,opt,name=group,proto3" json:"group,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TransferGroupOwnerResponse) Reset() {
+	*x = TransferGroupOwnerResponse{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[32]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TransferGroupOwnerResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TransferGroupOwnerResponse) ProtoMessage() {}
+
+func (x *TransferGroupOwnerResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[32]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TransferGroupOwnerResponse.ProtoReflect.Descriptor instead.
+func (*TransferGroupOwnerResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{32}
+}
+
+func (x *TransferGroupOwnerResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *TransferGroupOwnerResponse) GetGroup() *GroupInfo {
+	if x != nil {
+		return x.Group
+	}
+	return nil
+}
+
+type ListJoinedGroupsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Pagination    *v1.PaginationRequest  `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListJoinedGroupsRequest) Reset() {
+	*x = ListJoinedGroupsRequest{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[33]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListJoinedGroupsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListJoinedGroupsRequest) ProtoMessage() {}
+
+func (x *ListJoinedGroupsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[33]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListJoinedGroupsRequest.ProtoReflect.Descriptor instead.
+func (*ListJoinedGroupsRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{33}
+}
+
+func (x *ListJoinedGroupsRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *ListJoinedGroupsRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *ListJoinedGroupsRequest) GetPagination() *v1.PaginationRequest {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
+type ListJoinedGroupsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Groups        []*GroupInfo           `protobuf:"bytes,2,rep,name=groups,proto3" json:"groups,omitempty"`
+	Pagination    *v1.PaginationResponse `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListJoinedGroupsResponse) Reset() {
+	*x = ListJoinedGroupsResponse{}
+	mi := &file_whocall_group_v1_group_proto_msgTypes[34]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListJoinedGroupsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListJoinedGroupsResponse) ProtoMessage() {}
+
+func (x *ListJoinedGroupsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_group_v1_group_proto_msgTypes[34]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListJoinedGroupsResponse.ProtoReflect.Descriptor instead.
+func (*ListJoinedGroupsResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{34}
+}
+
+func (x *ListJoinedGroupsResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *ListJoinedGroupsResponse) GetGroups() []*GroupInfo {
+	if x != nil {
+		return x.Groups
+	}
+	return nil
+}
+
+func (x *ListJoinedGroupsResponse) GetPagination() *v1.PaginationResponse {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
 var File_whocall_group_v1_group_proto protoreflect.FileDescriptor
 
 const file_whocall_group_v1_group_proto_rawDesc = "" +
 	"\n" +
-	"\x1cwhocall/group/v1/group.proto\x12\x10whocall.group.v1BDZBgithub.com/ethereal3x/who-call/api/gen/go/whocall/group/v1;groupv1b\x06proto3"
+	"\x1cwhocall/group/v1/group.proto\x12\x10whocall.group.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x1ewhocall/common/v1/common.proto\"\xef\x03\n" +
+	"\tGroupInfo\x12\x19\n" +
+	"\bgroup_id\x18\x01 \x01(\tR\agroupId\x12\x1d\n" +
+	"\n" +
+	"group_name\x18\x02 \x01(\tR\tgroupName\x12\x1d\n" +
+	"\n" +
+	"avatar_url\x18\x03 \x01(\tR\tavatarUrl\x12\"\n" +
+	"\fintroduction\x18\x04 \x01(\tR\fintroduction\x12\"\n" +
+	"\fnotification\x18\x05 \x01(\tR\fnotification\x12\"\n" +
+	"\rowner_user_id\x18\x06 \x01(\tR\vownerUserId\x12:\n" +
+	"\n" +
+	"group_type\x18\a \x01(\x0e2\x1b.whocall.group.v1.GroupTypeR\tgroupType\x125\n" +
+	"\x06status\x18\b \x01(\x0e2\x1d.whocall.group.v1.GroupStatusR\x06status\x12!\n" +
+	"\fmember_count\x18\t \x01(\x05R\vmemberCount\x12+\n" +
+	"\x11need_verification\x18\n" +
+	" \x01(\bR\x10needVerification\x12$\n" +
+	"\x0ecreate_time_ms\x18\v \x01(\x03R\fcreateTimeMs\x12$\n" +
+	"\x0eupdate_time_ms\x18\f \x01(\x03R\fupdateTimeMs\x12\x0e\n" +
+	"\x02ex\x18\r \x01(\tR\x02ex\"\xea\x03\n" +
+	"\x0fGroupMemberInfo\x12\x19\n" +
+	"\bgroup_id\x18\x01 \x01(\tR\agroupId\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x12\x1a\n" +
+	"\bnickname\x18\x03 \x01(\tR\bnickname\x12\x1d\n" +
+	"\n" +
+	"avatar_url\x18\x04 \x01(\tR\tavatarUrl\x12%\n" +
+	"\x0egroup_nickname\x18\x05 \x01(\tR\rgroupNickname\x12/\n" +
+	"\x04role\x18\x06 \x01(\x0e2\x1b.whocall.group.v1.GroupRoleR\x04role\x12I\n" +
+	"\frecv_msg_opt\x18\a \x01(\x0e2'.whocall.common.v1.ReceiveMessageOptionR\n" +
+	"recvMsgOpt\x12'\n" +
+	"\x10mute_end_time_ms\x18\b \x01(\x03R\rmuteEndTimeMs\x12 \n" +
+	"\fjoin_time_ms\x18\t \x01(\x03R\n" +
+	"joinTimeMs\x12B\n" +
+	"\vjoin_source\x18\n" +
+	" \x01(\x0e2!.whocall.group.v1.GroupJoinSourceR\n" +
+	"joinSource\x12&\n" +
+	"\x0finviter_user_id\x18\v \x01(\tR\rinviterUserId\x12\x0e\n" +
+	"\x02ex\x18\f \x01(\tR\x02ex\"\xf6\x03\n" +
+	"\x10GroupApplication\x12%\n" +
+	"\x0eapplication_id\x18\x01 \x01(\tR\rapplicationId\x12\x19\n" +
+	"\bgroup_id\x18\x02 \x01(\tR\agroupId\x12 \n" +
+	"\ffrom_user_id\x18\x03 \x01(\tR\n" +
+	"fromUserId\x12&\n" +
+	"\x0finviter_user_id\x18\x04 \x01(\tR\rinviterUserId\x12$\n" +
+	"\x0ehandle_user_id\x18\x05 \x01(\tR\fhandleUserId\x12'\n" +
+	"\x0frequest_message\x18\x06 \x01(\tR\x0erequestMessage\x12%\n" +
+	"\x0ehandle_message\x18\a \x01(\tR\rhandleMessage\x12@\n" +
+	"\x06status\x18\b \x01(\x0e2(.whocall.group.v1.GroupApplicationStatusR\x06status\x12B\n" +
+	"\vjoin_source\x18\t \x01(\x0e2!.whocall.group.v1.GroupJoinSourceR\n" +
+	"joinSource\x12$\n" +
+	"\x0ecreate_time_ms\x18\n" +
+	" \x01(\x03R\fcreateTimeMs\x12$\n" +
+	"\x0ehandle_time_ms\x18\v \x01(\x03R\fhandleTimeMs\x12\x0e\n" +
+	"\x02ex\x18\f \x01(\tR\x02ex\"\x95\x03\n" +
+	"\x12CreateGroupRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\"\n" +
+	"\rowner_user_id\x18\x02 \x01(\tR\vownerUserId\x12\x1d\n" +
+	"\n" +
+	"group_name\x18\x03 \x01(\tR\tgroupName\x12\x1d\n" +
+	"\n" +
+	"avatar_url\x18\x04 \x01(\tR\tavatarUrl\x12\"\n" +
+	"\fintroduction\x18\x05 \x01(\tR\fintroduction\x12:\n" +
+	"\n" +
+	"group_type\x18\x06 \x01(\x0e2\x1b.whocall.group.v1.GroupTypeR\tgroupType\x12&\n" +
+	"\x0fmember_user_ids\x18\a \x03(\tR\rmemberUserIds\x12$\n" +
+	"\x0eadmin_user_ids\x18\b \x03(\tR\fadminUserIds\x12+\n" +
+	"\x11need_verification\x18\t \x01(\bR\x10needVerification\x12\x0e\n" +
+	"\x02ex\x18\n" +
+	" \x01(\tR\x02ex\"\xc0\x01\n" +
+	"\x13CreateGroupResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x121\n" +
+	"\x05group\x18\x02 \x01(\v2\x1b.whocall.group.v1.GroupInfoR\x05group\x12;\n" +
+	"\amembers\x18\x03 \x03(\v2!.whocall.group.v1.GroupMemberInfoR\amembers\"`\n" +
+	"\x0fGetGroupRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x19\n" +
+	"\bgroup_id\x18\x02 \x01(\tR\agroupId\"\x80\x01\n" +
+	"\x10GetGroupResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x121\n" +
+	"\x05group\x18\x02 \x01(\v2\x1b.whocall.group.v1.GroupInfoR\x05group\"\xd0\x02\n" +
+	"\x12UpdateGroupRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x19\n" +
+	"\bgroup_id\x18\x02 \x01(\tR\agroupId\x12(\n" +
+	"\x10operator_user_id\x18\x03 \x01(\tR\x0eoperatorUserId\x12\x1d\n" +
+	"\n" +
+	"group_name\x18\x04 \x01(\tR\tgroupName\x12\x1d\n" +
+	"\n" +
+	"avatar_url\x18\x05 \x01(\tR\tavatarUrl\x12\"\n" +
+	"\fintroduction\x18\x06 \x01(\tR\fintroduction\x12\"\n" +
+	"\fnotification\x18\a \x01(\tR\fnotification\x12+\n" +
+	"\x11need_verification\x18\b \x01(\bR\x10needVerification\x12\x0e\n" +
+	"\x02ex\x18\t \x01(\tR\x02ex\"\x83\x01\n" +
+	"\x13UpdateGroupResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x121\n" +
+	"\x05group\x18\x02 \x01(\v2\x1b.whocall.group.v1.GroupInfoR\x05group\"\xa6\x01\n" +
+	"\x13DismissGroupRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x19\n" +
+	"\bgroup_id\x18\x02 \x01(\tR\agroupId\x12(\n" +
+	"\x10operator_user_id\x18\x03 \x01(\tR\x0eoperatorUserId\x12\x16\n" +
+	"\x06reason\x18\x04 \x01(\tR\x06reason\"Q\n" +
+	"\x14DismissGroupResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\"\x8f\x02\n" +
+	"\x10JoinGroupRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x19\n" +
+	"\bgroup_id\x18\x02 \x01(\tR\agroupId\x12\x17\n" +
+	"\auser_id\x18\x03 \x01(\tR\x06userId\x12'\n" +
+	"\x0frequest_message\x18\x04 \x01(\tR\x0erequestMessage\x12B\n" +
+	"\vjoin_source\x18\x05 \x01(\x0e2!.whocall.group.v1.GroupJoinSourceR\n" +
+	"joinSource\x12&\n" +
+	"\x0finviter_user_id\x18\x06 \x01(\tR\rinviterUserId\"\xcf\x01\n" +
+	"\x11JoinGroupResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12D\n" +
+	"\vapplication\x18\x02 \x01(\v2\".whocall.group.v1.GroupApplicationR\vapplication\x129\n" +
+	"\x06member\x18\x03 \x01(\v2!.whocall.group.v1.GroupMemberInfoR\x06member\"\xe2\x01\n" +
+	"\x1eRespondGroupApplicationRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12%\n" +
+	"\x0eapplication_id\x18\x02 \x01(\tR\rapplicationId\x12&\n" +
+	"\x0fhandler_user_id\x18\x03 \x01(\tR\rhandlerUserId\x12\x16\n" +
+	"\x06accept\x18\x04 \x01(\bR\x06accept\x12%\n" +
+	"\x0ehandle_message\x18\x05 \x01(\tR\rhandleMessage\"\xdd\x01\n" +
+	"\x1fRespondGroupApplicationResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12D\n" +
+	"\vapplication\x18\x02 \x01(\v2\".whocall.group.v1.GroupApplicationR\vapplication\x129\n" +
+	"\x06member\x18\x03 \x01(\v2!.whocall.group.v1.GroupMemberInfoR\x06member\"\xf5\x01\n" +
+	"\x1cListGroupApplicationsRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x19\n" +
+	"\bgroup_id\x18\x02 \x01(\tR\agroupId\x12@\n" +
+	"\x06status\x18\x03 \x01(\x0e2(.whocall.group.v1.GroupApplicationStatusR\x06status\x12D\n" +
+	"\n" +
+	"pagination\x18\x04 \x01(\v2$.whocall.common.v1.PaginationRequestR\n" +
+	"pagination\"\xe9\x01\n" +
+	"\x1dListGroupApplicationsResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12F\n" +
+	"\fapplications\x18\x02 \x03(\v2\".whocall.group.v1.GroupApplicationR\fapplications\x12E\n" +
+	"\n" +
+	"pagination\x18\x03 \x01(\v2%.whocall.common.v1.PaginationResponseR\n" +
+	"pagination\"z\n" +
+	"\x10QuitGroupRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x19\n" +
+	"\bgroup_id\x18\x02 \x01(\tR\agroupId\x12\x17\n" +
+	"\auser_id\x18\x03 \x01(\tR\x06userId\"N\n" +
+	"\x11QuitGroupResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\"\xd2\x01\n" +
+	"\x19InviteUsersToGroupRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x19\n" +
+	"\bgroup_id\x18\x02 \x01(\tR\agroupId\x12&\n" +
+	"\x0finviter_user_id\x18\x03 \x01(\tR\rinviterUserId\x12&\n" +
+	"\x0fmember_user_ids\x18\x04 \x03(\tR\rmemberUserIds\x12\x16\n" +
+	"\x06reason\x18\x05 \x01(\tR\x06reason\"\xe7\x01\n" +
+	"\x1aInviteUsersToGroupResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12F\n" +
+	"\radded_members\x18\x02 \x03(\v2!.whocall.group.v1.GroupMemberInfoR\faddedMembers\x12F\n" +
+	"\fapplications\x18\x03 \x03(\v2\".whocall.group.v1.GroupApplicationR\fapplications\"\xd2\x01\n" +
+	"\x17KickGroupMembersRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x19\n" +
+	"\bgroup_id\x18\x02 \x01(\tR\agroupId\x12(\n" +
+	"\x10operator_user_id\x18\x03 \x01(\tR\x0eoperatorUserId\x12&\n" +
+	"\x0fmember_user_ids\x18\x04 \x03(\tR\rmemberUserIds\x12\x16\n" +
+	"\x06reason\x18\x05 \x01(\tR\x06reason\"}\n" +
+	"\x18KickGroupMembersResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12&\n" +
+	"\x0fkicked_user_ids\x18\x02 \x03(\tR\rkickedUserIds\"\xdf\x01\n" +
+	"\x17ListGroupMembersRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x19\n" +
+	"\bgroup_id\x18\x02 \x01(\tR\agroupId\x12/\n" +
+	"\x04role\x18\x03 \x01(\x0e2\x1b.whocall.group.v1.GroupRoleR\x04role\x12D\n" +
+	"\n" +
+	"pagination\x18\x04 \x01(\v2$.whocall.common.v1.PaginationRequestR\n" +
+	"pagination\"\xd9\x01\n" +
+	"\x18ListGroupMembersResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12;\n" +
+	"\amembers\x18\x02 \x03(\v2!.whocall.group.v1.GroupMemberInfoR\amembers\x12E\n" +
+	"\n" +
+	"pagination\x18\x03 \x01(\v2%.whocall.common.v1.PaginationResponseR\n" +
+	"pagination\"\xeb\x01\n" +
+	"\x19SetGroupMemberRoleRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x19\n" +
+	"\bgroup_id\x18\x02 \x01(\tR\agroupId\x12(\n" +
+	"\x10operator_user_id\x18\x03 \x01(\tR\x0eoperatorUserId\x12$\n" +
+	"\x0emember_user_id\x18\x04 \x01(\tR\fmemberUserId\x12/\n" +
+	"\x04role\x18\x05 \x01(\x0e2\x1b.whocall.group.v1.GroupRoleR\x04role\"\x92\x01\n" +
+	"\x1aSetGroupMemberRoleResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x129\n" +
+	"\x06member\x18\x02 \x01(\v2!.whocall.group.v1.GroupMemberInfoR\x06member\"\xe0\x01\n" +
+	"\x16MuteGroupMemberRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x19\n" +
+	"\bgroup_id\x18\x02 \x01(\tR\agroupId\x12(\n" +
+	"\x10operator_user_id\x18\x03 \x01(\tR\x0eoperatorUserId\x12$\n" +
+	"\x0emember_user_id\x18\x04 \x01(\tR\fmemberUserId\x12'\n" +
+	"\x10mute_end_time_ms\x18\x05 \x01(\x03R\rmuteEndTimeMs\"\x8f\x01\n" +
+	"\x17MuteGroupMemberResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x129\n" +
+	"\x06member\x18\x02 \x01(\v2!.whocall.group.v1.GroupMemberInfoR\x06member\"\xa4\x01\n" +
+	"\x13SetGroupMuteRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x19\n" +
+	"\bgroup_id\x18\x02 \x01(\tR\agroupId\x12(\n" +
+	"\x10operator_user_id\x18\x03 \x01(\tR\x0eoperatorUserId\x12\x14\n" +
+	"\x05muted\x18\x04 \x01(\bR\x05muted\"\x84\x01\n" +
+	"\x14SetGroupMuteResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x121\n" +
+	"\x05group\x18\x02 \x01(\v2\x1b.whocall.group.v1.GroupInfoR\x05group\"\xc0\x01\n" +
+	"\x19TransferGroupOwnerRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x19\n" +
+	"\bgroup_id\x18\x02 \x01(\tR\agroupId\x12)\n" +
+	"\x11old_owner_user_id\x18\x03 \x01(\tR\x0eoldOwnerUserId\x12)\n" +
+	"\x11new_owner_user_id\x18\x04 \x01(\tR\x0enewOwnerUserId\"\x8a\x01\n" +
+	"\x1aTransferGroupOwnerResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x121\n" +
+	"\x05group\x18\x02 \x01(\v2\x1b.whocall.group.v1.GroupInfoR\x05group\"\xac\x01\n" +
+	"\x17ListJoinedGroupsRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x12D\n" +
+	"\n" +
+	"pagination\x18\x03 \x01(\v2$.whocall.common.v1.PaginationRequestR\n" +
+	"pagination\"\xd1\x01\n" +
+	"\x18ListJoinedGroupsResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x123\n" +
+	"\x06groups\x18\x02 \x03(\v2\x1b.whocall.group.v1.GroupInfoR\x06groups\x12E\n" +
+	"\n" +
+	"pagination\x18\x03 \x01(\v2%.whocall.common.v1.PaginationResponseR\n" +
+	"pagination*T\n" +
+	"\tGroupType\x12\x1a\n" +
+	"\x16GROUP_TYPE_UNSPECIFIED\x10\x00\x12\x15\n" +
+	"\x11GROUP_TYPE_NORMAL\x10\x01\x12\x14\n" +
+	"\x10GROUP_TYPE_SUPER\x10\x02*x\n" +
+	"\vGroupStatus\x12\x1c\n" +
+	"\x18GROUP_STATUS_UNSPECIFIED\x10\x00\x12\x17\n" +
+	"\x13GROUP_STATUS_NORMAL\x10\x01\x12\x16\n" +
+	"\x12GROUP_STATUS_MUTED\x10\x02\x12\x1a\n" +
+	"\x16GROUP_STATUS_DISMISSED\x10\x03*j\n" +
+	"\tGroupRole\x12\x1a\n" +
+	"\x16GROUP_ROLE_UNSPECIFIED\x10\x00\x12\x15\n" +
+	"\x11GROUP_ROLE_MEMBER\x10\x01\x12\x14\n" +
+	"\x10GROUP_ROLE_ADMIN\x10\x02\x12\x14\n" +
+	"\x10GROUP_ROLE_OWNER\x10\x03*\xdd\x01\n" +
+	"\x16GroupApplicationStatus\x12(\n" +
+	"$GROUP_APPLICATION_STATUS_UNSPECIFIED\x10\x00\x12$\n" +
+	" GROUP_APPLICATION_STATUS_PENDING\x10\x01\x12%\n" +
+	"!GROUP_APPLICATION_STATUS_ACCEPTED\x10\x02\x12%\n" +
+	"!GROUP_APPLICATION_STATUS_REJECTED\x10\x03\x12%\n" +
+	"!GROUP_APPLICATION_STATUS_CANCELED\x10\x04*\xac\x01\n" +
+	"\x0fGroupJoinSource\x12!\n" +
+	"\x1dGROUP_JOIN_SOURCE_UNSPECIFIED\x10\x00\x12\x1c\n" +
+	"\x18GROUP_JOIN_SOURCE_SEARCH\x10\x01\x12\x1c\n" +
+	"\x18GROUP_JOIN_SOURCE_INVITE\x10\x02\x12\x1d\n" +
+	"\x19GROUP_JOIN_SOURCE_QR_CODE\x10\x03\x12\x1b\n" +
+	"\x17GROUP_JOIN_SOURCE_ADMIN\x10\x042\x8a\x13\n" +
+	"\fGroupService\x12u\n" +
+	"\vCreateGroup\x12$.whocall.group.v1.CreateGroupRequest\x1a%.whocall.group.v1.CreateGroupResponse\"\x19\x82\xd3\xe4\x93\x02\x13:\x01*\"\x0e/api/v1/groups\x12t\n" +
+	"\bGetGroup\x12!.whocall.group.v1.GetGroupRequest\x1a\".whocall.group.v1.GetGroupResponse\"!\x82\xd3\xe4\x93\x02\x1b\x12\x19/api/v1/groups/{group_id}\x12\x80\x01\n" +
+	"\vUpdateGroup\x12$.whocall.group.v1.UpdateGroupRequest\x1a%.whocall.group.v1.UpdateGroupResponse\"$\x82\xd3\xe4\x93\x02\x1e:\x01*2\x19/api/v1/groups/{group_id}\x12\x8b\x01\n" +
+	"\fDismissGroup\x12%.whocall.group.v1.DismissGroupRequest\x1a&.whocall.group.v1.DismissGroupResponse\",\x82\xd3\xe4\x93\x02&:\x01*\"!/api/v1/groups/{group_id}:dismiss\x12\x87\x01\n" +
+	"\tJoinGroup\x12\".whocall.group.v1.JoinGroupRequest\x1a#.whocall.group.v1.JoinGroupResponse\"1\x82\xd3\xe4\x93\x02+:\x01*\"&/api/v1/groups/{group_id}/applications\x12\xbf\x01\n" +
+	"\x17RespondGroupApplication\x120.whocall.group.v1.RespondGroupApplicationRequest\x1a1.whocall.group.v1.RespondGroupApplicationResponse\"?\x82\xd3\xe4\x93\x029:\x01*\"4/api/v1/groups/applications/{application_id}:respond\x12\xa8\x01\n" +
+	"\x15ListGroupApplications\x12..whocall.group.v1.ListGroupApplicationsRequest\x1a/.whocall.group.v1.ListGroupApplicationsResponse\".\x82\xd3\xe4\x93\x02(\x12&/api/v1/groups/{group_id}/applications\x12\x7f\n" +
+	"\tQuitGroup\x12\".whocall.group.v1.QuitGroupRequest\x1a#.whocall.group.v1.QuitGroupResponse\")\x82\xd3\xe4\x93\x02#:\x01*\"\x1e/api/v1/groups/{group_id}:quit\x12\xa4\x01\n" +
+	"\x12InviteUsersToGroup\x12+.whocall.group.v1.InviteUsersToGroupRequest\x1a,.whocall.group.v1.InviteUsersToGroupResponse\"3\x82\xd3\xe4\x93\x02-:\x01*\"(/api/v1/groups/{group_id}/members:invite\x12\x9c\x01\n" +
+	"\x10KickGroupMembers\x12).whocall.group.v1.KickGroupMembersRequest\x1a*.whocall.group.v1.KickGroupMembersResponse\"1\x82\xd3\xe4\x93\x02+:\x01*\"&/api/v1/groups/{group_id}/members:kick\x12\x94\x01\n" +
+	"\x10ListGroupMembers\x12).whocall.group.v1.ListGroupMembersRequest\x1a*.whocall.group.v1.ListGroupMembersResponse\")\x82\xd3\xe4\x93\x02#\x12!/api/v1/groups/{group_id}/members\x12\xb3\x01\n" +
+	"\x12SetGroupMemberRole\x12+.whocall.group.v1.SetGroupMemberRoleRequest\x1a,.whocall.group.v1.SetGroupMemberRoleResponse\"B\x82\xd3\xe4\x93\x02<:\x01*\"7/api/v1/groups/{group_id}/members/{member_user_id}/role\x12\xaa\x01\n" +
+	"\x0fMuteGroupMember\x12(.whocall.group.v1.MuteGroupMemberRequest\x1a).whocall.group.v1.MuteGroupMemberResponse\"B\x82\xd3\xe4\x93\x02<:\x01*\"7/api/v1/groups/{group_id}/members/{member_user_id}/mute\x12\x88\x01\n" +
+	"\fSetGroupMute\x12%.whocall.group.v1.SetGroupMuteRequest\x1a&.whocall.group.v1.SetGroupMuteResponse\")\x82\xd3\xe4\x93\x02#:\x01*\"\x1e/api/v1/groups/{group_id}/mute\x12\xa4\x01\n" +
+	"\x12TransferGroupOwner\x12+.whocall.group.v1.TransferGroupOwnerRequest\x1a,.whocall.group.v1.TransferGroupOwnerResponse\"3\x82\xd3\xe4\x93\x02-:\x01*\"(/api/v1/groups/{group_id}:transfer-owner\x12\x91\x01\n" +
+	"\x10ListJoinedGroups\x12).whocall.group.v1.ListJoinedGroupsRequest\x1a*.whocall.group.v1.ListJoinedGroupsResponse\"&\x82\xd3\xe4\x93\x02 \x12\x1e/api/v1/users/{user_id}/groupsBDZBgithub.com/ethereal3x/who-call/api/gen/go/whocall/group/v1;groupv1b\x06proto3"
 
-var file_whocall_group_v1_group_proto_goTypes = []any{}
+var (
+	file_whocall_group_v1_group_proto_rawDescOnce sync.Once
+	file_whocall_group_v1_group_proto_rawDescData []byte
+)
+
+func file_whocall_group_v1_group_proto_rawDescGZIP() []byte {
+	file_whocall_group_v1_group_proto_rawDescOnce.Do(func() {
+		file_whocall_group_v1_group_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_whocall_group_v1_group_proto_rawDesc), len(file_whocall_group_v1_group_proto_rawDesc)))
+	})
+	return file_whocall_group_v1_group_proto_rawDescData
+}
+
+var file_whocall_group_v1_group_proto_enumTypes = make([]protoimpl.EnumInfo, 5)
+var file_whocall_group_v1_group_proto_msgTypes = make([]protoimpl.MessageInfo, 35)
+var file_whocall_group_v1_group_proto_goTypes = []any{
+	(GroupType)(0),                          // 0: whocall.group.v1.GroupType
+	(GroupStatus)(0),                        // 1: whocall.group.v1.GroupStatus
+	(GroupRole)(0),                          // 2: whocall.group.v1.GroupRole
+	(GroupApplicationStatus)(0),             // 3: whocall.group.v1.GroupApplicationStatus
+	(GroupJoinSource)(0),                    // 4: whocall.group.v1.GroupJoinSource
+	(*GroupInfo)(nil),                       // 5: whocall.group.v1.GroupInfo
+	(*GroupMemberInfo)(nil),                 // 6: whocall.group.v1.GroupMemberInfo
+	(*GroupApplication)(nil),                // 7: whocall.group.v1.GroupApplication
+	(*CreateGroupRequest)(nil),              // 8: whocall.group.v1.CreateGroupRequest
+	(*CreateGroupResponse)(nil),             // 9: whocall.group.v1.CreateGroupResponse
+	(*GetGroupRequest)(nil),                 // 10: whocall.group.v1.GetGroupRequest
+	(*GetGroupResponse)(nil),                // 11: whocall.group.v1.GetGroupResponse
+	(*UpdateGroupRequest)(nil),              // 12: whocall.group.v1.UpdateGroupRequest
+	(*UpdateGroupResponse)(nil),             // 13: whocall.group.v1.UpdateGroupResponse
+	(*DismissGroupRequest)(nil),             // 14: whocall.group.v1.DismissGroupRequest
+	(*DismissGroupResponse)(nil),            // 15: whocall.group.v1.DismissGroupResponse
+	(*JoinGroupRequest)(nil),                // 16: whocall.group.v1.JoinGroupRequest
+	(*JoinGroupResponse)(nil),               // 17: whocall.group.v1.JoinGroupResponse
+	(*RespondGroupApplicationRequest)(nil),  // 18: whocall.group.v1.RespondGroupApplicationRequest
+	(*RespondGroupApplicationResponse)(nil), // 19: whocall.group.v1.RespondGroupApplicationResponse
+	(*ListGroupApplicationsRequest)(nil),    // 20: whocall.group.v1.ListGroupApplicationsRequest
+	(*ListGroupApplicationsResponse)(nil),   // 21: whocall.group.v1.ListGroupApplicationsResponse
+	(*QuitGroupRequest)(nil),                // 22: whocall.group.v1.QuitGroupRequest
+	(*QuitGroupResponse)(nil),               // 23: whocall.group.v1.QuitGroupResponse
+	(*InviteUsersToGroupRequest)(nil),       // 24: whocall.group.v1.InviteUsersToGroupRequest
+	(*InviteUsersToGroupResponse)(nil),      // 25: whocall.group.v1.InviteUsersToGroupResponse
+	(*KickGroupMembersRequest)(nil),         // 26: whocall.group.v1.KickGroupMembersRequest
+	(*KickGroupMembersResponse)(nil),        // 27: whocall.group.v1.KickGroupMembersResponse
+	(*ListGroupMembersRequest)(nil),         // 28: whocall.group.v1.ListGroupMembersRequest
+	(*ListGroupMembersResponse)(nil),        // 29: whocall.group.v1.ListGroupMembersResponse
+	(*SetGroupMemberRoleRequest)(nil),       // 30: whocall.group.v1.SetGroupMemberRoleRequest
+	(*SetGroupMemberRoleResponse)(nil),      // 31: whocall.group.v1.SetGroupMemberRoleResponse
+	(*MuteGroupMemberRequest)(nil),          // 32: whocall.group.v1.MuteGroupMemberRequest
+	(*MuteGroupMemberResponse)(nil),         // 33: whocall.group.v1.MuteGroupMemberResponse
+	(*SetGroupMuteRequest)(nil),             // 34: whocall.group.v1.SetGroupMuteRequest
+	(*SetGroupMuteResponse)(nil),            // 35: whocall.group.v1.SetGroupMuteResponse
+	(*TransferGroupOwnerRequest)(nil),       // 36: whocall.group.v1.TransferGroupOwnerRequest
+	(*TransferGroupOwnerResponse)(nil),      // 37: whocall.group.v1.TransferGroupOwnerResponse
+	(*ListJoinedGroupsRequest)(nil),         // 38: whocall.group.v1.ListJoinedGroupsRequest
+	(*ListJoinedGroupsResponse)(nil),        // 39: whocall.group.v1.ListJoinedGroupsResponse
+	(v1.ReceiveMessageOption)(0),            // 40: whocall.common.v1.ReceiveMessageOption
+	(*v1.RequestMeta)(nil),                  // 41: whocall.common.v1.RequestMeta
+	(*v1.ResponseHeader)(nil),               // 42: whocall.common.v1.ResponseHeader
+	(*v1.PaginationRequest)(nil),            // 43: whocall.common.v1.PaginationRequest
+	(*v1.PaginationResponse)(nil),           // 44: whocall.common.v1.PaginationResponse
+}
 var file_whocall_group_v1_group_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	0,  // 0: whocall.group.v1.GroupInfo.group_type:type_name -> whocall.group.v1.GroupType
+	1,  // 1: whocall.group.v1.GroupInfo.status:type_name -> whocall.group.v1.GroupStatus
+	2,  // 2: whocall.group.v1.GroupMemberInfo.role:type_name -> whocall.group.v1.GroupRole
+	40, // 3: whocall.group.v1.GroupMemberInfo.recv_msg_opt:type_name -> whocall.common.v1.ReceiveMessageOption
+	4,  // 4: whocall.group.v1.GroupMemberInfo.join_source:type_name -> whocall.group.v1.GroupJoinSource
+	3,  // 5: whocall.group.v1.GroupApplication.status:type_name -> whocall.group.v1.GroupApplicationStatus
+	4,  // 6: whocall.group.v1.GroupApplication.join_source:type_name -> whocall.group.v1.GroupJoinSource
+	41, // 7: whocall.group.v1.CreateGroupRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	0,  // 8: whocall.group.v1.CreateGroupRequest.group_type:type_name -> whocall.group.v1.GroupType
+	42, // 9: whocall.group.v1.CreateGroupResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	5,  // 10: whocall.group.v1.CreateGroupResponse.group:type_name -> whocall.group.v1.GroupInfo
+	6,  // 11: whocall.group.v1.CreateGroupResponse.members:type_name -> whocall.group.v1.GroupMemberInfo
+	41, // 12: whocall.group.v1.GetGroupRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	42, // 13: whocall.group.v1.GetGroupResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	5,  // 14: whocall.group.v1.GetGroupResponse.group:type_name -> whocall.group.v1.GroupInfo
+	41, // 15: whocall.group.v1.UpdateGroupRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	42, // 16: whocall.group.v1.UpdateGroupResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	5,  // 17: whocall.group.v1.UpdateGroupResponse.group:type_name -> whocall.group.v1.GroupInfo
+	41, // 18: whocall.group.v1.DismissGroupRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	42, // 19: whocall.group.v1.DismissGroupResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	41, // 20: whocall.group.v1.JoinGroupRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	4,  // 21: whocall.group.v1.JoinGroupRequest.join_source:type_name -> whocall.group.v1.GroupJoinSource
+	42, // 22: whocall.group.v1.JoinGroupResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	7,  // 23: whocall.group.v1.JoinGroupResponse.application:type_name -> whocall.group.v1.GroupApplication
+	6,  // 24: whocall.group.v1.JoinGroupResponse.member:type_name -> whocall.group.v1.GroupMemberInfo
+	41, // 25: whocall.group.v1.RespondGroupApplicationRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	42, // 26: whocall.group.v1.RespondGroupApplicationResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	7,  // 27: whocall.group.v1.RespondGroupApplicationResponse.application:type_name -> whocall.group.v1.GroupApplication
+	6,  // 28: whocall.group.v1.RespondGroupApplicationResponse.member:type_name -> whocall.group.v1.GroupMemberInfo
+	41, // 29: whocall.group.v1.ListGroupApplicationsRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	3,  // 30: whocall.group.v1.ListGroupApplicationsRequest.status:type_name -> whocall.group.v1.GroupApplicationStatus
+	43, // 31: whocall.group.v1.ListGroupApplicationsRequest.pagination:type_name -> whocall.common.v1.PaginationRequest
+	42, // 32: whocall.group.v1.ListGroupApplicationsResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	7,  // 33: whocall.group.v1.ListGroupApplicationsResponse.applications:type_name -> whocall.group.v1.GroupApplication
+	44, // 34: whocall.group.v1.ListGroupApplicationsResponse.pagination:type_name -> whocall.common.v1.PaginationResponse
+	41, // 35: whocall.group.v1.QuitGroupRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	42, // 36: whocall.group.v1.QuitGroupResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	41, // 37: whocall.group.v1.InviteUsersToGroupRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	42, // 38: whocall.group.v1.InviteUsersToGroupResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	6,  // 39: whocall.group.v1.InviteUsersToGroupResponse.added_members:type_name -> whocall.group.v1.GroupMemberInfo
+	7,  // 40: whocall.group.v1.InviteUsersToGroupResponse.applications:type_name -> whocall.group.v1.GroupApplication
+	41, // 41: whocall.group.v1.KickGroupMembersRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	42, // 42: whocall.group.v1.KickGroupMembersResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	41, // 43: whocall.group.v1.ListGroupMembersRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	2,  // 44: whocall.group.v1.ListGroupMembersRequest.role:type_name -> whocall.group.v1.GroupRole
+	43, // 45: whocall.group.v1.ListGroupMembersRequest.pagination:type_name -> whocall.common.v1.PaginationRequest
+	42, // 46: whocall.group.v1.ListGroupMembersResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	6,  // 47: whocall.group.v1.ListGroupMembersResponse.members:type_name -> whocall.group.v1.GroupMemberInfo
+	44, // 48: whocall.group.v1.ListGroupMembersResponse.pagination:type_name -> whocall.common.v1.PaginationResponse
+	41, // 49: whocall.group.v1.SetGroupMemberRoleRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	2,  // 50: whocall.group.v1.SetGroupMemberRoleRequest.role:type_name -> whocall.group.v1.GroupRole
+	42, // 51: whocall.group.v1.SetGroupMemberRoleResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	6,  // 52: whocall.group.v1.SetGroupMemberRoleResponse.member:type_name -> whocall.group.v1.GroupMemberInfo
+	41, // 53: whocall.group.v1.MuteGroupMemberRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	42, // 54: whocall.group.v1.MuteGroupMemberResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	6,  // 55: whocall.group.v1.MuteGroupMemberResponse.member:type_name -> whocall.group.v1.GroupMemberInfo
+	41, // 56: whocall.group.v1.SetGroupMuteRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	42, // 57: whocall.group.v1.SetGroupMuteResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	5,  // 58: whocall.group.v1.SetGroupMuteResponse.group:type_name -> whocall.group.v1.GroupInfo
+	41, // 59: whocall.group.v1.TransferGroupOwnerRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	42, // 60: whocall.group.v1.TransferGroupOwnerResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	5,  // 61: whocall.group.v1.TransferGroupOwnerResponse.group:type_name -> whocall.group.v1.GroupInfo
+	41, // 62: whocall.group.v1.ListJoinedGroupsRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	43, // 63: whocall.group.v1.ListJoinedGroupsRequest.pagination:type_name -> whocall.common.v1.PaginationRequest
+	42, // 64: whocall.group.v1.ListJoinedGroupsResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	5,  // 65: whocall.group.v1.ListJoinedGroupsResponse.groups:type_name -> whocall.group.v1.GroupInfo
+	44, // 66: whocall.group.v1.ListJoinedGroupsResponse.pagination:type_name -> whocall.common.v1.PaginationResponse
+	8,  // 67: whocall.group.v1.GroupService.CreateGroup:input_type -> whocall.group.v1.CreateGroupRequest
+	10, // 68: whocall.group.v1.GroupService.GetGroup:input_type -> whocall.group.v1.GetGroupRequest
+	12, // 69: whocall.group.v1.GroupService.UpdateGroup:input_type -> whocall.group.v1.UpdateGroupRequest
+	14, // 70: whocall.group.v1.GroupService.DismissGroup:input_type -> whocall.group.v1.DismissGroupRequest
+	16, // 71: whocall.group.v1.GroupService.JoinGroup:input_type -> whocall.group.v1.JoinGroupRequest
+	18, // 72: whocall.group.v1.GroupService.RespondGroupApplication:input_type -> whocall.group.v1.RespondGroupApplicationRequest
+	20, // 73: whocall.group.v1.GroupService.ListGroupApplications:input_type -> whocall.group.v1.ListGroupApplicationsRequest
+	22, // 74: whocall.group.v1.GroupService.QuitGroup:input_type -> whocall.group.v1.QuitGroupRequest
+	24, // 75: whocall.group.v1.GroupService.InviteUsersToGroup:input_type -> whocall.group.v1.InviteUsersToGroupRequest
+	26, // 76: whocall.group.v1.GroupService.KickGroupMembers:input_type -> whocall.group.v1.KickGroupMembersRequest
+	28, // 77: whocall.group.v1.GroupService.ListGroupMembers:input_type -> whocall.group.v1.ListGroupMembersRequest
+	30, // 78: whocall.group.v1.GroupService.SetGroupMemberRole:input_type -> whocall.group.v1.SetGroupMemberRoleRequest
+	32, // 79: whocall.group.v1.GroupService.MuteGroupMember:input_type -> whocall.group.v1.MuteGroupMemberRequest
+	34, // 80: whocall.group.v1.GroupService.SetGroupMute:input_type -> whocall.group.v1.SetGroupMuteRequest
+	36, // 81: whocall.group.v1.GroupService.TransferGroupOwner:input_type -> whocall.group.v1.TransferGroupOwnerRequest
+	38, // 82: whocall.group.v1.GroupService.ListJoinedGroups:input_type -> whocall.group.v1.ListJoinedGroupsRequest
+	9,  // 83: whocall.group.v1.GroupService.CreateGroup:output_type -> whocall.group.v1.CreateGroupResponse
+	11, // 84: whocall.group.v1.GroupService.GetGroup:output_type -> whocall.group.v1.GetGroupResponse
+	13, // 85: whocall.group.v1.GroupService.UpdateGroup:output_type -> whocall.group.v1.UpdateGroupResponse
+	15, // 86: whocall.group.v1.GroupService.DismissGroup:output_type -> whocall.group.v1.DismissGroupResponse
+	17, // 87: whocall.group.v1.GroupService.JoinGroup:output_type -> whocall.group.v1.JoinGroupResponse
+	19, // 88: whocall.group.v1.GroupService.RespondGroupApplication:output_type -> whocall.group.v1.RespondGroupApplicationResponse
+	21, // 89: whocall.group.v1.GroupService.ListGroupApplications:output_type -> whocall.group.v1.ListGroupApplicationsResponse
+	23, // 90: whocall.group.v1.GroupService.QuitGroup:output_type -> whocall.group.v1.QuitGroupResponse
+	25, // 91: whocall.group.v1.GroupService.InviteUsersToGroup:output_type -> whocall.group.v1.InviteUsersToGroupResponse
+	27, // 92: whocall.group.v1.GroupService.KickGroupMembers:output_type -> whocall.group.v1.KickGroupMembersResponse
+	29, // 93: whocall.group.v1.GroupService.ListGroupMembers:output_type -> whocall.group.v1.ListGroupMembersResponse
+	31, // 94: whocall.group.v1.GroupService.SetGroupMemberRole:output_type -> whocall.group.v1.SetGroupMemberRoleResponse
+	33, // 95: whocall.group.v1.GroupService.MuteGroupMember:output_type -> whocall.group.v1.MuteGroupMemberResponse
+	35, // 96: whocall.group.v1.GroupService.SetGroupMute:output_type -> whocall.group.v1.SetGroupMuteResponse
+	37, // 97: whocall.group.v1.GroupService.TransferGroupOwner:output_type -> whocall.group.v1.TransferGroupOwnerResponse
+	39, // 98: whocall.group.v1.GroupService.ListJoinedGroups:output_type -> whocall.group.v1.ListJoinedGroupsResponse
+	83, // [83:99] is the sub-list for method output_type
+	67, // [67:83] is the sub-list for method input_type
+	67, // [67:67] is the sub-list for extension type_name
+	67, // [67:67] is the sub-list for extension extendee
+	0,  // [0:67] is the sub-list for field type_name
 }
 
 func init() { file_whocall_group_v1_group_proto_init() }
@@ -45,13 +3207,15 @@ func file_whocall_group_v1_group_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_whocall_group_v1_group_proto_rawDesc), len(file_whocall_group_v1_group_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   0,
+			NumEnums:      5,
+			NumMessages:   35,
 			NumExtensions: 0,
-			NumServices:   0,
+			NumServices:   1,
 		},
 		GoTypes:           file_whocall_group_v1_group_proto_goTypes,
 		DependencyIndexes: file_whocall_group_v1_group_proto_depIdxs,
+		EnumInfos:         file_whocall_group_v1_group_proto_enumTypes,
+		MessageInfos:      file_whocall_group_v1_group_proto_msgTypes,
 	}.Build()
 	File_whocall_group_v1_group_proto = out.File
 	file_whocall_group_v1_group_proto_goTypes = nil

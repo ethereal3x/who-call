@@ -1,4 +1,3 @@
-// api/proto/user/v1/user.proto
 syntax = "proto3";
 
 package whocall.user.v1;
@@ -12,26 +11,146 @@ service UserService {
     rpc GetProfile(GetProfileRequest) returns (GetProfileResponse) {
         option (google.api.http) = { get: "/api/v1/users/{user_id}" };
     }
+
+    rpc BatchGetProfiles(BatchGetProfilesRequest) returns (BatchGetProfilesResponse) {
+        option (google.api.http) = { post: "/api/v1/users:batch-get" body: "*" };
+    }
+
     rpc UpdateProfile(UpdateProfileRequest) returns (UpdateProfileResponse) {
         option (google.api.http) = { patch: "/api/v1/users/{user_id}" body: "*" };
     }
-    rpc GetUsersOnlineStatus(GetUsersOnlineStatusRequest) returns (GetUsersOnlineStatusResponse) {
-        option (google.api.http) = { post: "/api/v1/users/online_status" body: "*" };
+
+    rpc SearchUsers(SearchUsersRequest) returns (SearchUsersResponse) {
+        option (google.api.http) = { get: "/api/v1/users:search" };
     }
+
+    rpc GetUsersOnlineStatus(GetUsersOnlineStatusRequest) returns (GetUsersOnlineStatusResponse) {
+        option (google.api.http) = { post: "/api/v1/users/online-status" body: "*" };
+    }
+
+    rpc SetUserStatus(SetUserStatusRequest) returns (SetUserStatusResponse) {
+        option (google.api.http) = { post: "/api/v1/users/{user_id}/status" body: "*" };
+    }
+
+    rpc SetGlobalRecvMsgOpt(SetGlobalRecvMsgOptRequest) returns (SetGlobalRecvMsgOptResponse) {
+        option (google.api.http) = { post: "/api/v1/users/{user_id}/recv-msg-opt" body: "*" };
+    }
+}
+
+enum UserStatus {
+    USER_STATUS_UNSPECIFIED = 0;
+    USER_STATUS_NORMAL = 1;
+    USER_STATUS_BANNED = 2;
+    USER_STATUS_DELETED = 3;
+}
+
+enum OnlineStatus {
+    ONLINE_STATUS_UNSPECIFIED = 0;
+    ONLINE_STATUS_OFFLINE = 1;
+    ONLINE_STATUS_ONLINE = 2;
+    ONLINE_STATUS_AWAY = 3;
 }
 
 message UserProfile {
     string user_id = 1;
-    string nickname = 2;
-    string avatar_url = 3;
-    int32 status = 4;
-    int32 global_recv_msg_opt = 5;
+    string username = 2;
+    string nickname = 3;
+    string avatar_url = 4;
+    string phone = 5;
+    string email = 6;
+    whocall.common.v1.Gender gender = 7;
+    UserStatus status = 8;
+    whocall.common.v1.ReceiveMessageOption global_recv_msg_opt = 9;
+    int64 create_time_ms = 10;
+    int64 update_time_ms = 11;
+    string ex = 12;
 }
 
-message GetProfileRequest { whocall.common.v1.RequestMeta meta = 1; string user_id = 2; }
-message GetProfileResponse { whocall.common.v1.ResponseHeader header = 1; UserProfile user = 2; }
-message UpdateProfileRequest { whocall.common.v1.RequestMeta meta = 1; string user_id = 2; string nickname = 3; string avatar_url = 4; int32 global_recv_msg_opt = 5; }
-message UpdateProfileResponse { whocall.common.v1.ResponseHeader header = 1; UserProfile user = 2; }
-message GetUsersOnlineStatusRequest { whocall.common.v1.RequestMeta meta = 1; repeated string user_ids = 2; }
-message UserOnlineStatus { string user_id = 1; bool online = 2; repeated int32 platform_ids = 3; }
-message GetUsersOnlineStatusResponse { whocall.common.v1.ResponseHeader header = 1; repeated UserOnlineStatus statuses = 2; }
+message GetProfileRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string user_id = 2;
+}
+
+message GetProfileResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    UserProfile user = 2;
+}
+
+message BatchGetProfilesRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    repeated string user_ids = 2;
+}
+
+message BatchGetProfilesResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    repeated UserProfile users = 2;
+}
+
+message UpdateProfileRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string user_id = 2;
+    string nickname = 3;
+    string avatar_url = 4;
+    string phone = 5;
+    string email = 6;
+    whocall.common.v1.Gender gender = 7;
+    whocall.common.v1.ReceiveMessageOption global_recv_msg_opt = 8;
+    string ex = 9;
+}
+
+message UpdateProfileResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    UserProfile user = 2;
+}
+
+message SearchUsersRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string keyword = 2;
+    whocall.common.v1.PaginationRequest pagination = 3;
+}
+
+message SearchUsersResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    repeated UserProfile users = 2;
+    whocall.common.v1.PaginationResponse pagination = 3;
+}
+
+message GetUsersOnlineStatusRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    repeated string user_ids = 2;
+}
+
+message UserOnlineStatus {
+    string user_id = 1;
+    OnlineStatus online_status = 2;
+    repeated whocall.common.v1.Platform platforms = 3;
+    int64 last_active_time_ms = 4;
+}
+
+message GetUsersOnlineStatusResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    repeated UserOnlineStatus statuses = 2;
+}
+
+message SetUserStatusRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string user_id = 2;
+    UserStatus status = 3;
+    string reason = 4;
+}
+
+message SetUserStatusResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    UserProfile user = 2;
+}
+
+message SetGlobalRecvMsgOptRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string user_id = 2;
+    whocall.common.v1.ReceiveMessageOption recv_msg_opt = 3;
+}
+
+message SetGlobalRecvMsgOptResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    whocall.common.v1.ReceiveMessageOption recv_msg_opt = 2;
+}

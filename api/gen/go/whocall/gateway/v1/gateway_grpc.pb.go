@@ -19,8 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	GatewayInternalService_PushMsg_FullMethodName    = "/whocall.gateway.v1.GatewayInternalService/PushMsg"
-	GatewayInternalService_KickOnline_FullMethodName = "/whocall.gateway.v1.GatewayInternalService/KickOnline"
+	GatewayInternalService_PushMsg_FullMethodName              = "/whocall.gateway.v1.GatewayInternalService/PushMsg"
+	GatewayInternalService_PushEvent_FullMethodName            = "/whocall.gateway.v1.GatewayInternalService/PushEvent"
+	GatewayInternalService_KickOnline_FullMethodName           = "/whocall.gateway.v1.GatewayInternalService/KickOnline"
+	GatewayInternalService_GetOnlineConnections_FullMethodName = "/whocall.gateway.v1.GatewayInternalService/GetOnlineConnections"
 )
 
 // GatewayInternalServiceClient is the client API for GatewayInternalService service.
@@ -28,7 +30,9 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type GatewayInternalServiceClient interface {
 	PushMsg(ctx context.Context, in *PushMsgRequest, opts ...grpc.CallOption) (*PushMsgResponse, error)
+	PushEvent(ctx context.Context, in *PushEventRequest, opts ...grpc.CallOption) (*PushEventResponse, error)
 	KickOnline(ctx context.Context, in *KickOnlineRequest, opts ...grpc.CallOption) (*KickOnlineResponse, error)
+	GetOnlineConnections(ctx context.Context, in *GetOnlineConnectionsRequest, opts ...grpc.CallOption) (*GetOnlineConnectionsResponse, error)
 }
 
 type gatewayInternalServiceClient struct {
@@ -49,10 +53,30 @@ func (c *gatewayInternalServiceClient) PushMsg(ctx context.Context, in *PushMsgR
 	return out, nil
 }
 
+func (c *gatewayInternalServiceClient) PushEvent(ctx context.Context, in *PushEventRequest, opts ...grpc.CallOption) (*PushEventResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(PushEventResponse)
+	err := c.cc.Invoke(ctx, GatewayInternalService_PushEvent_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *gatewayInternalServiceClient) KickOnline(ctx context.Context, in *KickOnlineRequest, opts ...grpc.CallOption) (*KickOnlineResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(KickOnlineResponse)
 	err := c.cc.Invoke(ctx, GatewayInternalService_KickOnline_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gatewayInternalServiceClient) GetOnlineConnections(ctx context.Context, in *GetOnlineConnectionsRequest, opts ...grpc.CallOption) (*GetOnlineConnectionsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetOnlineConnectionsResponse)
+	err := c.cc.Invoke(ctx, GatewayInternalService_GetOnlineConnections_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -64,7 +88,9 @@ func (c *gatewayInternalServiceClient) KickOnline(ctx context.Context, in *KickO
 // for forward compatibility.
 type GatewayInternalServiceServer interface {
 	PushMsg(context.Context, *PushMsgRequest) (*PushMsgResponse, error)
+	PushEvent(context.Context, *PushEventRequest) (*PushEventResponse, error)
 	KickOnline(context.Context, *KickOnlineRequest) (*KickOnlineResponse, error)
+	GetOnlineConnections(context.Context, *GetOnlineConnectionsRequest) (*GetOnlineConnectionsResponse, error)
 }
 
 // UnimplementedGatewayInternalServiceServer should be embedded to have
@@ -77,8 +103,14 @@ type UnimplementedGatewayInternalServiceServer struct{}
 func (UnimplementedGatewayInternalServiceServer) PushMsg(context.Context, *PushMsgRequest) (*PushMsgResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method PushMsg not implemented")
 }
+func (UnimplementedGatewayInternalServiceServer) PushEvent(context.Context, *PushEventRequest) (*PushEventResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method PushEvent not implemented")
+}
 func (UnimplementedGatewayInternalServiceServer) KickOnline(context.Context, *KickOnlineRequest) (*KickOnlineResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method KickOnline not implemented")
+}
+func (UnimplementedGatewayInternalServiceServer) GetOnlineConnections(context.Context, *GetOnlineConnectionsRequest) (*GetOnlineConnectionsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetOnlineConnections not implemented")
 }
 func (UnimplementedGatewayInternalServiceServer) testEmbeddedByValue() {}
 
@@ -118,6 +150,24 @@ func _GatewayInternalService_PushMsg_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _GatewayInternalService_PushEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PushEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GatewayInternalServiceServer).PushEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: GatewayInternalService_PushEvent_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GatewayInternalServiceServer).PushEvent(ctx, req.(*PushEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _GatewayInternalService_KickOnline_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(KickOnlineRequest)
 	if err := dec(in); err != nil {
@@ -136,6 +186,24 @@ func _GatewayInternalService_KickOnline_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _GatewayInternalService_GetOnlineConnections_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOnlineConnectionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GatewayInternalServiceServer).GetOnlineConnections(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: GatewayInternalService_GetOnlineConnections_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GatewayInternalServiceServer).GetOnlineConnections(ctx, req.(*GetOnlineConnectionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // GatewayInternalService_ServiceDesc is the grpc.ServiceDesc for GatewayInternalService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -148,8 +216,16 @@ var GatewayInternalService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _GatewayInternalService_PushMsg_Handler,
 		},
 		{
+			MethodName: "PushEvent",
+			Handler:    _GatewayInternalService_PushEvent_Handler,
+		},
+		{
 			MethodName: "KickOnline",
 			Handler:    _GatewayInternalService_KickOnline_Handler,
+		},
+		{
+			MethodName: "GetOnlineConnections",
+			Handler:    _GatewayInternalService_GetOnlineConnections_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -9,39 +9,117 @@ import "whocall/msg/v1/msg.proto";
 
 service GatewayInternalService {
     rpc PushMsg(PushMsgRequest) returns (PushMsgResponse);
+    rpc PushEvent(PushEventRequest) returns (PushEventResponse);
     rpc KickOnline(KickOnlineRequest) returns (KickOnlineResponse);
+    rpc GetOnlineConnections(GetOnlineConnectionsRequest) returns (GetOnlineConnectionsResponse);
+}
+
+enum WsCommand {
+    WS_COMMAND_UNSPECIFIED = 0;
+    WS_COMMAND_CONNECT = 1;
+    WS_COMMAND_HEARTBEAT = 2;
+    WS_COMMAND_SEND_MSG = 1001;
+    WS_COMMAND_SEND_MSG_RESP = 1002;
+    WS_COMMAND_PUSH_MSG = 1003;
+    WS_COMMAND_PULL_MSG = 1004;
+    WS_COMMAND_MARK_READ = 1005;
+    WS_COMMAND_KICKED = 2001;
+    WS_COMMAND_USER_STATUS_CHANGED = 2002;
+    WS_COMMAND_CONVERSATION_CHANGED = 2003;
+    WS_COMMAND_GROUP_CHANGED = 2004;
+    WS_COMMAND_FRIEND_CHANGED = 2005;
+}
+
+enum WsFrameType {
+    WS_FRAME_TYPE_UNSPECIFIED = 0;
+    WS_FRAME_TYPE_REQUEST = 1;
+    WS_FRAME_TYPE_RESPONSE = 2;
+    WS_FRAME_TYPE_PUSH = 3;
+    WS_FRAME_TYPE_ACK = 4;
+}
+
+enum ConnectionStatus {
+    CONNECTION_STATUS_UNSPECIFIED = 0;
+    CONNECTION_STATUS_ONLINE = 1;
+    CONNECTION_STATUS_OFFLINE = 2;
+}
+
+message WsFrame {
+    string request_id = 1;
+    WsCommand command = 2;
+    WsFrameType frame_type = 3;
+    int64 seq = 4;
+    bytes payload = 5;
+    string operation_id = 6;
+    int64 timestamp_ms = 7;
+}
+
+message WsAck {
+    string request_id = 1;
+    WsCommand command = 2;
+    int32 code = 3;
+    string message = 4;
+    int64 ack_time_ms = 5;
+}
+
+message ConnectionInfo {
+    string conn_id = 1;
+    string user_id = 2;
+    whocall.common.v1.Platform platform = 3;
+    string device_id = 4;
+    string client_version = 5;
+    string remote_addr = 6;
+    ConnectionStatus status = 7;
+    int64 connected_time_ms = 8;
+    int64 last_active_time_ms = 9;
 }
 
 message PushMsgRequest {
-    // 请求元信息
     whocall.common.v1.RequestMeta meta = 1;
-    // 用户ID
-    string user_id = 2;
-    // 消息数据
+    repeated string user_ids = 2;
     whocall.msg.v1.MsgData msg_data = 3;
+    bool offline_push = 4;
 }
 
 message PushMsgResponse {
-    // 响应头
     whocall.common.v1.ResponseHeader header = 1;
-    // 已投递连接ID列表
     repeated string delivered_conn_ids = 2;
+    repeated string offline_user_ids = 3;
+}
+
+message PushEventRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    repeated string user_ids = 2;
+    WsCommand command = 3;
+    bytes payload = 4;
+    string event_id = 5;
+}
+
+message PushEventResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    repeated string delivered_conn_ids = 2;
+    repeated string offline_user_ids = 3;
 }
 
 message KickOnlineRequest {
-    // 请求元信息
     whocall.common.v1.RequestMeta meta = 1;
-    // 用户ID
     string user_id = 2;
-    // 平台ID
-    int32 platform_id = 3;
-    // 踢下线原因
-    string reason = 4;
+    whocall.common.v1.Platform platform = 3;
+    string device_id = 4;
+    string reason = 5;
 }
 
 message KickOnlineResponse {
-    // 响应头
     whocall.common.v1.ResponseHeader header = 1;
-    // 踢下线数量
     int32 kicked_count = 2;
+}
+
+message GetOnlineConnectionsRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    repeated string user_ids = 2;
+}
+
+message GetOnlineConnectionsResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    repeated ConnectionInfo connections = 2;
 }

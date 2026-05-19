@@ -62,6 +62,33 @@ func local_request_MsgService_SendMsg_0(ctx context.Context, marshaler runtime.M
 	return msg, metadata, err
 }
 
+func request_MsgService_BatchSendMsg_0(ctx context.Context, marshaler runtime.Marshaler, client MsgServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq BatchSendMsgRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if req.Body != nil {
+		_, _ = io.Copy(io.Discard, req.Body)
+	}
+	msg, err := client.BatchSendMsg(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+}
+
+func local_request_MsgService_BatchSendMsg_0(ctx context.Context, marshaler runtime.Marshaler, server MsgServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq BatchSendMsgRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	msg, err := server.BatchSendMsg(ctx, &protoReq)
+	return msg, metadata, err
+}
+
 func request_MsgService_GetNewestSeq_0(ctx context.Context, marshaler runtime.Marshaler, client MsgServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var (
 		protoReq GetNewestSeqRequest
@@ -113,6 +140,33 @@ func local_request_MsgService_PullMsgBySeqList_0(ctx context.Context, marshaler 
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	msg, err := server.PullMsgBySeqList(ctx, &protoReq)
+	return msg, metadata, err
+}
+
+func request_MsgService_PullMsgBySeqRange_0(ctx context.Context, marshaler runtime.Marshaler, client MsgServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq PullMsgBySeqRangeRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if req.Body != nil {
+		_, _ = io.Copy(io.Discard, req.Body)
+	}
+	msg, err := client.PullMsgBySeqRange(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+}
+
+func local_request_MsgService_PullMsgBySeqRange_0(ctx context.Context, marshaler runtime.Marshaler, server MsgServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq PullMsgBySeqRangeRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	msg, err := server.PullMsgBySeqRange(ctx, &protoReq)
 	return msg, metadata, err
 }
 
@@ -170,6 +224,86 @@ func local_request_MsgService_RevokeMsg_0(ctx context.Context, marshaler runtime
 	return msg, metadata, err
 }
 
+func request_MsgService_DeleteMsg_0(ctx context.Context, marshaler runtime.Marshaler, client MsgServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq DeleteMsgRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if req.Body != nil {
+		_, _ = io.Copy(io.Discard, req.Body)
+	}
+	msg, err := client.DeleteMsg(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+}
+
+func local_request_MsgService_DeleteMsg_0(ctx context.Context, marshaler runtime.Marshaler, server MsgServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq DeleteMsgRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	msg, err := server.DeleteMsg(ctx, &protoReq)
+	return msg, metadata, err
+}
+
+var filter_MsgService_GetMsg_0 = &utilities.DoubleArray{Encoding: map[string]int{"server_msg_id": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
+
+func request_MsgService_GetMsg_0(ctx context.Context, marshaler runtime.Marshaler, client MsgServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq GetMsgRequest
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if req.Body != nil {
+		_, _ = io.Copy(io.Discard, req.Body)
+	}
+	val, ok := pathParams["server_msg_id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "server_msg_id")
+	}
+	protoReq.ServerMsgId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "server_msg_id", err)
+	}
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_MsgService_GetMsg_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	msg, err := client.GetMsg(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+}
+
+func local_request_MsgService_GetMsg_0(ctx context.Context, marshaler runtime.Marshaler, server MsgServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq GetMsgRequest
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	val, ok := pathParams["server_msg_id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "server_msg_id")
+	}
+	protoReq.ServerMsgId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "server_msg_id", err)
+	}
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_MsgService_GetMsg_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	msg, err := server.GetMsg(ctx, &protoReq)
+	return msg, metadata, err
+}
+
 // RegisterMsgServiceHandlerServer registers the http handlers for service MsgService to "mux".
 // UnaryRPC     :call MsgServiceServer directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
@@ -196,13 +330,33 @@ func RegisterMsgServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux,
 		}
 		forward_MsgService_SendMsg_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
+	mux.Handle(http.MethodPost, pattern_MsgService_BatchSendMsg_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/whocall.msg.v1.MsgService/BatchSendMsg", runtime.WithHTTPPathPattern("/api/v1/messages/batch-send"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_MsgService_BatchSendMsg_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_MsgService_BatchSendMsg_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
 	mux.Handle(http.MethodPost, pattern_MsgService_GetNewestSeq_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/whocall.msg.v1.MsgService/GetNewestSeq", runtime.WithHTTPPathPattern("/whocall.msg.v1.MsgService/GetNewestSeq"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/whocall.msg.v1.MsgService/GetNewestSeq", runtime.WithHTTPPathPattern("/api/v1/messages/newest-seq"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -222,7 +376,7 @@ func RegisterMsgServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux,
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/whocall.msg.v1.MsgService/PullMsgBySeqList", runtime.WithHTTPPathPattern("/whocall.msg.v1.MsgService/PullMsgBySeqList"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/whocall.msg.v1.MsgService/PullMsgBySeqList", runtime.WithHTTPPathPattern("/api/v1/messages/pull-by-seq-list"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -236,13 +390,33 @@ func RegisterMsgServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux,
 		}
 		forward_MsgService_PullMsgBySeqList_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
+	mux.Handle(http.MethodPost, pattern_MsgService_PullMsgBySeqRange_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/whocall.msg.v1.MsgService/PullMsgBySeqRange", runtime.WithHTTPPathPattern("/api/v1/messages/pull-by-seq-range"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_MsgService_PullMsgBySeqRange_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_MsgService_PullMsgBySeqRange_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
 	mux.Handle(http.MethodPost, pattern_MsgService_MarkConversationRead_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/whocall.msg.v1.MsgService/MarkConversationRead", runtime.WithHTTPPathPattern("/api/v1/messages/mark_read"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/whocall.msg.v1.MsgService/MarkConversationRead", runtime.WithHTTPPathPattern("/api/v1/messages/mark-read"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -275,6 +449,46 @@ func RegisterMsgServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux,
 			return
 		}
 		forward_MsgService_RevokeMsg_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
+	mux.Handle(http.MethodPost, pattern_MsgService_DeleteMsg_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/whocall.msg.v1.MsgService/DeleteMsg", runtime.WithHTTPPathPattern("/api/v1/messages/delete"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_MsgService_DeleteMsg_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_MsgService_DeleteMsg_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
+	mux.Handle(http.MethodGet, pattern_MsgService_GetMsg_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/whocall.msg.v1.MsgService/GetMsg", runtime.WithHTTPPathPattern("/api/v1/messages/{server_msg_id}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_MsgService_GetMsg_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_MsgService_GetMsg_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
 
 	return nil
@@ -333,11 +547,28 @@ func RegisterMsgServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux,
 		}
 		forward_MsgService_SendMsg_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
+	mux.Handle(http.MethodPost, pattern_MsgService_BatchSendMsg_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/whocall.msg.v1.MsgService/BatchSendMsg", runtime.WithHTTPPathPattern("/api/v1/messages/batch-send"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_MsgService_BatchSendMsg_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_MsgService_BatchSendMsg_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
 	mux.Handle(http.MethodPost, pattern_MsgService_GetNewestSeq_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/whocall.msg.v1.MsgService/GetNewestSeq", runtime.WithHTTPPathPattern("/whocall.msg.v1.MsgService/GetNewestSeq"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/whocall.msg.v1.MsgService/GetNewestSeq", runtime.WithHTTPPathPattern("/api/v1/messages/newest-seq"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -354,7 +585,7 @@ func RegisterMsgServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux,
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/whocall.msg.v1.MsgService/PullMsgBySeqList", runtime.WithHTTPPathPattern("/whocall.msg.v1.MsgService/PullMsgBySeqList"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/whocall.msg.v1.MsgService/PullMsgBySeqList", runtime.WithHTTPPathPattern("/api/v1/messages/pull-by-seq-list"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -367,11 +598,28 @@ func RegisterMsgServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux,
 		}
 		forward_MsgService_PullMsgBySeqList_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
+	mux.Handle(http.MethodPost, pattern_MsgService_PullMsgBySeqRange_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/whocall.msg.v1.MsgService/PullMsgBySeqRange", runtime.WithHTTPPathPattern("/api/v1/messages/pull-by-seq-range"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_MsgService_PullMsgBySeqRange_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_MsgService_PullMsgBySeqRange_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
 	mux.Handle(http.MethodPost, pattern_MsgService_MarkConversationRead_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/whocall.msg.v1.MsgService/MarkConversationRead", runtime.WithHTTPPathPattern("/api/v1/messages/mark_read"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/whocall.msg.v1.MsgService/MarkConversationRead", runtime.WithHTTPPathPattern("/api/v1/messages/mark-read"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -401,21 +649,63 @@ func RegisterMsgServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux,
 		}
 		forward_MsgService_RevokeMsg_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
+	mux.Handle(http.MethodPost, pattern_MsgService_DeleteMsg_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/whocall.msg.v1.MsgService/DeleteMsg", runtime.WithHTTPPathPattern("/api/v1/messages/delete"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_MsgService_DeleteMsg_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_MsgService_DeleteMsg_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
+	mux.Handle(http.MethodGet, pattern_MsgService_GetMsg_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/whocall.msg.v1.MsgService/GetMsg", runtime.WithHTTPPathPattern("/api/v1/messages/{server_msg_id}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_MsgService_GetMsg_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_MsgService_GetMsg_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
 	return nil
 }
 
 var (
 	pattern_MsgService_SendMsg_0              = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "messages", "send"}, ""))
-	pattern_MsgService_GetNewestSeq_0         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"whocall.msg.v1.MsgService", "GetNewestSeq"}, ""))
-	pattern_MsgService_PullMsgBySeqList_0     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"whocall.msg.v1.MsgService", "PullMsgBySeqList"}, ""))
-	pattern_MsgService_MarkConversationRead_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "messages", "mark_read"}, ""))
+	pattern_MsgService_BatchSendMsg_0         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "messages", "batch-send"}, ""))
+	pattern_MsgService_GetNewestSeq_0         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "messages", "newest-seq"}, ""))
+	pattern_MsgService_PullMsgBySeqList_0     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "messages", "pull-by-seq-list"}, ""))
+	pattern_MsgService_PullMsgBySeqRange_0    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "messages", "pull-by-seq-range"}, ""))
+	pattern_MsgService_MarkConversationRead_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "messages", "mark-read"}, ""))
 	pattern_MsgService_RevokeMsg_0            = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "messages", "revoke"}, ""))
+	pattern_MsgService_DeleteMsg_0            = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "messages", "delete"}, ""))
+	pattern_MsgService_GetMsg_0               = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "v1", "messages", "server_msg_id"}, ""))
 )
 
 var (
 	forward_MsgService_SendMsg_0              = runtime.ForwardResponseMessage
+	forward_MsgService_BatchSendMsg_0         = runtime.ForwardResponseMessage
 	forward_MsgService_GetNewestSeq_0         = runtime.ForwardResponseMessage
 	forward_MsgService_PullMsgBySeqList_0     = runtime.ForwardResponseMessage
+	forward_MsgService_PullMsgBySeqRange_0    = runtime.ForwardResponseMessage
 	forward_MsgService_MarkConversationRead_0 = runtime.ForwardResponseMessage
 	forward_MsgService_RevokeMsg_0            = runtime.ForwardResponseMessage
+	forward_MsgService_DeleteMsg_0            = runtime.ForwardResponseMessage
+	forward_MsgService_GetMsg_0               = runtime.ForwardResponseMessage
 )

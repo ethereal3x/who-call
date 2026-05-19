@@ -7,9 +7,13 @@
 package conversationv1
 
 import (
+	v1 "github.com/ethereal3x/who-call/api/gen/go/whocall/common/v1"
+	v11 "github.com/ethereal3x/who-call/api/gen/go/whocall/msg/v1"
+	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
+	sync "sync"
 	unsafe "unsafe"
 )
 
@@ -20,19 +24,1396 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type ConversationStatus int32
+
+const (
+	ConversationStatus_CONVERSATION_STATUS_UNSPECIFIED ConversationStatus = 0
+	ConversationStatus_CONVERSATION_STATUS_NORMAL      ConversationStatus = 1
+	ConversationStatus_CONVERSATION_STATUS_DELETED     ConversationStatus = 2
+	ConversationStatus_CONVERSATION_STATUS_ARCHIVED    ConversationStatus = 3
+)
+
+// Enum value maps for ConversationStatus.
+var (
+	ConversationStatus_name = map[int32]string{
+		0: "CONVERSATION_STATUS_UNSPECIFIED",
+		1: "CONVERSATION_STATUS_NORMAL",
+		2: "CONVERSATION_STATUS_DELETED",
+		3: "CONVERSATION_STATUS_ARCHIVED",
+	}
+	ConversationStatus_value = map[string]int32{
+		"CONVERSATION_STATUS_UNSPECIFIED": 0,
+		"CONVERSATION_STATUS_NORMAL":      1,
+		"CONVERSATION_STATUS_DELETED":     2,
+		"CONVERSATION_STATUS_ARCHIVED":    3,
+	}
+)
+
+func (x ConversationStatus) Enum() *ConversationStatus {
+	p := new(ConversationStatus)
+	*p = x
+	return p
+}
+
+func (x ConversationStatus) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (ConversationStatus) Descriptor() protoreflect.EnumDescriptor {
+	return file_whocall_conversation_v1_conversation_proto_enumTypes[0].Descriptor()
+}
+
+func (ConversationStatus) Type() protoreflect.EnumType {
+	return &file_whocall_conversation_v1_conversation_proto_enumTypes[0]
+}
+
+func (x ConversationStatus) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use ConversationStatus.Descriptor instead.
+func (ConversationStatus) EnumDescriptor() ([]byte, []int) {
+	return file_whocall_conversation_v1_conversation_proto_rawDescGZIP(), []int{0}
+}
+
+type GroupAtType int32
+
+const (
+	GroupAtType_GROUP_AT_TYPE_UNSPECIFIED  GroupAtType = 0
+	GroupAtType_GROUP_AT_TYPE_NONE         GroupAtType = 1
+	GroupAtType_GROUP_AT_TYPE_AT_ME        GroupAtType = 2
+	GroupAtType_GROUP_AT_TYPE_AT_ALL       GroupAtType = 3
+	GroupAtType_GROUP_AT_TYPE_AT_ALL_AT_ME GroupAtType = 4
+)
+
+// Enum value maps for GroupAtType.
+var (
+	GroupAtType_name = map[int32]string{
+		0: "GROUP_AT_TYPE_UNSPECIFIED",
+		1: "GROUP_AT_TYPE_NONE",
+		2: "GROUP_AT_TYPE_AT_ME",
+		3: "GROUP_AT_TYPE_AT_ALL",
+		4: "GROUP_AT_TYPE_AT_ALL_AT_ME",
+	}
+	GroupAtType_value = map[string]int32{
+		"GROUP_AT_TYPE_UNSPECIFIED":  0,
+		"GROUP_AT_TYPE_NONE":         1,
+		"GROUP_AT_TYPE_AT_ME":        2,
+		"GROUP_AT_TYPE_AT_ALL":       3,
+		"GROUP_AT_TYPE_AT_ALL_AT_ME": 4,
+	}
+)
+
+func (x GroupAtType) Enum() *GroupAtType {
+	p := new(GroupAtType)
+	*p = x
+	return p
+}
+
+func (x GroupAtType) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (GroupAtType) Descriptor() protoreflect.EnumDescriptor {
+	return file_whocall_conversation_v1_conversation_proto_enumTypes[1].Descriptor()
+}
+
+func (GroupAtType) Type() protoreflect.EnumType {
+	return &file_whocall_conversation_v1_conversation_proto_enumTypes[1]
+}
+
+func (x GroupAtType) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use GroupAtType.Descriptor instead.
+func (GroupAtType) EnumDescriptor() ([]byte, []int) {
+	return file_whocall_conversation_v1_conversation_proto_rawDescGZIP(), []int{1}
+}
+
+type ConversationSettings struct {
+	state               protoimpl.MessageState  `protogen:"open.v1"`
+	IsPinned            bool                    `protobuf:"varint,1,opt,name=is_pinned,json=isPinned,proto3" json:"is_pinned,omitempty"`
+	RecvMsgOpt          v1.ReceiveMessageOption `protobuf:"varint,2,opt,name=recv_msg_opt,json=recvMsgOpt,proto3,enum=whocall.common.v1.ReceiveMessageOption" json:"recv_msg_opt,omitempty"`
+	IsPrivateChat       bool                    `protobuf:"varint,3,opt,name=is_private_chat,json=isPrivateChat,proto3" json:"is_private_chat,omitempty"`
+	IsMsgDestruct       bool                    `protobuf:"varint,4,opt,name=is_msg_destruct,json=isMsgDestruct,proto3" json:"is_msg_destruct,omitempty"`
+	BurnDurationSeconds int64                   `protobuf:"varint,5,opt,name=burn_duration_seconds,json=burnDurationSeconds,proto3" json:"burn_duration_seconds,omitempty"`
+	MsgDestructTimeMs   int64                   `protobuf:"varint,6,opt,name=msg_destruct_time_ms,json=msgDestructTimeMs,proto3" json:"msg_destruct_time_ms,omitempty"`
+	AttachedInfo        string                  `protobuf:"bytes,7,opt,name=attached_info,json=attachedInfo,proto3" json:"attached_info,omitempty"`
+	Ex                  string                  `protobuf:"bytes,8,opt,name=ex,proto3" json:"ex,omitempty"`
+	unknownFields       protoimpl.UnknownFields
+	sizeCache           protoimpl.SizeCache
+}
+
+func (x *ConversationSettings) Reset() {
+	*x = ConversationSettings{}
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ConversationSettings) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ConversationSettings) ProtoMessage() {}
+
+func (x *ConversationSettings) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ConversationSettings.ProtoReflect.Descriptor instead.
+func (*ConversationSettings) Descriptor() ([]byte, []int) {
+	return file_whocall_conversation_v1_conversation_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *ConversationSettings) GetIsPinned() bool {
+	if x != nil {
+		return x.IsPinned
+	}
+	return false
+}
+
+func (x *ConversationSettings) GetRecvMsgOpt() v1.ReceiveMessageOption {
+	if x != nil {
+		return x.RecvMsgOpt
+	}
+	return v1.ReceiveMessageOption(0)
+}
+
+func (x *ConversationSettings) GetIsPrivateChat() bool {
+	if x != nil {
+		return x.IsPrivateChat
+	}
+	return false
+}
+
+func (x *ConversationSettings) GetIsMsgDestruct() bool {
+	if x != nil {
+		return x.IsMsgDestruct
+	}
+	return false
+}
+
+func (x *ConversationSettings) GetBurnDurationSeconds() int64 {
+	if x != nil {
+		return x.BurnDurationSeconds
+	}
+	return 0
+}
+
+func (x *ConversationSettings) GetMsgDestructTimeMs() int64 {
+	if x != nil {
+		return x.MsgDestructTimeMs
+	}
+	return 0
+}
+
+func (x *ConversationSettings) GetAttachedInfo() string {
+	if x != nil {
+		return x.AttachedInfo
+	}
+	return ""
+}
+
+func (x *ConversationSettings) GetEx() string {
+	if x != nil {
+		return x.Ex
+	}
+	return ""
+}
+
+type ConversationInfo struct {
+	state               protoimpl.MessageState `protogen:"open.v1"`
+	OwnerUserId         string                 `protobuf:"bytes,1,opt,name=owner_user_id,json=ownerUserId,proto3" json:"owner_user_id,omitempty"`
+	ConversationId      string                 `protobuf:"bytes,2,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
+	ConversationType    v1.ConversationType    `protobuf:"varint,3,opt,name=conversation_type,json=conversationType,proto3,enum=whocall.common.v1.ConversationType" json:"conversation_type,omitempty"`
+	UserId              string                 `protobuf:"bytes,4,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	GroupId             string                 `protobuf:"bytes,5,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	ShowName            string                 `protobuf:"bytes,6,opt,name=show_name,json=showName,proto3" json:"show_name,omitempty"`
+	FaceUrl             string                 `protobuf:"bytes,7,opt,name=face_url,json=faceUrl,proto3" json:"face_url,omitempty"`
+	Status              ConversationStatus     `protobuf:"varint,8,opt,name=status,proto3,enum=whocall.conversation.v1.ConversationStatus" json:"status,omitempty"`
+	Settings            *ConversationSettings  `protobuf:"bytes,9,opt,name=settings,proto3" json:"settings,omitempty"`
+	GroupAtType         GroupAtType            `protobuf:"varint,10,opt,name=group_at_type,json=groupAtType,proto3,enum=whocall.conversation.v1.GroupAtType" json:"group_at_type,omitempty"`
+	MinSeq              int64                  `protobuf:"varint,11,opt,name=min_seq,json=minSeq,proto3" json:"min_seq,omitempty"`
+	MaxSeq              int64                  `protobuf:"varint,12,opt,name=max_seq,json=maxSeq,proto3" json:"max_seq,omitempty"`
+	ReadSeq             int64                  `protobuf:"varint,13,opt,name=read_seq,json=readSeq,proto3" json:"read_seq,omitempty"`
+	UnreadCount         int64                  `protobuf:"varint,14,opt,name=unread_count,json=unreadCount,proto3" json:"unread_count,omitempty"`
+	LatestMsg           *v11.MsgData           `protobuf:"bytes,15,opt,name=latest_msg,json=latestMsg,proto3" json:"latest_msg,omitempty"`
+	LatestMsgSendTimeMs int64                  `protobuf:"varint,16,opt,name=latest_msg_send_time_ms,json=latestMsgSendTimeMs,proto3" json:"latest_msg_send_time_ms,omitempty"`
+	CreateTimeMs        int64                  `protobuf:"varint,17,opt,name=create_time_ms,json=createTimeMs,proto3" json:"create_time_ms,omitempty"`
+	UpdateTimeMs        int64                  `protobuf:"varint,18,opt,name=update_time_ms,json=updateTimeMs,proto3" json:"update_time_ms,omitempty"`
+	unknownFields       protoimpl.UnknownFields
+	sizeCache           protoimpl.SizeCache
+}
+
+func (x *ConversationInfo) Reset() {
+	*x = ConversationInfo{}
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ConversationInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ConversationInfo) ProtoMessage() {}
+
+func (x *ConversationInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ConversationInfo.ProtoReflect.Descriptor instead.
+func (*ConversationInfo) Descriptor() ([]byte, []int) {
+	return file_whocall_conversation_v1_conversation_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *ConversationInfo) GetOwnerUserId() string {
+	if x != nil {
+		return x.OwnerUserId
+	}
+	return ""
+}
+
+func (x *ConversationInfo) GetConversationId() string {
+	if x != nil {
+		return x.ConversationId
+	}
+	return ""
+}
+
+func (x *ConversationInfo) GetConversationType() v1.ConversationType {
+	if x != nil {
+		return x.ConversationType
+	}
+	return v1.ConversationType(0)
+}
+
+func (x *ConversationInfo) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *ConversationInfo) GetGroupId() string {
+	if x != nil {
+		return x.GroupId
+	}
+	return ""
+}
+
+func (x *ConversationInfo) GetShowName() string {
+	if x != nil {
+		return x.ShowName
+	}
+	return ""
+}
+
+func (x *ConversationInfo) GetFaceUrl() string {
+	if x != nil {
+		return x.FaceUrl
+	}
+	return ""
+}
+
+func (x *ConversationInfo) GetStatus() ConversationStatus {
+	if x != nil {
+		return x.Status
+	}
+	return ConversationStatus_CONVERSATION_STATUS_UNSPECIFIED
+}
+
+func (x *ConversationInfo) GetSettings() *ConversationSettings {
+	if x != nil {
+		return x.Settings
+	}
+	return nil
+}
+
+func (x *ConversationInfo) GetGroupAtType() GroupAtType {
+	if x != nil {
+		return x.GroupAtType
+	}
+	return GroupAtType_GROUP_AT_TYPE_UNSPECIFIED
+}
+
+func (x *ConversationInfo) GetMinSeq() int64 {
+	if x != nil {
+		return x.MinSeq
+	}
+	return 0
+}
+
+func (x *ConversationInfo) GetMaxSeq() int64 {
+	if x != nil {
+		return x.MaxSeq
+	}
+	return 0
+}
+
+func (x *ConversationInfo) GetReadSeq() int64 {
+	if x != nil {
+		return x.ReadSeq
+	}
+	return 0
+}
+
+func (x *ConversationInfo) GetUnreadCount() int64 {
+	if x != nil {
+		return x.UnreadCount
+	}
+	return 0
+}
+
+func (x *ConversationInfo) GetLatestMsg() *v11.MsgData {
+	if x != nil {
+		return x.LatestMsg
+	}
+	return nil
+}
+
+func (x *ConversationInfo) GetLatestMsgSendTimeMs() int64 {
+	if x != nil {
+		return x.LatestMsgSendTimeMs
+	}
+	return 0
+}
+
+func (x *ConversationInfo) GetCreateTimeMs() int64 {
+	if x != nil {
+		return x.CreateTimeMs
+	}
+	return 0
+}
+
+func (x *ConversationInfo) GetUpdateTimeMs() int64 {
+	if x != nil {
+		return x.UpdateTimeMs
+	}
+	return 0
+}
+
+type GetConversationRequest struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Meta           *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UserId         string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	ConversationId string                 `protobuf:"bytes,3,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *GetConversationRequest) Reset() {
+	*x = GetConversationRequest{}
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetConversationRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetConversationRequest) ProtoMessage() {}
+
+func (x *GetConversationRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetConversationRequest.ProtoReflect.Descriptor instead.
+func (*GetConversationRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_conversation_v1_conversation_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *GetConversationRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *GetConversationRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *GetConversationRequest) GetConversationId() string {
+	if x != nil {
+		return x.ConversationId
+	}
+	return ""
+}
+
+type GetConversationResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Conversation  *ConversationInfo      `protobuf:"bytes,2,opt,name=conversation,proto3" json:"conversation,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetConversationResponse) Reset() {
+	*x = GetConversationResponse{}
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetConversationResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetConversationResponse) ProtoMessage() {}
+
+func (x *GetConversationResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetConversationResponse.ProtoReflect.Descriptor instead.
+func (*GetConversationResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_conversation_v1_conversation_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *GetConversationResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *GetConversationResponse) GetConversation() *ConversationInfo {
+	if x != nil {
+		return x.Conversation
+	}
+	return nil
+}
+
+type ListConversationsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Pagination    *v1.PaginationRequest  `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListConversationsRequest) Reset() {
+	*x = ListConversationsRequest{}
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListConversationsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListConversationsRequest) ProtoMessage() {}
+
+func (x *ListConversationsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListConversationsRequest.ProtoReflect.Descriptor instead.
+func (*ListConversationsRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_conversation_v1_conversation_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *ListConversationsRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *ListConversationsRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *ListConversationsRequest) GetPagination() *v1.PaginationRequest {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
+type ListConversationsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Conversations []*ConversationInfo    `protobuf:"bytes,2,rep,name=conversations,proto3" json:"conversations,omitempty"`
+	Pagination    *v1.PaginationResponse `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListConversationsResponse) Reset() {
+	*x = ListConversationsResponse{}
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListConversationsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListConversationsResponse) ProtoMessage() {}
+
+func (x *ListConversationsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListConversationsResponse.ProtoReflect.Descriptor instead.
+func (*ListConversationsResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_conversation_v1_conversation_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *ListConversationsResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *ListConversationsResponse) GetConversations() []*ConversationInfo {
+	if x != nil {
+		return x.Conversations
+	}
+	return nil
+}
+
+func (x *ListConversationsResponse) GetPagination() *v1.PaginationResponse {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
+type CreateOrGetSingleConversationRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	OwnerUserId   string                 `protobuf:"bytes,2,opt,name=owner_user_id,json=ownerUserId,proto3" json:"owner_user_id,omitempty"`
+	PeerUserId    string                 `protobuf:"bytes,3,opt,name=peer_user_id,json=peerUserId,proto3" json:"peer_user_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateOrGetSingleConversationRequest) Reset() {
+	*x = CreateOrGetSingleConversationRequest{}
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateOrGetSingleConversationRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateOrGetSingleConversationRequest) ProtoMessage() {}
+
+func (x *CreateOrGetSingleConversationRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateOrGetSingleConversationRequest.ProtoReflect.Descriptor instead.
+func (*CreateOrGetSingleConversationRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_conversation_v1_conversation_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *CreateOrGetSingleConversationRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *CreateOrGetSingleConversationRequest) GetOwnerUserId() string {
+	if x != nil {
+		return x.OwnerUserId
+	}
+	return ""
+}
+
+func (x *CreateOrGetSingleConversationRequest) GetPeerUserId() string {
+	if x != nil {
+		return x.PeerUserId
+	}
+	return ""
+}
+
+type CreateOrGetSingleConversationResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Conversation  *ConversationInfo      `protobuf:"bytes,2,opt,name=conversation,proto3" json:"conversation,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateOrGetSingleConversationResponse) Reset() {
+	*x = CreateOrGetSingleConversationResponse{}
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateOrGetSingleConversationResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateOrGetSingleConversationResponse) ProtoMessage() {}
+
+func (x *CreateOrGetSingleConversationResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateOrGetSingleConversationResponse.ProtoReflect.Descriptor instead.
+func (*CreateOrGetSingleConversationResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_conversation_v1_conversation_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *CreateOrGetSingleConversationResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *CreateOrGetSingleConversationResponse) GetConversation() *ConversationInfo {
+	if x != nil {
+		return x.Conversation
+	}
+	return nil
+}
+
+type UpdateConversationSettingsRequest struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Meta           *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UserId         string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	ConversationId string                 `protobuf:"bytes,3,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
+	Settings       *ConversationSettings  `protobuf:"bytes,4,opt,name=settings,proto3" json:"settings,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *UpdateConversationSettingsRequest) Reset() {
+	*x = UpdateConversationSettingsRequest{}
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateConversationSettingsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateConversationSettingsRequest) ProtoMessage() {}
+
+func (x *UpdateConversationSettingsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateConversationSettingsRequest.ProtoReflect.Descriptor instead.
+func (*UpdateConversationSettingsRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_conversation_v1_conversation_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *UpdateConversationSettingsRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *UpdateConversationSettingsRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *UpdateConversationSettingsRequest) GetConversationId() string {
+	if x != nil {
+		return x.ConversationId
+	}
+	return ""
+}
+
+func (x *UpdateConversationSettingsRequest) GetSettings() *ConversationSettings {
+	if x != nil {
+		return x.Settings
+	}
+	return nil
+}
+
+type UpdateConversationSettingsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Conversation  *ConversationInfo      `protobuf:"bytes,2,opt,name=conversation,proto3" json:"conversation,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateConversationSettingsResponse) Reset() {
+	*x = UpdateConversationSettingsResponse{}
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateConversationSettingsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateConversationSettingsResponse) ProtoMessage() {}
+
+func (x *UpdateConversationSettingsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateConversationSettingsResponse.ProtoReflect.Descriptor instead.
+func (*UpdateConversationSettingsResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_conversation_v1_conversation_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *UpdateConversationSettingsResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *UpdateConversationSettingsResponse) GetConversation() *ConversationInfo {
+	if x != nil {
+		return x.Conversation
+	}
+	return nil
+}
+
+type DeleteConversationRequest struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Meta           *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UserId         string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	ConversationId string                 `protobuf:"bytes,3,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *DeleteConversationRequest) Reset() {
+	*x = DeleteConversationRequest{}
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteConversationRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteConversationRequest) ProtoMessage() {}
+
+func (x *DeleteConversationRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteConversationRequest.ProtoReflect.Descriptor instead.
+func (*DeleteConversationRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_conversation_v1_conversation_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *DeleteConversationRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *DeleteConversationRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *DeleteConversationRequest) GetConversationId() string {
+	if x != nil {
+		return x.ConversationId
+	}
+	return ""
+}
+
+type DeleteConversationResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteConversationResponse) Reset() {
+	*x = DeleteConversationResponse{}
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteConversationResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteConversationResponse) ProtoMessage() {}
+
+func (x *DeleteConversationResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteConversationResponse.ProtoReflect.Descriptor instead.
+func (*DeleteConversationResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_conversation_v1_conversation_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *DeleteConversationResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+type ClearConversationMessagesRequest struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Meta           *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UserId         string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	ConversationId string                 `protobuf:"bytes,3,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
+	ClearBeforeSeq int64                  `protobuf:"varint,4,opt,name=clear_before_seq,json=clearBeforeSeq,proto3" json:"clear_before_seq,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *ClearConversationMessagesRequest) Reset() {
+	*x = ClearConversationMessagesRequest{}
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ClearConversationMessagesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ClearConversationMessagesRequest) ProtoMessage() {}
+
+func (x *ClearConversationMessagesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ClearConversationMessagesRequest.ProtoReflect.Descriptor instead.
+func (*ClearConversationMessagesRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_conversation_v1_conversation_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *ClearConversationMessagesRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *ClearConversationMessagesRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *ClearConversationMessagesRequest) GetConversationId() string {
+	if x != nil {
+		return x.ConversationId
+	}
+	return ""
+}
+
+func (x *ClearConversationMessagesRequest) GetClearBeforeSeq() int64 {
+	if x != nil {
+		return x.ClearBeforeSeq
+	}
+	return 0
+}
+
+type ClearConversationMessagesResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	ClearedMaxSeq int64                  `protobuf:"varint,2,opt,name=cleared_max_seq,json=clearedMaxSeq,proto3" json:"cleared_max_seq,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ClearConversationMessagesResponse) Reset() {
+	*x = ClearConversationMessagesResponse{}
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ClearConversationMessagesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ClearConversationMessagesResponse) ProtoMessage() {}
+
+func (x *ClearConversationMessagesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ClearConversationMessagesResponse.ProtoReflect.Descriptor instead.
+func (*ClearConversationMessagesResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_conversation_v1_conversation_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *ClearConversationMessagesResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *ClearConversationMessagesResponse) GetClearedMaxSeq() int64 {
+	if x != nil {
+		return x.ClearedMaxSeq
+	}
+	return 0
+}
+
+type GetConversationSeqRequest struct {
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	Meta            *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UserId          string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	ConversationIds []string               `protobuf:"bytes,3,rep,name=conversation_ids,json=conversationIds,proto3" json:"conversation_ids,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *GetConversationSeqRequest) Reset() {
+	*x = GetConversationSeqRequest{}
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetConversationSeqRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetConversationSeqRequest) ProtoMessage() {}
+
+func (x *GetConversationSeqRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetConversationSeqRequest.ProtoReflect.Descriptor instead.
+func (*GetConversationSeqRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_conversation_v1_conversation_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *GetConversationSeqRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *GetConversationSeqRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *GetConversationSeqRequest) GetConversationIds() []string {
+	if x != nil {
+		return x.ConversationIds
+	}
+	return nil
+}
+
+type GetConversationSeqResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Seqs          []*v11.ConversationSeq `protobuf:"bytes,2,rep,name=seqs,proto3" json:"seqs,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetConversationSeqResponse) Reset() {
+	*x = GetConversationSeqResponse{}
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetConversationSeqResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetConversationSeqResponse) ProtoMessage() {}
+
+func (x *GetConversationSeqResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_conversation_v1_conversation_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetConversationSeqResponse.ProtoReflect.Descriptor instead.
+func (*GetConversationSeqResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_conversation_v1_conversation_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *GetConversationSeqResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *GetConversationSeqResponse) GetSeqs() []*v11.ConversationSeq {
+	if x != nil {
+		return x.Seqs
+	}
+	return nil
+}
+
 var File_whocall_conversation_v1_conversation_proto protoreflect.FileDescriptor
 
 const file_whocall_conversation_v1_conversation_proto_rawDesc = "" +
 	"\n" +
-	"*whocall/conversation/v1/conversation.proto\x12\x17whocall.conversation.v1BRZPgithub.com/ethereal3x/who-call/api/gen/go/whocall/conversation/v1;conversationv1b\x06proto3"
+	"*whocall/conversation/v1/conversation.proto\x12\x17whocall.conversation.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x1ewhocall/common/v1/common.proto\x1a\x18whocall/msg/v1/msg.proto\"\xe8\x02\n" +
+	"\x14ConversationSettings\x12\x1b\n" +
+	"\tis_pinned\x18\x01 \x01(\bR\bisPinned\x12I\n" +
+	"\frecv_msg_opt\x18\x02 \x01(\x0e2'.whocall.common.v1.ReceiveMessageOptionR\n" +
+	"recvMsgOpt\x12&\n" +
+	"\x0fis_private_chat\x18\x03 \x01(\bR\risPrivateChat\x12&\n" +
+	"\x0fis_msg_destruct\x18\x04 \x01(\bR\risMsgDestruct\x122\n" +
+	"\x15burn_duration_seconds\x18\x05 \x01(\x03R\x13burnDurationSeconds\x12/\n" +
+	"\x14msg_destruct_time_ms\x18\x06 \x01(\x03R\x11msgDestructTimeMs\x12#\n" +
+	"\rattached_info\x18\a \x01(\tR\fattachedInfo\x12\x0e\n" +
+	"\x02ex\x18\b \x01(\tR\x02ex\"\xa1\x06\n" +
+	"\x10ConversationInfo\x12\"\n" +
+	"\rowner_user_id\x18\x01 \x01(\tR\vownerUserId\x12'\n" +
+	"\x0fconversation_id\x18\x02 \x01(\tR\x0econversationId\x12P\n" +
+	"\x11conversation_type\x18\x03 \x01(\x0e2#.whocall.common.v1.ConversationTypeR\x10conversationType\x12\x17\n" +
+	"\auser_id\x18\x04 \x01(\tR\x06userId\x12\x19\n" +
+	"\bgroup_id\x18\x05 \x01(\tR\agroupId\x12\x1b\n" +
+	"\tshow_name\x18\x06 \x01(\tR\bshowName\x12\x19\n" +
+	"\bface_url\x18\a \x01(\tR\afaceUrl\x12C\n" +
+	"\x06status\x18\b \x01(\x0e2+.whocall.conversation.v1.ConversationStatusR\x06status\x12I\n" +
+	"\bsettings\x18\t \x01(\v2-.whocall.conversation.v1.ConversationSettingsR\bsettings\x12H\n" +
+	"\rgroup_at_type\x18\n" +
+	" \x01(\x0e2$.whocall.conversation.v1.GroupAtTypeR\vgroupAtType\x12\x17\n" +
+	"\amin_seq\x18\v \x01(\x03R\x06minSeq\x12\x17\n" +
+	"\amax_seq\x18\f \x01(\x03R\x06maxSeq\x12\x19\n" +
+	"\bread_seq\x18\r \x01(\x03R\areadSeq\x12!\n" +
+	"\funread_count\x18\x0e \x01(\x03R\vunreadCount\x126\n" +
+	"\n" +
+	"latest_msg\x18\x0f \x01(\v2\x17.whocall.msg.v1.MsgDataR\tlatestMsg\x124\n" +
+	"\x17latest_msg_send_time_ms\x18\x10 \x01(\x03R\x13latestMsgSendTimeMs\x12$\n" +
+	"\x0ecreate_time_ms\x18\x11 \x01(\x03R\fcreateTimeMs\x12$\n" +
+	"\x0eupdate_time_ms\x18\x12 \x01(\x03R\fupdateTimeMs\"\x8e\x01\n" +
+	"\x16GetConversationRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x12'\n" +
+	"\x0fconversation_id\x18\x03 \x01(\tR\x0econversationId\"\xa3\x01\n" +
+	"\x17GetConversationResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12M\n" +
+	"\fconversation\x18\x02 \x01(\v2).whocall.conversation.v1.ConversationInfoR\fconversation\"\xad\x01\n" +
+	"\x18ListConversationsRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x12D\n" +
+	"\n" +
+	"pagination\x18\x03 \x01(\v2$.whocall.common.v1.PaginationRequestR\n" +
+	"pagination\"\xee\x01\n" +
+	"\x19ListConversationsResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12O\n" +
+	"\rconversations\x18\x02 \x03(\v2).whocall.conversation.v1.ConversationInfoR\rconversations\x12E\n" +
+	"\n" +
+	"pagination\x18\x03 \x01(\v2%.whocall.common.v1.PaginationResponseR\n" +
+	"pagination\"\xa0\x01\n" +
+	"$CreateOrGetSingleConversationRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\"\n" +
+	"\rowner_user_id\x18\x02 \x01(\tR\vownerUserId\x12 \n" +
+	"\fpeer_user_id\x18\x03 \x01(\tR\n" +
+	"peerUserId\"\xb1\x01\n" +
+	"%CreateOrGetSingleConversationResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12M\n" +
+	"\fconversation\x18\x02 \x01(\v2).whocall.conversation.v1.ConversationInfoR\fconversation\"\xe4\x01\n" +
+	"!UpdateConversationSettingsRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x12'\n" +
+	"\x0fconversation_id\x18\x03 \x01(\tR\x0econversationId\x12I\n" +
+	"\bsettings\x18\x04 \x01(\v2-.whocall.conversation.v1.ConversationSettingsR\bsettings\"\xae\x01\n" +
+	"\"UpdateConversationSettingsResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12M\n" +
+	"\fconversation\x18\x02 \x01(\v2).whocall.conversation.v1.ConversationInfoR\fconversation\"\x91\x01\n" +
+	"\x19DeleteConversationRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x12'\n" +
+	"\x0fconversation_id\x18\x03 \x01(\tR\x0econversationId\"W\n" +
+	"\x1aDeleteConversationResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\"\xc2\x01\n" +
+	" ClearConversationMessagesRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x12'\n" +
+	"\x0fconversation_id\x18\x03 \x01(\tR\x0econversationId\x12(\n" +
+	"\x10clear_before_seq\x18\x04 \x01(\x03R\x0eclearBeforeSeq\"\x86\x01\n" +
+	"!ClearConversationMessagesResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12&\n" +
+	"\x0fcleared_max_seq\x18\x02 \x01(\x03R\rclearedMaxSeq\"\x93\x01\n" +
+	"\x19GetConversationSeqRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x12)\n" +
+	"\x10conversation_ids\x18\x03 \x03(\tR\x0fconversationIds\"\x8c\x01\n" +
+	"\x1aGetConversationSeqResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x123\n" +
+	"\x04seqs\x18\x02 \x03(\v2\x1f.whocall.msg.v1.ConversationSeqR\x04seqs*\x9c\x01\n" +
+	"\x12ConversationStatus\x12#\n" +
+	"\x1fCONVERSATION_STATUS_UNSPECIFIED\x10\x00\x12\x1e\n" +
+	"\x1aCONVERSATION_STATUS_NORMAL\x10\x01\x12\x1f\n" +
+	"\x1bCONVERSATION_STATUS_DELETED\x10\x02\x12 \n" +
+	"\x1cCONVERSATION_STATUS_ARCHIVED\x10\x03*\x97\x01\n" +
+	"\vGroupAtType\x12\x1d\n" +
+	"\x19GROUP_AT_TYPE_UNSPECIFIED\x10\x00\x12\x16\n" +
+	"\x12GROUP_AT_TYPE_NONE\x10\x01\x12\x17\n" +
+	"\x13GROUP_AT_TYPE_AT_ME\x10\x02\x12\x18\n" +
+	"\x14GROUP_AT_TYPE_AT_ALL\x10\x03\x12\x1e\n" +
+	"\x1aGROUP_AT_TYPE_AT_ALL_AT_ME\x10\x042\xc7\n" +
+	"\n" +
+	"\x13ConversationService\x12\xa5\x01\n" +
+	"\x0fGetConversation\x12/.whocall.conversation.v1.GetConversationRequest\x1a0.whocall.conversation.v1.GetConversationResponse\"/\x82\xd3\xe4\x93\x02)\x12'/api/v1/conversations/{conversation_id}\x12\xa9\x01\n" +
+	"\x11ListConversations\x121.whocall.conversation.v1.ListConversationsRequest\x1a2.whocall.conversation.v1.ListConversationsResponse\"-\x82\xd3\xe4\x93\x02'\x12%/api/v1/users/{user_id}/conversations\x12\xc7\x01\n" +
+	"\x1dCreateOrGetSingleConversation\x12=.whocall.conversation.v1.CreateOrGetSingleConversationRequest\x1a>.whocall.conversation.v1.CreateOrGetSingleConversationResponse\"'\x82\xd3\xe4\x93\x02!:\x01*\"\x1c/api/v1/conversations/single\x12\xd2\x01\n" +
+	"\x1aUpdateConversationSettings\x12:.whocall.conversation.v1.UpdateConversationSettingsRequest\x1a;.whocall.conversation.v1.UpdateConversationSettingsResponse\";\x82\xd3\xe4\x93\x025:\x01*20/api/v1/conversations/{conversation_id}/settings\x12\xbe\x01\n" +
+	"\x12DeleteConversation\x122.whocall.conversation.v1.DeleteConversationRequest\x1a3.whocall.conversation.v1.DeleteConversationResponse\"?\x82\xd3\xe4\x93\x029*7/api/v1/users/{user_id}/conversations/{conversation_id}\x12\xd5\x01\n" +
+	"\x19ClearConversationMessages\x129.whocall.conversation.v1.ClearConversationMessagesRequest\x1a:.whocall.conversation.v1.ClearConversationMessagesResponse\"A\x82\xd3\xe4\x93\x02;:\x01*\"6/api/v1/conversations/{conversation_id}:clear-messages\x12\xa3\x01\n" +
+	"\x12GetConversationSeq\x122.whocall.conversation.v1.GetConversationSeqRequest\x1a3.whocall.conversation.v1.GetConversationSeqResponse\"$\x82\xd3\xe4\x93\x02\x1e:\x01*\"\x19/api/v1/conversations/seqBRZPgithub.com/ethereal3x/who-call/api/gen/go/whocall/conversation/v1;conversationv1b\x06proto3"
 
-var file_whocall_conversation_v1_conversation_proto_goTypes = []any{}
+var (
+	file_whocall_conversation_v1_conversation_proto_rawDescOnce sync.Once
+	file_whocall_conversation_v1_conversation_proto_rawDescData []byte
+)
+
+func file_whocall_conversation_v1_conversation_proto_rawDescGZIP() []byte {
+	file_whocall_conversation_v1_conversation_proto_rawDescOnce.Do(func() {
+		file_whocall_conversation_v1_conversation_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_whocall_conversation_v1_conversation_proto_rawDesc), len(file_whocall_conversation_v1_conversation_proto_rawDesc)))
+	})
+	return file_whocall_conversation_v1_conversation_proto_rawDescData
+}
+
+var file_whocall_conversation_v1_conversation_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
+var file_whocall_conversation_v1_conversation_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
+var file_whocall_conversation_v1_conversation_proto_goTypes = []any{
+	(ConversationStatus)(0),                       // 0: whocall.conversation.v1.ConversationStatus
+	(GroupAtType)(0),                              // 1: whocall.conversation.v1.GroupAtType
+	(*ConversationSettings)(nil),                  // 2: whocall.conversation.v1.ConversationSettings
+	(*ConversationInfo)(nil),                      // 3: whocall.conversation.v1.ConversationInfo
+	(*GetConversationRequest)(nil),                // 4: whocall.conversation.v1.GetConversationRequest
+	(*GetConversationResponse)(nil),               // 5: whocall.conversation.v1.GetConversationResponse
+	(*ListConversationsRequest)(nil),              // 6: whocall.conversation.v1.ListConversationsRequest
+	(*ListConversationsResponse)(nil),             // 7: whocall.conversation.v1.ListConversationsResponse
+	(*CreateOrGetSingleConversationRequest)(nil),  // 8: whocall.conversation.v1.CreateOrGetSingleConversationRequest
+	(*CreateOrGetSingleConversationResponse)(nil), // 9: whocall.conversation.v1.CreateOrGetSingleConversationResponse
+	(*UpdateConversationSettingsRequest)(nil),     // 10: whocall.conversation.v1.UpdateConversationSettingsRequest
+	(*UpdateConversationSettingsResponse)(nil),    // 11: whocall.conversation.v1.UpdateConversationSettingsResponse
+	(*DeleteConversationRequest)(nil),             // 12: whocall.conversation.v1.DeleteConversationRequest
+	(*DeleteConversationResponse)(nil),            // 13: whocall.conversation.v1.DeleteConversationResponse
+	(*ClearConversationMessagesRequest)(nil),      // 14: whocall.conversation.v1.ClearConversationMessagesRequest
+	(*ClearConversationMessagesResponse)(nil),     // 15: whocall.conversation.v1.ClearConversationMessagesResponse
+	(*GetConversationSeqRequest)(nil),             // 16: whocall.conversation.v1.GetConversationSeqRequest
+	(*GetConversationSeqResponse)(nil),            // 17: whocall.conversation.v1.GetConversationSeqResponse
+	(v1.ReceiveMessageOption)(0),                  // 18: whocall.common.v1.ReceiveMessageOption
+	(v1.ConversationType)(0),                      // 19: whocall.common.v1.ConversationType
+	(*v11.MsgData)(nil),                           // 20: whocall.msg.v1.MsgData
+	(*v1.RequestMeta)(nil),                        // 21: whocall.common.v1.RequestMeta
+	(*v1.ResponseHeader)(nil),                     // 22: whocall.common.v1.ResponseHeader
+	(*v1.PaginationRequest)(nil),                  // 23: whocall.common.v1.PaginationRequest
+	(*v1.PaginationResponse)(nil),                 // 24: whocall.common.v1.PaginationResponse
+	(*v11.ConversationSeq)(nil),                   // 25: whocall.msg.v1.ConversationSeq
+}
 var file_whocall_conversation_v1_conversation_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	18, // 0: whocall.conversation.v1.ConversationSettings.recv_msg_opt:type_name -> whocall.common.v1.ReceiveMessageOption
+	19, // 1: whocall.conversation.v1.ConversationInfo.conversation_type:type_name -> whocall.common.v1.ConversationType
+	0,  // 2: whocall.conversation.v1.ConversationInfo.status:type_name -> whocall.conversation.v1.ConversationStatus
+	2,  // 3: whocall.conversation.v1.ConversationInfo.settings:type_name -> whocall.conversation.v1.ConversationSettings
+	1,  // 4: whocall.conversation.v1.ConversationInfo.group_at_type:type_name -> whocall.conversation.v1.GroupAtType
+	20, // 5: whocall.conversation.v1.ConversationInfo.latest_msg:type_name -> whocall.msg.v1.MsgData
+	21, // 6: whocall.conversation.v1.GetConversationRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	22, // 7: whocall.conversation.v1.GetConversationResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	3,  // 8: whocall.conversation.v1.GetConversationResponse.conversation:type_name -> whocall.conversation.v1.ConversationInfo
+	21, // 9: whocall.conversation.v1.ListConversationsRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	23, // 10: whocall.conversation.v1.ListConversationsRequest.pagination:type_name -> whocall.common.v1.PaginationRequest
+	22, // 11: whocall.conversation.v1.ListConversationsResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	3,  // 12: whocall.conversation.v1.ListConversationsResponse.conversations:type_name -> whocall.conversation.v1.ConversationInfo
+	24, // 13: whocall.conversation.v1.ListConversationsResponse.pagination:type_name -> whocall.common.v1.PaginationResponse
+	21, // 14: whocall.conversation.v1.CreateOrGetSingleConversationRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	22, // 15: whocall.conversation.v1.CreateOrGetSingleConversationResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	3,  // 16: whocall.conversation.v1.CreateOrGetSingleConversationResponse.conversation:type_name -> whocall.conversation.v1.ConversationInfo
+	21, // 17: whocall.conversation.v1.UpdateConversationSettingsRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	2,  // 18: whocall.conversation.v1.UpdateConversationSettingsRequest.settings:type_name -> whocall.conversation.v1.ConversationSettings
+	22, // 19: whocall.conversation.v1.UpdateConversationSettingsResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	3,  // 20: whocall.conversation.v1.UpdateConversationSettingsResponse.conversation:type_name -> whocall.conversation.v1.ConversationInfo
+	21, // 21: whocall.conversation.v1.DeleteConversationRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	22, // 22: whocall.conversation.v1.DeleteConversationResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	21, // 23: whocall.conversation.v1.ClearConversationMessagesRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	22, // 24: whocall.conversation.v1.ClearConversationMessagesResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	21, // 25: whocall.conversation.v1.GetConversationSeqRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	22, // 26: whocall.conversation.v1.GetConversationSeqResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	25, // 27: whocall.conversation.v1.GetConversationSeqResponse.seqs:type_name -> whocall.msg.v1.ConversationSeq
+	4,  // 28: whocall.conversation.v1.ConversationService.GetConversation:input_type -> whocall.conversation.v1.GetConversationRequest
+	6,  // 29: whocall.conversation.v1.ConversationService.ListConversations:input_type -> whocall.conversation.v1.ListConversationsRequest
+	8,  // 30: whocall.conversation.v1.ConversationService.CreateOrGetSingleConversation:input_type -> whocall.conversation.v1.CreateOrGetSingleConversationRequest
+	10, // 31: whocall.conversation.v1.ConversationService.UpdateConversationSettings:input_type -> whocall.conversation.v1.UpdateConversationSettingsRequest
+	12, // 32: whocall.conversation.v1.ConversationService.DeleteConversation:input_type -> whocall.conversation.v1.DeleteConversationRequest
+	14, // 33: whocall.conversation.v1.ConversationService.ClearConversationMessages:input_type -> whocall.conversation.v1.ClearConversationMessagesRequest
+	16, // 34: whocall.conversation.v1.ConversationService.GetConversationSeq:input_type -> whocall.conversation.v1.GetConversationSeqRequest
+	5,  // 35: whocall.conversation.v1.ConversationService.GetConversation:output_type -> whocall.conversation.v1.GetConversationResponse
+	7,  // 36: whocall.conversation.v1.ConversationService.ListConversations:output_type -> whocall.conversation.v1.ListConversationsResponse
+	9,  // 37: whocall.conversation.v1.ConversationService.CreateOrGetSingleConversation:output_type -> whocall.conversation.v1.CreateOrGetSingleConversationResponse
+	11, // 38: whocall.conversation.v1.ConversationService.UpdateConversationSettings:output_type -> whocall.conversation.v1.UpdateConversationSettingsResponse
+	13, // 39: whocall.conversation.v1.ConversationService.DeleteConversation:output_type -> whocall.conversation.v1.DeleteConversationResponse
+	15, // 40: whocall.conversation.v1.ConversationService.ClearConversationMessages:output_type -> whocall.conversation.v1.ClearConversationMessagesResponse
+	17, // 41: whocall.conversation.v1.ConversationService.GetConversationSeq:output_type -> whocall.conversation.v1.GetConversationSeqResponse
+	35, // [35:42] is the sub-list for method output_type
+	28, // [28:35] is the sub-list for method input_type
+	28, // [28:28] is the sub-list for extension type_name
+	28, // [28:28] is the sub-list for extension extendee
+	0,  // [0:28] is the sub-list for field type_name
 }
 
 func init() { file_whocall_conversation_v1_conversation_proto_init() }
@@ -45,13 +1426,15 @@ func file_whocall_conversation_v1_conversation_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_whocall_conversation_v1_conversation_proto_rawDesc), len(file_whocall_conversation_v1_conversation_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   0,
+			NumEnums:      2,
+			NumMessages:   16,
 			NumExtensions: 0,
-			NumServices:   0,
+			NumServices:   1,
 		},
 		GoTypes:           file_whocall_conversation_v1_conversation_proto_goTypes,
 		DependencyIndexes: file_whocall_conversation_v1_conversation_proto_depIdxs,
+		EnumInfos:         file_whocall_conversation_v1_conversation_proto_enumTypes,
+		MessageInfos:      file_whocall_conversation_v1_conversation_proto_msgTypes,
 	}.Build()
 	File_whocall_conversation_v1_conversation_proto = out.File
 	file_whocall_conversation_v1_conversation_proto_goTypes = nil

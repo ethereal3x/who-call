@@ -4,12 +4,56 @@ package whocall.common.v1;
 
 option go_package = "github.com/ethereal3x/who-call/api/gen/go/whocall/common/v1;commonv1";
 
+enum Platform {
+    PLATFORM_UNSPECIFIED = 0;
+    PLATFORM_IOS = 1;
+    PLATFORM_ANDROID = 2;
+    PLATFORM_WEB = 3;
+    PLATFORM_WINDOWS = 4;
+    PLATFORM_MACOS = 5;
+    PLATFORM_LINUX = 6;
+    PLATFORM_ADMIN = 100;
+    PLATFORM_SERVER = 101;
+}
+
+enum ConversationType {
+    CONVERSATION_TYPE_UNSPECIFIED = 0;
+    CONVERSATION_TYPE_SINGLE = 1;
+    CONVERSATION_TYPE_GROUP = 2;
+    CONVERSATION_TYPE_NOTIFICATION = 3;
+    CONVERSATION_TYPE_SYSTEM = 4;
+}
+
+enum ReceiveMessageOption {
+    RECEIVE_MESSAGE_OPTION_UNSPECIFIED = 0;
+    RECEIVE_MESSAGE_OPTION_RECEIVE = 1;
+    RECEIVE_MESSAGE_OPTION_NOT_NOTIFY = 2;
+    RECEIVE_MESSAGE_OPTION_NOT_RECEIVE = 3;
+}
+
+enum Gender {
+    GENDER_UNSPECIFIED = 0;
+    GENDER_MALE = 1;
+    GENDER_FEMALE = 2;
+    GENDER_OTHER = 3;
+}
+
+enum SortOrder {
+    SORT_ORDER_UNSPECIFIED = 0;
+    SORT_ORDER_ASC = 1;
+    SORT_ORDER_DESC = 2;
+}
+
 message RequestMeta {
     string operation_id = 1;
     string trace_id = 2;
     string caller = 3;
-    string platform = 4;
+    Platform platform = 4;
     string device_id = 5;
+    string conn_id = 6;
+    string user_id = 7;
+    string client_version = 8;
+    string locale = 9;
 }
 
 message ResponseHeader {
@@ -17,6 +61,7 @@ message ResponseHeader {
     string message = 2;
     string operation_id = 3;
     string trace_id = 4;
+    int64 server_time_ms = 5;
 }
 
 message PaginationRequest {
@@ -35,4 +80,18 @@ message UserRef {
     string user_id = 1;
     string nickname = 2;
     string avatar_url = 3;
+}
+
+message OfflinePushInfo {
+    string title = 1;
+    string desc = 2;
+    string ext = 3;
+    string ios_badge_count = 4;
+    string ios_push_sound = 5;
+    bool ios_badge_count_enabled = 6;
+}
+
+message KeyValue {
+    string key = 1;
+    string value = 2;
 }

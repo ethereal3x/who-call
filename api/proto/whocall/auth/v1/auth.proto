@@ -12,19 +12,49 @@ service AuthService {
     rpc Register(RegisterRequest) returns (RegisterResponse) {
         option (google.api.http) = { post: "/api/v1/auth/register" body: "*" };
     }
+
     rpc Login(LoginRequest) returns (LoginResponse) {
         option (google.api.http) = { post: "/api/v1/auth/login" body: "*" };
     }
+
     rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse) {
         option (google.api.http) = { post: "/api/v1/auth/refresh" body: "*" };
     }
+
     rpc Logout(LogoutRequest) returns (LogoutResponse) {
         option (google.api.http) = { post: "/api/v1/auth/logout" body: "*" };
     }
+
     rpc ForceLogout(ForceLogoutRequest) returns (ForceLogoutResponse) {
-        option (google.api.http) = { post: "/api/v1/auth/force_logout" body: "*" };
+        option (google.api.http) = { post: "/api/v1/auth/force-logout" body: "*" };
     }
-    rpc ParseToken(ParseTokenRequest) returns (ParseTokenResponse);
+
+    rpc ParseToken(ParseTokenRequest) returns (ParseTokenResponse) {
+        option (google.api.http) = { post: "/api/v1/auth/parse-token" body: "*" };
+    }
+
+    rpc ListLoginDevices(ListLoginDevicesRequest) returns (ListLoginDevicesResponse) {
+        option (google.api.http) = { get: "/api/v1/auth/users/{user_id}/devices" };
+    }
+
+    rpc KickDevice(KickDeviceRequest) returns (KickDeviceResponse) {
+        option (google.api.http) = { post: "/api/v1/auth/users/{user_id}/devices:kick" body: "*" };
+    }
+}
+
+enum TokenStatus {
+    TOKEN_STATUS_UNSPECIFIED = 0;
+    TOKEN_STATUS_VALID = 1;
+    TOKEN_STATUS_EXPIRED = 2;
+    TOKEN_STATUS_REVOKED = 3;
+    TOKEN_STATUS_KICKED = 4;
+}
+
+enum LoginPolicy {
+    LOGIN_POLICY_UNSPECIFIED = 0;
+    LOGIN_POLICY_MULTI_PLATFORM = 1;
+    LOGIN_POLICY_KICK_SAME_PLATFORM = 2;
+    LOGIN_POLICY_KICK_ALL_OLD = 3;
 }
 
 message RegisterRequest {
@@ -33,6 +63,8 @@ message RegisterRequest {
     string password = 3;
     string nickname = 4;
     string avatar_url = 5;
+    string phone = 6;
+    string email = 7;
 }
 
 message RegisterResponse {
@@ -44,8 +76,11 @@ message LoginRequest {
     whocall.common.v1.RequestMeta meta = 1;
     string username = 2;
     string password = 3;
-    int32 platform_id = 4;
+    whocall.common.v1.Platform platform = 4;
     string device_id = 5;
+    string device_name = 6;
+    string client_version = 7;
+    LoginPolicy login_policy = 8;
 }
 
 message LoginResponse {
@@ -53,14 +88,95 @@ message LoginResponse {
     string user_id = 2;
     string access_token = 3;
     string refresh_token = 4;
-    google.protobuf.Timestamp expire_at = 5;
+    google.protobuf.Timestamp access_token_expire_at = 5;
+    google.protobuf.Timestamp refresh_token_expire_at = 6;
 }
 
-message RefreshTokenRequest { whocall.common.v1.RequestMeta meta = 1; string refresh_token = 2; }
-message RefreshTokenResponse { whocall.common.v1.ResponseHeader header = 1; string access_token = 2; google.protobuf.Timestamp expire_at = 3; }
-message LogoutRequest { whocall.common.v1.RequestMeta meta = 1; string user_id = 2; int32 platform_id = 3; string device_id = 4; }
-message LogoutResponse { whocall.common.v1.ResponseHeader header = 1; }
-message ForceLogoutRequest { whocall.common.v1.RequestMeta meta = 1; string user_id = 2; int32 platform_id = 3; string reason = 4; }
-message ForceLogoutResponse { whocall.common.v1.ResponseHeader header = 1; }
-message ParseTokenRequest { whocall.common.v1.RequestMeta meta = 1; string access_token = 2; }
-message ParseTokenResponse { whocall.common.v1.ResponseHeader header = 1; string user_id = 2; int32 platform_id = 3; string device_id = 4; string token_status = 5; }
+message RefreshTokenRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string refresh_token = 2;
+    string device_id = 3;
+}
+
+message RefreshTokenResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    string access_token = 2;
+    string refresh_token = 3;
+    google.protobuf.Timestamp access_token_expire_at = 4;
+    google.protobuf.Timestamp refresh_token_expire_at = 5;
+}
+
+message LogoutRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string user_id = 2;
+    whocall.common.v1.Platform platform = 3;
+    string device_id = 4;
+    bool logout_all_devices = 5;
+}
+
+message LogoutResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+}
+
+message ForceLogoutRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string user_id = 2;
+    whocall.common.v1.Platform platform = 3;
+    string device_id = 4;
+    string reason = 5;
+}
+
+message ForceLogoutResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    int32 kicked_count = 2;
+}
+
+message ParseTokenRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string access_token = 2;
+}
+
+message ParseTokenResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    string user_id = 2;
+    whocall.common.v1.Platform platform = 3;
+    string device_id = 4;
+    TokenStatus token_status = 5;
+    google.protobuf.Timestamp expire_at = 6;
+}
+
+message LoginDevice {
+    string user_id = 1;
+    whocall.common.v1.Platform platform = 2;
+    string device_id = 3;
+    string device_name = 4;
+    string client_version = 5;
+    string conn_id = 6;
+    string last_login_ip = 7;
+    int64 last_login_time_ms = 8;
+    int64 last_active_time_ms = 9;
+    TokenStatus token_status = 10;
+}
+
+message ListLoginDevicesRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string user_id = 2;
+}
+
+message ListLoginDevicesResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    repeated LoginDevice devices = 2;
+}
+
+message KickDeviceRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string user_id = 2;
+    whocall.common.v1.Platform platform = 3;
+    string device_id = 4;
+    string reason = 5;
+}
+
+message KickDeviceResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    int32 kicked_count = 2;
+}

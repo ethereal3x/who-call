@@ -21,13 +21,292 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type Platform int32
+
+const (
+	Platform_PLATFORM_UNSPECIFIED Platform = 0
+	Platform_PLATFORM_IOS         Platform = 1
+	Platform_PLATFORM_ANDROID     Platform = 2
+	Platform_PLATFORM_WEB         Platform = 3
+	Platform_PLATFORM_WINDOWS     Platform = 4
+	Platform_PLATFORM_MACOS       Platform = 5
+	Platform_PLATFORM_LINUX       Platform = 6
+	Platform_PLATFORM_ADMIN       Platform = 100
+	Platform_PLATFORM_SERVER      Platform = 101
+)
+
+// Enum value maps for Platform.
+var (
+	Platform_name = map[int32]string{
+		0:   "PLATFORM_UNSPECIFIED",
+		1:   "PLATFORM_IOS",
+		2:   "PLATFORM_ANDROID",
+		3:   "PLATFORM_WEB",
+		4:   "PLATFORM_WINDOWS",
+		5:   "PLATFORM_MACOS",
+		6:   "PLATFORM_LINUX",
+		100: "PLATFORM_ADMIN",
+		101: "PLATFORM_SERVER",
+	}
+	Platform_value = map[string]int32{
+		"PLATFORM_UNSPECIFIED": 0,
+		"PLATFORM_IOS":         1,
+		"PLATFORM_ANDROID":     2,
+		"PLATFORM_WEB":         3,
+		"PLATFORM_WINDOWS":     4,
+		"PLATFORM_MACOS":       5,
+		"PLATFORM_LINUX":       6,
+		"PLATFORM_ADMIN":       100,
+		"PLATFORM_SERVER":      101,
+	}
+)
+
+func (x Platform) Enum() *Platform {
+	p := new(Platform)
+	*p = x
+	return p
+}
+
+func (x Platform) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (Platform) Descriptor() protoreflect.EnumDescriptor {
+	return file_whocall_common_v1_common_proto_enumTypes[0].Descriptor()
+}
+
+func (Platform) Type() protoreflect.EnumType {
+	return &file_whocall_common_v1_common_proto_enumTypes[0]
+}
+
+func (x Platform) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use Platform.Descriptor instead.
+func (Platform) EnumDescriptor() ([]byte, []int) {
+	return file_whocall_common_v1_common_proto_rawDescGZIP(), []int{0}
+}
+
+type ConversationType int32
+
+const (
+	ConversationType_CONVERSATION_TYPE_UNSPECIFIED  ConversationType = 0
+	ConversationType_CONVERSATION_TYPE_SINGLE       ConversationType = 1
+	ConversationType_CONVERSATION_TYPE_GROUP        ConversationType = 2
+	ConversationType_CONVERSATION_TYPE_NOTIFICATION ConversationType = 3
+	ConversationType_CONVERSATION_TYPE_SYSTEM       ConversationType = 4
+)
+
+// Enum value maps for ConversationType.
+var (
+	ConversationType_name = map[int32]string{
+		0: "CONVERSATION_TYPE_UNSPECIFIED",
+		1: "CONVERSATION_TYPE_SINGLE",
+		2: "CONVERSATION_TYPE_GROUP",
+		3: "CONVERSATION_TYPE_NOTIFICATION",
+		4: "CONVERSATION_TYPE_SYSTEM",
+	}
+	ConversationType_value = map[string]int32{
+		"CONVERSATION_TYPE_UNSPECIFIED":  0,
+		"CONVERSATION_TYPE_SINGLE":       1,
+		"CONVERSATION_TYPE_GROUP":        2,
+		"CONVERSATION_TYPE_NOTIFICATION": 3,
+		"CONVERSATION_TYPE_SYSTEM":       4,
+	}
+)
+
+func (x ConversationType) Enum() *ConversationType {
+	p := new(ConversationType)
+	*p = x
+	return p
+}
+
+func (x ConversationType) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (ConversationType) Descriptor() protoreflect.EnumDescriptor {
+	return file_whocall_common_v1_common_proto_enumTypes[1].Descriptor()
+}
+
+func (ConversationType) Type() protoreflect.EnumType {
+	return &file_whocall_common_v1_common_proto_enumTypes[1]
+}
+
+func (x ConversationType) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use ConversationType.Descriptor instead.
+func (ConversationType) EnumDescriptor() ([]byte, []int) {
+	return file_whocall_common_v1_common_proto_rawDescGZIP(), []int{1}
+}
+
+type ReceiveMessageOption int32
+
+const (
+	ReceiveMessageOption_RECEIVE_MESSAGE_OPTION_UNSPECIFIED ReceiveMessageOption = 0
+	ReceiveMessageOption_RECEIVE_MESSAGE_OPTION_RECEIVE     ReceiveMessageOption = 1
+	ReceiveMessageOption_RECEIVE_MESSAGE_OPTION_NOT_NOTIFY  ReceiveMessageOption = 2
+	ReceiveMessageOption_RECEIVE_MESSAGE_OPTION_NOT_RECEIVE ReceiveMessageOption = 3
+)
+
+// Enum value maps for ReceiveMessageOption.
+var (
+	ReceiveMessageOption_name = map[int32]string{
+		0: "RECEIVE_MESSAGE_OPTION_UNSPECIFIED",
+		1: "RECEIVE_MESSAGE_OPTION_RECEIVE",
+		2: "RECEIVE_MESSAGE_OPTION_NOT_NOTIFY",
+		3: "RECEIVE_MESSAGE_OPTION_NOT_RECEIVE",
+	}
+	ReceiveMessageOption_value = map[string]int32{
+		"RECEIVE_MESSAGE_OPTION_UNSPECIFIED": 0,
+		"RECEIVE_MESSAGE_OPTION_RECEIVE":     1,
+		"RECEIVE_MESSAGE_OPTION_NOT_NOTIFY":  2,
+		"RECEIVE_MESSAGE_OPTION_NOT_RECEIVE": 3,
+	}
+)
+
+func (x ReceiveMessageOption) Enum() *ReceiveMessageOption {
+	p := new(ReceiveMessageOption)
+	*p = x
+	return p
+}
+
+func (x ReceiveMessageOption) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (ReceiveMessageOption) Descriptor() protoreflect.EnumDescriptor {
+	return file_whocall_common_v1_common_proto_enumTypes[2].Descriptor()
+}
+
+func (ReceiveMessageOption) Type() protoreflect.EnumType {
+	return &file_whocall_common_v1_common_proto_enumTypes[2]
+}
+
+func (x ReceiveMessageOption) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use ReceiveMessageOption.Descriptor instead.
+func (ReceiveMessageOption) EnumDescriptor() ([]byte, []int) {
+	return file_whocall_common_v1_common_proto_rawDescGZIP(), []int{2}
+}
+
+type Gender int32
+
+const (
+	Gender_GENDER_UNSPECIFIED Gender = 0
+	Gender_GENDER_MALE        Gender = 1
+	Gender_GENDER_FEMALE      Gender = 2
+	Gender_GENDER_OTHER       Gender = 3
+)
+
+// Enum value maps for Gender.
+var (
+	Gender_name = map[int32]string{
+		0: "GENDER_UNSPECIFIED",
+		1: "GENDER_MALE",
+		2: "GENDER_FEMALE",
+		3: "GENDER_OTHER",
+	}
+	Gender_value = map[string]int32{
+		"GENDER_UNSPECIFIED": 0,
+		"GENDER_MALE":        1,
+		"GENDER_FEMALE":      2,
+		"GENDER_OTHER":       3,
+	}
+)
+
+func (x Gender) Enum() *Gender {
+	p := new(Gender)
+	*p = x
+	return p
+}
+
+func (x Gender) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (Gender) Descriptor() protoreflect.EnumDescriptor {
+	return file_whocall_common_v1_common_proto_enumTypes[3].Descriptor()
+}
+
+func (Gender) Type() protoreflect.EnumType {
+	return &file_whocall_common_v1_common_proto_enumTypes[3]
+}
+
+func (x Gender) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use Gender.Descriptor instead.
+func (Gender) EnumDescriptor() ([]byte, []int) {
+	return file_whocall_common_v1_common_proto_rawDescGZIP(), []int{3}
+}
+
+type SortOrder int32
+
+const (
+	SortOrder_SORT_ORDER_UNSPECIFIED SortOrder = 0
+	SortOrder_SORT_ORDER_ASC         SortOrder = 1
+	SortOrder_SORT_ORDER_DESC        SortOrder = 2
+)
+
+// Enum value maps for SortOrder.
+var (
+	SortOrder_name = map[int32]string{
+		0: "SORT_ORDER_UNSPECIFIED",
+		1: "SORT_ORDER_ASC",
+		2: "SORT_ORDER_DESC",
+	}
+	SortOrder_value = map[string]int32{
+		"SORT_ORDER_UNSPECIFIED": 0,
+		"SORT_ORDER_ASC":         1,
+		"SORT_ORDER_DESC":        2,
+	}
+)
+
+func (x SortOrder) Enum() *SortOrder {
+	p := new(SortOrder)
+	*p = x
+	return p
+}
+
+func (x SortOrder) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (SortOrder) Descriptor() protoreflect.EnumDescriptor {
+	return file_whocall_common_v1_common_proto_enumTypes[4].Descriptor()
+}
+
+func (SortOrder) Type() protoreflect.EnumType {
+	return &file_whocall_common_v1_common_proto_enumTypes[4]
+}
+
+func (x SortOrder) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use SortOrder.Descriptor instead.
+func (SortOrder) EnumDescriptor() ([]byte, []int) {
+	return file_whocall_common_v1_common_proto_rawDescGZIP(), []int{4}
+}
+
 type RequestMeta struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	OperationId   string                 `protobuf:"bytes,1,opt,name=operation_id,json=operationId,proto3" json:"operation_id,omitempty"`
 	TraceId       string                 `protobuf:"bytes,2,opt,name=trace_id,json=traceId,proto3" json:"trace_id,omitempty"`
 	Caller        string                 `protobuf:"bytes,3,opt,name=caller,proto3" json:"caller,omitempty"`
-	Platform      string                 `protobuf:"bytes,4,opt,name=platform,proto3" json:"platform,omitempty"`
+	Platform      Platform               `protobuf:"varint,4,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
 	DeviceId      string                 `protobuf:"bytes,5,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
+	ConnId        string                 `protobuf:"bytes,6,opt,name=conn_id,json=connId,proto3" json:"conn_id,omitempty"`
+	UserId        string                 `protobuf:"bytes,7,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	ClientVersion string                 `protobuf:"bytes,8,opt,name=client_version,json=clientVersion,proto3" json:"client_version,omitempty"`
+	Locale        string                 `protobuf:"bytes,9,opt,name=locale,proto3" json:"locale,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -83,16 +362,44 @@ func (x *RequestMeta) GetCaller() string {
 	return ""
 }
 
-func (x *RequestMeta) GetPlatform() string {
+func (x *RequestMeta) GetPlatform() Platform {
 	if x != nil {
 		return x.Platform
 	}
-	return ""
+	return Platform_PLATFORM_UNSPECIFIED
 }
 
 func (x *RequestMeta) GetDeviceId() string {
 	if x != nil {
 		return x.DeviceId
+	}
+	return ""
+}
+
+func (x *RequestMeta) GetConnId() string {
+	if x != nil {
+		return x.ConnId
+	}
+	return ""
+}
+
+func (x *RequestMeta) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *RequestMeta) GetClientVersion() string {
+	if x != nil {
+		return x.ClientVersion
+	}
+	return ""
+}
+
+func (x *RequestMeta) GetLocale() string {
+	if x != nil {
+		return x.Locale
 	}
 	return ""
 }
@@ -103,6 +410,7 @@ type ResponseHeader struct {
 	Message       string                 `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
 	OperationId   string                 `protobuf:"bytes,3,opt,name=operation_id,json=operationId,proto3" json:"operation_id,omitempty"`
 	TraceId       string                 `protobuf:"bytes,4,opt,name=trace_id,json=traceId,proto3" json:"trace_id,omitempty"`
+	ServerTimeMs  int64                  `protobuf:"varint,5,opt,name=server_time_ms,json=serverTimeMs,proto3" json:"server_time_ms,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -163,6 +471,13 @@ func (x *ResponseHeader) GetTraceId() string {
 		return x.TraceId
 	}
 	return ""
+}
+
+func (x *ResponseHeader) GetServerTimeMs() int64 {
+	if x != nil {
+		return x.ServerTimeMs
+	}
+	return 0
 }
 
 type PaginationRequest struct {
@@ -345,22 +660,163 @@ func (x *UserRef) GetAvatarUrl() string {
 	return ""
 }
 
+type OfflinePushInfo struct {
+	state                protoimpl.MessageState `protogen:"open.v1"`
+	Title                string                 `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
+	Desc                 string                 `protobuf:"bytes,2,opt,name=desc,proto3" json:"desc,omitempty"`
+	Ext                  string                 `protobuf:"bytes,3,opt,name=ext,proto3" json:"ext,omitempty"`
+	IosBadgeCount        string                 `protobuf:"bytes,4,opt,name=ios_badge_count,json=iosBadgeCount,proto3" json:"ios_badge_count,omitempty"`
+	IosPushSound         string                 `protobuf:"bytes,5,opt,name=ios_push_sound,json=iosPushSound,proto3" json:"ios_push_sound,omitempty"`
+	IosBadgeCountEnabled bool                   `protobuf:"varint,6,opt,name=ios_badge_count_enabled,json=iosBadgeCountEnabled,proto3" json:"ios_badge_count_enabled,omitempty"`
+	unknownFields        protoimpl.UnknownFields
+	sizeCache            protoimpl.SizeCache
+}
+
+func (x *OfflinePushInfo) Reset() {
+	*x = OfflinePushInfo{}
+	mi := &file_whocall_common_v1_common_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OfflinePushInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OfflinePushInfo) ProtoMessage() {}
+
+func (x *OfflinePushInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_common_v1_common_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OfflinePushInfo.ProtoReflect.Descriptor instead.
+func (*OfflinePushInfo) Descriptor() ([]byte, []int) {
+	return file_whocall_common_v1_common_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *OfflinePushInfo) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *OfflinePushInfo) GetDesc() string {
+	if x != nil {
+		return x.Desc
+	}
+	return ""
+}
+
+func (x *OfflinePushInfo) GetExt() string {
+	if x != nil {
+		return x.Ext
+	}
+	return ""
+}
+
+func (x *OfflinePushInfo) GetIosBadgeCount() string {
+	if x != nil {
+		return x.IosBadgeCount
+	}
+	return ""
+}
+
+func (x *OfflinePushInfo) GetIosPushSound() string {
+	if x != nil {
+		return x.IosPushSound
+	}
+	return ""
+}
+
+func (x *OfflinePushInfo) GetIosBadgeCountEnabled() bool {
+	if x != nil {
+		return x.IosBadgeCountEnabled
+	}
+	return false
+}
+
+type KeyValue struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	Value         string                 `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *KeyValue) Reset() {
+	*x = KeyValue{}
+	mi := &file_whocall_common_v1_common_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *KeyValue) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*KeyValue) ProtoMessage() {}
+
+func (x *KeyValue) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_common_v1_common_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use KeyValue.ProtoReflect.Descriptor instead.
+func (*KeyValue) Descriptor() ([]byte, []int) {
+	return file_whocall_common_v1_common_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *KeyValue) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+func (x *KeyValue) GetValue() string {
+	if x != nil {
+		return x.Value
+	}
+	return ""
+}
+
 var File_whocall_common_v1_common_proto protoreflect.FileDescriptor
 
 const file_whocall_common_v1_common_proto_rawDesc = "" +
 	"\n" +
-	"\x1ewhocall/common/v1/common.proto\x12\x11whocall.common.v1\"\x9c\x01\n" +
+	"\x1ewhocall/common/v1/common.proto\x12\x11whocall.common.v1\"\xaa\x02\n" +
 	"\vRequestMeta\x12!\n" +
 	"\foperation_id\x18\x01 \x01(\tR\voperationId\x12\x19\n" +
 	"\btrace_id\x18\x02 \x01(\tR\atraceId\x12\x16\n" +
-	"\x06caller\x18\x03 \x01(\tR\x06caller\x12\x1a\n" +
-	"\bplatform\x18\x04 \x01(\tR\bplatform\x12\x1b\n" +
-	"\tdevice_id\x18\x05 \x01(\tR\bdeviceId\"|\n" +
+	"\x06caller\x18\x03 \x01(\tR\x06caller\x127\n" +
+	"\bplatform\x18\x04 \x01(\x0e2\x1b.whocall.common.v1.PlatformR\bplatform\x12\x1b\n" +
+	"\tdevice_id\x18\x05 \x01(\tR\bdeviceId\x12\x17\n" +
+	"\aconn_id\x18\x06 \x01(\tR\x06connId\x12\x17\n" +
+	"\auser_id\x18\a \x01(\tR\x06userId\x12%\n" +
+	"\x0eclient_version\x18\b \x01(\tR\rclientVersion\x12\x16\n" +
+	"\x06locale\x18\t \x01(\tR\x06locale\"\xa2\x01\n" +
 	"\x0eResponseHeader\x12\x12\n" +
 	"\x04code\x18\x01 \x01(\x05R\x04code\x12\x18\n" +
 	"\amessage\x18\x02 \x01(\tR\amessage\x12!\n" +
 	"\foperation_id\x18\x03 \x01(\tR\voperationId\x12\x19\n" +
-	"\btrace_id\x18\x04 \x01(\tR\atraceId\"S\n" +
+	"\btrace_id\x18\x04 \x01(\tR\atraceId\x12$\n" +
+	"\x0eserver_time_ms\x18\x05 \x01(\x03R\fserverTimeMs\"S\n" +
 	"\x11PaginationRequest\x12\x12\n" +
 	"\x04page\x18\x01 \x01(\x05R\x04page\x12\x12\n" +
 	"\x04size\x18\x02 \x01(\x05R\x04size\x12\x16\n" +
@@ -374,7 +830,47 @@ const file_whocall_common_v1_common_proto_rawDesc = "" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x1a\n" +
 	"\bnickname\x18\x02 \x01(\tR\bnickname\x12\x1d\n" +
 	"\n" +
-	"avatar_url\x18\x03 \x01(\tR\tavatarUrlBFZDgithub.com/ethereal3x/who-call/api/gen/go/whocall/common/v1;commonv1b\x06proto3"
+	"avatar_url\x18\x03 \x01(\tR\tavatarUrl\"\xd2\x01\n" +
+	"\x0fOfflinePushInfo\x12\x14\n" +
+	"\x05title\x18\x01 \x01(\tR\x05title\x12\x12\n" +
+	"\x04desc\x18\x02 \x01(\tR\x04desc\x12\x10\n" +
+	"\x03ext\x18\x03 \x01(\tR\x03ext\x12&\n" +
+	"\x0fios_badge_count\x18\x04 \x01(\tR\riosBadgeCount\x12$\n" +
+	"\x0eios_push_sound\x18\x05 \x01(\tR\fiosPushSound\x125\n" +
+	"\x17ios_badge_count_enabled\x18\x06 \x01(\bR\x14iosBadgeCountEnabled\"2\n" +
+	"\bKeyValue\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value*\xc5\x01\n" +
+	"\bPlatform\x12\x18\n" +
+	"\x14PLATFORM_UNSPECIFIED\x10\x00\x12\x10\n" +
+	"\fPLATFORM_IOS\x10\x01\x12\x14\n" +
+	"\x10PLATFORM_ANDROID\x10\x02\x12\x10\n" +
+	"\fPLATFORM_WEB\x10\x03\x12\x14\n" +
+	"\x10PLATFORM_WINDOWS\x10\x04\x12\x12\n" +
+	"\x0ePLATFORM_MACOS\x10\x05\x12\x12\n" +
+	"\x0ePLATFORM_LINUX\x10\x06\x12\x12\n" +
+	"\x0ePLATFORM_ADMIN\x10d\x12\x13\n" +
+	"\x0fPLATFORM_SERVER\x10e*\xb2\x01\n" +
+	"\x10ConversationType\x12!\n" +
+	"\x1dCONVERSATION_TYPE_UNSPECIFIED\x10\x00\x12\x1c\n" +
+	"\x18CONVERSATION_TYPE_SINGLE\x10\x01\x12\x1b\n" +
+	"\x17CONVERSATION_TYPE_GROUP\x10\x02\x12\"\n" +
+	"\x1eCONVERSATION_TYPE_NOTIFICATION\x10\x03\x12\x1c\n" +
+	"\x18CONVERSATION_TYPE_SYSTEM\x10\x04*\xb1\x01\n" +
+	"\x14ReceiveMessageOption\x12&\n" +
+	"\"RECEIVE_MESSAGE_OPTION_UNSPECIFIED\x10\x00\x12\"\n" +
+	"\x1eRECEIVE_MESSAGE_OPTION_RECEIVE\x10\x01\x12%\n" +
+	"!RECEIVE_MESSAGE_OPTION_NOT_NOTIFY\x10\x02\x12&\n" +
+	"\"RECEIVE_MESSAGE_OPTION_NOT_RECEIVE\x10\x03*V\n" +
+	"\x06Gender\x12\x16\n" +
+	"\x12GENDER_UNSPECIFIED\x10\x00\x12\x0f\n" +
+	"\vGENDER_MALE\x10\x01\x12\x11\n" +
+	"\rGENDER_FEMALE\x10\x02\x12\x10\n" +
+	"\fGENDER_OTHER\x10\x03*P\n" +
+	"\tSortOrder\x12\x1a\n" +
+	"\x16SORT_ORDER_UNSPECIFIED\x10\x00\x12\x12\n" +
+	"\x0eSORT_ORDER_ASC\x10\x01\x12\x13\n" +
+	"\x0fSORT_ORDER_DESC\x10\x02BFZDgithub.com/ethereal3x/who-call/api/gen/go/whocall/common/v1;commonv1b\x06proto3"
 
 var (
 	file_whocall_common_v1_common_proto_rawDescOnce sync.Once
@@ -388,20 +884,29 @@ func file_whocall_common_v1_common_proto_rawDescGZIP() []byte {
 	return file_whocall_common_v1_common_proto_rawDescData
 }
 
-var file_whocall_common_v1_common_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_whocall_common_v1_common_proto_enumTypes = make([]protoimpl.EnumInfo, 5)
+var file_whocall_common_v1_common_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_whocall_common_v1_common_proto_goTypes = []any{
-	(*RequestMeta)(nil),        // 0: whocall.common.v1.RequestMeta
-	(*ResponseHeader)(nil),     // 1: whocall.common.v1.ResponseHeader
-	(*PaginationRequest)(nil),  // 2: whocall.common.v1.PaginationRequest
-	(*PaginationResponse)(nil), // 3: whocall.common.v1.PaginationResponse
-	(*UserRef)(nil),            // 4: whocall.common.v1.UserRef
+	(Platform)(0),              // 0: whocall.common.v1.Platform
+	(ConversationType)(0),      // 1: whocall.common.v1.ConversationType
+	(ReceiveMessageOption)(0),  // 2: whocall.common.v1.ReceiveMessageOption
+	(Gender)(0),                // 3: whocall.common.v1.Gender
+	(SortOrder)(0),             // 4: whocall.common.v1.SortOrder
+	(*RequestMeta)(nil),        // 5: whocall.common.v1.RequestMeta
+	(*ResponseHeader)(nil),     // 6: whocall.common.v1.ResponseHeader
+	(*PaginationRequest)(nil),  // 7: whocall.common.v1.PaginationRequest
+	(*PaginationResponse)(nil), // 8: whocall.common.v1.PaginationResponse
+	(*UserRef)(nil),            // 9: whocall.common.v1.UserRef
+	(*OfflinePushInfo)(nil),    // 10: whocall.common.v1.OfflinePushInfo
+	(*KeyValue)(nil),           // 11: whocall.common.v1.KeyValue
 }
 var file_whocall_common_v1_common_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	0, // 0: whocall.common.v1.RequestMeta.platform:type_name -> whocall.common.v1.Platform
+	1, // [1:1] is the sub-list for method output_type
+	1, // [1:1] is the sub-list for method input_type
+	1, // [1:1] is the sub-list for extension type_name
+	1, // [1:1] is the sub-list for extension extendee
+	0, // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_whocall_common_v1_common_proto_init() }
@@ -414,13 +919,14 @@ func file_whocall_common_v1_common_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_whocall_common_v1_common_proto_rawDesc), len(file_whocall_common_v1_common_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   5,
+			NumEnums:      5,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
 		GoTypes:           file_whocall_common_v1_common_proto_goTypes,
 		DependencyIndexes: file_whocall_common_v1_common_proto_depIdxs,
+		EnumInfos:         file_whocall_common_v1_common_proto_enumTypes,
 		MessageInfos:      file_whocall_common_v1_common_proto_msgTypes,
 	}.Build()
 	File_whocall_common_v1_common_proto = out.File

@@ -7,9 +7,12 @@
 package friendv1
 
 import (
+	v1 "github.com/ethereal3x/who-call/api/gen/go/whocall/common/v1"
+	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
+	sync "sync"
 	unsafe "unsafe"
 )
 
@@ -20,19 +23,2043 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type FriendApplicationStatus int32
+
+const (
+	FriendApplicationStatus_FRIEND_APPLICATION_STATUS_UNSPECIFIED FriendApplicationStatus = 0
+	FriendApplicationStatus_FRIEND_APPLICATION_STATUS_PENDING     FriendApplicationStatus = 1
+	FriendApplicationStatus_FRIEND_APPLICATION_STATUS_ACCEPTED    FriendApplicationStatus = 2
+	FriendApplicationStatus_FRIEND_APPLICATION_STATUS_REJECTED    FriendApplicationStatus = 3
+	FriendApplicationStatus_FRIEND_APPLICATION_STATUS_CANCELED    FriendApplicationStatus = 4
+)
+
+// Enum value maps for FriendApplicationStatus.
+var (
+	FriendApplicationStatus_name = map[int32]string{
+		0: "FRIEND_APPLICATION_STATUS_UNSPECIFIED",
+		1: "FRIEND_APPLICATION_STATUS_PENDING",
+		2: "FRIEND_APPLICATION_STATUS_ACCEPTED",
+		3: "FRIEND_APPLICATION_STATUS_REJECTED",
+		4: "FRIEND_APPLICATION_STATUS_CANCELED",
+	}
+	FriendApplicationStatus_value = map[string]int32{
+		"FRIEND_APPLICATION_STATUS_UNSPECIFIED": 0,
+		"FRIEND_APPLICATION_STATUS_PENDING":     1,
+		"FRIEND_APPLICATION_STATUS_ACCEPTED":    2,
+		"FRIEND_APPLICATION_STATUS_REJECTED":    3,
+		"FRIEND_APPLICATION_STATUS_CANCELED":    4,
+	}
+)
+
+func (x FriendApplicationStatus) Enum() *FriendApplicationStatus {
+	p := new(FriendApplicationStatus)
+	*p = x
+	return p
+}
+
+func (x FriendApplicationStatus) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (FriendApplicationStatus) Descriptor() protoreflect.EnumDescriptor {
+	return file_whocall_friend_v1_friend_proto_enumTypes[0].Descriptor()
+}
+
+func (FriendApplicationStatus) Type() protoreflect.EnumType {
+	return &file_whocall_friend_v1_friend_proto_enumTypes[0]
+}
+
+func (x FriendApplicationStatus) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use FriendApplicationStatus.Descriptor instead.
+func (FriendApplicationStatus) EnumDescriptor() ([]byte, []int) {
+	return file_whocall_friend_v1_friend_proto_rawDescGZIP(), []int{0}
+}
+
+type FriendRelationStatus int32
+
+const (
+	FriendRelationStatus_FRIEND_RELATION_STATUS_UNSPECIFIED     FriendRelationStatus = 0
+	FriendRelationStatus_FRIEND_RELATION_STATUS_NONE            FriendRelationStatus = 1
+	FriendRelationStatus_FRIEND_RELATION_STATUS_FRIEND          FriendRelationStatus = 2
+	FriendRelationStatus_FRIEND_RELATION_STATUS_BLACKED         FriendRelationStatus = 3
+	FriendRelationStatus_FRIEND_RELATION_STATUS_BLOCKED_BY_PEER FriendRelationStatus = 4
+)
+
+// Enum value maps for FriendRelationStatus.
+var (
+	FriendRelationStatus_name = map[int32]string{
+		0: "FRIEND_RELATION_STATUS_UNSPECIFIED",
+		1: "FRIEND_RELATION_STATUS_NONE",
+		2: "FRIEND_RELATION_STATUS_FRIEND",
+		3: "FRIEND_RELATION_STATUS_BLACKED",
+		4: "FRIEND_RELATION_STATUS_BLOCKED_BY_PEER",
+	}
+	FriendRelationStatus_value = map[string]int32{
+		"FRIEND_RELATION_STATUS_UNSPECIFIED":     0,
+		"FRIEND_RELATION_STATUS_NONE":            1,
+		"FRIEND_RELATION_STATUS_FRIEND":          2,
+		"FRIEND_RELATION_STATUS_BLACKED":         3,
+		"FRIEND_RELATION_STATUS_BLOCKED_BY_PEER": 4,
+	}
+)
+
+func (x FriendRelationStatus) Enum() *FriendRelationStatus {
+	p := new(FriendRelationStatus)
+	*p = x
+	return p
+}
+
+func (x FriendRelationStatus) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (FriendRelationStatus) Descriptor() protoreflect.EnumDescriptor {
+	return file_whocall_friend_v1_friend_proto_enumTypes[1].Descriptor()
+}
+
+func (FriendRelationStatus) Type() protoreflect.EnumType {
+	return &file_whocall_friend_v1_friend_proto_enumTypes[1]
+}
+
+func (x FriendRelationStatus) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use FriendRelationStatus.Descriptor instead.
+func (FriendRelationStatus) EnumDescriptor() ([]byte, []int) {
+	return file_whocall_friend_v1_friend_proto_rawDescGZIP(), []int{1}
+}
+
+type FriendInfo struct {
+	state         protoimpl.MessageState  `protogen:"open.v1"`
+	OwnerUserId   string                  `protobuf:"bytes,1,opt,name=owner_user_id,json=ownerUserId,proto3" json:"owner_user_id,omitempty"`
+	FriendUserId  string                  `protobuf:"bytes,2,opt,name=friend_user_id,json=friendUserId,proto3" json:"friend_user_id,omitempty"`
+	Remark        string                  `protobuf:"bytes,3,opt,name=remark,proto3" json:"remark,omitempty"`
+	Friend        *v1.UserRef             `protobuf:"bytes,4,opt,name=friend,proto3" json:"friend,omitempty"`
+	RecvMsgOpt    v1.ReceiveMessageOption `protobuf:"varint,5,opt,name=recv_msg_opt,json=recvMsgOpt,proto3,enum=whocall.common.v1.ReceiveMessageOption" json:"recv_msg_opt,omitempty"`
+	CreateTimeMs  int64                   `protobuf:"varint,6,opt,name=create_time_ms,json=createTimeMs,proto3" json:"create_time_ms,omitempty"`
+	Ex            string                  `protobuf:"bytes,7,opt,name=ex,proto3" json:"ex,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *FriendInfo) Reset() {
+	*x = FriendInfo{}
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *FriendInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FriendInfo) ProtoMessage() {}
+
+func (x *FriendInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FriendInfo.ProtoReflect.Descriptor instead.
+func (*FriendInfo) Descriptor() ([]byte, []int) {
+	return file_whocall_friend_v1_friend_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *FriendInfo) GetOwnerUserId() string {
+	if x != nil {
+		return x.OwnerUserId
+	}
+	return ""
+}
+
+func (x *FriendInfo) GetFriendUserId() string {
+	if x != nil {
+		return x.FriendUserId
+	}
+	return ""
+}
+
+func (x *FriendInfo) GetRemark() string {
+	if x != nil {
+		return x.Remark
+	}
+	return ""
+}
+
+func (x *FriendInfo) GetFriend() *v1.UserRef {
+	if x != nil {
+		return x.Friend
+	}
+	return nil
+}
+
+func (x *FriendInfo) GetRecvMsgOpt() v1.ReceiveMessageOption {
+	if x != nil {
+		return x.RecvMsgOpt
+	}
+	return v1.ReceiveMessageOption(0)
+}
+
+func (x *FriendInfo) GetCreateTimeMs() int64 {
+	if x != nil {
+		return x.CreateTimeMs
+	}
+	return 0
+}
+
+func (x *FriendInfo) GetEx() string {
+	if x != nil {
+		return x.Ex
+	}
+	return ""
+}
+
+type FriendApplication struct {
+	state          protoimpl.MessageState  `protogen:"open.v1"`
+	ApplicationId  string                  `protobuf:"bytes,1,opt,name=application_id,json=applicationId,proto3" json:"application_id,omitempty"`
+	FromUserId     string                  `protobuf:"bytes,2,opt,name=from_user_id,json=fromUserId,proto3" json:"from_user_id,omitempty"`
+	ToUserId       string                  `protobuf:"bytes,3,opt,name=to_user_id,json=toUserId,proto3" json:"to_user_id,omitempty"`
+	FromUser       *v1.UserRef             `protobuf:"bytes,4,opt,name=from_user,json=fromUser,proto3" json:"from_user,omitempty"`
+	ToUser         *v1.UserRef             `protobuf:"bytes,5,opt,name=to_user,json=toUser,proto3" json:"to_user,omitempty"`
+	RequestMessage string                  `protobuf:"bytes,6,opt,name=request_message,json=requestMessage,proto3" json:"request_message,omitempty"`
+	HandleMessage  string                  `protobuf:"bytes,7,opt,name=handle_message,json=handleMessage,proto3" json:"handle_message,omitempty"`
+	Status         FriendApplicationStatus `protobuf:"varint,8,opt,name=status,proto3,enum=whocall.friend.v1.FriendApplicationStatus" json:"status,omitempty"`
+	CreateTimeMs   int64                   `protobuf:"varint,9,opt,name=create_time_ms,json=createTimeMs,proto3" json:"create_time_ms,omitempty"`
+	HandleTimeMs   int64                   `protobuf:"varint,10,opt,name=handle_time_ms,json=handleTimeMs,proto3" json:"handle_time_ms,omitempty"`
+	Ex             string                  `protobuf:"bytes,11,opt,name=ex,proto3" json:"ex,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *FriendApplication) Reset() {
+	*x = FriendApplication{}
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *FriendApplication) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FriendApplication) ProtoMessage() {}
+
+func (x *FriendApplication) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FriendApplication.ProtoReflect.Descriptor instead.
+func (*FriendApplication) Descriptor() ([]byte, []int) {
+	return file_whocall_friend_v1_friend_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *FriendApplication) GetApplicationId() string {
+	if x != nil {
+		return x.ApplicationId
+	}
+	return ""
+}
+
+func (x *FriendApplication) GetFromUserId() string {
+	if x != nil {
+		return x.FromUserId
+	}
+	return ""
+}
+
+func (x *FriendApplication) GetToUserId() string {
+	if x != nil {
+		return x.ToUserId
+	}
+	return ""
+}
+
+func (x *FriendApplication) GetFromUser() *v1.UserRef {
+	if x != nil {
+		return x.FromUser
+	}
+	return nil
+}
+
+func (x *FriendApplication) GetToUser() *v1.UserRef {
+	if x != nil {
+		return x.ToUser
+	}
+	return nil
+}
+
+func (x *FriendApplication) GetRequestMessage() string {
+	if x != nil {
+		return x.RequestMessage
+	}
+	return ""
+}
+
+func (x *FriendApplication) GetHandleMessage() string {
+	if x != nil {
+		return x.HandleMessage
+	}
+	return ""
+}
+
+func (x *FriendApplication) GetStatus() FriendApplicationStatus {
+	if x != nil {
+		return x.Status
+	}
+	return FriendApplicationStatus_FRIEND_APPLICATION_STATUS_UNSPECIFIED
+}
+
+func (x *FriendApplication) GetCreateTimeMs() int64 {
+	if x != nil {
+		return x.CreateTimeMs
+	}
+	return 0
+}
+
+func (x *FriendApplication) GetHandleTimeMs() int64 {
+	if x != nil {
+		return x.HandleTimeMs
+	}
+	return 0
+}
+
+func (x *FriendApplication) GetEx() string {
+	if x != nil {
+		return x.Ex
+	}
+	return ""
+}
+
+type BlackInfo struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	OwnerUserId   string                 `protobuf:"bytes,1,opt,name=owner_user_id,json=ownerUserId,proto3" json:"owner_user_id,omitempty"`
+	BlockedUserId string                 `protobuf:"bytes,2,opt,name=blocked_user_id,json=blockedUserId,proto3" json:"blocked_user_id,omitempty"`
+	BlockedUser   *v1.UserRef            `protobuf:"bytes,3,opt,name=blocked_user,json=blockedUser,proto3" json:"blocked_user,omitempty"`
+	CreateTimeMs  int64                  `protobuf:"varint,4,opt,name=create_time_ms,json=createTimeMs,proto3" json:"create_time_ms,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BlackInfo) Reset() {
+	*x = BlackInfo{}
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BlackInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BlackInfo) ProtoMessage() {}
+
+func (x *BlackInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BlackInfo.ProtoReflect.Descriptor instead.
+func (*BlackInfo) Descriptor() ([]byte, []int) {
+	return file_whocall_friend_v1_friend_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *BlackInfo) GetOwnerUserId() string {
+	if x != nil {
+		return x.OwnerUserId
+	}
+	return ""
+}
+
+func (x *BlackInfo) GetBlockedUserId() string {
+	if x != nil {
+		return x.BlockedUserId
+	}
+	return ""
+}
+
+func (x *BlackInfo) GetBlockedUser() *v1.UserRef {
+	if x != nil {
+		return x.BlockedUser
+	}
+	return nil
+}
+
+func (x *BlackInfo) GetCreateTimeMs() int64 {
+	if x != nil {
+		return x.CreateTimeMs
+	}
+	return 0
+}
+
+type ApplyFriendRequest struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Meta           *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	FromUserId     string                 `protobuf:"bytes,2,opt,name=from_user_id,json=fromUserId,proto3" json:"from_user_id,omitempty"`
+	ToUserId       string                 `protobuf:"bytes,3,opt,name=to_user_id,json=toUserId,proto3" json:"to_user_id,omitempty"`
+	RequestMessage string                 `protobuf:"bytes,4,opt,name=request_message,json=requestMessage,proto3" json:"request_message,omitempty"`
+	Ex             string                 `protobuf:"bytes,5,opt,name=ex,proto3" json:"ex,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *ApplyFriendRequest) Reset() {
+	*x = ApplyFriendRequest{}
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ApplyFriendRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ApplyFriendRequest) ProtoMessage() {}
+
+func (x *ApplyFriendRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ApplyFriendRequest.ProtoReflect.Descriptor instead.
+func (*ApplyFriendRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_friend_v1_friend_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *ApplyFriendRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *ApplyFriendRequest) GetFromUserId() string {
+	if x != nil {
+		return x.FromUserId
+	}
+	return ""
+}
+
+func (x *ApplyFriendRequest) GetToUserId() string {
+	if x != nil {
+		return x.ToUserId
+	}
+	return ""
+}
+
+func (x *ApplyFriendRequest) GetRequestMessage() string {
+	if x != nil {
+		return x.RequestMessage
+	}
+	return ""
+}
+
+func (x *ApplyFriendRequest) GetEx() string {
+	if x != nil {
+		return x.Ex
+	}
+	return ""
+}
+
+type ApplyFriendResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Application   *FriendApplication     `protobuf:"bytes,2,opt,name=application,proto3" json:"application,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ApplyFriendResponse) Reset() {
+	*x = ApplyFriendResponse{}
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ApplyFriendResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ApplyFriendResponse) ProtoMessage() {}
+
+func (x *ApplyFriendResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ApplyFriendResponse.ProtoReflect.Descriptor instead.
+func (*ApplyFriendResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_friend_v1_friend_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *ApplyFriendResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *ApplyFriendResponse) GetApplication() *FriendApplication {
+	if x != nil {
+		return x.Application
+	}
+	return nil
+}
+
+type RespondFriendApplicationRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	ApplicationId string                 `protobuf:"bytes,2,opt,name=application_id,json=applicationId,proto3" json:"application_id,omitempty"`
+	HandlerUserId string                 `protobuf:"bytes,3,opt,name=handler_user_id,json=handlerUserId,proto3" json:"handler_user_id,omitempty"`
+	Accept        bool                   `protobuf:"varint,4,opt,name=accept,proto3" json:"accept,omitempty"`
+	HandleMessage string                 `protobuf:"bytes,5,opt,name=handle_message,json=handleMessage,proto3" json:"handle_message,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RespondFriendApplicationRequest) Reset() {
+	*x = RespondFriendApplicationRequest{}
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RespondFriendApplicationRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RespondFriendApplicationRequest) ProtoMessage() {}
+
+func (x *RespondFriendApplicationRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RespondFriendApplicationRequest.ProtoReflect.Descriptor instead.
+func (*RespondFriendApplicationRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_friend_v1_friend_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *RespondFriendApplicationRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *RespondFriendApplicationRequest) GetApplicationId() string {
+	if x != nil {
+		return x.ApplicationId
+	}
+	return ""
+}
+
+func (x *RespondFriendApplicationRequest) GetHandlerUserId() string {
+	if x != nil {
+		return x.HandlerUserId
+	}
+	return ""
+}
+
+func (x *RespondFriendApplicationRequest) GetAccept() bool {
+	if x != nil {
+		return x.Accept
+	}
+	return false
+}
+
+func (x *RespondFriendApplicationRequest) GetHandleMessage() string {
+	if x != nil {
+		return x.HandleMessage
+	}
+	return ""
+}
+
+type RespondFriendApplicationResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Application   *FriendApplication     `protobuf:"bytes,2,opt,name=application,proto3" json:"application,omitempty"`
+	Friend        *FriendInfo            `protobuf:"bytes,3,opt,name=friend,proto3" json:"friend,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RespondFriendApplicationResponse) Reset() {
+	*x = RespondFriendApplicationResponse{}
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RespondFriendApplicationResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RespondFriendApplicationResponse) ProtoMessage() {}
+
+func (x *RespondFriendApplicationResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RespondFriendApplicationResponse.ProtoReflect.Descriptor instead.
+func (*RespondFriendApplicationResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_friend_v1_friend_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *RespondFriendApplicationResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *RespondFriendApplicationResponse) GetApplication() *FriendApplication {
+	if x != nil {
+		return x.Application
+	}
+	return nil
+}
+
+func (x *RespondFriendApplicationResponse) GetFriend() *FriendInfo {
+	if x != nil {
+		return x.Friend
+	}
+	return nil
+}
+
+type ListFriendApplicationsRequest struct {
+	state         protoimpl.MessageState  `protogen:"open.v1"`
+	Meta          *v1.RequestMeta         `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UserId        string                  `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Status        FriendApplicationStatus `protobuf:"varint,3,opt,name=status,proto3,enum=whocall.friend.v1.FriendApplicationStatus" json:"status,omitempty"`
+	Incoming      bool                    `protobuf:"varint,4,opt,name=incoming,proto3" json:"incoming,omitempty"`
+	Pagination    *v1.PaginationRequest   `protobuf:"bytes,5,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListFriendApplicationsRequest) Reset() {
+	*x = ListFriendApplicationsRequest{}
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListFriendApplicationsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListFriendApplicationsRequest) ProtoMessage() {}
+
+func (x *ListFriendApplicationsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListFriendApplicationsRequest.ProtoReflect.Descriptor instead.
+func (*ListFriendApplicationsRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_friend_v1_friend_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *ListFriendApplicationsRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *ListFriendApplicationsRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *ListFriendApplicationsRequest) GetStatus() FriendApplicationStatus {
+	if x != nil {
+		return x.Status
+	}
+	return FriendApplicationStatus_FRIEND_APPLICATION_STATUS_UNSPECIFIED
+}
+
+func (x *ListFriendApplicationsRequest) GetIncoming() bool {
+	if x != nil {
+		return x.Incoming
+	}
+	return false
+}
+
+func (x *ListFriendApplicationsRequest) GetPagination() *v1.PaginationRequest {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
+type ListFriendApplicationsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Applications  []*FriendApplication   `protobuf:"bytes,2,rep,name=applications,proto3" json:"applications,omitempty"`
+	Pagination    *v1.PaginationResponse `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListFriendApplicationsResponse) Reset() {
+	*x = ListFriendApplicationsResponse{}
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListFriendApplicationsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListFriendApplicationsResponse) ProtoMessage() {}
+
+func (x *ListFriendApplicationsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListFriendApplicationsResponse.ProtoReflect.Descriptor instead.
+func (*ListFriendApplicationsResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_friend_v1_friend_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *ListFriendApplicationsResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *ListFriendApplicationsResponse) GetApplications() []*FriendApplication {
+	if x != nil {
+		return x.Applications
+	}
+	return nil
+}
+
+func (x *ListFriendApplicationsResponse) GetPagination() *v1.PaginationResponse {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
+type ListFriendsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Pagination    *v1.PaginationRequest  `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListFriendsRequest) Reset() {
+	*x = ListFriendsRequest{}
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListFriendsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListFriendsRequest) ProtoMessage() {}
+
+func (x *ListFriendsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListFriendsRequest.ProtoReflect.Descriptor instead.
+func (*ListFriendsRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_friend_v1_friend_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *ListFriendsRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *ListFriendsRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *ListFriendsRequest) GetPagination() *v1.PaginationRequest {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
+type ListFriendsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Friends       []*FriendInfo          `protobuf:"bytes,2,rep,name=friends,proto3" json:"friends,omitempty"`
+	Pagination    *v1.PaginationResponse `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListFriendsResponse) Reset() {
+	*x = ListFriendsResponse{}
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListFriendsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListFriendsResponse) ProtoMessage() {}
+
+func (x *ListFriendsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListFriendsResponse.ProtoReflect.Descriptor instead.
+func (*ListFriendsResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_friend_v1_friend_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *ListFriendsResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *ListFriendsResponse) GetFriends() []*FriendInfo {
+	if x != nil {
+		return x.Friends
+	}
+	return nil
+}
+
+func (x *ListFriendsResponse) GetPagination() *v1.PaginationResponse {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
+type GetFriendInfoRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	FriendUserId  string                 `protobuf:"bytes,3,opt,name=friend_user_id,json=friendUserId,proto3" json:"friend_user_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetFriendInfoRequest) Reset() {
+	*x = GetFriendInfoRequest{}
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetFriendInfoRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetFriendInfoRequest) ProtoMessage() {}
+
+func (x *GetFriendInfoRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetFriendInfoRequest.ProtoReflect.Descriptor instead.
+func (*GetFriendInfoRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_friend_v1_friend_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *GetFriendInfoRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *GetFriendInfoRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *GetFriendInfoRequest) GetFriendUserId() string {
+	if x != nil {
+		return x.FriendUserId
+	}
+	return ""
+}
+
+type GetFriendInfoResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Friend        *FriendInfo            `protobuf:"bytes,2,opt,name=friend,proto3" json:"friend,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetFriendInfoResponse) Reset() {
+	*x = GetFriendInfoResponse{}
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetFriendInfoResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetFriendInfoResponse) ProtoMessage() {}
+
+func (x *GetFriendInfoResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetFriendInfoResponse.ProtoReflect.Descriptor instead.
+func (*GetFriendInfoResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_friend_v1_friend_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *GetFriendInfoResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *GetFriendInfoResponse) GetFriend() *FriendInfo {
+	if x != nil {
+		return x.Friend
+	}
+	return nil
+}
+
+type DeleteFriendRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	FriendUserId  string                 `protobuf:"bytes,3,opt,name=friend_user_id,json=friendUserId,proto3" json:"friend_user_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteFriendRequest) Reset() {
+	*x = DeleteFriendRequest{}
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteFriendRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteFriendRequest) ProtoMessage() {}
+
+func (x *DeleteFriendRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteFriendRequest.ProtoReflect.Descriptor instead.
+func (*DeleteFriendRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_friend_v1_friend_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *DeleteFriendRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *DeleteFriendRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *DeleteFriendRequest) GetFriendUserId() string {
+	if x != nil {
+		return x.FriendUserId
+	}
+	return ""
+}
+
+type DeleteFriendResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteFriendResponse) Reset() {
+	*x = DeleteFriendResponse{}
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteFriendResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteFriendResponse) ProtoMessage() {}
+
+func (x *DeleteFriendResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteFriendResponse.ProtoReflect.Descriptor instead.
+func (*DeleteFriendResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_friend_v1_friend_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *DeleteFriendResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+type SetFriendRemarkRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	FriendUserId  string                 `protobuf:"bytes,3,opt,name=friend_user_id,json=friendUserId,proto3" json:"friend_user_id,omitempty"`
+	Remark        string                 `protobuf:"bytes,4,opt,name=remark,proto3" json:"remark,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SetFriendRemarkRequest) Reset() {
+	*x = SetFriendRemarkRequest{}
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetFriendRemarkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetFriendRemarkRequest) ProtoMessage() {}
+
+func (x *SetFriendRemarkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetFriendRemarkRequest.ProtoReflect.Descriptor instead.
+func (*SetFriendRemarkRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_friend_v1_friend_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *SetFriendRemarkRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *SetFriendRemarkRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *SetFriendRemarkRequest) GetFriendUserId() string {
+	if x != nil {
+		return x.FriendUserId
+	}
+	return ""
+}
+
+func (x *SetFriendRemarkRequest) GetRemark() string {
+	if x != nil {
+		return x.Remark
+	}
+	return ""
+}
+
+type SetFriendRemarkResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Friend        *FriendInfo            `protobuf:"bytes,2,opt,name=friend,proto3" json:"friend,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SetFriendRemarkResponse) Reset() {
+	*x = SetFriendRemarkResponse{}
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetFriendRemarkResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetFriendRemarkResponse) ProtoMessage() {}
+
+func (x *SetFriendRemarkResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetFriendRemarkResponse.ProtoReflect.Descriptor instead.
+func (*SetFriendRemarkResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_friend_v1_friend_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *SetFriendRemarkResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *SetFriendRemarkResponse) GetFriend() *FriendInfo {
+	if x != nil {
+		return x.Friend
+	}
+	return nil
+}
+
+type CheckFriendRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	TargetUserIds []string               `protobuf:"bytes,3,rep,name=target_user_ids,json=targetUserIds,proto3" json:"target_user_ids,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CheckFriendRequest) Reset() {
+	*x = CheckFriendRequest{}
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CheckFriendRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CheckFriendRequest) ProtoMessage() {}
+
+func (x *CheckFriendRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CheckFriendRequest.ProtoReflect.Descriptor instead.
+func (*CheckFriendRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_friend_v1_friend_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *CheckFriendRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *CheckFriendRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *CheckFriendRequest) GetTargetUserIds() []string {
+	if x != nil {
+		return x.TargetUserIds
+	}
+	return nil
+}
+
+type FriendRelationCheckResult struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TargetUserId  string                 `protobuf:"bytes,1,opt,name=target_user_id,json=targetUserId,proto3" json:"target_user_id,omitempty"`
+	Status        FriendRelationStatus   `protobuf:"varint,2,opt,name=status,proto3,enum=whocall.friend.v1.FriendRelationStatus" json:"status,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *FriendRelationCheckResult) Reset() {
+	*x = FriendRelationCheckResult{}
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *FriendRelationCheckResult) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FriendRelationCheckResult) ProtoMessage() {}
+
+func (x *FriendRelationCheckResult) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FriendRelationCheckResult.ProtoReflect.Descriptor instead.
+func (*FriendRelationCheckResult) Descriptor() ([]byte, []int) {
+	return file_whocall_friend_v1_friend_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *FriendRelationCheckResult) GetTargetUserId() string {
+	if x != nil {
+		return x.TargetUserId
+	}
+	return ""
+}
+
+func (x *FriendRelationCheckResult) GetStatus() FriendRelationStatus {
+	if x != nil {
+		return x.Status
+	}
+	return FriendRelationStatus_FRIEND_RELATION_STATUS_UNSPECIFIED
+}
+
+type CheckFriendResponse struct {
+	state         protoimpl.MessageState       `protogen:"open.v1"`
+	Header        *v1.ResponseHeader           `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Results       []*FriendRelationCheckResult `protobuf:"bytes,2,rep,name=results,proto3" json:"results,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CheckFriendResponse) Reset() {
+	*x = CheckFriendResponse{}
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[19]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CheckFriendResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CheckFriendResponse) ProtoMessage() {}
+
+func (x *CheckFriendResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[19]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CheckFriendResponse.ProtoReflect.Descriptor instead.
+func (*CheckFriendResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_friend_v1_friend_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *CheckFriendResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *CheckFriendResponse) GetResults() []*FriendRelationCheckResult {
+	if x != nil {
+		return x.Results
+	}
+	return nil
+}
+
+type AddBlackRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	BlockedUserId string                 `protobuf:"bytes,3,opt,name=blocked_user_id,json=blockedUserId,proto3" json:"blocked_user_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AddBlackRequest) Reset() {
+	*x = AddBlackRequest{}
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[20]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AddBlackRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddBlackRequest) ProtoMessage() {}
+
+func (x *AddBlackRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[20]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddBlackRequest.ProtoReflect.Descriptor instead.
+func (*AddBlackRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_friend_v1_friend_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *AddBlackRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *AddBlackRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *AddBlackRequest) GetBlockedUserId() string {
+	if x != nil {
+		return x.BlockedUserId
+	}
+	return ""
+}
+
+type AddBlackResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Black         *BlackInfo             `protobuf:"bytes,2,opt,name=black,proto3" json:"black,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AddBlackResponse) Reset() {
+	*x = AddBlackResponse{}
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[21]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AddBlackResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddBlackResponse) ProtoMessage() {}
+
+func (x *AddBlackResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[21]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddBlackResponse.ProtoReflect.Descriptor instead.
+func (*AddBlackResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_friend_v1_friend_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *AddBlackResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *AddBlackResponse) GetBlack() *BlackInfo {
+	if x != nil {
+		return x.Black
+	}
+	return nil
+}
+
+type RemoveBlackRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	BlockedUserId string                 `protobuf:"bytes,3,opt,name=blocked_user_id,json=blockedUserId,proto3" json:"blocked_user_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RemoveBlackRequest) Reset() {
+	*x = RemoveBlackRequest{}
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[22]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RemoveBlackRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RemoveBlackRequest) ProtoMessage() {}
+
+func (x *RemoveBlackRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[22]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RemoveBlackRequest.ProtoReflect.Descriptor instead.
+func (*RemoveBlackRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_friend_v1_friend_proto_rawDescGZIP(), []int{22}
+}
+
+func (x *RemoveBlackRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *RemoveBlackRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *RemoveBlackRequest) GetBlockedUserId() string {
+	if x != nil {
+		return x.BlockedUserId
+	}
+	return ""
+}
+
+type RemoveBlackResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RemoveBlackResponse) Reset() {
+	*x = RemoveBlackResponse{}
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[23]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RemoveBlackResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RemoveBlackResponse) ProtoMessage() {}
+
+func (x *RemoveBlackResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[23]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RemoveBlackResponse.ProtoReflect.Descriptor instead.
+func (*RemoveBlackResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_friend_v1_friend_proto_rawDescGZIP(), []int{23}
+}
+
+func (x *RemoveBlackResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+type ListBlackRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Pagination    *v1.PaginationRequest  `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListBlackRequest) Reset() {
+	*x = ListBlackRequest{}
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[24]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListBlackRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListBlackRequest) ProtoMessage() {}
+
+func (x *ListBlackRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[24]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListBlackRequest.ProtoReflect.Descriptor instead.
+func (*ListBlackRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_friend_v1_friend_proto_rawDescGZIP(), []int{24}
+}
+
+func (x *ListBlackRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *ListBlackRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *ListBlackRequest) GetPagination() *v1.PaginationRequest {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
+type ListBlackResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Blacks        []*BlackInfo           `protobuf:"bytes,2,rep,name=blacks,proto3" json:"blacks,omitempty"`
+	Pagination    *v1.PaginationResponse `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListBlackResponse) Reset() {
+	*x = ListBlackResponse{}
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[25]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListBlackResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListBlackResponse) ProtoMessage() {}
+
+func (x *ListBlackResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_friend_v1_friend_proto_msgTypes[25]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListBlackResponse.ProtoReflect.Descriptor instead.
+func (*ListBlackResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_friend_v1_friend_proto_rawDescGZIP(), []int{25}
+}
+
+func (x *ListBlackResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *ListBlackResponse) GetBlacks() []*BlackInfo {
+	if x != nil {
+		return x.Blacks
+	}
+	return nil
+}
+
+func (x *ListBlackResponse) GetPagination() *v1.PaginationResponse {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
 var File_whocall_friend_v1_friend_proto protoreflect.FileDescriptor
 
 const file_whocall_friend_v1_friend_proto_rawDesc = "" +
 	"\n" +
-	"\x1ewhocall/friend/v1/friend.proto\x12\x11whocall.friend.v1BFZDgithub.com/ethereal3x/who-call/api/gen/go/whocall/friend/v1;friendv1b\x06proto3"
+	"\x1ewhocall/friend/v1/friend.proto\x12\x11whocall.friend.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x1ewhocall/common/v1/common.proto\"\xa3\x02\n" +
+	"\n" +
+	"FriendInfo\x12\"\n" +
+	"\rowner_user_id\x18\x01 \x01(\tR\vownerUserId\x12$\n" +
+	"\x0efriend_user_id\x18\x02 \x01(\tR\ffriendUserId\x12\x16\n" +
+	"\x06remark\x18\x03 \x01(\tR\x06remark\x122\n" +
+	"\x06friend\x18\x04 \x01(\v2\x1a.whocall.common.v1.UserRefR\x06friend\x12I\n" +
+	"\frecv_msg_opt\x18\x05 \x01(\x0e2'.whocall.common.v1.ReceiveMessageOptionR\n" +
+	"recvMsgOpt\x12$\n" +
+	"\x0ecreate_time_ms\x18\x06 \x01(\x03R\fcreateTimeMs\x12\x0e\n" +
+	"\x02ex\x18\a \x01(\tR\x02ex\"\xd8\x03\n" +
+	"\x11FriendApplication\x12%\n" +
+	"\x0eapplication_id\x18\x01 \x01(\tR\rapplicationId\x12 \n" +
+	"\ffrom_user_id\x18\x02 \x01(\tR\n" +
+	"fromUserId\x12\x1c\n" +
+	"\n" +
+	"to_user_id\x18\x03 \x01(\tR\btoUserId\x127\n" +
+	"\tfrom_user\x18\x04 \x01(\v2\x1a.whocall.common.v1.UserRefR\bfromUser\x123\n" +
+	"\ato_user\x18\x05 \x01(\v2\x1a.whocall.common.v1.UserRefR\x06toUser\x12'\n" +
+	"\x0frequest_message\x18\x06 \x01(\tR\x0erequestMessage\x12%\n" +
+	"\x0ehandle_message\x18\a \x01(\tR\rhandleMessage\x12B\n" +
+	"\x06status\x18\b \x01(\x0e2*.whocall.friend.v1.FriendApplicationStatusR\x06status\x12$\n" +
+	"\x0ecreate_time_ms\x18\t \x01(\x03R\fcreateTimeMs\x12$\n" +
+	"\x0ehandle_time_ms\x18\n" +
+	" \x01(\x03R\fhandleTimeMs\x12\x0e\n" +
+	"\x02ex\x18\v \x01(\tR\x02ex\"\xbc\x01\n" +
+	"\tBlackInfo\x12\"\n" +
+	"\rowner_user_id\x18\x01 \x01(\tR\vownerUserId\x12&\n" +
+	"\x0fblocked_user_id\x18\x02 \x01(\tR\rblockedUserId\x12=\n" +
+	"\fblocked_user\x18\x03 \x01(\v2\x1a.whocall.common.v1.UserRefR\vblockedUser\x12$\n" +
+	"\x0ecreate_time_ms\x18\x04 \x01(\x03R\fcreateTimeMs\"\xc1\x01\n" +
+	"\x12ApplyFriendRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12 \n" +
+	"\ffrom_user_id\x18\x02 \x01(\tR\n" +
+	"fromUserId\x12\x1c\n" +
+	"\n" +
+	"to_user_id\x18\x03 \x01(\tR\btoUserId\x12'\n" +
+	"\x0frequest_message\x18\x04 \x01(\tR\x0erequestMessage\x12\x0e\n" +
+	"\x02ex\x18\x05 \x01(\tR\x02ex\"\x98\x01\n" +
+	"\x13ApplyFriendResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12F\n" +
+	"\vapplication\x18\x02 \x01(\v2$.whocall.friend.v1.FriendApplicationR\vapplication\"\xe3\x01\n" +
+	"\x1fRespondFriendApplicationRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12%\n" +
+	"\x0eapplication_id\x18\x02 \x01(\tR\rapplicationId\x12&\n" +
+	"\x0fhandler_user_id\x18\x03 \x01(\tR\rhandlerUserId\x12\x16\n" +
+	"\x06accept\x18\x04 \x01(\bR\x06accept\x12%\n" +
+	"\x0ehandle_message\x18\x05 \x01(\tR\rhandleMessage\"\xdc\x01\n" +
+	" RespondFriendApplicationResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12F\n" +
+	"\vapplication\x18\x02 \x01(\v2$.whocall.friend.v1.FriendApplicationR\vapplication\x125\n" +
+	"\x06friend\x18\x03 \x01(\v2\x1d.whocall.friend.v1.FriendInfoR\x06friend\"\x92\x02\n" +
+	"\x1dListFriendApplicationsRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x12B\n" +
+	"\x06status\x18\x03 \x01(\x0e2*.whocall.friend.v1.FriendApplicationStatusR\x06status\x12\x1a\n" +
+	"\bincoming\x18\x04 \x01(\bR\bincoming\x12D\n" +
+	"\n" +
+	"pagination\x18\x05 \x01(\v2$.whocall.common.v1.PaginationRequestR\n" +
+	"pagination\"\xec\x01\n" +
+	"\x1eListFriendApplicationsResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12H\n" +
+	"\fapplications\x18\x02 \x03(\v2$.whocall.friend.v1.FriendApplicationR\fapplications\x12E\n" +
+	"\n" +
+	"pagination\x18\x03 \x01(\v2%.whocall.common.v1.PaginationResponseR\n" +
+	"pagination\"\xa7\x01\n" +
+	"\x12ListFriendsRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x12D\n" +
+	"\n" +
+	"pagination\x18\x03 \x01(\v2$.whocall.common.v1.PaginationRequestR\n" +
+	"pagination\"\xd0\x01\n" +
+	"\x13ListFriendsResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x127\n" +
+	"\afriends\x18\x02 \x03(\v2\x1d.whocall.friend.v1.FriendInfoR\afriends\x12E\n" +
+	"\n" +
+	"pagination\x18\x03 \x01(\v2%.whocall.common.v1.PaginationResponseR\n" +
+	"pagination\"\x89\x01\n" +
+	"\x14GetFriendInfoRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x12$\n" +
+	"\x0efriend_user_id\x18\x03 \x01(\tR\ffriendUserId\"\x89\x01\n" +
+	"\x15GetFriendInfoResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x125\n" +
+	"\x06friend\x18\x02 \x01(\v2\x1d.whocall.friend.v1.FriendInfoR\x06friend\"\x88\x01\n" +
+	"\x13DeleteFriendRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x12$\n" +
+	"\x0efriend_user_id\x18\x03 \x01(\tR\ffriendUserId\"Q\n" +
+	"\x14DeleteFriendResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\"\xa3\x01\n" +
+	"\x16SetFriendRemarkRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x12$\n" +
+	"\x0efriend_user_id\x18\x03 \x01(\tR\ffriendUserId\x12\x16\n" +
+	"\x06remark\x18\x04 \x01(\tR\x06remark\"\x8b\x01\n" +
+	"\x17SetFriendRemarkResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x125\n" +
+	"\x06friend\x18\x02 \x01(\v2\x1d.whocall.friend.v1.FriendInfoR\x06friend\"\x89\x01\n" +
+	"\x12CheckFriendRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x12&\n" +
+	"\x0ftarget_user_ids\x18\x03 \x03(\tR\rtargetUserIds\"\x82\x01\n" +
+	"\x19FriendRelationCheckResult\x12$\n" +
+	"\x0etarget_user_id\x18\x01 \x01(\tR\ftargetUserId\x12?\n" +
+	"\x06status\x18\x02 \x01(\x0e2'.whocall.friend.v1.FriendRelationStatusR\x06status\"\x98\x01\n" +
+	"\x13CheckFriendResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12F\n" +
+	"\aresults\x18\x02 \x03(\v2,.whocall.friend.v1.FriendRelationCheckResultR\aresults\"\x86\x01\n" +
+	"\x0fAddBlackRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x12&\n" +
+	"\x0fblocked_user_id\x18\x03 \x01(\tR\rblockedUserId\"\x81\x01\n" +
+	"\x10AddBlackResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x122\n" +
+	"\x05black\x18\x02 \x01(\v2\x1c.whocall.friend.v1.BlackInfoR\x05black\"\x89\x01\n" +
+	"\x12RemoveBlackRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x12&\n" +
+	"\x0fblocked_user_id\x18\x03 \x01(\tR\rblockedUserId\"P\n" +
+	"\x13RemoveBlackResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\"\xa5\x01\n" +
+	"\x10ListBlackRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x12D\n" +
+	"\n" +
+	"pagination\x18\x03 \x01(\v2$.whocall.common.v1.PaginationRequestR\n" +
+	"pagination\"\xcb\x01\n" +
+	"\x11ListBlackResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x124\n" +
+	"\x06blacks\x18\x02 \x03(\v2\x1c.whocall.friend.v1.BlackInfoR\x06blacks\x12E\n" +
+	"\n" +
+	"pagination\x18\x03 \x01(\v2%.whocall.common.v1.PaginationResponseR\n" +
+	"pagination*\xe3\x01\n" +
+	"\x17FriendApplicationStatus\x12)\n" +
+	"%FRIEND_APPLICATION_STATUS_UNSPECIFIED\x10\x00\x12%\n" +
+	"!FRIEND_APPLICATION_STATUS_PENDING\x10\x01\x12&\n" +
+	"\"FRIEND_APPLICATION_STATUS_ACCEPTED\x10\x02\x12&\n" +
+	"\"FRIEND_APPLICATION_STATUS_REJECTED\x10\x03\x12&\n" +
+	"\"FRIEND_APPLICATION_STATUS_CANCELED\x10\x04*\xd2\x01\n" +
+	"\x14FriendRelationStatus\x12&\n" +
+	"\"FRIEND_RELATION_STATUS_UNSPECIFIED\x10\x00\x12\x1f\n" +
+	"\x1bFRIEND_RELATION_STATUS_NONE\x10\x01\x12!\n" +
+	"\x1dFRIEND_RELATION_STATUS_FRIEND\x10\x02\x12\"\n" +
+	"\x1eFRIEND_RELATION_STATUS_BLACKED\x10\x03\x12*\n" +
+	"&FRIEND_RELATION_STATUS_BLOCKED_BY_PEER\x10\x042\xab\r\n" +
+	"\rFriendService\x12\x85\x01\n" +
+	"\vApplyFriend\x12%.whocall.friend.v1.ApplyFriendRequest\x1a&.whocall.friend.v1.ApplyFriendResponse\"'\x82\xd3\xe4\x93\x02!:\x01*\"\x1c/api/v1/friends/applications\x12\xc5\x01\n" +
+	"\x18RespondFriendApplication\x122.whocall.friend.v1.RespondFriendApplicationRequest\x1a3.whocall.friend.v1.RespondFriendApplicationResponse\"@\x82\xd3\xe4\x93\x02::\x01*\"5/api/v1/friends/applications/{application_id}:respond\x12\xb3\x01\n" +
+	"\x16ListFriendApplications\x120.whocall.friend.v1.ListFriendApplicationsRequest\x1a1.whocall.friend.v1.ListFriendApplicationsResponse\"4\x82\xd3\xe4\x93\x02.\x12,/api/v1/users/{user_id}/friends/applications\x12\x85\x01\n" +
+	"\vListFriends\x12%.whocall.friend.v1.ListFriendsRequest\x1a&.whocall.friend.v1.ListFriendsResponse\"'\x82\xd3\xe4\x93\x02!\x12\x1f/api/v1/users/{user_id}/friends\x12\x9c\x01\n" +
+	"\rGetFriendInfo\x12'.whocall.friend.v1.GetFriendInfoRequest\x1a(.whocall.friend.v1.GetFriendInfoResponse\"8\x82\xd3\xe4\x93\x022\x120/api/v1/users/{user_id}/friends/{friend_user_id}\x12\x99\x01\n" +
+	"\fDeleteFriend\x12&.whocall.friend.v1.DeleteFriendRequest\x1a'.whocall.friend.v1.DeleteFriendResponse\"8\x82\xd3\xe4\x93\x022*0/api/v1/users/{user_id}/friends/{friend_user_id}\x12\xac\x01\n" +
+	"\x0fSetFriendRemark\x12).whocall.friend.v1.SetFriendRemarkRequest\x1a*.whocall.friend.v1.SetFriendRemarkResponse\"B\x82\xd3\xe4\x93\x02<:\x01*27/api/v1/users/{user_id}/friends/{friend_user_id}/remark\x12~\n" +
+	"\vCheckFriend\x12%.whocall.friend.v1.CheckFriendRequest\x1a&.whocall.friend.v1.CheckFriendResponse\" \x82\xd3\xe4\x93\x02\x1a:\x01*\"\x15/api/v1/friends:check\x12\x81\x01\n" +
+	"\bAddBlack\x12\".whocall.friend.v1.AddBlackRequest\x1a#.whocall.friend.v1.AddBlackResponse\",\x82\xd3\xe4\x93\x02&:\x01*\"!/api/v1/users/{user_id}/blacklist\x12\x99\x01\n" +
+	"\vRemoveBlack\x12%.whocall.friend.v1.RemoveBlackRequest\x1a&.whocall.friend.v1.RemoveBlackResponse\";\x82\xd3\xe4\x93\x025*3/api/v1/users/{user_id}/blacklist/{blocked_user_id}\x12\x81\x01\n" +
+	"\tListBlack\x12#.whocall.friend.v1.ListBlackRequest\x1a$.whocall.friend.v1.ListBlackResponse\")\x82\xd3\xe4\x93\x02#\x12!/api/v1/users/{user_id}/blacklistBFZDgithub.com/ethereal3x/who-call/api/gen/go/whocall/friend/v1;friendv1b\x06proto3"
 
-var file_whocall_friend_v1_friend_proto_goTypes = []any{}
+var (
+	file_whocall_friend_v1_friend_proto_rawDescOnce sync.Once
+	file_whocall_friend_v1_friend_proto_rawDescData []byte
+)
+
+func file_whocall_friend_v1_friend_proto_rawDescGZIP() []byte {
+	file_whocall_friend_v1_friend_proto_rawDescOnce.Do(func() {
+		file_whocall_friend_v1_friend_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_whocall_friend_v1_friend_proto_rawDesc), len(file_whocall_friend_v1_friend_proto_rawDesc)))
+	})
+	return file_whocall_friend_v1_friend_proto_rawDescData
+}
+
+var file_whocall_friend_v1_friend_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
+var file_whocall_friend_v1_friend_proto_msgTypes = make([]protoimpl.MessageInfo, 26)
+var file_whocall_friend_v1_friend_proto_goTypes = []any{
+	(FriendApplicationStatus)(0),             // 0: whocall.friend.v1.FriendApplicationStatus
+	(FriendRelationStatus)(0),                // 1: whocall.friend.v1.FriendRelationStatus
+	(*FriendInfo)(nil),                       // 2: whocall.friend.v1.FriendInfo
+	(*FriendApplication)(nil),                // 3: whocall.friend.v1.FriendApplication
+	(*BlackInfo)(nil),                        // 4: whocall.friend.v1.BlackInfo
+	(*ApplyFriendRequest)(nil),               // 5: whocall.friend.v1.ApplyFriendRequest
+	(*ApplyFriendResponse)(nil),              // 6: whocall.friend.v1.ApplyFriendResponse
+	(*RespondFriendApplicationRequest)(nil),  // 7: whocall.friend.v1.RespondFriendApplicationRequest
+	(*RespondFriendApplicationResponse)(nil), // 8: whocall.friend.v1.RespondFriendApplicationResponse
+	(*ListFriendApplicationsRequest)(nil),    // 9: whocall.friend.v1.ListFriendApplicationsRequest
+	(*ListFriendApplicationsResponse)(nil),   // 10: whocall.friend.v1.ListFriendApplicationsResponse
+	(*ListFriendsRequest)(nil),               // 11: whocall.friend.v1.ListFriendsRequest
+	(*ListFriendsResponse)(nil),              // 12: whocall.friend.v1.ListFriendsResponse
+	(*GetFriendInfoRequest)(nil),             // 13: whocall.friend.v1.GetFriendInfoRequest
+	(*GetFriendInfoResponse)(nil),            // 14: whocall.friend.v1.GetFriendInfoResponse
+	(*DeleteFriendRequest)(nil),              // 15: whocall.friend.v1.DeleteFriendRequest
+	(*DeleteFriendResponse)(nil),             // 16: whocall.friend.v1.DeleteFriendResponse
+	(*SetFriendRemarkRequest)(nil),           // 17: whocall.friend.v1.SetFriendRemarkRequest
+	(*SetFriendRemarkResponse)(nil),          // 18: whocall.friend.v1.SetFriendRemarkResponse
+	(*CheckFriendRequest)(nil),               // 19: whocall.friend.v1.CheckFriendRequest
+	(*FriendRelationCheckResult)(nil),        // 20: whocall.friend.v1.FriendRelationCheckResult
+	(*CheckFriendResponse)(nil),              // 21: whocall.friend.v1.CheckFriendResponse
+	(*AddBlackRequest)(nil),                  // 22: whocall.friend.v1.AddBlackRequest
+	(*AddBlackResponse)(nil),                 // 23: whocall.friend.v1.AddBlackResponse
+	(*RemoveBlackRequest)(nil),               // 24: whocall.friend.v1.RemoveBlackRequest
+	(*RemoveBlackResponse)(nil),              // 25: whocall.friend.v1.RemoveBlackResponse
+	(*ListBlackRequest)(nil),                 // 26: whocall.friend.v1.ListBlackRequest
+	(*ListBlackResponse)(nil),                // 27: whocall.friend.v1.ListBlackResponse
+	(*v1.UserRef)(nil),                       // 28: whocall.common.v1.UserRef
+	(v1.ReceiveMessageOption)(0),             // 29: whocall.common.v1.ReceiveMessageOption
+	(*v1.RequestMeta)(nil),                   // 30: whocall.common.v1.RequestMeta
+	(*v1.ResponseHeader)(nil),                // 31: whocall.common.v1.ResponseHeader
+	(*v1.PaginationRequest)(nil),             // 32: whocall.common.v1.PaginationRequest
+	(*v1.PaginationResponse)(nil),            // 33: whocall.common.v1.PaginationResponse
+}
 var file_whocall_friend_v1_friend_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	28, // 0: whocall.friend.v1.FriendInfo.friend:type_name -> whocall.common.v1.UserRef
+	29, // 1: whocall.friend.v1.FriendInfo.recv_msg_opt:type_name -> whocall.common.v1.ReceiveMessageOption
+	28, // 2: whocall.friend.v1.FriendApplication.from_user:type_name -> whocall.common.v1.UserRef
+	28, // 3: whocall.friend.v1.FriendApplication.to_user:type_name -> whocall.common.v1.UserRef
+	0,  // 4: whocall.friend.v1.FriendApplication.status:type_name -> whocall.friend.v1.FriendApplicationStatus
+	28, // 5: whocall.friend.v1.BlackInfo.blocked_user:type_name -> whocall.common.v1.UserRef
+	30, // 6: whocall.friend.v1.ApplyFriendRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	31, // 7: whocall.friend.v1.ApplyFriendResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	3,  // 8: whocall.friend.v1.ApplyFriendResponse.application:type_name -> whocall.friend.v1.FriendApplication
+	30, // 9: whocall.friend.v1.RespondFriendApplicationRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	31, // 10: whocall.friend.v1.RespondFriendApplicationResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	3,  // 11: whocall.friend.v1.RespondFriendApplicationResponse.application:type_name -> whocall.friend.v1.FriendApplication
+	2,  // 12: whocall.friend.v1.RespondFriendApplicationResponse.friend:type_name -> whocall.friend.v1.FriendInfo
+	30, // 13: whocall.friend.v1.ListFriendApplicationsRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	0,  // 14: whocall.friend.v1.ListFriendApplicationsRequest.status:type_name -> whocall.friend.v1.FriendApplicationStatus
+	32, // 15: whocall.friend.v1.ListFriendApplicationsRequest.pagination:type_name -> whocall.common.v1.PaginationRequest
+	31, // 16: whocall.friend.v1.ListFriendApplicationsResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	3,  // 17: whocall.friend.v1.ListFriendApplicationsResponse.applications:type_name -> whocall.friend.v1.FriendApplication
+	33, // 18: whocall.friend.v1.ListFriendApplicationsResponse.pagination:type_name -> whocall.common.v1.PaginationResponse
+	30, // 19: whocall.friend.v1.ListFriendsRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	32, // 20: whocall.friend.v1.ListFriendsRequest.pagination:type_name -> whocall.common.v1.PaginationRequest
+	31, // 21: whocall.friend.v1.ListFriendsResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	2,  // 22: whocall.friend.v1.ListFriendsResponse.friends:type_name -> whocall.friend.v1.FriendInfo
+	33, // 23: whocall.friend.v1.ListFriendsResponse.pagination:type_name -> whocall.common.v1.PaginationResponse
+	30, // 24: whocall.friend.v1.GetFriendInfoRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	31, // 25: whocall.friend.v1.GetFriendInfoResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	2,  // 26: whocall.friend.v1.GetFriendInfoResponse.friend:type_name -> whocall.friend.v1.FriendInfo
+	30, // 27: whocall.friend.v1.DeleteFriendRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	31, // 28: whocall.friend.v1.DeleteFriendResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	30, // 29: whocall.friend.v1.SetFriendRemarkRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	31, // 30: whocall.friend.v1.SetFriendRemarkResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	2,  // 31: whocall.friend.v1.SetFriendRemarkResponse.friend:type_name -> whocall.friend.v1.FriendInfo
+	30, // 32: whocall.friend.v1.CheckFriendRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	1,  // 33: whocall.friend.v1.FriendRelationCheckResult.status:type_name -> whocall.friend.v1.FriendRelationStatus
+	31, // 34: whocall.friend.v1.CheckFriendResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	20, // 35: whocall.friend.v1.CheckFriendResponse.results:type_name -> whocall.friend.v1.FriendRelationCheckResult
+	30, // 36: whocall.friend.v1.AddBlackRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	31, // 37: whocall.friend.v1.AddBlackResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	4,  // 38: whocall.friend.v1.AddBlackResponse.black:type_name -> whocall.friend.v1.BlackInfo
+	30, // 39: whocall.friend.v1.RemoveBlackRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	31, // 40: whocall.friend.v1.RemoveBlackResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	30, // 41: whocall.friend.v1.ListBlackRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	32, // 42: whocall.friend.v1.ListBlackRequest.pagination:type_name -> whocall.common.v1.PaginationRequest
+	31, // 43: whocall.friend.v1.ListBlackResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	4,  // 44: whocall.friend.v1.ListBlackResponse.blacks:type_name -> whocall.friend.v1.BlackInfo
+	33, // 45: whocall.friend.v1.ListBlackResponse.pagination:type_name -> whocall.common.v1.PaginationResponse
+	5,  // 46: whocall.friend.v1.FriendService.ApplyFriend:input_type -> whocall.friend.v1.ApplyFriendRequest
+	7,  // 47: whocall.friend.v1.FriendService.RespondFriendApplication:input_type -> whocall.friend.v1.RespondFriendApplicationRequest
+	9,  // 48: whocall.friend.v1.FriendService.ListFriendApplications:input_type -> whocall.friend.v1.ListFriendApplicationsRequest
+	11, // 49: whocall.friend.v1.FriendService.ListFriends:input_type -> whocall.friend.v1.ListFriendsRequest
+	13, // 50: whocall.friend.v1.FriendService.GetFriendInfo:input_type -> whocall.friend.v1.GetFriendInfoRequest
+	15, // 51: whocall.friend.v1.FriendService.DeleteFriend:input_type -> whocall.friend.v1.DeleteFriendRequest
+	17, // 52: whocall.friend.v1.FriendService.SetFriendRemark:input_type -> whocall.friend.v1.SetFriendRemarkRequest
+	19, // 53: whocall.friend.v1.FriendService.CheckFriend:input_type -> whocall.friend.v1.CheckFriendRequest
+	22, // 54: whocall.friend.v1.FriendService.AddBlack:input_type -> whocall.friend.v1.AddBlackRequest
+	24, // 55: whocall.friend.v1.FriendService.RemoveBlack:input_type -> whocall.friend.v1.RemoveBlackRequest
+	26, // 56: whocall.friend.v1.FriendService.ListBlack:input_type -> whocall.friend.v1.ListBlackRequest
+	6,  // 57: whocall.friend.v1.FriendService.ApplyFriend:output_type -> whocall.friend.v1.ApplyFriendResponse
+	8,  // 58: whocall.friend.v1.FriendService.RespondFriendApplication:output_type -> whocall.friend.v1.RespondFriendApplicationResponse
+	10, // 59: whocall.friend.v1.FriendService.ListFriendApplications:output_type -> whocall.friend.v1.ListFriendApplicationsResponse
+	12, // 60: whocall.friend.v1.FriendService.ListFriends:output_type -> whocall.friend.v1.ListFriendsResponse
+	14, // 61: whocall.friend.v1.FriendService.GetFriendInfo:output_type -> whocall.friend.v1.GetFriendInfoResponse
+	16, // 62: whocall.friend.v1.FriendService.DeleteFriend:output_type -> whocall.friend.v1.DeleteFriendResponse
+	18, // 63: whocall.friend.v1.FriendService.SetFriendRemark:output_type -> whocall.friend.v1.SetFriendRemarkResponse
+	21, // 64: whocall.friend.v1.FriendService.CheckFriend:output_type -> whocall.friend.v1.CheckFriendResponse
+	23, // 65: whocall.friend.v1.FriendService.AddBlack:output_type -> whocall.friend.v1.AddBlackResponse
+	25, // 66: whocall.friend.v1.FriendService.RemoveBlack:output_type -> whocall.friend.v1.RemoveBlackResponse
+	27, // 67: whocall.friend.v1.FriendService.ListBlack:output_type -> whocall.friend.v1.ListBlackResponse
+	57, // [57:68] is the sub-list for method output_type
+	46, // [46:57] is the sub-list for method input_type
+	46, // [46:46] is the sub-list for extension type_name
+	46, // [46:46] is the sub-list for extension extendee
+	0,  // [0:46] is the sub-list for field type_name
 }
 
 func init() { file_whocall_friend_v1_friend_proto_init() }
@@ -45,13 +2072,15 @@ func file_whocall_friend_v1_friend_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_whocall_friend_v1_friend_proto_rawDesc), len(file_whocall_friend_v1_friend_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   0,
+			NumEnums:      2,
+			NumMessages:   26,
 			NumExtensions: 0,
-			NumServices:   0,
+			NumServices:   1,
 		},
 		GoTypes:           file_whocall_friend_v1_friend_proto_goTypes,
 		DependencyIndexes: file_whocall_friend_v1_friend_proto_depIdxs,
+		EnumInfos:         file_whocall_friend_v1_friend_proto_enumTypes,
+		MessageInfos:      file_whocall_friend_v1_friend_proto_msgTypes,
 	}.Build()
 	File_whocall_friend_v1_friend_proto = out.File
 	file_whocall_friend_v1_friend_proto_goTypes = nil

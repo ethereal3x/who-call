@@ -3,3 +3,163 @@ syntax = "proto3";
 package whocall.conversation.v1;
 
 option go_package = "github.com/ethereal3x/who-call/api/gen/go/whocall/conversation/v1;conversationv1";
+
+import "google/api/annotations.proto";
+import "whocall/common/v1/common.proto";
+import "whocall/msg/v1/msg.proto";
+
+service ConversationService {
+    rpc GetConversation(GetConversationRequest) returns (GetConversationResponse) {
+        option (google.api.http) = { get: "/api/v1/conversations/{conversation_id}" };
+    }
+
+    rpc ListConversations(ListConversationsRequest) returns (ListConversationsResponse) {
+        option (google.api.http) = { get: "/api/v1/users/{user_id}/conversations" };
+    }
+
+    rpc CreateOrGetSingleConversation(CreateOrGetSingleConversationRequest) returns (CreateOrGetSingleConversationResponse) {
+        option (google.api.http) = { post: "/api/v1/conversations/single" body: "*" };
+    }
+
+    rpc UpdateConversationSettings(UpdateConversationSettingsRequest) returns (UpdateConversationSettingsResponse) {
+        option (google.api.http) = { patch: "/api/v1/conversations/{conversation_id}/settings" body: "*" };
+    }
+
+    rpc DeleteConversation(DeleteConversationRequest) returns (DeleteConversationResponse) {
+        option (google.api.http) = { delete: "/api/v1/users/{user_id}/conversations/{conversation_id}" };
+    }
+
+    rpc ClearConversationMessages(ClearConversationMessagesRequest) returns (ClearConversationMessagesResponse) {
+        option (google.api.http) = { post: "/api/v1/conversations/{conversation_id}:clear-messages" body: "*" };
+    }
+
+    rpc GetConversationSeq(GetConversationSeqRequest) returns (GetConversationSeqResponse) {
+        option (google.api.http) = { post: "/api/v1/conversations/seq" body: "*" };
+    }
+}
+
+enum ConversationStatus {
+    CONVERSATION_STATUS_UNSPECIFIED = 0;
+    CONVERSATION_STATUS_NORMAL = 1;
+    CONVERSATION_STATUS_DELETED = 2;
+    CONVERSATION_STATUS_ARCHIVED = 3;
+}
+
+enum GroupAtType {
+    GROUP_AT_TYPE_UNSPECIFIED = 0;
+    GROUP_AT_TYPE_NONE = 1;
+    GROUP_AT_TYPE_AT_ME = 2;
+    GROUP_AT_TYPE_AT_ALL = 3;
+    GROUP_AT_TYPE_AT_ALL_AT_ME = 4;
+}
+
+message ConversationSettings {
+    bool is_pinned = 1;
+    whocall.common.v1.ReceiveMessageOption recv_msg_opt = 2;
+    bool is_private_chat = 3;
+    bool is_msg_destruct = 4;
+    int64 burn_duration_seconds = 5;
+    int64 msg_destruct_time_ms = 6;
+    string attached_info = 7;
+    string ex = 8;
+}
+
+message ConversationInfo {
+    string owner_user_id = 1;
+    string conversation_id = 2;
+    whocall.common.v1.ConversationType conversation_type = 3;
+    string user_id = 4;
+    string group_id = 5;
+    string show_name = 6;
+    string face_url = 7;
+    ConversationStatus status = 8;
+    ConversationSettings settings = 9;
+    GroupAtType group_at_type = 10;
+    int64 min_seq = 11;
+    int64 max_seq = 12;
+    int64 read_seq = 13;
+    int64 unread_count = 14;
+    whocall.msg.v1.MsgData latest_msg = 15;
+    int64 latest_msg_send_time_ms = 16;
+    int64 create_time_ms = 17;
+    int64 update_time_ms = 18;
+}
+
+message GetConversationRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string user_id = 2;
+    string conversation_id = 3;
+}
+
+message GetConversationResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    ConversationInfo conversation = 2;
+}
+
+message ListConversationsRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string user_id = 2;
+    whocall.common.v1.PaginationRequest pagination = 3;
+}
+
+message ListConversationsResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    repeated ConversationInfo conversations = 2;
+    whocall.common.v1.PaginationResponse pagination = 3;
+}
+
+message CreateOrGetSingleConversationRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string owner_user_id = 2;
+    string peer_user_id = 3;
+}
+
+message CreateOrGetSingleConversationResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    ConversationInfo conversation = 2;
+}
+
+message UpdateConversationSettingsRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string user_id = 2;
+    string conversation_id = 3;
+    ConversationSettings settings = 4;
+}
+
+message UpdateConversationSettingsResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    ConversationInfo conversation = 2;
+}
+
+message DeleteConversationRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string user_id = 2;
+    string conversation_id = 3;
+}
+
+message DeleteConversationResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+}
+
+message ClearConversationMessagesRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string user_id = 2;
+    string conversation_id = 3;
+    int64 clear_before_seq = 4;
+}
+
+message ClearConversationMessagesResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    int64 cleared_max_seq = 2;
+}
+
+message GetConversationSeqRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string user_id = 2;
+    repeated string conversation_ids = 3;
+}
+
+message GetConversationSeqResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    repeated whocall.msg.v1.ConversationSeq seqs = 2;
+}

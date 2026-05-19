@@ -24,6 +24,113 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type TokenStatus int32
+
+const (
+	TokenStatus_TOKEN_STATUS_UNSPECIFIED TokenStatus = 0
+	TokenStatus_TOKEN_STATUS_VALID       TokenStatus = 1
+	TokenStatus_TOKEN_STATUS_EXPIRED     TokenStatus = 2
+	TokenStatus_TOKEN_STATUS_REVOKED     TokenStatus = 3
+	TokenStatus_TOKEN_STATUS_KICKED      TokenStatus = 4
+)
+
+// Enum value maps for TokenStatus.
+var (
+	TokenStatus_name = map[int32]string{
+		0: "TOKEN_STATUS_UNSPECIFIED",
+		1: "TOKEN_STATUS_VALID",
+		2: "TOKEN_STATUS_EXPIRED",
+		3: "TOKEN_STATUS_REVOKED",
+		4: "TOKEN_STATUS_KICKED",
+	}
+	TokenStatus_value = map[string]int32{
+		"TOKEN_STATUS_UNSPECIFIED": 0,
+		"TOKEN_STATUS_VALID":       1,
+		"TOKEN_STATUS_EXPIRED":     2,
+		"TOKEN_STATUS_REVOKED":     3,
+		"TOKEN_STATUS_KICKED":      4,
+	}
+)
+
+func (x TokenStatus) Enum() *TokenStatus {
+	p := new(TokenStatus)
+	*p = x
+	return p
+}
+
+func (x TokenStatus) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (TokenStatus) Descriptor() protoreflect.EnumDescriptor {
+	return file_whocall_auth_v1_auth_proto_enumTypes[0].Descriptor()
+}
+
+func (TokenStatus) Type() protoreflect.EnumType {
+	return &file_whocall_auth_v1_auth_proto_enumTypes[0]
+}
+
+func (x TokenStatus) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use TokenStatus.Descriptor instead.
+func (TokenStatus) EnumDescriptor() ([]byte, []int) {
+	return file_whocall_auth_v1_auth_proto_rawDescGZIP(), []int{0}
+}
+
+type LoginPolicy int32
+
+const (
+	LoginPolicy_LOGIN_POLICY_UNSPECIFIED        LoginPolicy = 0
+	LoginPolicy_LOGIN_POLICY_MULTI_PLATFORM     LoginPolicy = 1
+	LoginPolicy_LOGIN_POLICY_KICK_SAME_PLATFORM LoginPolicy = 2
+	LoginPolicy_LOGIN_POLICY_KICK_ALL_OLD       LoginPolicy = 3
+)
+
+// Enum value maps for LoginPolicy.
+var (
+	LoginPolicy_name = map[int32]string{
+		0: "LOGIN_POLICY_UNSPECIFIED",
+		1: "LOGIN_POLICY_MULTI_PLATFORM",
+		2: "LOGIN_POLICY_KICK_SAME_PLATFORM",
+		3: "LOGIN_POLICY_KICK_ALL_OLD",
+	}
+	LoginPolicy_value = map[string]int32{
+		"LOGIN_POLICY_UNSPECIFIED":        0,
+		"LOGIN_POLICY_MULTI_PLATFORM":     1,
+		"LOGIN_POLICY_KICK_SAME_PLATFORM": 2,
+		"LOGIN_POLICY_KICK_ALL_OLD":       3,
+	}
+)
+
+func (x LoginPolicy) Enum() *LoginPolicy {
+	p := new(LoginPolicy)
+	*p = x
+	return p
+}
+
+func (x LoginPolicy) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (LoginPolicy) Descriptor() protoreflect.EnumDescriptor {
+	return file_whocall_auth_v1_auth_proto_enumTypes[1].Descriptor()
+}
+
+func (LoginPolicy) Type() protoreflect.EnumType {
+	return &file_whocall_auth_v1_auth_proto_enumTypes[1]
+}
+
+func (x LoginPolicy) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use LoginPolicy.Descriptor instead.
+func (LoginPolicy) EnumDescriptor() ([]byte, []int) {
+	return file_whocall_auth_v1_auth_proto_rawDescGZIP(), []int{1}
+}
+
 type RegisterRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
@@ -31,6 +138,8 @@ type RegisterRequest struct {
 	Password      string                 `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
 	Nickname      string                 `protobuf:"bytes,4,opt,name=nickname,proto3" json:"nickname,omitempty"`
 	AvatarUrl     string                 `protobuf:"bytes,5,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
+	Phone         string                 `protobuf:"bytes,6,opt,name=phone,proto3" json:"phone,omitempty"`
+	Email         string                 `protobuf:"bytes,7,opt,name=email,proto3" json:"email,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -100,6 +209,20 @@ func (x *RegisterRequest) GetAvatarUrl() string {
 	return ""
 }
 
+func (x *RegisterRequest) GetPhone() string {
+	if x != nil {
+		return x.Phone
+	}
+	return ""
+}
+
+func (x *RegisterRequest) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
 type RegisterResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
@@ -157,8 +280,11 @@ type LoginRequest struct {
 	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
 	Username      string                 `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
 	Password      string                 `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
-	PlatformId    int32                  `protobuf:"varint,4,opt,name=platform_id,json=platformId,proto3" json:"platform_id,omitempty"`
+	Platform      v1.Platform            `protobuf:"varint,4,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
 	DeviceId      string                 `protobuf:"bytes,5,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
+	DeviceName    string                 `protobuf:"bytes,6,opt,name=device_name,json=deviceName,proto3" json:"device_name,omitempty"`
+	ClientVersion string                 `protobuf:"bytes,7,opt,name=client_version,json=clientVersion,proto3" json:"client_version,omitempty"`
+	LoginPolicy   LoginPolicy            `protobuf:"varint,8,opt,name=login_policy,json=loginPolicy,proto3,enum=whocall.auth.v1.LoginPolicy" json:"login_policy,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -214,11 +340,11 @@ func (x *LoginRequest) GetPassword() string {
 	return ""
 }
 
-func (x *LoginRequest) GetPlatformId() int32 {
+func (x *LoginRequest) GetPlatform() v1.Platform {
 	if x != nil {
-		return x.PlatformId
+		return x.Platform
 	}
-	return 0
+	return v1.Platform(0)
 }
 
 func (x *LoginRequest) GetDeviceId() string {
@@ -228,15 +354,37 @@ func (x *LoginRequest) GetDeviceId() string {
 	return ""
 }
 
+func (x *LoginRequest) GetDeviceName() string {
+	if x != nil {
+		return x.DeviceName
+	}
+	return ""
+}
+
+func (x *LoginRequest) GetClientVersion() string {
+	if x != nil {
+		return x.ClientVersion
+	}
+	return ""
+}
+
+func (x *LoginRequest) GetLoginPolicy() LoginPolicy {
+	if x != nil {
+		return x.LoginPolicy
+	}
+	return LoginPolicy_LOGIN_POLICY_UNSPECIFIED
+}
+
 type LoginResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	AccessToken   string                 `protobuf:"bytes,3,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
-	RefreshToken  string                 `protobuf:"bytes,4,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
-	ExpireAt      *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=expire_at,json=expireAt,proto3" json:"expire_at,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                protoimpl.MessageState `protogen:"open.v1"`
+	Header               *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	UserId               string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	AccessToken          string                 `protobuf:"bytes,3,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	RefreshToken         string                 `protobuf:"bytes,4,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
+	AccessTokenExpireAt  *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=access_token_expire_at,json=accessTokenExpireAt,proto3" json:"access_token_expire_at,omitempty"`
+	RefreshTokenExpireAt *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=refresh_token_expire_at,json=refreshTokenExpireAt,proto3" json:"refresh_token_expire_at,omitempty"`
+	unknownFields        protoimpl.UnknownFields
+	sizeCache            protoimpl.SizeCache
 }
 
 func (x *LoginResponse) Reset() {
@@ -297,9 +445,16 @@ func (x *LoginResponse) GetRefreshToken() string {
 	return ""
 }
 
-func (x *LoginResponse) GetExpireAt() *timestamppb.Timestamp {
+func (x *LoginResponse) GetAccessTokenExpireAt() *timestamppb.Timestamp {
 	if x != nil {
-		return x.ExpireAt
+		return x.AccessTokenExpireAt
+	}
+	return nil
+}
+
+func (x *LoginResponse) GetRefreshTokenExpireAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.RefreshTokenExpireAt
 	}
 	return nil
 }
@@ -308,6 +463,7 @@ type RefreshTokenRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
 	RefreshToken  string                 `protobuf:"bytes,2,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
+	DeviceId      string                 `protobuf:"bytes,3,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -356,13 +512,22 @@ func (x *RefreshTokenRequest) GetRefreshToken() string {
 	return ""
 }
 
+func (x *RefreshTokenRequest) GetDeviceId() string {
+	if x != nil {
+		return x.DeviceId
+	}
+	return ""
+}
+
 type RefreshTokenResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	AccessToken   string                 `protobuf:"bytes,2,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
-	ExpireAt      *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=expire_at,json=expireAt,proto3" json:"expire_at,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                protoimpl.MessageState `protogen:"open.v1"`
+	Header               *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	AccessToken          string                 `protobuf:"bytes,2,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	RefreshToken         string                 `protobuf:"bytes,3,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
+	AccessTokenExpireAt  *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=access_token_expire_at,json=accessTokenExpireAt,proto3" json:"access_token_expire_at,omitempty"`
+	RefreshTokenExpireAt *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=refresh_token_expire_at,json=refreshTokenExpireAt,proto3" json:"refresh_token_expire_at,omitempty"`
+	unknownFields        protoimpl.UnknownFields
+	sizeCache            protoimpl.SizeCache
 }
 
 func (x *RefreshTokenResponse) Reset() {
@@ -409,21 +574,36 @@ func (x *RefreshTokenResponse) GetAccessToken() string {
 	return ""
 }
 
-func (x *RefreshTokenResponse) GetExpireAt() *timestamppb.Timestamp {
+func (x *RefreshTokenResponse) GetRefreshToken() string {
 	if x != nil {
-		return x.ExpireAt
+		return x.RefreshToken
+	}
+	return ""
+}
+
+func (x *RefreshTokenResponse) GetAccessTokenExpireAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.AccessTokenExpireAt
+	}
+	return nil
+}
+
+func (x *RefreshTokenResponse) GetRefreshTokenExpireAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.RefreshTokenExpireAt
 	}
 	return nil
 }
 
 type LogoutRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	PlatformId    int32                  `protobuf:"varint,3,opt,name=platform_id,json=platformId,proto3" json:"platform_id,omitempty"`
-	DeviceId      string                 `protobuf:"bytes,4,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	Meta             *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UserId           string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Platform         v1.Platform            `protobuf:"varint,3,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
+	DeviceId         string                 `protobuf:"bytes,4,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
+	LogoutAllDevices bool                   `protobuf:"varint,5,opt,name=logout_all_devices,json=logoutAllDevices,proto3" json:"logout_all_devices,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
 }
 
 func (x *LogoutRequest) Reset() {
@@ -470,11 +650,11 @@ func (x *LogoutRequest) GetUserId() string {
 	return ""
 }
 
-func (x *LogoutRequest) GetPlatformId() int32 {
+func (x *LogoutRequest) GetPlatform() v1.Platform {
 	if x != nil {
-		return x.PlatformId
+		return x.Platform
 	}
-	return 0
+	return v1.Platform(0)
 }
 
 func (x *LogoutRequest) GetDeviceId() string {
@@ -482,6 +662,13 @@ func (x *LogoutRequest) GetDeviceId() string {
 		return x.DeviceId
 	}
 	return ""
+}
+
+func (x *LogoutRequest) GetLogoutAllDevices() bool {
+	if x != nil {
+		return x.LogoutAllDevices
+	}
+	return false
 }
 
 type LogoutResponse struct {
@@ -532,8 +719,9 @@ type ForceLogoutRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
 	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	PlatformId    int32                  `protobuf:"varint,3,opt,name=platform_id,json=platformId,proto3" json:"platform_id,omitempty"`
-	Reason        string                 `protobuf:"bytes,4,opt,name=reason,proto3" json:"reason,omitempty"`
+	Platform      v1.Platform            `protobuf:"varint,3,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
+	DeviceId      string                 `protobuf:"bytes,4,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
+	Reason        string                 `protobuf:"bytes,5,opt,name=reason,proto3" json:"reason,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -582,11 +770,18 @@ func (x *ForceLogoutRequest) GetUserId() string {
 	return ""
 }
 
-func (x *ForceLogoutRequest) GetPlatformId() int32 {
+func (x *ForceLogoutRequest) GetPlatform() v1.Platform {
 	if x != nil {
-		return x.PlatformId
+		return x.Platform
 	}
-	return 0
+	return v1.Platform(0)
+}
+
+func (x *ForceLogoutRequest) GetDeviceId() string {
+	if x != nil {
+		return x.DeviceId
+	}
+	return ""
 }
 
 func (x *ForceLogoutRequest) GetReason() string {
@@ -599,6 +794,7 @@ func (x *ForceLogoutRequest) GetReason() string {
 type ForceLogoutResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	KickedCount   int32                  `protobuf:"varint,2,opt,name=kicked_count,json=kickedCount,proto3" json:"kicked_count,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -638,6 +834,13 @@ func (x *ForceLogoutResponse) GetHeader() *v1.ResponseHeader {
 		return x.Header
 	}
 	return nil
+}
+
+func (x *ForceLogoutResponse) GetKickedCount() int32 {
+	if x != nil {
+		return x.KickedCount
+	}
+	return 0
 }
 
 type ParseTokenRequest struct {
@@ -696,9 +899,10 @@ type ParseTokenResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
 	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	PlatformId    int32                  `protobuf:"varint,3,opt,name=platform_id,json=platformId,proto3" json:"platform_id,omitempty"`
+	Platform      v1.Platform            `protobuf:"varint,3,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
 	DeviceId      string                 `protobuf:"bytes,4,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
-	TokenStatus   string                 `protobuf:"bytes,5,opt,name=token_status,json=tokenStatus,proto3" json:"token_status,omitempty"`
+	TokenStatus   TokenStatus            `protobuf:"varint,5,opt,name=token_status,json=tokenStatus,proto3,enum=whocall.auth.v1.TokenStatus" json:"token_status,omitempty"`
+	ExpireAt      *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=expire_at,json=expireAt,proto3" json:"expire_at,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -747,11 +951,11 @@ func (x *ParseTokenResponse) GetUserId() string {
 	return ""
 }
 
-func (x *ParseTokenResponse) GetPlatformId() int32 {
+func (x *ParseTokenResponse) GetPlatform() v1.Platform {
 	if x != nil {
-		return x.PlatformId
+		return x.Platform
 	}
-	return 0
+	return v1.Platform(0)
 }
 
 func (x *ParseTokenResponse) GetDeviceId() string {
@@ -761,82 +965,489 @@ func (x *ParseTokenResponse) GetDeviceId() string {
 	return ""
 }
 
-func (x *ParseTokenResponse) GetTokenStatus() string {
+func (x *ParseTokenResponse) GetTokenStatus() TokenStatus {
 	if x != nil {
 		return x.TokenStatus
 	}
+	return TokenStatus_TOKEN_STATUS_UNSPECIFIED
+}
+
+func (x *ParseTokenResponse) GetExpireAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.ExpireAt
+	}
+	return nil
+}
+
+type LoginDevice struct {
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	UserId           string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Platform         v1.Platform            `protobuf:"varint,2,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
+	DeviceId         string                 `protobuf:"bytes,3,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
+	DeviceName       string                 `protobuf:"bytes,4,opt,name=device_name,json=deviceName,proto3" json:"device_name,omitempty"`
+	ClientVersion    string                 `protobuf:"bytes,5,opt,name=client_version,json=clientVersion,proto3" json:"client_version,omitempty"`
+	ConnId           string                 `protobuf:"bytes,6,opt,name=conn_id,json=connId,proto3" json:"conn_id,omitempty"`
+	LastLoginIp      string                 `protobuf:"bytes,7,opt,name=last_login_ip,json=lastLoginIp,proto3" json:"last_login_ip,omitempty"`
+	LastLoginTimeMs  int64                  `protobuf:"varint,8,opt,name=last_login_time_ms,json=lastLoginTimeMs,proto3" json:"last_login_time_ms,omitempty"`
+	LastActiveTimeMs int64                  `protobuf:"varint,9,opt,name=last_active_time_ms,json=lastActiveTimeMs,proto3" json:"last_active_time_ms,omitempty"`
+	TokenStatus      TokenStatus            `protobuf:"varint,10,opt,name=token_status,json=tokenStatus,proto3,enum=whocall.auth.v1.TokenStatus" json:"token_status,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
+}
+
+func (x *LoginDevice) Reset() {
+	*x = LoginDevice{}
+	mi := &file_whocall_auth_v1_auth_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LoginDevice) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LoginDevice) ProtoMessage() {}
+
+func (x *LoginDevice) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_auth_v1_auth_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LoginDevice.ProtoReflect.Descriptor instead.
+func (*LoginDevice) Descriptor() ([]byte, []int) {
+	return file_whocall_auth_v1_auth_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *LoginDevice) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
 	return ""
+}
+
+func (x *LoginDevice) GetPlatform() v1.Platform {
+	if x != nil {
+		return x.Platform
+	}
+	return v1.Platform(0)
+}
+
+func (x *LoginDevice) GetDeviceId() string {
+	if x != nil {
+		return x.DeviceId
+	}
+	return ""
+}
+
+func (x *LoginDevice) GetDeviceName() string {
+	if x != nil {
+		return x.DeviceName
+	}
+	return ""
+}
+
+func (x *LoginDevice) GetClientVersion() string {
+	if x != nil {
+		return x.ClientVersion
+	}
+	return ""
+}
+
+func (x *LoginDevice) GetConnId() string {
+	if x != nil {
+		return x.ConnId
+	}
+	return ""
+}
+
+func (x *LoginDevice) GetLastLoginIp() string {
+	if x != nil {
+		return x.LastLoginIp
+	}
+	return ""
+}
+
+func (x *LoginDevice) GetLastLoginTimeMs() int64 {
+	if x != nil {
+		return x.LastLoginTimeMs
+	}
+	return 0
+}
+
+func (x *LoginDevice) GetLastActiveTimeMs() int64 {
+	if x != nil {
+		return x.LastActiveTimeMs
+	}
+	return 0
+}
+
+func (x *LoginDevice) GetTokenStatus() TokenStatus {
+	if x != nil {
+		return x.TokenStatus
+	}
+	return TokenStatus_TOKEN_STATUS_UNSPECIFIED
+}
+
+type ListLoginDevicesRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListLoginDevicesRequest) Reset() {
+	*x = ListLoginDevicesRequest{}
+	mi := &file_whocall_auth_v1_auth_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListLoginDevicesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListLoginDevicesRequest) ProtoMessage() {}
+
+func (x *ListLoginDevicesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_auth_v1_auth_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListLoginDevicesRequest.ProtoReflect.Descriptor instead.
+func (*ListLoginDevicesRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_auth_v1_auth_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *ListLoginDevicesRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *ListLoginDevicesRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+type ListLoginDevicesResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Devices       []*LoginDevice         `protobuf:"bytes,2,rep,name=devices,proto3" json:"devices,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListLoginDevicesResponse) Reset() {
+	*x = ListLoginDevicesResponse{}
+	mi := &file_whocall_auth_v1_auth_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListLoginDevicesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListLoginDevicesResponse) ProtoMessage() {}
+
+func (x *ListLoginDevicesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_auth_v1_auth_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListLoginDevicesResponse.ProtoReflect.Descriptor instead.
+func (*ListLoginDevicesResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_auth_v1_auth_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *ListLoginDevicesResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *ListLoginDevicesResponse) GetDevices() []*LoginDevice {
+	if x != nil {
+		return x.Devices
+	}
+	return nil
+}
+
+type KickDeviceRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Platform      v1.Platform            `protobuf:"varint,3,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
+	DeviceId      string                 `protobuf:"bytes,4,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
+	Reason        string                 `protobuf:"bytes,5,opt,name=reason,proto3" json:"reason,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *KickDeviceRequest) Reset() {
+	*x = KickDeviceRequest{}
+	mi := &file_whocall_auth_v1_auth_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *KickDeviceRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*KickDeviceRequest) ProtoMessage() {}
+
+func (x *KickDeviceRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_auth_v1_auth_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use KickDeviceRequest.ProtoReflect.Descriptor instead.
+func (*KickDeviceRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_auth_v1_auth_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *KickDeviceRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *KickDeviceRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *KickDeviceRequest) GetPlatform() v1.Platform {
+	if x != nil {
+		return x.Platform
+	}
+	return v1.Platform(0)
+}
+
+func (x *KickDeviceRequest) GetDeviceId() string {
+	if x != nil {
+		return x.DeviceId
+	}
+	return ""
+}
+
+func (x *KickDeviceRequest) GetReason() string {
+	if x != nil {
+		return x.Reason
+	}
+	return ""
+}
+
+type KickDeviceResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	KickedCount   int32                  `protobuf:"varint,2,opt,name=kicked_count,json=kickedCount,proto3" json:"kicked_count,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *KickDeviceResponse) Reset() {
+	*x = KickDeviceResponse{}
+	mi := &file_whocall_auth_v1_auth_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *KickDeviceResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*KickDeviceResponse) ProtoMessage() {}
+
+func (x *KickDeviceResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_auth_v1_auth_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use KickDeviceResponse.ProtoReflect.Descriptor instead.
+func (*KickDeviceResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_auth_v1_auth_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *KickDeviceResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *KickDeviceResponse) GetKickedCount() int32 {
+	if x != nil {
+		return x.KickedCount
+	}
+	return 0
 }
 
 var File_whocall_auth_v1_auth_proto protoreflect.FileDescriptor
 
 const file_whocall_auth_v1_auth_proto_rawDesc = "" +
 	"\n" +
-	"\x1awhocall/auth/v1/auth.proto\x12\x0fwhocall.auth.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1ewhocall/common/v1/common.proto\"\xb8\x01\n" +
+	"\x1awhocall/auth/v1/auth.proto\x12\x0fwhocall.auth.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1ewhocall/common/v1/common.proto\"\xe4\x01\n" +
 	"\x0fRegisterRequest\x122\n" +
 	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x1a\n" +
 	"\busername\x18\x02 \x01(\tR\busername\x12\x1a\n" +
 	"\bpassword\x18\x03 \x01(\tR\bpassword\x12\x1a\n" +
 	"\bnickname\x18\x04 \x01(\tR\bnickname\x12\x1d\n" +
 	"\n" +
-	"avatar_url\x18\x05 \x01(\tR\tavatarUrl\"f\n" +
+	"avatar_url\x18\x05 \x01(\tR\tavatarUrl\x12\x14\n" +
+	"\x05phone\x18\x06 \x01(\tR\x05phone\x12\x14\n" +
+	"\x05email\x18\a \x01(\tR\x05email\"f\n" +
 	"\x10RegisterResponse\x129\n" +
 	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12\x17\n" +
-	"\auser_id\x18\x02 \x01(\tR\x06userId\"\xb8\x01\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\"\xd9\x02\n" +
 	"\fLoginRequest\x122\n" +
 	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x1a\n" +
 	"\busername\x18\x02 \x01(\tR\busername\x12\x1a\n" +
-	"\bpassword\x18\x03 \x01(\tR\bpassword\x12\x1f\n" +
-	"\vplatform_id\x18\x04 \x01(\x05R\n" +
-	"platformId\x12\x1b\n" +
-	"\tdevice_id\x18\x05 \x01(\tR\bdeviceId\"\xe4\x01\n" +
+	"\bpassword\x18\x03 \x01(\tR\bpassword\x127\n" +
+	"\bplatform\x18\x04 \x01(\x0e2\x1b.whocall.common.v1.PlatformR\bplatform\x12\x1b\n" +
+	"\tdevice_id\x18\x05 \x01(\tR\bdeviceId\x12\x1f\n" +
+	"\vdevice_name\x18\x06 \x01(\tR\n" +
+	"deviceName\x12%\n" +
+	"\x0eclient_version\x18\a \x01(\tR\rclientVersion\x12?\n" +
+	"\flogin_policy\x18\b \x01(\x0e2\x1c.whocall.auth.v1.LoginPolicyR\vloginPolicy\"\xcf\x02\n" +
 	"\rLoginResponse\x129\n" +
 	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12\x17\n" +
 	"\auser_id\x18\x02 \x01(\tR\x06userId\x12!\n" +
 	"\faccess_token\x18\x03 \x01(\tR\vaccessToken\x12#\n" +
-	"\rrefresh_token\x18\x04 \x01(\tR\frefreshToken\x127\n" +
-	"\texpire_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\bexpireAt\"n\n" +
+	"\rrefresh_token\x18\x04 \x01(\tR\frefreshToken\x12O\n" +
+	"\x16access_token_expire_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\x13accessTokenExpireAt\x12Q\n" +
+	"\x17refresh_token_expire_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\x14refreshTokenExpireAt\"\x8b\x01\n" +
 	"\x13RefreshTokenRequest\x122\n" +
 	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12#\n" +
-	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"\xad\x01\n" +
+	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\x12\x1b\n" +
+	"\tdevice_id\x18\x03 \x01(\tR\bdeviceId\"\xbd\x02\n" +
 	"\x14RefreshTokenResponse\x129\n" +
 	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12!\n" +
-	"\faccess_token\x18\x02 \x01(\tR\vaccessToken\x127\n" +
-	"\texpire_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\bexpireAt\"\x9a\x01\n" +
+	"\faccess_token\x18\x02 \x01(\tR\vaccessToken\x12#\n" +
+	"\rrefresh_token\x18\x03 \x01(\tR\frefreshToken\x12O\n" +
+	"\x16access_token_expire_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\x13accessTokenExpireAt\x12Q\n" +
+	"\x17refresh_token_expire_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\x14refreshTokenExpireAt\"\xe0\x01\n" +
 	"\rLogoutRequest\x122\n" +
 	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x17\n" +
-	"\auser_id\x18\x02 \x01(\tR\x06userId\x12\x1f\n" +
-	"\vplatform_id\x18\x03 \x01(\x05R\n" +
-	"platformId\x12\x1b\n" +
-	"\tdevice_id\x18\x04 \x01(\tR\bdeviceId\"K\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x127\n" +
+	"\bplatform\x18\x03 \x01(\x0e2\x1b.whocall.common.v1.PlatformR\bplatform\x12\x1b\n" +
+	"\tdevice_id\x18\x04 \x01(\tR\bdeviceId\x12,\n" +
+	"\x12logout_all_devices\x18\x05 \x01(\bR\x10logoutAllDevices\"K\n" +
 	"\x0eLogoutResponse\x129\n" +
-	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\"\x9a\x01\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\"\xcf\x01\n" +
 	"\x12ForceLogoutRequest\x122\n" +
 	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x17\n" +
-	"\auser_id\x18\x02 \x01(\tR\x06userId\x12\x1f\n" +
-	"\vplatform_id\x18\x03 \x01(\x05R\n" +
-	"platformId\x12\x16\n" +
-	"\x06reason\x18\x04 \x01(\tR\x06reason\"P\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x127\n" +
+	"\bplatform\x18\x03 \x01(\x0e2\x1b.whocall.common.v1.PlatformR\bplatform\x12\x1b\n" +
+	"\tdevice_id\x18\x04 \x01(\tR\bdeviceId\x12\x16\n" +
+	"\x06reason\x18\x05 \x01(\tR\x06reason\"s\n" +
 	"\x13ForceLogoutResponse\x129\n" +
-	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\"j\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12!\n" +
+	"\fkicked_count\x18\x02 \x01(\x05R\vkickedCount\"j\n" +
 	"\x11ParseTokenRequest\x122\n" +
 	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12!\n" +
-	"\faccess_token\x18\x02 \x01(\tR\vaccessToken\"\xc9\x01\n" +
+	"\faccess_token\x18\x02 \x01(\tR\vaccessToken\"\xb8\x02\n" +
 	"\x12ParseTokenResponse\x129\n" +
 	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12\x17\n" +
-	"\auser_id\x18\x02 \x01(\tR\x06userId\x12\x1f\n" +
-	"\vplatform_id\x18\x03 \x01(\x05R\n" +
-	"platformId\x12\x1b\n" +
-	"\tdevice_id\x18\x04 \x01(\tR\bdeviceId\x12!\n" +
-	"\ftoken_status\x18\x05 \x01(\tR\vtokenStatus2\xa7\x05\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x127\n" +
+	"\bplatform\x18\x03 \x01(\x0e2\x1b.whocall.common.v1.PlatformR\bplatform\x12\x1b\n" +
+	"\tdevice_id\x18\x04 \x01(\tR\bdeviceId\x12?\n" +
+	"\ftoken_status\x18\x05 \x01(\x0e2\x1c.whocall.auth.v1.TokenStatusR\vtokenStatus\x127\n" +
+	"\texpire_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\bexpireAt\"\x9e\x03\n" +
+	"\vLoginDevice\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\x127\n" +
+	"\bplatform\x18\x02 \x01(\x0e2\x1b.whocall.common.v1.PlatformR\bplatform\x12\x1b\n" +
+	"\tdevice_id\x18\x03 \x01(\tR\bdeviceId\x12\x1f\n" +
+	"\vdevice_name\x18\x04 \x01(\tR\n" +
+	"deviceName\x12%\n" +
+	"\x0eclient_version\x18\x05 \x01(\tR\rclientVersion\x12\x17\n" +
+	"\aconn_id\x18\x06 \x01(\tR\x06connId\x12\"\n" +
+	"\rlast_login_ip\x18\a \x01(\tR\vlastLoginIp\x12+\n" +
+	"\x12last_login_time_ms\x18\b \x01(\x03R\x0flastLoginTimeMs\x12-\n" +
+	"\x13last_active_time_ms\x18\t \x01(\x03R\x10lastActiveTimeMs\x12?\n" +
+	"\ftoken_status\x18\n" +
+	" \x01(\x0e2\x1c.whocall.auth.v1.TokenStatusR\vtokenStatus\"f\n" +
+	"\x17ListLoginDevicesRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\"\x8d\x01\n" +
+	"\x18ListLoginDevicesResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x126\n" +
+	"\adevices\x18\x02 \x03(\v2\x1c.whocall.auth.v1.LoginDeviceR\adevices\"\xce\x01\n" +
+	"\x11KickDeviceRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x127\n" +
+	"\bplatform\x18\x03 \x01(\x0e2\x1b.whocall.common.v1.PlatformR\bplatform\x12\x1b\n" +
+	"\tdevice_id\x18\x04 \x01(\tR\bdeviceId\x12\x16\n" +
+	"\x06reason\x18\x05 \x01(\tR\x06reason\"r\n" +
+	"\x12KickDeviceResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12!\n" +
+	"\fkicked_count\x18\x02 \x01(\x05R\vkickedCount*\x90\x01\n" +
+	"\vTokenStatus\x12\x1c\n" +
+	"\x18TOKEN_STATUS_UNSPECIFIED\x10\x00\x12\x16\n" +
+	"\x12TOKEN_STATUS_VALID\x10\x01\x12\x18\n" +
+	"\x14TOKEN_STATUS_EXPIRED\x10\x02\x12\x18\n" +
+	"\x14TOKEN_STATUS_REVOKED\x10\x03\x12\x17\n" +
+	"\x13TOKEN_STATUS_KICKED\x10\x04*\x90\x01\n" +
+	"\vLoginPolicy\x12\x1c\n" +
+	"\x18LOGIN_POLICY_UNSPECIFIED\x10\x00\x12\x1f\n" +
+	"\x1bLOGIN_POLICY_MULTI_PLATFORM\x10\x01\x12#\n" +
+	"\x1fLOGIN_POLICY_KICK_SAME_PLATFORM\x10\x02\x12\x1d\n" +
+	"\x19LOGIN_POLICY_KICK_ALL_OLD\x10\x032\xf2\a\n" +
 	"\vAuthService\x12q\n" +
 	"\bRegister\x12 .whocall.auth.v1.RegisterRequest\x1a!.whocall.auth.v1.RegisterResponse\" \x82\xd3\xe4\x93\x02\x1a:\x01*\"\x15/api/v1/auth/register\x12e\n" +
 	"\x05Login\x12\x1d.whocall.auth.v1.LoginRequest\x1a\x1e.whocall.auth.v1.LoginResponse\"\x1d\x82\xd3\xe4\x93\x02\x17:\x01*\"\x12/api/v1/auth/login\x12|\n" +
 	"\fRefreshToken\x12$.whocall.auth.v1.RefreshTokenRequest\x1a%.whocall.auth.v1.RefreshTokenResponse\"\x1f\x82\xd3\xe4\x93\x02\x19:\x01*\"\x14/api/v1/auth/refresh\x12i\n" +
 	"\x06Logout\x12\x1e.whocall.auth.v1.LogoutRequest\x1a\x1f.whocall.auth.v1.LogoutResponse\"\x1e\x82\xd3\xe4\x93\x02\x18:\x01*\"\x13/api/v1/auth/logout\x12~\n" +
-	"\vForceLogout\x12#.whocall.auth.v1.ForceLogoutRequest\x1a$.whocall.auth.v1.ForceLogoutResponse\"$\x82\xd3\xe4\x93\x02\x1e:\x01*\"\x19/api/v1/auth/force_logout\x12U\n" +
+	"\vForceLogout\x12#.whocall.auth.v1.ForceLogoutRequest\x1a$.whocall.auth.v1.ForceLogoutResponse\"$\x82\xd3\xe4\x93\x02\x1e:\x01*\"\x19/api/v1/auth/force-logout\x12z\n" +
 	"\n" +
-	"ParseToken\x12\".whocall.auth.v1.ParseTokenRequest\x1a#.whocall.auth.v1.ParseTokenResponseBBZ@github.com/ethereal3x/who-call/api/gen/go/whocall/auth/v1;authv1b\x06proto3"
+	"ParseToken\x12\".whocall.auth.v1.ParseTokenRequest\x1a#.whocall.auth.v1.ParseTokenResponse\"#\x82\xd3\xe4\x93\x02\x1d:\x01*\"\x18/api/v1/auth/parse-token\x12\x95\x01\n" +
+	"\x10ListLoginDevices\x12(.whocall.auth.v1.ListLoginDevicesRequest\x1a).whocall.auth.v1.ListLoginDevicesResponse\",\x82\xd3\xe4\x93\x02&\x12$/api/v1/auth/users/{user_id}/devices\x12\x8b\x01\n" +
+	"\n" +
+	"KickDevice\x12\".whocall.auth.v1.KickDeviceRequest\x1a#.whocall.auth.v1.KickDeviceResponse\"4\x82\xd3\xe4\x93\x02.:\x01*\")/api/v1/auth/users/{user_id}/devices:kickBBZ@github.com/ethereal3x/who-call/api/gen/go/whocall/auth/v1;authv1b\x06proto3"
 
 var (
 	file_whocall_auth_v1_auth_proto_rawDescOnce sync.Once
@@ -850,56 +1461,86 @@ func file_whocall_auth_v1_auth_proto_rawDescGZIP() []byte {
 	return file_whocall_auth_v1_auth_proto_rawDescData
 }
 
-var file_whocall_auth_v1_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
+var file_whocall_auth_v1_auth_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
+var file_whocall_auth_v1_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
 var file_whocall_auth_v1_auth_proto_goTypes = []any{
-	(*RegisterRequest)(nil),       // 0: whocall.auth.v1.RegisterRequest
-	(*RegisterResponse)(nil),      // 1: whocall.auth.v1.RegisterResponse
-	(*LoginRequest)(nil),          // 2: whocall.auth.v1.LoginRequest
-	(*LoginResponse)(nil),         // 3: whocall.auth.v1.LoginResponse
-	(*RefreshTokenRequest)(nil),   // 4: whocall.auth.v1.RefreshTokenRequest
-	(*RefreshTokenResponse)(nil),  // 5: whocall.auth.v1.RefreshTokenResponse
-	(*LogoutRequest)(nil),         // 6: whocall.auth.v1.LogoutRequest
-	(*LogoutResponse)(nil),        // 7: whocall.auth.v1.LogoutResponse
-	(*ForceLogoutRequest)(nil),    // 8: whocall.auth.v1.ForceLogoutRequest
-	(*ForceLogoutResponse)(nil),   // 9: whocall.auth.v1.ForceLogoutResponse
-	(*ParseTokenRequest)(nil),     // 10: whocall.auth.v1.ParseTokenRequest
-	(*ParseTokenResponse)(nil),    // 11: whocall.auth.v1.ParseTokenResponse
-	(*v1.RequestMeta)(nil),        // 12: whocall.common.v1.RequestMeta
-	(*v1.ResponseHeader)(nil),     // 13: whocall.common.v1.ResponseHeader
-	(*timestamppb.Timestamp)(nil), // 14: google.protobuf.Timestamp
+	(TokenStatus)(0),                 // 0: whocall.auth.v1.TokenStatus
+	(LoginPolicy)(0),                 // 1: whocall.auth.v1.LoginPolicy
+	(*RegisterRequest)(nil),          // 2: whocall.auth.v1.RegisterRequest
+	(*RegisterResponse)(nil),         // 3: whocall.auth.v1.RegisterResponse
+	(*LoginRequest)(nil),             // 4: whocall.auth.v1.LoginRequest
+	(*LoginResponse)(nil),            // 5: whocall.auth.v1.LoginResponse
+	(*RefreshTokenRequest)(nil),      // 6: whocall.auth.v1.RefreshTokenRequest
+	(*RefreshTokenResponse)(nil),     // 7: whocall.auth.v1.RefreshTokenResponse
+	(*LogoutRequest)(nil),            // 8: whocall.auth.v1.LogoutRequest
+	(*LogoutResponse)(nil),           // 9: whocall.auth.v1.LogoutResponse
+	(*ForceLogoutRequest)(nil),       // 10: whocall.auth.v1.ForceLogoutRequest
+	(*ForceLogoutResponse)(nil),      // 11: whocall.auth.v1.ForceLogoutResponse
+	(*ParseTokenRequest)(nil),        // 12: whocall.auth.v1.ParseTokenRequest
+	(*ParseTokenResponse)(nil),       // 13: whocall.auth.v1.ParseTokenResponse
+	(*LoginDevice)(nil),              // 14: whocall.auth.v1.LoginDevice
+	(*ListLoginDevicesRequest)(nil),  // 15: whocall.auth.v1.ListLoginDevicesRequest
+	(*ListLoginDevicesResponse)(nil), // 16: whocall.auth.v1.ListLoginDevicesResponse
+	(*KickDeviceRequest)(nil),        // 17: whocall.auth.v1.KickDeviceRequest
+	(*KickDeviceResponse)(nil),       // 18: whocall.auth.v1.KickDeviceResponse
+	(*v1.RequestMeta)(nil),           // 19: whocall.common.v1.RequestMeta
+	(*v1.ResponseHeader)(nil),        // 20: whocall.common.v1.ResponseHeader
+	(v1.Platform)(0),                 // 21: whocall.common.v1.Platform
+	(*timestamppb.Timestamp)(nil),    // 22: google.protobuf.Timestamp
 }
 var file_whocall_auth_v1_auth_proto_depIdxs = []int32{
-	12, // 0: whocall.auth.v1.RegisterRequest.meta:type_name -> whocall.common.v1.RequestMeta
-	13, // 1: whocall.auth.v1.RegisterResponse.header:type_name -> whocall.common.v1.ResponseHeader
-	12, // 2: whocall.auth.v1.LoginRequest.meta:type_name -> whocall.common.v1.RequestMeta
-	13, // 3: whocall.auth.v1.LoginResponse.header:type_name -> whocall.common.v1.ResponseHeader
-	14, // 4: whocall.auth.v1.LoginResponse.expire_at:type_name -> google.protobuf.Timestamp
-	12, // 5: whocall.auth.v1.RefreshTokenRequest.meta:type_name -> whocall.common.v1.RequestMeta
-	13, // 6: whocall.auth.v1.RefreshTokenResponse.header:type_name -> whocall.common.v1.ResponseHeader
-	14, // 7: whocall.auth.v1.RefreshTokenResponse.expire_at:type_name -> google.protobuf.Timestamp
-	12, // 8: whocall.auth.v1.LogoutRequest.meta:type_name -> whocall.common.v1.RequestMeta
-	13, // 9: whocall.auth.v1.LogoutResponse.header:type_name -> whocall.common.v1.ResponseHeader
-	12, // 10: whocall.auth.v1.ForceLogoutRequest.meta:type_name -> whocall.common.v1.RequestMeta
-	13, // 11: whocall.auth.v1.ForceLogoutResponse.header:type_name -> whocall.common.v1.ResponseHeader
-	12, // 12: whocall.auth.v1.ParseTokenRequest.meta:type_name -> whocall.common.v1.RequestMeta
-	13, // 13: whocall.auth.v1.ParseTokenResponse.header:type_name -> whocall.common.v1.ResponseHeader
-	0,  // 14: whocall.auth.v1.AuthService.Register:input_type -> whocall.auth.v1.RegisterRequest
-	2,  // 15: whocall.auth.v1.AuthService.Login:input_type -> whocall.auth.v1.LoginRequest
-	4,  // 16: whocall.auth.v1.AuthService.RefreshToken:input_type -> whocall.auth.v1.RefreshTokenRequest
-	6,  // 17: whocall.auth.v1.AuthService.Logout:input_type -> whocall.auth.v1.LogoutRequest
-	8,  // 18: whocall.auth.v1.AuthService.ForceLogout:input_type -> whocall.auth.v1.ForceLogoutRequest
-	10, // 19: whocall.auth.v1.AuthService.ParseToken:input_type -> whocall.auth.v1.ParseTokenRequest
-	1,  // 20: whocall.auth.v1.AuthService.Register:output_type -> whocall.auth.v1.RegisterResponse
-	3,  // 21: whocall.auth.v1.AuthService.Login:output_type -> whocall.auth.v1.LoginResponse
-	5,  // 22: whocall.auth.v1.AuthService.RefreshToken:output_type -> whocall.auth.v1.RefreshTokenResponse
-	7,  // 23: whocall.auth.v1.AuthService.Logout:output_type -> whocall.auth.v1.LogoutResponse
-	9,  // 24: whocall.auth.v1.AuthService.ForceLogout:output_type -> whocall.auth.v1.ForceLogoutResponse
-	11, // 25: whocall.auth.v1.AuthService.ParseToken:output_type -> whocall.auth.v1.ParseTokenResponse
-	20, // [20:26] is the sub-list for method output_type
-	14, // [14:20] is the sub-list for method input_type
-	14, // [14:14] is the sub-list for extension type_name
-	14, // [14:14] is the sub-list for extension extendee
-	0,  // [0:14] is the sub-list for field type_name
+	19, // 0: whocall.auth.v1.RegisterRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	20, // 1: whocall.auth.v1.RegisterResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	19, // 2: whocall.auth.v1.LoginRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	21, // 3: whocall.auth.v1.LoginRequest.platform:type_name -> whocall.common.v1.Platform
+	1,  // 4: whocall.auth.v1.LoginRequest.login_policy:type_name -> whocall.auth.v1.LoginPolicy
+	20, // 5: whocall.auth.v1.LoginResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	22, // 6: whocall.auth.v1.LoginResponse.access_token_expire_at:type_name -> google.protobuf.Timestamp
+	22, // 7: whocall.auth.v1.LoginResponse.refresh_token_expire_at:type_name -> google.protobuf.Timestamp
+	19, // 8: whocall.auth.v1.RefreshTokenRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	20, // 9: whocall.auth.v1.RefreshTokenResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	22, // 10: whocall.auth.v1.RefreshTokenResponse.access_token_expire_at:type_name -> google.protobuf.Timestamp
+	22, // 11: whocall.auth.v1.RefreshTokenResponse.refresh_token_expire_at:type_name -> google.protobuf.Timestamp
+	19, // 12: whocall.auth.v1.LogoutRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	21, // 13: whocall.auth.v1.LogoutRequest.platform:type_name -> whocall.common.v1.Platform
+	20, // 14: whocall.auth.v1.LogoutResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	19, // 15: whocall.auth.v1.ForceLogoutRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	21, // 16: whocall.auth.v1.ForceLogoutRequest.platform:type_name -> whocall.common.v1.Platform
+	20, // 17: whocall.auth.v1.ForceLogoutResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	19, // 18: whocall.auth.v1.ParseTokenRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	20, // 19: whocall.auth.v1.ParseTokenResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	21, // 20: whocall.auth.v1.ParseTokenResponse.platform:type_name -> whocall.common.v1.Platform
+	0,  // 21: whocall.auth.v1.ParseTokenResponse.token_status:type_name -> whocall.auth.v1.TokenStatus
+	22, // 22: whocall.auth.v1.ParseTokenResponse.expire_at:type_name -> google.protobuf.Timestamp
+	21, // 23: whocall.auth.v1.LoginDevice.platform:type_name -> whocall.common.v1.Platform
+	0,  // 24: whocall.auth.v1.LoginDevice.token_status:type_name -> whocall.auth.v1.TokenStatus
+	19, // 25: whocall.auth.v1.ListLoginDevicesRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	20, // 26: whocall.auth.v1.ListLoginDevicesResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	14, // 27: whocall.auth.v1.ListLoginDevicesResponse.devices:type_name -> whocall.auth.v1.LoginDevice
+	19, // 28: whocall.auth.v1.KickDeviceRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	21, // 29: whocall.auth.v1.KickDeviceRequest.platform:type_name -> whocall.common.v1.Platform
+	20, // 30: whocall.auth.v1.KickDeviceResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	2,  // 31: whocall.auth.v1.AuthService.Register:input_type -> whocall.auth.v1.RegisterRequest
+	4,  // 32: whocall.auth.v1.AuthService.Login:input_type -> whocall.auth.v1.LoginRequest
+	6,  // 33: whocall.auth.v1.AuthService.RefreshToken:input_type -> whocall.auth.v1.RefreshTokenRequest
+	8,  // 34: whocall.auth.v1.AuthService.Logout:input_type -> whocall.auth.v1.LogoutRequest
+	10, // 35: whocall.auth.v1.AuthService.ForceLogout:input_type -> whocall.auth.v1.ForceLogoutRequest
+	12, // 36: whocall.auth.v1.AuthService.ParseToken:input_type -> whocall.auth.v1.ParseTokenRequest
+	15, // 37: whocall.auth.v1.AuthService.ListLoginDevices:input_type -> whocall.auth.v1.ListLoginDevicesRequest
+	17, // 38: whocall.auth.v1.AuthService.KickDevice:input_type -> whocall.auth.v1.KickDeviceRequest
+	3,  // 39: whocall.auth.v1.AuthService.Register:output_type -> whocall.auth.v1.RegisterResponse
+	5,  // 40: whocall.auth.v1.AuthService.Login:output_type -> whocall.auth.v1.LoginResponse
+	7,  // 41: whocall.auth.v1.AuthService.RefreshToken:output_type -> whocall.auth.v1.RefreshTokenResponse
+	9,  // 42: whocall.auth.v1.AuthService.Logout:output_type -> whocall.auth.v1.LogoutResponse
+	11, // 43: whocall.auth.v1.AuthService.ForceLogout:output_type -> whocall.auth.v1.ForceLogoutResponse
+	13, // 44: whocall.auth.v1.AuthService.ParseToken:output_type -> whocall.auth.v1.ParseTokenResponse
+	16, // 45: whocall.auth.v1.AuthService.ListLoginDevices:output_type -> whocall.auth.v1.ListLoginDevicesResponse
+	18, // 46: whocall.auth.v1.AuthService.KickDevice:output_type -> whocall.auth.v1.KickDeviceResponse
+	39, // [39:47] is the sub-list for method output_type
+	31, // [31:39] is the sub-list for method input_type
+	31, // [31:31] is the sub-list for extension type_name
+	31, // [31:31] is the sub-list for extension extendee
+	0,  // [0:31] is the sub-list for field type_name
 }
 
 func init() { file_whocall_auth_v1_auth_proto_init() }
@@ -912,13 +1553,14 @@ func file_whocall_auth_v1_auth_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_whocall_auth_v1_auth_proto_rawDesc), len(file_whocall_auth_v1_auth_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   12,
+			NumEnums:      2,
+			NumMessages:   17,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
 		GoTypes:           file_whocall_auth_v1_auth_proto_goTypes,
 		DependencyIndexes: file_whocall_auth_v1_auth_proto_depIdxs,
+		EnumInfos:         file_whocall_auth_v1_auth_proto_enumTypes,
 		MessageInfos:      file_whocall_auth_v1_auth_proto_msgTypes,
 	}.Build()
 	File_whocall_auth_v1_auth_proto = out.File

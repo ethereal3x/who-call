@@ -19,12 +19,14 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	AuthService_Register_FullMethodName     = "/whocall.auth.v1.AuthService/Register"
-	AuthService_Login_FullMethodName        = "/whocall.auth.v1.AuthService/Login"
-	AuthService_RefreshToken_FullMethodName = "/whocall.auth.v1.AuthService/RefreshToken"
-	AuthService_Logout_FullMethodName       = "/whocall.auth.v1.AuthService/Logout"
-	AuthService_ForceLogout_FullMethodName  = "/whocall.auth.v1.AuthService/ForceLogout"
-	AuthService_ParseToken_FullMethodName   = "/whocall.auth.v1.AuthService/ParseToken"
+	AuthService_Register_FullMethodName         = "/whocall.auth.v1.AuthService/Register"
+	AuthService_Login_FullMethodName            = "/whocall.auth.v1.AuthService/Login"
+	AuthService_RefreshToken_FullMethodName     = "/whocall.auth.v1.AuthService/RefreshToken"
+	AuthService_Logout_FullMethodName           = "/whocall.auth.v1.AuthService/Logout"
+	AuthService_ForceLogout_FullMethodName      = "/whocall.auth.v1.AuthService/ForceLogout"
+	AuthService_ParseToken_FullMethodName       = "/whocall.auth.v1.AuthService/ParseToken"
+	AuthService_ListLoginDevices_FullMethodName = "/whocall.auth.v1.AuthService/ListLoginDevices"
+	AuthService_KickDevice_FullMethodName       = "/whocall.auth.v1.AuthService/KickDevice"
 )
 
 // AuthServiceClient is the client API for AuthService service.
@@ -37,6 +39,8 @@ type AuthServiceClient interface {
 	Logout(ctx context.Context, in *LogoutRequest, opts ...grpc.CallOption) (*LogoutResponse, error)
 	ForceLogout(ctx context.Context, in *ForceLogoutRequest, opts ...grpc.CallOption) (*ForceLogoutResponse, error)
 	ParseToken(ctx context.Context, in *ParseTokenRequest, opts ...grpc.CallOption) (*ParseTokenResponse, error)
+	ListLoginDevices(ctx context.Context, in *ListLoginDevicesRequest, opts ...grpc.CallOption) (*ListLoginDevicesResponse, error)
+	KickDevice(ctx context.Context, in *KickDeviceRequest, opts ...grpc.CallOption) (*KickDeviceResponse, error)
 }
 
 type authServiceClient struct {
@@ -107,6 +111,26 @@ func (c *authServiceClient) ParseToken(ctx context.Context, in *ParseTokenReques
 	return out, nil
 }
 
+func (c *authServiceClient) ListLoginDevices(ctx context.Context, in *ListLoginDevicesRequest, opts ...grpc.CallOption) (*ListLoginDevicesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListLoginDevicesResponse)
+	err := c.cc.Invoke(ctx, AuthService_ListLoginDevices_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authServiceClient) KickDevice(ctx context.Context, in *KickDeviceRequest, opts ...grpc.CallOption) (*KickDeviceResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(KickDeviceResponse)
+	err := c.cc.Invoke(ctx, AuthService_KickDevice_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthServiceServer is the server API for AuthService service.
 // All implementations should embed UnimplementedAuthServiceServer
 // for forward compatibility.
@@ -117,6 +141,8 @@ type AuthServiceServer interface {
 	Logout(context.Context, *LogoutRequest) (*LogoutResponse, error)
 	ForceLogout(context.Context, *ForceLogoutRequest) (*ForceLogoutResponse, error)
 	ParseToken(context.Context, *ParseTokenRequest) (*ParseTokenResponse, error)
+	ListLoginDevices(context.Context, *ListLoginDevicesRequest) (*ListLoginDevicesResponse, error)
+	KickDevice(context.Context, *KickDeviceRequest) (*KickDeviceResponse, error)
 }
 
 // UnimplementedAuthServiceServer should be embedded to have
@@ -143,6 +169,12 @@ func (UnimplementedAuthServiceServer) ForceLogout(context.Context, *ForceLogoutR
 }
 func (UnimplementedAuthServiceServer) ParseToken(context.Context, *ParseTokenRequest) (*ParseTokenResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method ParseToken not implemented")
+}
+func (UnimplementedAuthServiceServer) ListLoginDevices(context.Context, *ListLoginDevicesRequest) (*ListLoginDevicesResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListLoginDevices not implemented")
+}
+func (UnimplementedAuthServiceServer) KickDevice(context.Context, *KickDeviceRequest) (*KickDeviceResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method KickDevice not implemented")
 }
 func (UnimplementedAuthServiceServer) testEmbeddedByValue() {}
 
@@ -272,6 +304,42 @@ func _AuthService_ParseToken_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AuthService_ListLoginDevices_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListLoginDevicesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).ListLoginDevices(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_ListLoginDevices_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).ListLoginDevices(ctx, req.(*ListLoginDevicesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AuthService_KickDevice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(KickDeviceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).KickDevice(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_KickDevice_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).KickDevice(ctx, req.(*KickDeviceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AuthService_ServiceDesc is the grpc.ServiceDesc for AuthService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -302,6 +370,14 @@ var AuthService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ParseToken",
 			Handler:    _AuthService_ParseToken_Handler,
+		},
+		{
+			MethodName: "ListLoginDevices",
+			Handler:    _AuthService_ListLoginDevices_Handler,
+		},
+		{
+			MethodName: "KickDevice",
+			Handler:    _AuthService_KickDevice_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

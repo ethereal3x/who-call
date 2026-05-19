@@ -3,3 +3,365 @@ syntax = "proto3";
 package whocall.group.v1;
 
 option go_package = "github.com/ethereal3x/who-call/api/gen/go/whocall/group/v1;groupv1";
+
+import "google/api/annotations.proto";
+import "whocall/common/v1/common.proto";
+
+service GroupService {
+    rpc CreateGroup(CreateGroupRequest) returns (CreateGroupResponse) {
+        option (google.api.http) = { post: "/api/v1/groups" body: "*" };
+    }
+
+    rpc GetGroup(GetGroupRequest) returns (GetGroupResponse) {
+        option (google.api.http) = { get: "/api/v1/groups/{group_id}" };
+    }
+
+    rpc UpdateGroup(UpdateGroupRequest) returns (UpdateGroupResponse) {
+        option (google.api.http) = { patch: "/api/v1/groups/{group_id}" body: "*" };
+    }
+
+    rpc DismissGroup(DismissGroupRequest) returns (DismissGroupResponse) {
+        option (google.api.http) = { post: "/api/v1/groups/{group_id}:dismiss" body: "*" };
+    }
+
+    rpc JoinGroup(JoinGroupRequest) returns (JoinGroupResponse) {
+        option (google.api.http) = { post: "/api/v1/groups/{group_id}/applications" body: "*" };
+    }
+
+    rpc RespondGroupApplication(RespondGroupApplicationRequest) returns (RespondGroupApplicationResponse) {
+        option (google.api.http) = { post: "/api/v1/groups/applications/{application_id}:respond" body: "*" };
+    }
+
+    rpc ListGroupApplications(ListGroupApplicationsRequest) returns (ListGroupApplicationsResponse) {
+        option (google.api.http) = { get: "/api/v1/groups/{group_id}/applications" };
+    }
+
+    rpc QuitGroup(QuitGroupRequest) returns (QuitGroupResponse) {
+        option (google.api.http) = { post: "/api/v1/groups/{group_id}:quit" body: "*" };
+    }
+
+    rpc InviteUsersToGroup(InviteUsersToGroupRequest) returns (InviteUsersToGroupResponse) {
+        option (google.api.http) = { post: "/api/v1/groups/{group_id}/members:invite" body: "*" };
+    }
+
+    rpc KickGroupMembers(KickGroupMembersRequest) returns (KickGroupMembersResponse) {
+        option (google.api.http) = { post: "/api/v1/groups/{group_id}/members:kick" body: "*" };
+    }
+
+    rpc ListGroupMembers(ListGroupMembersRequest) returns (ListGroupMembersResponse) {
+        option (google.api.http) = { get: "/api/v1/groups/{group_id}/members" };
+    }
+
+    rpc SetGroupMemberRole(SetGroupMemberRoleRequest) returns (SetGroupMemberRoleResponse) {
+        option (google.api.http) = { post: "/api/v1/groups/{group_id}/members/{member_user_id}/role" body: "*" };
+    }
+
+    rpc MuteGroupMember(MuteGroupMemberRequest) returns (MuteGroupMemberResponse) {
+        option (google.api.http) = { post: "/api/v1/groups/{group_id}/members/{member_user_id}/mute" body: "*" };
+    }
+
+    rpc SetGroupMute(SetGroupMuteRequest) returns (SetGroupMuteResponse) {
+        option (google.api.http) = { post: "/api/v1/groups/{group_id}/mute" body: "*" };
+    }
+
+    rpc TransferGroupOwner(TransferGroupOwnerRequest) returns (TransferGroupOwnerResponse) {
+        option (google.api.http) = { post: "/api/v1/groups/{group_id}:transfer-owner" body: "*" };
+    }
+
+    rpc ListJoinedGroups(ListJoinedGroupsRequest) returns (ListJoinedGroupsResponse) {
+        option (google.api.http) = { get: "/api/v1/users/{user_id}/groups" };
+    }
+}
+
+enum GroupType {
+    GROUP_TYPE_UNSPECIFIED = 0;
+    GROUP_TYPE_NORMAL = 1;
+    GROUP_TYPE_SUPER = 2;
+}
+
+enum GroupStatus {
+    GROUP_STATUS_UNSPECIFIED = 0;
+    GROUP_STATUS_NORMAL = 1;
+    GROUP_STATUS_MUTED = 2;
+    GROUP_STATUS_DISMISSED = 3;
+}
+
+enum GroupRole {
+    GROUP_ROLE_UNSPECIFIED = 0;
+    GROUP_ROLE_MEMBER = 1;
+    GROUP_ROLE_ADMIN = 2;
+    GROUP_ROLE_OWNER = 3;
+}
+
+enum GroupApplicationStatus {
+    GROUP_APPLICATION_STATUS_UNSPECIFIED = 0;
+    GROUP_APPLICATION_STATUS_PENDING = 1;
+    GROUP_APPLICATION_STATUS_ACCEPTED = 2;
+    GROUP_APPLICATION_STATUS_REJECTED = 3;
+    GROUP_APPLICATION_STATUS_CANCELED = 4;
+}
+
+enum GroupJoinSource {
+    GROUP_JOIN_SOURCE_UNSPECIFIED = 0;
+    GROUP_JOIN_SOURCE_SEARCH = 1;
+    GROUP_JOIN_SOURCE_INVITE = 2;
+    GROUP_JOIN_SOURCE_QR_CODE = 3;
+    GROUP_JOIN_SOURCE_ADMIN = 4;
+}
+
+message GroupInfo {
+    string group_id = 1;
+    string group_name = 2;
+    string avatar_url = 3;
+    string introduction = 4;
+    string notification = 5;
+    string owner_user_id = 6;
+    GroupType group_type = 7;
+    GroupStatus status = 8;
+    int32 member_count = 9;
+    bool need_verification = 10;
+    int64 create_time_ms = 11;
+    int64 update_time_ms = 12;
+    string ex = 13;
+}
+
+message GroupMemberInfo {
+    string group_id = 1;
+    string user_id = 2;
+    string nickname = 3;
+    string avatar_url = 4;
+    string group_nickname = 5;
+    GroupRole role = 6;
+    whocall.common.v1.ReceiveMessageOption recv_msg_opt = 7;
+    int64 mute_end_time_ms = 8;
+    int64 join_time_ms = 9;
+    GroupJoinSource join_source = 10;
+    string inviter_user_id = 11;
+    string ex = 12;
+}
+
+message GroupApplication {
+    string application_id = 1;
+    string group_id = 2;
+    string from_user_id = 3;
+    string inviter_user_id = 4;
+    string handle_user_id = 5;
+    string request_message = 6;
+    string handle_message = 7;
+    GroupApplicationStatus status = 8;
+    GroupJoinSource join_source = 9;
+    int64 create_time_ms = 10;
+    int64 handle_time_ms = 11;
+    string ex = 12;
+}
+
+message CreateGroupRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string owner_user_id = 2;
+    string group_name = 3;
+    string avatar_url = 4;
+    string introduction = 5;
+    GroupType group_type = 6;
+    repeated string member_user_ids = 7;
+    repeated string admin_user_ids = 8;
+    bool need_verification = 9;
+    string ex = 10;
+}
+
+message CreateGroupResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    GroupInfo group = 2;
+    repeated GroupMemberInfo members = 3;
+}
+
+message GetGroupRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string group_id = 2;
+}
+
+message GetGroupResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    GroupInfo group = 2;
+}
+
+message UpdateGroupRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string group_id = 2;
+    string operator_user_id = 3;
+    string group_name = 4;
+    string avatar_url = 5;
+    string introduction = 6;
+    string notification = 7;
+    bool need_verification = 8;
+    string ex = 9;
+}
+
+message UpdateGroupResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    GroupInfo group = 2;
+}
+
+message DismissGroupRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string group_id = 2;
+    string operator_user_id = 3;
+    string reason = 4;
+}
+
+message DismissGroupResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+}
+
+message JoinGroupRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string group_id = 2;
+    string user_id = 3;
+    string request_message = 4;
+    GroupJoinSource join_source = 5;
+    string inviter_user_id = 6;
+}
+
+message JoinGroupResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    GroupApplication application = 2;
+    GroupMemberInfo member = 3;
+}
+
+message RespondGroupApplicationRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string application_id = 2;
+    string handler_user_id = 3;
+    bool accept = 4;
+    string handle_message = 5;
+}
+
+message RespondGroupApplicationResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    GroupApplication application = 2;
+    GroupMemberInfo member = 3;
+}
+
+message ListGroupApplicationsRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string group_id = 2;
+    GroupApplicationStatus status = 3;
+    whocall.common.v1.PaginationRequest pagination = 4;
+}
+
+message ListGroupApplicationsResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    repeated GroupApplication applications = 2;
+    whocall.common.v1.PaginationResponse pagination = 3;
+}
+
+message QuitGroupRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string group_id = 2;
+    string user_id = 3;
+}
+
+message QuitGroupResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+}
+
+message InviteUsersToGroupRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string group_id = 2;
+    string inviter_user_id = 3;
+    repeated string member_user_ids = 4;
+    string reason = 5;
+}
+
+message InviteUsersToGroupResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    repeated GroupMemberInfo added_members = 2;
+    repeated GroupApplication applications = 3;
+}
+
+message KickGroupMembersRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string group_id = 2;
+    string operator_user_id = 3;
+    repeated string member_user_ids = 4;
+    string reason = 5;
+}
+
+message KickGroupMembersResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    repeated string kicked_user_ids = 2;
+}
+
+message ListGroupMembersRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string group_id = 2;
+    GroupRole role = 3;
+    whocall.common.v1.PaginationRequest pagination = 4;
+}
+
+message ListGroupMembersResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    repeated GroupMemberInfo members = 2;
+    whocall.common.v1.PaginationResponse pagination = 3;
+}
+
+message SetGroupMemberRoleRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string group_id = 2;
+    string operator_user_id = 3;
+    string member_user_id = 4;
+    GroupRole role = 5;
+}
+
+message SetGroupMemberRoleResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    GroupMemberInfo member = 2;
+}
+
+message MuteGroupMemberRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string group_id = 2;
+    string operator_user_id = 3;
+    string member_user_id = 4;
+    int64 mute_end_time_ms = 5;
+}
+
+message MuteGroupMemberResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    GroupMemberInfo member = 2;
+}
+
+message SetGroupMuteRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string group_id = 2;
+    string operator_user_id = 3;
+    bool muted = 4;
+}
+
+message SetGroupMuteResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    GroupInfo group = 2;
+}
+
+message TransferGroupOwnerRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string group_id = 2;
+    string old_owner_user_id = 3;
+    string new_owner_user_id = 4;
+}
+
+message TransferGroupOwnerResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    GroupInfo group = 2;
+}
+
+message ListJoinedGroupsRequest {
+    whocall.common.v1.RequestMeta meta = 1;
+    string user_id = 2;
+    whocall.common.v1.PaginationRequest pagination = 3;
+}
+
+message ListJoinedGroupsResponse {
+    whocall.common.v1.ResponseHeader header = 1;
+    repeated GroupInfo groups = 2;
+    whocall.common.v1.PaginationResponse pagination = 3;
+}

@@ -23,21 +23,478 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type WsCommand int32
+
+const (
+	WsCommand_WS_COMMAND_UNSPECIFIED          WsCommand = 0
+	WsCommand_WS_COMMAND_CONNECT              WsCommand = 1
+	WsCommand_WS_COMMAND_HEARTBEAT            WsCommand = 2
+	WsCommand_WS_COMMAND_SEND_MSG             WsCommand = 1001
+	WsCommand_WS_COMMAND_SEND_MSG_RESP        WsCommand = 1002
+	WsCommand_WS_COMMAND_PUSH_MSG             WsCommand = 1003
+	WsCommand_WS_COMMAND_PULL_MSG             WsCommand = 1004
+	WsCommand_WS_COMMAND_MARK_READ            WsCommand = 1005
+	WsCommand_WS_COMMAND_KICKED               WsCommand = 2001
+	WsCommand_WS_COMMAND_USER_STATUS_CHANGED  WsCommand = 2002
+	WsCommand_WS_COMMAND_CONVERSATION_CHANGED WsCommand = 2003
+	WsCommand_WS_COMMAND_GROUP_CHANGED        WsCommand = 2004
+	WsCommand_WS_COMMAND_FRIEND_CHANGED       WsCommand = 2005
+)
+
+// Enum value maps for WsCommand.
+var (
+	WsCommand_name = map[int32]string{
+		0:    "WS_COMMAND_UNSPECIFIED",
+		1:    "WS_COMMAND_CONNECT",
+		2:    "WS_COMMAND_HEARTBEAT",
+		1001: "WS_COMMAND_SEND_MSG",
+		1002: "WS_COMMAND_SEND_MSG_RESP",
+		1003: "WS_COMMAND_PUSH_MSG",
+		1004: "WS_COMMAND_PULL_MSG",
+		1005: "WS_COMMAND_MARK_READ",
+		2001: "WS_COMMAND_KICKED",
+		2002: "WS_COMMAND_USER_STATUS_CHANGED",
+		2003: "WS_COMMAND_CONVERSATION_CHANGED",
+		2004: "WS_COMMAND_GROUP_CHANGED",
+		2005: "WS_COMMAND_FRIEND_CHANGED",
+	}
+	WsCommand_value = map[string]int32{
+		"WS_COMMAND_UNSPECIFIED":          0,
+		"WS_COMMAND_CONNECT":              1,
+		"WS_COMMAND_HEARTBEAT":            2,
+		"WS_COMMAND_SEND_MSG":             1001,
+		"WS_COMMAND_SEND_MSG_RESP":        1002,
+		"WS_COMMAND_PUSH_MSG":             1003,
+		"WS_COMMAND_PULL_MSG":             1004,
+		"WS_COMMAND_MARK_READ":            1005,
+		"WS_COMMAND_KICKED":               2001,
+		"WS_COMMAND_USER_STATUS_CHANGED":  2002,
+		"WS_COMMAND_CONVERSATION_CHANGED": 2003,
+		"WS_COMMAND_GROUP_CHANGED":        2004,
+		"WS_COMMAND_FRIEND_CHANGED":       2005,
+	}
+)
+
+func (x WsCommand) Enum() *WsCommand {
+	p := new(WsCommand)
+	*p = x
+	return p
+}
+
+func (x WsCommand) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (WsCommand) Descriptor() protoreflect.EnumDescriptor {
+	return file_whocall_gateway_v1_gateway_proto_enumTypes[0].Descriptor()
+}
+
+func (WsCommand) Type() protoreflect.EnumType {
+	return &file_whocall_gateway_v1_gateway_proto_enumTypes[0]
+}
+
+func (x WsCommand) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use WsCommand.Descriptor instead.
+func (WsCommand) EnumDescriptor() ([]byte, []int) {
+	return file_whocall_gateway_v1_gateway_proto_rawDescGZIP(), []int{0}
+}
+
+type WsFrameType int32
+
+const (
+	WsFrameType_WS_FRAME_TYPE_UNSPECIFIED WsFrameType = 0
+	WsFrameType_WS_FRAME_TYPE_REQUEST     WsFrameType = 1
+	WsFrameType_WS_FRAME_TYPE_RESPONSE    WsFrameType = 2
+	WsFrameType_WS_FRAME_TYPE_PUSH        WsFrameType = 3
+	WsFrameType_WS_FRAME_TYPE_ACK         WsFrameType = 4
+)
+
+// Enum value maps for WsFrameType.
+var (
+	WsFrameType_name = map[int32]string{
+		0: "WS_FRAME_TYPE_UNSPECIFIED",
+		1: "WS_FRAME_TYPE_REQUEST",
+		2: "WS_FRAME_TYPE_RESPONSE",
+		3: "WS_FRAME_TYPE_PUSH",
+		4: "WS_FRAME_TYPE_ACK",
+	}
+	WsFrameType_value = map[string]int32{
+		"WS_FRAME_TYPE_UNSPECIFIED": 0,
+		"WS_FRAME_TYPE_REQUEST":     1,
+		"WS_FRAME_TYPE_RESPONSE":    2,
+		"WS_FRAME_TYPE_PUSH":        3,
+		"WS_FRAME_TYPE_ACK":         4,
+	}
+)
+
+func (x WsFrameType) Enum() *WsFrameType {
+	p := new(WsFrameType)
+	*p = x
+	return p
+}
+
+func (x WsFrameType) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (WsFrameType) Descriptor() protoreflect.EnumDescriptor {
+	return file_whocall_gateway_v1_gateway_proto_enumTypes[1].Descriptor()
+}
+
+func (WsFrameType) Type() protoreflect.EnumType {
+	return &file_whocall_gateway_v1_gateway_proto_enumTypes[1]
+}
+
+func (x WsFrameType) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use WsFrameType.Descriptor instead.
+func (WsFrameType) EnumDescriptor() ([]byte, []int) {
+	return file_whocall_gateway_v1_gateway_proto_rawDescGZIP(), []int{1}
+}
+
+type ConnectionStatus int32
+
+const (
+	ConnectionStatus_CONNECTION_STATUS_UNSPECIFIED ConnectionStatus = 0
+	ConnectionStatus_CONNECTION_STATUS_ONLINE      ConnectionStatus = 1
+	ConnectionStatus_CONNECTION_STATUS_OFFLINE     ConnectionStatus = 2
+)
+
+// Enum value maps for ConnectionStatus.
+var (
+	ConnectionStatus_name = map[int32]string{
+		0: "CONNECTION_STATUS_UNSPECIFIED",
+		1: "CONNECTION_STATUS_ONLINE",
+		2: "CONNECTION_STATUS_OFFLINE",
+	}
+	ConnectionStatus_value = map[string]int32{
+		"CONNECTION_STATUS_UNSPECIFIED": 0,
+		"CONNECTION_STATUS_ONLINE":      1,
+		"CONNECTION_STATUS_OFFLINE":     2,
+	}
+)
+
+func (x ConnectionStatus) Enum() *ConnectionStatus {
+	p := new(ConnectionStatus)
+	*p = x
+	return p
+}
+
+func (x ConnectionStatus) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (ConnectionStatus) Descriptor() protoreflect.EnumDescriptor {
+	return file_whocall_gateway_v1_gateway_proto_enumTypes[2].Descriptor()
+}
+
+func (ConnectionStatus) Type() protoreflect.EnumType {
+	return &file_whocall_gateway_v1_gateway_proto_enumTypes[2]
+}
+
+func (x ConnectionStatus) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use ConnectionStatus.Descriptor instead.
+func (ConnectionStatus) EnumDescriptor() ([]byte, []int) {
+	return file_whocall_gateway_v1_gateway_proto_rawDescGZIP(), []int{2}
+}
+
+type WsFrame struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	RequestId     string                 `protobuf:"bytes,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
+	Command       WsCommand              `protobuf:"varint,2,opt,name=command,proto3,enum=whocall.gateway.v1.WsCommand" json:"command,omitempty"`
+	FrameType     WsFrameType            `protobuf:"varint,3,opt,name=frame_type,json=frameType,proto3,enum=whocall.gateway.v1.WsFrameType" json:"frame_type,omitempty"`
+	Seq           int64                  `protobuf:"varint,4,opt,name=seq,proto3" json:"seq,omitempty"`
+	Payload       []byte                 `protobuf:"bytes,5,opt,name=payload,proto3" json:"payload,omitempty"`
+	OperationId   string                 `protobuf:"bytes,6,opt,name=operation_id,json=operationId,proto3" json:"operation_id,omitempty"`
+	TimestampMs   int64                  `protobuf:"varint,7,opt,name=timestamp_ms,json=timestampMs,proto3" json:"timestamp_ms,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *WsFrame) Reset() {
+	*x = WsFrame{}
+	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *WsFrame) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*WsFrame) ProtoMessage() {}
+
+func (x *WsFrame) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use WsFrame.ProtoReflect.Descriptor instead.
+func (*WsFrame) Descriptor() ([]byte, []int) {
+	return file_whocall_gateway_v1_gateway_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *WsFrame) GetRequestId() string {
+	if x != nil {
+		return x.RequestId
+	}
+	return ""
+}
+
+func (x *WsFrame) GetCommand() WsCommand {
+	if x != nil {
+		return x.Command
+	}
+	return WsCommand_WS_COMMAND_UNSPECIFIED
+}
+
+func (x *WsFrame) GetFrameType() WsFrameType {
+	if x != nil {
+		return x.FrameType
+	}
+	return WsFrameType_WS_FRAME_TYPE_UNSPECIFIED
+}
+
+func (x *WsFrame) GetSeq() int64 {
+	if x != nil {
+		return x.Seq
+	}
+	return 0
+}
+
+func (x *WsFrame) GetPayload() []byte {
+	if x != nil {
+		return x.Payload
+	}
+	return nil
+}
+
+func (x *WsFrame) GetOperationId() string {
+	if x != nil {
+		return x.OperationId
+	}
+	return ""
+}
+
+func (x *WsFrame) GetTimestampMs() int64 {
+	if x != nil {
+		return x.TimestampMs
+	}
+	return 0
+}
+
+type WsAck struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	RequestId     string                 `protobuf:"bytes,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
+	Command       WsCommand              `protobuf:"varint,2,opt,name=command,proto3,enum=whocall.gateway.v1.WsCommand" json:"command,omitempty"`
+	Code          int32                  `protobuf:"varint,3,opt,name=code,proto3" json:"code,omitempty"`
+	Message       string                 `protobuf:"bytes,4,opt,name=message,proto3" json:"message,omitempty"`
+	AckTimeMs     int64                  `protobuf:"varint,5,opt,name=ack_time_ms,json=ackTimeMs,proto3" json:"ack_time_ms,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *WsAck) Reset() {
+	*x = WsAck{}
+	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *WsAck) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*WsAck) ProtoMessage() {}
+
+func (x *WsAck) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use WsAck.ProtoReflect.Descriptor instead.
+func (*WsAck) Descriptor() ([]byte, []int) {
+	return file_whocall_gateway_v1_gateway_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *WsAck) GetRequestId() string {
+	if x != nil {
+		return x.RequestId
+	}
+	return ""
+}
+
+func (x *WsAck) GetCommand() WsCommand {
+	if x != nil {
+		return x.Command
+	}
+	return WsCommand_WS_COMMAND_UNSPECIFIED
+}
+
+func (x *WsAck) GetCode() int32 {
+	if x != nil {
+		return x.Code
+	}
+	return 0
+}
+
+func (x *WsAck) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+func (x *WsAck) GetAckTimeMs() int64 {
+	if x != nil {
+		return x.AckTimeMs
+	}
+	return 0
+}
+
+type ConnectionInfo struct {
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	ConnId           string                 `protobuf:"bytes,1,opt,name=conn_id,json=connId,proto3" json:"conn_id,omitempty"`
+	UserId           string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Platform         v1.Platform            `protobuf:"varint,3,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
+	DeviceId         string                 `protobuf:"bytes,4,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
+	ClientVersion    string                 `protobuf:"bytes,5,opt,name=client_version,json=clientVersion,proto3" json:"client_version,omitempty"`
+	RemoteAddr       string                 `protobuf:"bytes,6,opt,name=remote_addr,json=remoteAddr,proto3" json:"remote_addr,omitempty"`
+	Status           ConnectionStatus       `protobuf:"varint,7,opt,name=status,proto3,enum=whocall.gateway.v1.ConnectionStatus" json:"status,omitempty"`
+	ConnectedTimeMs  int64                  `protobuf:"varint,8,opt,name=connected_time_ms,json=connectedTimeMs,proto3" json:"connected_time_ms,omitempty"`
+	LastActiveTimeMs int64                  `protobuf:"varint,9,opt,name=last_active_time_ms,json=lastActiveTimeMs,proto3" json:"last_active_time_ms,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
+}
+
+func (x *ConnectionInfo) Reset() {
+	*x = ConnectionInfo{}
+	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ConnectionInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ConnectionInfo) ProtoMessage() {}
+
+func (x *ConnectionInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ConnectionInfo.ProtoReflect.Descriptor instead.
+func (*ConnectionInfo) Descriptor() ([]byte, []int) {
+	return file_whocall_gateway_v1_gateway_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *ConnectionInfo) GetConnId() string {
+	if x != nil {
+		return x.ConnId
+	}
+	return ""
+}
+
+func (x *ConnectionInfo) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *ConnectionInfo) GetPlatform() v1.Platform {
+	if x != nil {
+		return x.Platform
+	}
+	return v1.Platform(0)
+}
+
+func (x *ConnectionInfo) GetDeviceId() string {
+	if x != nil {
+		return x.DeviceId
+	}
+	return ""
+}
+
+func (x *ConnectionInfo) GetClientVersion() string {
+	if x != nil {
+		return x.ClientVersion
+	}
+	return ""
+}
+
+func (x *ConnectionInfo) GetRemoteAddr() string {
+	if x != nil {
+		return x.RemoteAddr
+	}
+	return ""
+}
+
+func (x *ConnectionInfo) GetStatus() ConnectionStatus {
+	if x != nil {
+		return x.Status
+	}
+	return ConnectionStatus_CONNECTION_STATUS_UNSPECIFIED
+}
+
+func (x *ConnectionInfo) GetConnectedTimeMs() int64 {
+	if x != nil {
+		return x.ConnectedTimeMs
+	}
+	return 0
+}
+
+func (x *ConnectionInfo) GetLastActiveTimeMs() int64 {
+	if x != nil {
+		return x.LastActiveTimeMs
+	}
+	return 0
+}
+
 type PushMsgRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// 请求元信息
-	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	// 用户ID
-	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	// 消息数据
-	MsgData       *v11.MsgData `protobuf:"bytes,3,opt,name=msg_data,json=msgData,proto3" json:"msg_data,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UserIds       []string               `protobuf:"bytes,2,rep,name=user_ids,json=userIds,proto3" json:"user_ids,omitempty"`
+	MsgData       *v11.MsgData           `protobuf:"bytes,3,opt,name=msg_data,json=msgData,proto3" json:"msg_data,omitempty"`
+	OfflinePush   bool                   `protobuf:"varint,4,opt,name=offline_push,json=offlinePush,proto3" json:"offline_push,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *PushMsgRequest) Reset() {
 	*x = PushMsgRequest{}
-	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[0]
+	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -49,7 +506,7 @@ func (x *PushMsgRequest) String() string {
 func (*PushMsgRequest) ProtoMessage() {}
 
 func (x *PushMsgRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[0]
+	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -62,7 +519,7 @@ func (x *PushMsgRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PushMsgRequest.ProtoReflect.Descriptor instead.
 func (*PushMsgRequest) Descriptor() ([]byte, []int) {
-	return file_whocall_gateway_v1_gateway_proto_rawDescGZIP(), []int{0}
+	return file_whocall_gateway_v1_gateway_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *PushMsgRequest) GetMeta() *v1.RequestMeta {
@@ -72,11 +529,11 @@ func (x *PushMsgRequest) GetMeta() *v1.RequestMeta {
 	return nil
 }
 
-func (x *PushMsgRequest) GetUserId() string {
+func (x *PushMsgRequest) GetUserIds() []string {
 	if x != nil {
-		return x.UserId
+		return x.UserIds
 	}
-	return ""
+	return nil
 }
 
 func (x *PushMsgRequest) GetMsgData() *v11.MsgData {
@@ -86,19 +543,25 @@ func (x *PushMsgRequest) GetMsgData() *v11.MsgData {
 	return nil
 }
 
+func (x *PushMsgRequest) GetOfflinePush() bool {
+	if x != nil {
+		return x.OfflinePush
+	}
+	return false
+}
+
 type PushMsgResponse struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// 响应头
-	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	// 已投递连接ID列表
-	DeliveredConnIds []string `protobuf:"bytes,2,rep,name=delivered_conn_ids,json=deliveredConnIds,proto3" json:"delivered_conn_ids,omitempty"`
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	Header           *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	DeliveredConnIds []string               `protobuf:"bytes,2,rep,name=delivered_conn_ids,json=deliveredConnIds,proto3" json:"delivered_conn_ids,omitempty"`
+	OfflineUserIds   []string               `protobuf:"bytes,3,rep,name=offline_user_ids,json=offlineUserIds,proto3" json:"offline_user_ids,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
 
 func (x *PushMsgResponse) Reset() {
 	*x = PushMsgResponse{}
-	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[1]
+	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -110,7 +573,7 @@ func (x *PushMsgResponse) String() string {
 func (*PushMsgResponse) ProtoMessage() {}
 
 func (x *PushMsgResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[1]
+	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -123,7 +586,7 @@ func (x *PushMsgResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PushMsgResponse.ProtoReflect.Descriptor instead.
 func (*PushMsgResponse) Descriptor() ([]byte, []int) {
-	return file_whocall_gateway_v1_gateway_proto_rawDescGZIP(), []int{1}
+	return file_whocall_gateway_v1_gateway_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *PushMsgResponse) GetHeader() *v1.ResponseHeader {
@@ -140,23 +603,163 @@ func (x *PushMsgResponse) GetDeliveredConnIds() []string {
 	return nil
 }
 
+func (x *PushMsgResponse) GetOfflineUserIds() []string {
+	if x != nil {
+		return x.OfflineUserIds
+	}
+	return nil
+}
+
+type PushEventRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UserIds       []string               `protobuf:"bytes,2,rep,name=user_ids,json=userIds,proto3" json:"user_ids,omitempty"`
+	Command       WsCommand              `protobuf:"varint,3,opt,name=command,proto3,enum=whocall.gateway.v1.WsCommand" json:"command,omitempty"`
+	Payload       []byte                 `protobuf:"bytes,4,opt,name=payload,proto3" json:"payload,omitempty"`
+	EventId       string                 `protobuf:"bytes,5,opt,name=event_id,json=eventId,proto3" json:"event_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *PushEventRequest) Reset() {
+	*x = PushEventRequest{}
+	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PushEventRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PushEventRequest) ProtoMessage() {}
+
+func (x *PushEventRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PushEventRequest.ProtoReflect.Descriptor instead.
+func (*PushEventRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_gateway_v1_gateway_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *PushEventRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *PushEventRequest) GetUserIds() []string {
+	if x != nil {
+		return x.UserIds
+	}
+	return nil
+}
+
+func (x *PushEventRequest) GetCommand() WsCommand {
+	if x != nil {
+		return x.Command
+	}
+	return WsCommand_WS_COMMAND_UNSPECIFIED
+}
+
+func (x *PushEventRequest) GetPayload() []byte {
+	if x != nil {
+		return x.Payload
+	}
+	return nil
+}
+
+func (x *PushEventRequest) GetEventId() string {
+	if x != nil {
+		return x.EventId
+	}
+	return ""
+}
+
+type PushEventResponse struct {
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	Header           *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	DeliveredConnIds []string               `protobuf:"bytes,2,rep,name=delivered_conn_ids,json=deliveredConnIds,proto3" json:"delivered_conn_ids,omitempty"`
+	OfflineUserIds   []string               `protobuf:"bytes,3,rep,name=offline_user_ids,json=offlineUserIds,proto3" json:"offline_user_ids,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
+}
+
+func (x *PushEventResponse) Reset() {
+	*x = PushEventResponse{}
+	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PushEventResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PushEventResponse) ProtoMessage() {}
+
+func (x *PushEventResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PushEventResponse.ProtoReflect.Descriptor instead.
+func (*PushEventResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_gateway_v1_gateway_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *PushEventResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *PushEventResponse) GetDeliveredConnIds() []string {
+	if x != nil {
+		return x.DeliveredConnIds
+	}
+	return nil
+}
+
+func (x *PushEventResponse) GetOfflineUserIds() []string {
+	if x != nil {
+		return x.OfflineUserIds
+	}
+	return nil
+}
+
 type KickOnlineRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// 请求元信息
-	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	// 用户ID
-	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	// 平台ID
-	PlatformId int32 `protobuf:"varint,3,opt,name=platform_id,json=platformId,proto3" json:"platform_id,omitempty"`
-	// 踢下线原因
-	Reason        string `protobuf:"bytes,4,opt,name=reason,proto3" json:"reason,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Platform      v1.Platform            `protobuf:"varint,3,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
+	DeviceId      string                 `protobuf:"bytes,4,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
+	Reason        string                 `protobuf:"bytes,5,opt,name=reason,proto3" json:"reason,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *KickOnlineRequest) Reset() {
 	*x = KickOnlineRequest{}
-	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[2]
+	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -168,7 +771,7 @@ func (x *KickOnlineRequest) String() string {
 func (*KickOnlineRequest) ProtoMessage() {}
 
 func (x *KickOnlineRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[2]
+	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -181,7 +784,7 @@ func (x *KickOnlineRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use KickOnlineRequest.ProtoReflect.Descriptor instead.
 func (*KickOnlineRequest) Descriptor() ([]byte, []int) {
-	return file_whocall_gateway_v1_gateway_proto_rawDescGZIP(), []int{2}
+	return file_whocall_gateway_v1_gateway_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *KickOnlineRequest) GetMeta() *v1.RequestMeta {
@@ -198,11 +801,18 @@ func (x *KickOnlineRequest) GetUserId() string {
 	return ""
 }
 
-func (x *KickOnlineRequest) GetPlatformId() int32 {
+func (x *KickOnlineRequest) GetPlatform() v1.Platform {
 	if x != nil {
-		return x.PlatformId
+		return x.Platform
 	}
-	return 0
+	return v1.Platform(0)
+}
+
+func (x *KickOnlineRequest) GetDeviceId() string {
+	if x != nil {
+		return x.DeviceId
+	}
+	return ""
 }
 
 func (x *KickOnlineRequest) GetReason() string {
@@ -213,18 +823,16 @@ func (x *KickOnlineRequest) GetReason() string {
 }
 
 type KickOnlineResponse struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// 响应头
-	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	// 踢下线数量
-	KickedCount   int32 `protobuf:"varint,2,opt,name=kicked_count,json=kickedCount,proto3" json:"kicked_count,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	KickedCount   int32                  `protobuf:"varint,2,opt,name=kicked_count,json=kickedCount,proto3" json:"kicked_count,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *KickOnlineResponse) Reset() {
 	*x = KickOnlineResponse{}
-	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[3]
+	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -236,7 +844,7 @@ func (x *KickOnlineResponse) String() string {
 func (*KickOnlineResponse) ProtoMessage() {}
 
 func (x *KickOnlineResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[3]
+	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -249,7 +857,7 @@ func (x *KickOnlineResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use KickOnlineResponse.ProtoReflect.Descriptor instead.
 func (*KickOnlineResponse) Descriptor() ([]byte, []int) {
-	return file_whocall_gateway_v1_gateway_proto_rawDescGZIP(), []int{3}
+	return file_whocall_gateway_v1_gateway_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *KickOnlineResponse) GetHeader() *v1.ResponseHeader {
@@ -266,31 +874,207 @@ func (x *KickOnlineResponse) GetKickedCount() int32 {
 	return 0
 }
 
+type GetOnlineConnectionsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	UserIds       []string               `protobuf:"bytes,2,rep,name=user_ids,json=userIds,proto3" json:"user_ids,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetOnlineConnectionsRequest) Reset() {
+	*x = GetOnlineConnectionsRequest{}
+	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetOnlineConnectionsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetOnlineConnectionsRequest) ProtoMessage() {}
+
+func (x *GetOnlineConnectionsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetOnlineConnectionsRequest.ProtoReflect.Descriptor instead.
+func (*GetOnlineConnectionsRequest) Descriptor() ([]byte, []int) {
+	return file_whocall_gateway_v1_gateway_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *GetOnlineConnectionsRequest) GetMeta() *v1.RequestMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *GetOnlineConnectionsRequest) GetUserIds() []string {
+	if x != nil {
+		return x.UserIds
+	}
+	return nil
+}
+
+type GetOnlineConnectionsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Connections   []*ConnectionInfo      `protobuf:"bytes,2,rep,name=connections,proto3" json:"connections,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetOnlineConnectionsResponse) Reset() {
+	*x = GetOnlineConnectionsResponse{}
+	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetOnlineConnectionsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetOnlineConnectionsResponse) ProtoMessage() {}
+
+func (x *GetOnlineConnectionsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_whocall_gateway_v1_gateway_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetOnlineConnectionsResponse.ProtoReflect.Descriptor instead.
+func (*GetOnlineConnectionsResponse) Descriptor() ([]byte, []int) {
+	return file_whocall_gateway_v1_gateway_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *GetOnlineConnectionsResponse) GetHeader() *v1.ResponseHeader {
+	if x != nil {
+		return x.Header
+	}
+	return nil
+}
+
+func (x *GetOnlineConnectionsResponse) GetConnections() []*ConnectionInfo {
+	if x != nil {
+		return x.Connections
+	}
+	return nil
+}
+
 var File_whocall_gateway_v1_gateway_proto protoreflect.FileDescriptor
 
 const file_whocall_gateway_v1_gateway_proto_rawDesc = "" +
 	"\n" +
-	" whocall/gateway/v1/gateway.proto\x12\x12whocall.gateway.v1\x1a\x1ewhocall/common/v1/common.proto\x1a\x18whocall/msg/v1/msg.proto\"\x91\x01\n" +
+	" whocall/gateway/v1/gateway.proto\x12\x12whocall.gateway.v1\x1a\x1ewhocall/common/v1/common.proto\x1a\x18whocall/msg/v1/msg.proto\"\x93\x02\n" +
+	"\aWsFrame\x12\x1d\n" +
+	"\n" +
+	"request_id\x18\x01 \x01(\tR\trequestId\x127\n" +
+	"\acommand\x18\x02 \x01(\x0e2\x1d.whocall.gateway.v1.WsCommandR\acommand\x12>\n" +
+	"\n" +
+	"frame_type\x18\x03 \x01(\x0e2\x1f.whocall.gateway.v1.WsFrameTypeR\tframeType\x12\x10\n" +
+	"\x03seq\x18\x04 \x01(\x03R\x03seq\x12\x18\n" +
+	"\apayload\x18\x05 \x01(\fR\apayload\x12!\n" +
+	"\foperation_id\x18\x06 \x01(\tR\voperationId\x12!\n" +
+	"\ftimestamp_ms\x18\a \x01(\x03R\vtimestampMs\"\xad\x01\n" +
+	"\x05WsAck\x12\x1d\n" +
+	"\n" +
+	"request_id\x18\x01 \x01(\tR\trequestId\x127\n" +
+	"\acommand\x18\x02 \x01(\x0e2\x1d.whocall.gateway.v1.WsCommandR\acommand\x12\x12\n" +
+	"\x04code\x18\x03 \x01(\x05R\x04code\x12\x18\n" +
+	"\amessage\x18\x04 \x01(\tR\amessage\x12\x1e\n" +
+	"\vack_time_ms\x18\x05 \x01(\x03R\tackTimeMs\"\xf9\x02\n" +
+	"\x0eConnectionInfo\x12\x17\n" +
+	"\aconn_id\x18\x01 \x01(\tR\x06connId\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x127\n" +
+	"\bplatform\x18\x03 \x01(\x0e2\x1b.whocall.common.v1.PlatformR\bplatform\x12\x1b\n" +
+	"\tdevice_id\x18\x04 \x01(\tR\bdeviceId\x12%\n" +
+	"\x0eclient_version\x18\x05 \x01(\tR\rclientVersion\x12\x1f\n" +
+	"\vremote_addr\x18\x06 \x01(\tR\n" +
+	"remoteAddr\x12<\n" +
+	"\x06status\x18\a \x01(\x0e2$.whocall.gateway.v1.ConnectionStatusR\x06status\x12*\n" +
+	"\x11connected_time_ms\x18\b \x01(\x03R\x0fconnectedTimeMs\x12-\n" +
+	"\x13last_active_time_ms\x18\t \x01(\x03R\x10lastActiveTimeMs\"\xb6\x01\n" +
 	"\x0ePushMsgRequest\x122\n" +
-	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x17\n" +
-	"\auser_id\x18\x02 \x01(\tR\x06userId\x122\n" +
-	"\bmsg_data\x18\x03 \x01(\v2\x17.whocall.msg.v1.MsgDataR\amsgData\"z\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x19\n" +
+	"\buser_ids\x18\x02 \x03(\tR\auserIds\x122\n" +
+	"\bmsg_data\x18\x03 \x01(\v2\x17.whocall.msg.v1.MsgDataR\amsgData\x12!\n" +
+	"\foffline_push\x18\x04 \x01(\bR\vofflinePush\"\xa4\x01\n" +
 	"\x0fPushMsgResponse\x129\n" +
 	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12,\n" +
-	"\x12delivered_conn_ids\x18\x02 \x03(\tR\x10deliveredConnIds\"\x99\x01\n" +
+	"\x12delivered_conn_ids\x18\x02 \x03(\tR\x10deliveredConnIds\x12(\n" +
+	"\x10offline_user_ids\x18\x03 \x03(\tR\x0eofflineUserIds\"\xcf\x01\n" +
+	"\x10PushEventRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x19\n" +
+	"\buser_ids\x18\x02 \x03(\tR\auserIds\x127\n" +
+	"\acommand\x18\x03 \x01(\x0e2\x1d.whocall.gateway.v1.WsCommandR\acommand\x12\x18\n" +
+	"\apayload\x18\x04 \x01(\fR\apayload\x12\x19\n" +
+	"\bevent_id\x18\x05 \x01(\tR\aeventId\"\xa6\x01\n" +
+	"\x11PushEventResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12,\n" +
+	"\x12delivered_conn_ids\x18\x02 \x03(\tR\x10deliveredConnIds\x12(\n" +
+	"\x10offline_user_ids\x18\x03 \x03(\tR\x0eofflineUserIds\"\xce\x01\n" +
 	"\x11KickOnlineRequest\x122\n" +
 	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x17\n" +
-	"\auser_id\x18\x02 \x01(\tR\x06userId\x12\x1f\n" +
-	"\vplatform_id\x18\x03 \x01(\x05R\n" +
-	"platformId\x12\x16\n" +
-	"\x06reason\x18\x04 \x01(\tR\x06reason\"r\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x127\n" +
+	"\bplatform\x18\x03 \x01(\x0e2\x1b.whocall.common.v1.PlatformR\bplatform\x12\x1b\n" +
+	"\tdevice_id\x18\x04 \x01(\tR\bdeviceId\x12\x16\n" +
+	"\x06reason\x18\x05 \x01(\tR\x06reason\"r\n" +
 	"\x12KickOnlineResponse\x129\n" +
 	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12!\n" +
-	"\fkicked_count\x18\x02 \x01(\x05R\vkickedCount2\xc9\x01\n" +
+	"\fkicked_count\x18\x02 \x01(\x05R\vkickedCount\"l\n" +
+	"\x1bGetOnlineConnectionsRequest\x122\n" +
+	"\x04meta\x18\x01 \x01(\v2\x1e.whocall.common.v1.RequestMetaR\x04meta\x12\x19\n" +
+	"\buser_ids\x18\x02 \x03(\tR\auserIds\"\x9f\x01\n" +
+	"\x1cGetOnlineConnectionsResponse\x129\n" +
+	"\x06header\x18\x01 \x01(\v2!.whocall.common.v1.ResponseHeaderR\x06header\x12D\n" +
+	"\vconnections\x18\x02 \x03(\v2\".whocall.gateway.v1.ConnectionInfoR\vconnections*\x83\x03\n" +
+	"\tWsCommand\x12\x1a\n" +
+	"\x16WS_COMMAND_UNSPECIFIED\x10\x00\x12\x16\n" +
+	"\x12WS_COMMAND_CONNECT\x10\x01\x12\x18\n" +
+	"\x14WS_COMMAND_HEARTBEAT\x10\x02\x12\x18\n" +
+	"\x13WS_COMMAND_SEND_MSG\x10\xe9\a\x12\x1d\n" +
+	"\x18WS_COMMAND_SEND_MSG_RESP\x10\xea\a\x12\x18\n" +
+	"\x13WS_COMMAND_PUSH_MSG\x10\xeb\a\x12\x18\n" +
+	"\x13WS_COMMAND_PULL_MSG\x10\xec\a\x12\x19\n" +
+	"\x14WS_COMMAND_MARK_READ\x10\xed\a\x12\x16\n" +
+	"\x11WS_COMMAND_KICKED\x10\xd1\x0f\x12#\n" +
+	"\x1eWS_COMMAND_USER_STATUS_CHANGED\x10\xd2\x0f\x12$\n" +
+	"\x1fWS_COMMAND_CONVERSATION_CHANGED\x10\xd3\x0f\x12\x1d\n" +
+	"\x18WS_COMMAND_GROUP_CHANGED\x10\xd4\x0f\x12\x1e\n" +
+	"\x19WS_COMMAND_FRIEND_CHANGED\x10\xd5\x0f*\x92\x01\n" +
+	"\vWsFrameType\x12\x1d\n" +
+	"\x19WS_FRAME_TYPE_UNSPECIFIED\x10\x00\x12\x19\n" +
+	"\x15WS_FRAME_TYPE_REQUEST\x10\x01\x12\x1a\n" +
+	"\x16WS_FRAME_TYPE_RESPONSE\x10\x02\x12\x16\n" +
+	"\x12WS_FRAME_TYPE_PUSH\x10\x03\x12\x15\n" +
+	"\x11WS_FRAME_TYPE_ACK\x10\x04*r\n" +
+	"\x10ConnectionStatus\x12!\n" +
+	"\x1dCONNECTION_STATUS_UNSPECIFIED\x10\x00\x12\x1c\n" +
+	"\x18CONNECTION_STATUS_ONLINE\x10\x01\x12\x1d\n" +
+	"\x19CONNECTION_STATUS_OFFLINE\x10\x022\x9e\x03\n" +
 	"\x16GatewayInternalService\x12R\n" +
-	"\aPushMsg\x12\".whocall.gateway.v1.PushMsgRequest\x1a#.whocall.gateway.v1.PushMsgResponse\x12[\n" +
+	"\aPushMsg\x12\".whocall.gateway.v1.PushMsgRequest\x1a#.whocall.gateway.v1.PushMsgResponse\x12X\n" +
+	"\tPushEvent\x12$.whocall.gateway.v1.PushEventRequest\x1a%.whocall.gateway.v1.PushEventResponse\x12[\n" +
 	"\n" +
-	"KickOnline\x12%.whocall.gateway.v1.KickOnlineRequest\x1a&.whocall.gateway.v1.KickOnlineResponseBHZFgithub.com/ethereal3x/who-call/api/gen/go/whocall/gateway/v1;gatewayv1b\x06proto3"
+	"KickOnline\x12%.whocall.gateway.v1.KickOnlineRequest\x1a&.whocall.gateway.v1.KickOnlineResponse\x12y\n" +
+	"\x14GetOnlineConnections\x12/.whocall.gateway.v1.GetOnlineConnectionsRequest\x1a0.whocall.gateway.v1.GetOnlineConnectionsResponseBHZFgithub.com/ethereal3x/who-call/api/gen/go/whocall/gateway/v1;gatewayv1b\x06proto3"
 
 var (
 	file_whocall_gateway_v1_gateway_proto_rawDescOnce sync.Once
@@ -304,31 +1088,59 @@ func file_whocall_gateway_v1_gateway_proto_rawDescGZIP() []byte {
 	return file_whocall_gateway_v1_gateway_proto_rawDescData
 }
 
-var file_whocall_gateway_v1_gateway_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_whocall_gateway_v1_gateway_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
+var file_whocall_gateway_v1_gateway_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_whocall_gateway_v1_gateway_proto_goTypes = []any{
-	(*PushMsgRequest)(nil),     // 0: whocall.gateway.v1.PushMsgRequest
-	(*PushMsgResponse)(nil),    // 1: whocall.gateway.v1.PushMsgResponse
-	(*KickOnlineRequest)(nil),  // 2: whocall.gateway.v1.KickOnlineRequest
-	(*KickOnlineResponse)(nil), // 3: whocall.gateway.v1.KickOnlineResponse
-	(*v1.RequestMeta)(nil),     // 4: whocall.common.v1.RequestMeta
-	(*v11.MsgData)(nil),        // 5: whocall.msg.v1.MsgData
-	(*v1.ResponseHeader)(nil),  // 6: whocall.common.v1.ResponseHeader
+	(WsCommand)(0),                       // 0: whocall.gateway.v1.WsCommand
+	(WsFrameType)(0),                     // 1: whocall.gateway.v1.WsFrameType
+	(ConnectionStatus)(0),                // 2: whocall.gateway.v1.ConnectionStatus
+	(*WsFrame)(nil),                      // 3: whocall.gateway.v1.WsFrame
+	(*WsAck)(nil),                        // 4: whocall.gateway.v1.WsAck
+	(*ConnectionInfo)(nil),               // 5: whocall.gateway.v1.ConnectionInfo
+	(*PushMsgRequest)(nil),               // 6: whocall.gateway.v1.PushMsgRequest
+	(*PushMsgResponse)(nil),              // 7: whocall.gateway.v1.PushMsgResponse
+	(*PushEventRequest)(nil),             // 8: whocall.gateway.v1.PushEventRequest
+	(*PushEventResponse)(nil),            // 9: whocall.gateway.v1.PushEventResponse
+	(*KickOnlineRequest)(nil),            // 10: whocall.gateway.v1.KickOnlineRequest
+	(*KickOnlineResponse)(nil),           // 11: whocall.gateway.v1.KickOnlineResponse
+	(*GetOnlineConnectionsRequest)(nil),  // 12: whocall.gateway.v1.GetOnlineConnectionsRequest
+	(*GetOnlineConnectionsResponse)(nil), // 13: whocall.gateway.v1.GetOnlineConnectionsResponse
+	(v1.Platform)(0),                     // 14: whocall.common.v1.Platform
+	(*v1.RequestMeta)(nil),               // 15: whocall.common.v1.RequestMeta
+	(*v11.MsgData)(nil),                  // 16: whocall.msg.v1.MsgData
+	(*v1.ResponseHeader)(nil),            // 17: whocall.common.v1.ResponseHeader
 }
 var file_whocall_gateway_v1_gateway_proto_depIdxs = []int32{
-	4, // 0: whocall.gateway.v1.PushMsgRequest.meta:type_name -> whocall.common.v1.RequestMeta
-	5, // 1: whocall.gateway.v1.PushMsgRequest.msg_data:type_name -> whocall.msg.v1.MsgData
-	6, // 2: whocall.gateway.v1.PushMsgResponse.header:type_name -> whocall.common.v1.ResponseHeader
-	4, // 3: whocall.gateway.v1.KickOnlineRequest.meta:type_name -> whocall.common.v1.RequestMeta
-	6, // 4: whocall.gateway.v1.KickOnlineResponse.header:type_name -> whocall.common.v1.ResponseHeader
-	0, // 5: whocall.gateway.v1.GatewayInternalService.PushMsg:input_type -> whocall.gateway.v1.PushMsgRequest
-	2, // 6: whocall.gateway.v1.GatewayInternalService.KickOnline:input_type -> whocall.gateway.v1.KickOnlineRequest
-	1, // 7: whocall.gateway.v1.GatewayInternalService.PushMsg:output_type -> whocall.gateway.v1.PushMsgResponse
-	3, // 8: whocall.gateway.v1.GatewayInternalService.KickOnline:output_type -> whocall.gateway.v1.KickOnlineResponse
-	7, // [7:9] is the sub-list for method output_type
-	5, // [5:7] is the sub-list for method input_type
-	5, // [5:5] is the sub-list for extension type_name
-	5, // [5:5] is the sub-list for extension extendee
-	0, // [0:5] is the sub-list for field type_name
+	0,  // 0: whocall.gateway.v1.WsFrame.command:type_name -> whocall.gateway.v1.WsCommand
+	1,  // 1: whocall.gateway.v1.WsFrame.frame_type:type_name -> whocall.gateway.v1.WsFrameType
+	0,  // 2: whocall.gateway.v1.WsAck.command:type_name -> whocall.gateway.v1.WsCommand
+	14, // 3: whocall.gateway.v1.ConnectionInfo.platform:type_name -> whocall.common.v1.Platform
+	2,  // 4: whocall.gateway.v1.ConnectionInfo.status:type_name -> whocall.gateway.v1.ConnectionStatus
+	15, // 5: whocall.gateway.v1.PushMsgRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	16, // 6: whocall.gateway.v1.PushMsgRequest.msg_data:type_name -> whocall.msg.v1.MsgData
+	17, // 7: whocall.gateway.v1.PushMsgResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	15, // 8: whocall.gateway.v1.PushEventRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	0,  // 9: whocall.gateway.v1.PushEventRequest.command:type_name -> whocall.gateway.v1.WsCommand
+	17, // 10: whocall.gateway.v1.PushEventResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	15, // 11: whocall.gateway.v1.KickOnlineRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	14, // 12: whocall.gateway.v1.KickOnlineRequest.platform:type_name -> whocall.common.v1.Platform
+	17, // 13: whocall.gateway.v1.KickOnlineResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	15, // 14: whocall.gateway.v1.GetOnlineConnectionsRequest.meta:type_name -> whocall.common.v1.RequestMeta
+	17, // 15: whocall.gateway.v1.GetOnlineConnectionsResponse.header:type_name -> whocall.common.v1.ResponseHeader
+	5,  // 16: whocall.gateway.v1.GetOnlineConnectionsResponse.connections:type_name -> whocall.gateway.v1.ConnectionInfo
+	6,  // 17: whocall.gateway.v1.GatewayInternalService.PushMsg:input_type -> whocall.gateway.v1.PushMsgRequest
+	8,  // 18: whocall.gateway.v1.GatewayInternalService.PushEvent:input_type -> whocall.gateway.v1.PushEventRequest
+	10, // 19: whocall.gateway.v1.GatewayInternalService.KickOnline:input_type -> whocall.gateway.v1.KickOnlineRequest
+	12, // 20: whocall.gateway.v1.GatewayInternalService.GetOnlineConnections:input_type -> whocall.gateway.v1.GetOnlineConnectionsRequest
+	7,  // 21: whocall.gateway.v1.GatewayInternalService.PushMsg:output_type -> whocall.gateway.v1.PushMsgResponse
+	9,  // 22: whocall.gateway.v1.GatewayInternalService.PushEvent:output_type -> whocall.gateway.v1.PushEventResponse
+	11, // 23: whocall.gateway.v1.GatewayInternalService.KickOnline:output_type -> whocall.gateway.v1.KickOnlineResponse
+	13, // 24: whocall.gateway.v1.GatewayInternalService.GetOnlineConnections:output_type -> whocall.gateway.v1.GetOnlineConnectionsResponse
+	21, // [21:25] is the sub-list for method output_type
+	17, // [17:21] is the sub-list for method input_type
+	17, // [17:17] is the sub-list for extension type_name
+	17, // [17:17] is the sub-list for extension extendee
+	0,  // [0:17] is the sub-list for field type_name
 }
 
 func init() { file_whocall_gateway_v1_gateway_proto_init() }
@@ -341,13 +1153,14 @@ func file_whocall_gateway_v1_gateway_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_whocall_gateway_v1_gateway_proto_rawDesc), len(file_whocall_gateway_v1_gateway_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   4,
+			NumEnums:      3,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
 		GoTypes:           file_whocall_gateway_v1_gateway_proto_goTypes,
 		DependencyIndexes: file_whocall_gateway_v1_gateway_proto_depIdxs,
+		EnumInfos:         file_whocall_gateway_v1_gateway_proto_enumTypes,
 		MessageInfos:      file_whocall_gateway_v1_gateway_proto_msgTypes,
 	}.Build()
 	File_whocall_gateway_v1_gateway_proto = out.File
