@@ -23,12 +23,16 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// 群组类型定义可选枚举值
 type GroupType int32
 
 const (
+	// 未指定枚举值
 	GroupType_GROUP_TYPE_UNSPECIFIED GroupType = 0
-	GroupType_GROUP_TYPE_NORMAL      GroupType = 1
-	GroupType_GROUP_TYPE_SUPER       GroupType = 2
+	// 正常状态枚举值
+	GroupType_GROUP_TYPE_NORMAL GroupType = 1
+	// 群组类型super枚举值
+	GroupType_GROUP_TYPE_SUPER GroupType = 2
 )
 
 // Enum value maps for GroupType.
@@ -72,13 +76,18 @@ func (GroupType) EnumDescriptor() ([]byte, []int) {
 	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{0}
 }
 
+// 群组状态定义可选枚举值
 type GroupStatus int32
 
 const (
+	// 未指定枚举值
 	GroupStatus_GROUP_STATUS_UNSPECIFIED GroupStatus = 0
-	GroupStatus_GROUP_STATUS_NORMAL      GroupStatus = 1
-	GroupStatus_GROUP_STATUS_MUTED       GroupStatus = 2
-	GroupStatus_GROUP_STATUS_DISMISSED   GroupStatus = 3
+	// 正常状态枚举值
+	GroupStatus_GROUP_STATUS_NORMAL GroupStatus = 1
+	// 群组状态muted枚举值
+	GroupStatus_GROUP_STATUS_MUTED GroupStatus = 2
+	// 群组状态dismissed枚举值
+	GroupStatus_GROUP_STATUS_DISMISSED GroupStatus = 3
 )
 
 // Enum value maps for GroupStatus.
@@ -124,13 +133,18 @@ func (GroupStatus) EnumDescriptor() ([]byte, []int) {
 	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{1}
 }
 
+// 群组角色定义可选枚举值
 type GroupRole int32
 
 const (
+	// 未指定枚举值
 	GroupRole_GROUP_ROLE_UNSPECIFIED GroupRole = 0
-	GroupRole_GROUP_ROLE_MEMBER      GroupRole = 1
-	GroupRole_GROUP_ROLE_ADMIN       GroupRole = 2
-	GroupRole_GROUP_ROLE_OWNER       GroupRole = 3
+	// 群组角色成员枚举值
+	GroupRole_GROUP_ROLE_MEMBER GroupRole = 1
+	// 群组角色管理员枚举值
+	GroupRole_GROUP_ROLE_ADMIN GroupRole = 2
+	// 群组角色群主枚举值
+	GroupRole_GROUP_ROLE_OWNER GroupRole = 3
 )
 
 // Enum value maps for GroupRole.
@@ -176,14 +190,20 @@ func (GroupRole) EnumDescriptor() ([]byte, []int) {
 	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{2}
 }
 
+// 群组申请状态定义可选枚举值
 type GroupApplicationStatus int32
 
 const (
+	// 未指定枚举值
 	GroupApplicationStatus_GROUP_APPLICATION_STATUS_UNSPECIFIED GroupApplicationStatus = 0
-	GroupApplicationStatus_GROUP_APPLICATION_STATUS_PENDING     GroupApplicationStatus = 1
-	GroupApplicationStatus_GROUP_APPLICATION_STATUS_ACCEPTED    GroupApplicationStatus = 2
-	GroupApplicationStatus_GROUP_APPLICATION_STATUS_REJECTED    GroupApplicationStatus = 3
-	GroupApplicationStatus_GROUP_APPLICATION_STATUS_CANCELED    GroupApplicationStatus = 4
+	// 待处理状态枚举值
+	GroupApplicationStatus_GROUP_APPLICATION_STATUS_PENDING GroupApplicationStatus = 1
+	// 已接受状态枚举值
+	GroupApplicationStatus_GROUP_APPLICATION_STATUS_ACCEPTED GroupApplicationStatus = 2
+	// 已拒绝状态枚举值
+	GroupApplicationStatus_GROUP_APPLICATION_STATUS_REJECTED GroupApplicationStatus = 3
+	// 群组申请状态canceled枚举值
+	GroupApplicationStatus_GROUP_APPLICATION_STATUS_CANCELED GroupApplicationStatus = 4
 )
 
 // Enum value maps for GroupApplicationStatus.
@@ -231,14 +251,20 @@ func (GroupApplicationStatus) EnumDescriptor() ([]byte, []int) {
 	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{3}
 }
 
+// 群组加入来源定义可选枚举值
 type GroupJoinSource int32
 
 const (
+	// 未指定枚举值
 	GroupJoinSource_GROUP_JOIN_SOURCE_UNSPECIFIED GroupJoinSource = 0
-	GroupJoinSource_GROUP_JOIN_SOURCE_SEARCH      GroupJoinSource = 1
-	GroupJoinSource_GROUP_JOIN_SOURCE_INVITE      GroupJoinSource = 2
-	GroupJoinSource_GROUP_JOIN_SOURCE_QR_CODE     GroupJoinSource = 3
-	GroupJoinSource_GROUP_JOIN_SOURCE_ADMIN       GroupJoinSource = 4
+	// 群组加入来源搜索枚举值
+	GroupJoinSource_GROUP_JOIN_SOURCE_SEARCH GroupJoinSource = 1
+	// 群组加入来源invite枚举值
+	GroupJoinSource_GROUP_JOIN_SOURCE_INVITE GroupJoinSource = 2
+	// 群组加入来源qr编码枚举值
+	GroupJoinSource_GROUP_JOIN_SOURCE_QR_CODE GroupJoinSource = 3
+	// 群组加入来源管理员枚举值
+	GroupJoinSource_GROUP_JOIN_SOURCE_ADMIN GroupJoinSource = 4
 )
 
 // Enum value maps for GroupJoinSource.
@@ -286,23 +312,37 @@ func (GroupJoinSource) EnumDescriptor() ([]byte, []int) {
 	return file_whocall_group_v1_group_proto_rawDescGZIP(), []int{4}
 }
 
+// 群组info描述业务数据结构
 type GroupInfo struct {
-	state            protoimpl.MessageState `protogen:"open.v1"`
-	GroupId          string                 `protobuf:"bytes,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
-	GroupName        string                 `protobuf:"bytes,2,opt,name=group_name,json=groupName,proto3" json:"group_name,omitempty"`
-	AvatarUrl        string                 `protobuf:"bytes,3,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
-	Introduction     string                 `protobuf:"bytes,4,opt,name=introduction,proto3" json:"introduction,omitempty"`
-	Notification     string                 `protobuf:"bytes,5,opt,name=notification,proto3" json:"notification,omitempty"`
-	OwnerUserId      string                 `protobuf:"bytes,6,opt,name=owner_user_id,json=ownerUserId,proto3" json:"owner_user_id,omitempty"`
-	GroupType        GroupType              `protobuf:"varint,7,opt,name=group_type,json=groupType,proto3,enum=whocall.group.v1.GroupType" json:"group_type,omitempty"`
-	Status           GroupStatus            `protobuf:"varint,8,opt,name=status,proto3,enum=whocall.group.v1.GroupStatus" json:"status,omitempty"`
-	MemberCount      int32                  `protobuf:"varint,9,opt,name=member_count,json=memberCount,proto3" json:"member_count,omitempty"`
-	NeedVerification bool                   `protobuf:"varint,10,opt,name=need_verification,json=needVerification,proto3" json:"need_verification,omitempty"`
-	CreateTimeMs     int64                  `protobuf:"varint,11,opt,name=create_time_ms,json=createTimeMs,proto3" json:"create_time_ms,omitempty"`
-	UpdateTimeMs     int64                  `protobuf:"varint,12,opt,name=update_time_ms,json=updateTimeMs,proto3" json:"update_time_ms,omitempty"`
-	Ex               string                 `protobuf:"bytes,13,opt,name=ex,proto3" json:"ex,omitempty"`
-	unknownFields    protoimpl.UnknownFields
-	sizeCache        protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 群组业务标识
+	GroupId string `protobuf:"bytes,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	// 群组名称
+	GroupName string `protobuf:"bytes,2,opt,name=group_name,json=groupName,proto3" json:"group_name,omitempty"`
+	// 头像地址
+	AvatarUrl string `protobuf:"bytes,3,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
+	// 群简介
+	Introduction string `protobuf:"bytes,4,opt,name=introduction,proto3" json:"introduction,omitempty"`
+	// 群公告内容
+	Notification string `protobuf:"bytes,5,opt,name=notification,proto3" json:"notification,omitempty"`
+	// 归属用户标识
+	OwnerUserId string `protobuf:"bytes,6,opt,name=owner_user_id,json=ownerUserId,proto3" json:"owner_user_id,omitempty"`
+	// 群组类型类型
+	GroupType GroupType `protobuf:"varint,7,opt,name=group_type,json=groupType,proto3,enum=whocall.group.v1.GroupType" json:"group_type,omitempty"`
+	// 业务状态
+	Status GroupStatus `protobuf:"varint,8,opt,name=status,proto3,enum=whocall.group.v1.GroupStatus" json:"status,omitempty"`
+	// 成员数量数量
+	MemberCount int32 `protobuf:"varint,9,opt,name=member_count,json=memberCount,proto3" json:"member_count,omitempty"`
+	// needverification字段
+	NeedVerification bool `protobuf:"varint,10,opt,name=need_verification,json=needVerification,proto3" json:"need_verification,omitempty"`
+	// 创建时间ms字段
+	CreateTimeMs int64 `protobuf:"varint,11,opt,name=create_time_ms,json=createTimeMs,proto3" json:"create_time_ms,omitempty"`
+	// 更新时间ms字段
+	UpdateTimeMs int64 `protobuf:"varint,12,opt,name=update_time_ms,json=updateTimeMs,proto3" json:"update_time_ms,omitempty"`
+	// IM 扩展字段
+	Ex            string `protobuf:"bytes,13,opt,name=ex,proto3" json:"ex,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GroupInfo) Reset() {
@@ -426,20 +466,33 @@ func (x *GroupInfo) GetEx() string {
 	return ""
 }
 
+// 群组成员info描述业务数据结构
 type GroupMemberInfo struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	GroupId       string                  `protobuf:"bytes,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
-	UserId        string                  `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Nickname      string                  `protobuf:"bytes,3,opt,name=nickname,proto3" json:"nickname,omitempty"`
-	AvatarUrl     string                  `protobuf:"bytes,4,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
-	GroupNickname string                  `protobuf:"bytes,5,opt,name=group_nickname,json=groupNickname,proto3" json:"group_nickname,omitempty"`
-	Role          GroupRole               `protobuf:"varint,6,opt,name=role,proto3,enum=whocall.group.v1.GroupRole" json:"role,omitempty"`
-	RecvMsgOpt    v1.ReceiveMessageOption `protobuf:"varint,7,opt,name=recv_msg_opt,json=recvMsgOpt,proto3,enum=whocall.common.v1.ReceiveMessageOption" json:"recv_msg_opt,omitempty"`
-	MuteEndTimeMs int64                   `protobuf:"varint,8,opt,name=mute_end_time_ms,json=muteEndTimeMs,proto3" json:"mute_end_time_ms,omitempty"`
-	JoinTimeMs    int64                   `protobuf:"varint,9,opt,name=join_time_ms,json=joinTimeMs,proto3" json:"join_time_ms,omitempty"`
-	JoinSource    GroupJoinSource         `protobuf:"varint,10,opt,name=join_source,json=joinSource,proto3,enum=whocall.group.v1.GroupJoinSource" json:"join_source,omitempty"`
-	InviterUserId string                  `protobuf:"bytes,11,opt,name=inviter_user_id,json=inviterUserId,proto3" json:"inviter_user_id,omitempty"`
-	Ex            string                  `protobuf:"bytes,12,opt,name=ex,proto3" json:"ex,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 群组业务标识
+	GroupId string `protobuf:"bytes,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 用户昵称
+	Nickname string `protobuf:"bytes,3,opt,name=nickname,proto3" json:"nickname,omitempty"`
+	// 头像地址
+	AvatarUrl string `protobuf:"bytes,4,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
+	// 群组昵称字段
+	GroupNickname string `protobuf:"bytes,5,opt,name=group_nickname,json=groupNickname,proto3" json:"group_nickname,omitempty"`
+	// 角色
+	Role GroupRole `protobuf:"varint,6,opt,name=role,proto3,enum=whocall.group.v1.GroupRole" json:"role,omitempty"`
+	// 接收消息opt字段
+	RecvMsgOpt v1.ReceiveMessageOption `protobuf:"varint,7,opt,name=recv_msg_opt,json=recvMsgOpt,proto3,enum=whocall.common.v1.ReceiveMessageOption" json:"recv_msg_opt,omitempty"`
+	// 禁言end时间ms字段
+	MuteEndTimeMs int64 `protobuf:"varint,8,opt,name=mute_end_time_ms,json=muteEndTimeMs,proto3" json:"mute_end_time_ms,omitempty"`
+	// 加入时间ms字段
+	JoinTimeMs int64 `protobuf:"varint,9,opt,name=join_time_ms,json=joinTimeMs,proto3" json:"join_time_ms,omitempty"`
+	// 加入来源字段
+	JoinSource GroupJoinSource `protobuf:"varint,10,opt,name=join_source,json=joinSource,proto3,enum=whocall.group.v1.GroupJoinSource" json:"join_source,omitempty"`
+	// inviter用户标识标识
+	InviterUserId string `protobuf:"bytes,11,opt,name=inviter_user_id,json=inviterUserId,proto3" json:"inviter_user_id,omitempty"`
+	// IM 扩展字段
+	Ex            string `protobuf:"bytes,12,opt,name=ex,proto3" json:"ex,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -558,22 +611,35 @@ func (x *GroupMemberInfo) GetEx() string {
 	return ""
 }
 
+// 群组申请描述业务数据结构
 type GroupApplication struct {
-	state          protoimpl.MessageState `protogen:"open.v1"`
-	ApplicationId  string                 `protobuf:"bytes,1,opt,name=application_id,json=applicationId,proto3" json:"application_id,omitempty"`
-	GroupId        string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
-	FromUserId     string                 `protobuf:"bytes,3,opt,name=from_user_id,json=fromUserId,proto3" json:"from_user_id,omitempty"`
-	InviterUserId  string                 `protobuf:"bytes,4,opt,name=inviter_user_id,json=inviterUserId,proto3" json:"inviter_user_id,omitempty"`
-	HandleUserId   string                 `protobuf:"bytes,5,opt,name=handle_user_id,json=handleUserId,proto3" json:"handle_user_id,omitempty"`
-	RequestMessage string                 `protobuf:"bytes,6,opt,name=request_message,json=requestMessage,proto3" json:"request_message,omitempty"`
-	HandleMessage  string                 `protobuf:"bytes,7,opt,name=handle_message,json=handleMessage,proto3" json:"handle_message,omitempty"`
-	Status         GroupApplicationStatus `protobuf:"varint,8,opt,name=status,proto3,enum=whocall.group.v1.GroupApplicationStatus" json:"status,omitempty"`
-	JoinSource     GroupJoinSource        `protobuf:"varint,9,opt,name=join_source,json=joinSource,proto3,enum=whocall.group.v1.GroupJoinSource" json:"join_source,omitempty"`
-	CreateTimeMs   int64                  `protobuf:"varint,10,opt,name=create_time_ms,json=createTimeMs,proto3" json:"create_time_ms,omitempty"`
-	HandleTimeMs   int64                  `protobuf:"varint,11,opt,name=handle_time_ms,json=handleTimeMs,proto3" json:"handle_time_ms,omitempty"`
-	Ex             string                 `protobuf:"bytes,12,opt,name=ex,proto3" json:"ex,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 申请标识标识
+	ApplicationId string `protobuf:"bytes,1,opt,name=application_id,json=applicationId,proto3" json:"application_id,omitempty"`
+	// 群组业务标识
+	GroupId string `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	// 发起方用户标识
+	FromUserId string `protobuf:"bytes,3,opt,name=from_user_id,json=fromUserId,proto3" json:"from_user_id,omitempty"`
+	// inviter用户标识标识
+	InviterUserId string `protobuf:"bytes,4,opt,name=inviter_user_id,json=inviterUserId,proto3" json:"inviter_user_id,omitempty"`
+	// handle用户标识标识
+	HandleUserId string `protobuf:"bytes,5,opt,name=handle_user_id,json=handleUserId,proto3" json:"handle_user_id,omitempty"`
+	// 请求消息字段
+	RequestMessage string `protobuf:"bytes,6,opt,name=request_message,json=requestMessage,proto3" json:"request_message,omitempty"`
+	// handle消息字段
+	HandleMessage string `protobuf:"bytes,7,opt,name=handle_message,json=handleMessage,proto3" json:"handle_message,omitempty"`
+	// 业务状态
+	Status GroupApplicationStatus `protobuf:"varint,8,opt,name=status,proto3,enum=whocall.group.v1.GroupApplicationStatus" json:"status,omitempty"`
+	// 加入来源字段
+	JoinSource GroupJoinSource `protobuf:"varint,9,opt,name=join_source,json=joinSource,proto3,enum=whocall.group.v1.GroupJoinSource" json:"join_source,omitempty"`
+	// 创建时间ms字段
+	CreateTimeMs int64 `protobuf:"varint,10,opt,name=create_time_ms,json=createTimeMs,proto3" json:"create_time_ms,omitempty"`
+	// handle时间ms字段
+	HandleTimeMs int64 `protobuf:"varint,11,opt,name=handle_time_ms,json=handleTimeMs,proto3" json:"handle_time_ms,omitempty"`
+	// IM 扩展字段
+	Ex            string `protobuf:"bytes,12,opt,name=ex,proto3" json:"ex,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GroupApplication) Reset() {
@@ -690,20 +756,31 @@ func (x *GroupApplication) GetEx() string {
 	return ""
 }
 
+// 创建群组请求承载请求参数
 type CreateGroupRequest struct {
-	state            protoimpl.MessageState `protogen:"open.v1"`
-	Meta             *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	OwnerUserId      string                 `protobuf:"bytes,2,opt,name=owner_user_id,json=ownerUserId,proto3" json:"owner_user_id,omitempty"`
-	GroupName        string                 `protobuf:"bytes,3,opt,name=group_name,json=groupName,proto3" json:"group_name,omitempty"`
-	AvatarUrl        string                 `protobuf:"bytes,4,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
-	Introduction     string                 `protobuf:"bytes,5,opt,name=introduction,proto3" json:"introduction,omitempty"`
-	GroupType        GroupType              `protobuf:"varint,6,opt,name=group_type,json=groupType,proto3,enum=whocall.group.v1.GroupType" json:"group_type,omitempty"`
-	MemberUserIds    []string               `protobuf:"bytes,7,rep,name=member_user_ids,json=memberUserIds,proto3" json:"member_user_ids,omitempty"`
-	AdminUserIds     []string               `protobuf:"bytes,8,rep,name=admin_user_ids,json=adminUserIds,proto3" json:"admin_user_ids,omitempty"`
-	NeedVerification bool                   `protobuf:"varint,9,opt,name=need_verification,json=needVerification,proto3" json:"need_verification,omitempty"`
-	Ex               string                 `protobuf:"bytes,10,opt,name=ex,proto3" json:"ex,omitempty"`
-	unknownFields    protoimpl.UnknownFields
-	sizeCache        protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 归属用户标识
+	OwnerUserId string `protobuf:"bytes,2,opt,name=owner_user_id,json=ownerUserId,proto3" json:"owner_user_id,omitempty"`
+	// 群组名称
+	GroupName string `protobuf:"bytes,3,opt,name=group_name,json=groupName,proto3" json:"group_name,omitempty"`
+	// 头像地址
+	AvatarUrl string `protobuf:"bytes,4,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
+	// 群简介
+	Introduction string `protobuf:"bytes,5,opt,name=introduction,proto3" json:"introduction,omitempty"`
+	// 群组类型类型
+	GroupType GroupType `protobuf:"varint,6,opt,name=group_type,json=groupType,proto3,enum=whocall.group.v1.GroupType" json:"group_type,omitempty"`
+	// 成员用户标识列表列表
+	MemberUserIds []string `protobuf:"bytes,7,rep,name=member_user_ids,json=memberUserIds,proto3" json:"member_user_ids,omitempty"`
+	// 管理员用户标识列表列表
+	AdminUserIds []string `protobuf:"bytes,8,rep,name=admin_user_ids,json=adminUserIds,proto3" json:"admin_user_ids,omitempty"`
+	// needverification字段
+	NeedVerification bool `protobuf:"varint,9,opt,name=need_verification,json=needVerification,proto3" json:"need_verification,omitempty"`
+	// IM 扩展字段
+	Ex            string `protobuf:"bytes,10,opt,name=ex,proto3" json:"ex,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *CreateGroupRequest) Reset() {
@@ -806,11 +883,15 @@ func (x *CreateGroupRequest) GetEx() string {
 	return ""
 }
 
+// 创建群组响应承载响应数据
 type CreateGroupResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Group         *GroupInfo             `protobuf:"bytes,2,opt,name=group,proto3" json:"group,omitempty"`
-	Members       []*GroupMemberInfo     `protobuf:"bytes,3,rep,name=members,proto3" json:"members,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 群组数据
+	Group *GroupInfo `protobuf:"bytes,2,opt,name=group,proto3" json:"group,omitempty"`
+	// 群成员列表
+	Members       []*GroupMemberInfo `protobuf:"bytes,3,rep,name=members,proto3" json:"members,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -866,10 +947,13 @@ func (x *CreateGroupResponse) GetMembers() []*GroupMemberInfo {
 	return nil
 }
 
+// get群组请求承载请求参数
 type GetGroupRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	GroupId       string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 群组业务标识
+	GroupId       string `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -918,10 +1002,13 @@ func (x *GetGroupRequest) GetGroupId() string {
 	return ""
 }
 
+// get群组响应承载响应数据
 type GetGroupResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Group         *GroupInfo             `protobuf:"bytes,2,opt,name=group,proto3" json:"group,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 群组数据
+	Group         *GroupInfo `protobuf:"bytes,2,opt,name=group,proto3" json:"group,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -970,19 +1057,29 @@ func (x *GetGroupResponse) GetGroup() *GroupInfo {
 	return nil
 }
 
+// 更新群组请求承载请求参数
 type UpdateGroupRequest struct {
-	state            protoimpl.MessageState `protogen:"open.v1"`
-	Meta             *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	GroupId          string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
-	OperatorUserId   string                 `protobuf:"bytes,3,opt,name=operator_user_id,json=operatorUserId,proto3" json:"operator_user_id,omitempty"`
-	GroupName        string                 `protobuf:"bytes,4,opt,name=group_name,json=groupName,proto3" json:"group_name,omitempty"`
-	AvatarUrl        string                 `protobuf:"bytes,5,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
-	Introduction     string                 `protobuf:"bytes,6,opt,name=introduction,proto3" json:"introduction,omitempty"`
-	Notification     string                 `protobuf:"bytes,7,opt,name=notification,proto3" json:"notification,omitempty"`
-	NeedVerification bool                   `protobuf:"varint,8,opt,name=need_verification,json=needVerification,proto3" json:"need_verification,omitempty"`
-	Ex               string                 `protobuf:"bytes,9,opt,name=ex,proto3" json:"ex,omitempty"`
-	unknownFields    protoimpl.UnknownFields
-	sizeCache        protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 群组业务标识
+	GroupId string `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	// 操作人用户标识
+	OperatorUserId string `protobuf:"bytes,3,opt,name=operator_user_id,json=operatorUserId,proto3" json:"operator_user_id,omitempty"`
+	// 群组名称
+	GroupName string `protobuf:"bytes,4,opt,name=group_name,json=groupName,proto3" json:"group_name,omitempty"`
+	// 头像地址
+	AvatarUrl string `protobuf:"bytes,5,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
+	// 群简介
+	Introduction string `protobuf:"bytes,6,opt,name=introduction,proto3" json:"introduction,omitempty"`
+	// 群公告内容
+	Notification string `protobuf:"bytes,7,opt,name=notification,proto3" json:"notification,omitempty"`
+	// needverification字段
+	NeedVerification bool `protobuf:"varint,8,opt,name=need_verification,json=needVerification,proto3" json:"need_verification,omitempty"`
+	// IM 扩展字段
+	Ex            string `protobuf:"bytes,9,opt,name=ex,proto3" json:"ex,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *UpdateGroupRequest) Reset() {
@@ -1078,10 +1175,13 @@ func (x *UpdateGroupRequest) GetEx() string {
 	return ""
 }
 
+// 更新群组响应承载响应数据
 type UpdateGroupResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Group         *GroupInfo             `protobuf:"bytes,2,opt,name=group,proto3" json:"group,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 群组数据
+	Group         *GroupInfo `protobuf:"bytes,2,opt,name=group,proto3" json:"group,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1130,14 +1230,19 @@ func (x *UpdateGroupResponse) GetGroup() *GroupInfo {
 	return nil
 }
 
+// dismiss群组请求承载请求参数
 type DismissGroupRequest struct {
-	state          protoimpl.MessageState `protogen:"open.v1"`
-	Meta           *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	GroupId        string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
-	OperatorUserId string                 `protobuf:"bytes,3,opt,name=operator_user_id,json=operatorUserId,proto3" json:"operator_user_id,omitempty"`
-	Reason         string                 `protobuf:"bytes,4,opt,name=reason,proto3" json:"reason,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 群组业务标识
+	GroupId string `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	// 操作人用户标识
+	OperatorUserId string `protobuf:"bytes,3,opt,name=operator_user_id,json=operatorUserId,proto3" json:"operator_user_id,omitempty"`
+	// 业务原因
+	Reason        string `protobuf:"bytes,4,opt,name=reason,proto3" json:"reason,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *DismissGroupRequest) Reset() {
@@ -1198,9 +1303,11 @@ func (x *DismissGroupRequest) GetReason() string {
 	return ""
 }
 
+// dismiss群组响应承载响应数据
 type DismissGroupResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header        *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1242,16 +1349,23 @@ func (x *DismissGroupResponse) GetHeader() *v1.ResponseHeader {
 	return nil
 }
 
+// 加入群组请求承载请求参数
 type JoinGroupRequest struct {
-	state          protoimpl.MessageState `protogen:"open.v1"`
-	Meta           *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	GroupId        string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
-	UserId         string                 `protobuf:"bytes,3,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	RequestMessage string                 `protobuf:"bytes,4,opt,name=request_message,json=requestMessage,proto3" json:"request_message,omitempty"`
-	JoinSource     GroupJoinSource        `protobuf:"varint,5,opt,name=join_source,json=joinSource,proto3,enum=whocall.group.v1.GroupJoinSource" json:"join_source,omitempty"`
-	InviterUserId  string                 `protobuf:"bytes,6,opt,name=inviter_user_id,json=inviterUserId,proto3" json:"inviter_user_id,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 群组业务标识
+	GroupId string `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,3,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 请求消息字段
+	RequestMessage string `protobuf:"bytes,4,opt,name=request_message,json=requestMessage,proto3" json:"request_message,omitempty"`
+	// 加入来源字段
+	JoinSource GroupJoinSource `protobuf:"varint,5,opt,name=join_source,json=joinSource,proto3,enum=whocall.group.v1.GroupJoinSource" json:"join_source,omitempty"`
+	// inviter用户标识标识
+	InviterUserId string `protobuf:"bytes,6,opt,name=inviter_user_id,json=inviterUserId,proto3" json:"inviter_user_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *JoinGroupRequest) Reset() {
@@ -1326,11 +1440,15 @@ func (x *JoinGroupRequest) GetInviterUserId() string {
 	return ""
 }
 
+// 加入群组响应承载响应数据
 type JoinGroupResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Application   *GroupApplication      `protobuf:"bytes,2,opt,name=application,proto3" json:"application,omitempty"`
-	Member        *GroupMemberInfo       `protobuf:"bytes,3,opt,name=member,proto3" json:"member,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 申请字段
+	Application *GroupApplication `protobuf:"bytes,2,opt,name=application,proto3" json:"application,omitempty"`
+	// 成员字段
+	Member        *GroupMemberInfo `protobuf:"bytes,3,opt,name=member,proto3" json:"member,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1386,13 +1504,19 @@ func (x *JoinGroupResponse) GetMember() *GroupMemberInfo {
 	return nil
 }
 
+// 处理群组申请请求承载请求参数
 type RespondGroupApplicationRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	ApplicationId string                 `protobuf:"bytes,2,opt,name=application_id,json=applicationId,proto3" json:"application_id,omitempty"`
-	HandlerUserId string                 `protobuf:"bytes,3,opt,name=handler_user_id,json=handlerUserId,proto3" json:"handler_user_id,omitempty"`
-	Accept        bool                   `protobuf:"varint,4,opt,name=accept,proto3" json:"accept,omitempty"`
-	HandleMessage string                 `protobuf:"bytes,5,opt,name=handle_message,json=handleMessage,proto3" json:"handle_message,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 申请标识标识
+	ApplicationId string `protobuf:"bytes,2,opt,name=application_id,json=applicationId,proto3" json:"application_id,omitempty"`
+	// 处理人用户标识
+	HandlerUserId string `protobuf:"bytes,3,opt,name=handler_user_id,json=handlerUserId,proto3" json:"handler_user_id,omitempty"`
+	// accept字段
+	Accept bool `protobuf:"varint,4,opt,name=accept,proto3" json:"accept,omitempty"`
+	// handle消息字段
+	HandleMessage string `protobuf:"bytes,5,opt,name=handle_message,json=handleMessage,proto3" json:"handle_message,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1462,11 +1586,15 @@ func (x *RespondGroupApplicationRequest) GetHandleMessage() string {
 	return ""
 }
 
+// 处理群组申请响应承载响应数据
 type RespondGroupApplicationResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Application   *GroupApplication      `protobuf:"bytes,2,opt,name=application,proto3" json:"application,omitempty"`
-	Member        *GroupMemberInfo       `protobuf:"bytes,3,opt,name=member,proto3" json:"member,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 申请字段
+	Application *GroupApplication `protobuf:"bytes,2,opt,name=application,proto3" json:"application,omitempty"`
+	// 成员字段
+	Member        *GroupMemberInfo `protobuf:"bytes,3,opt,name=member,proto3" json:"member,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1522,12 +1650,17 @@ func (x *RespondGroupApplicationResponse) GetMember() *GroupMemberInfo {
 	return nil
 }
 
+// 列表群组申请请求承载请求参数
 type ListGroupApplicationsRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	GroupId       string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
-	Status        GroupApplicationStatus `protobuf:"varint,3,opt,name=status,proto3,enum=whocall.group.v1.GroupApplicationStatus" json:"status,omitempty"`
-	Pagination    *v1.PaginationRequest  `protobuf:"bytes,4,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 群组业务标识
+	GroupId string `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	// 业务状态
+	Status GroupApplicationStatus `protobuf:"varint,3,opt,name=status,proto3,enum=whocall.group.v1.GroupApplicationStatus" json:"status,omitempty"`
+	// 分页字段
+	Pagination    *v1.PaginationRequest `protobuf:"bytes,4,opt,name=pagination,proto3" json:"pagination,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1590,10 +1723,14 @@ func (x *ListGroupApplicationsRequest) GetPagination() *v1.PaginationRequest {
 	return nil
 }
 
+// 列表群组申请响应承载响应数据
 type ListGroupApplicationsResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Applications  []*GroupApplication    `protobuf:"bytes,2,rep,name=applications,proto3" json:"applications,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 申请列表
+	Applications []*GroupApplication `protobuf:"bytes,2,rep,name=applications,proto3" json:"applications,omitempty"`
+	// 分页字段
 	Pagination    *v1.PaginationResponse `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -1650,11 +1787,15 @@ func (x *ListGroupApplicationsResponse) GetPagination() *v1.PaginationResponse {
 	return nil
 }
 
+// 退出群组请求承载请求参数
 type QuitGroupRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	GroupId       string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
-	UserId        string                 `protobuf:"bytes,3,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 群组业务标识
+	GroupId string `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	// IM 用户业务标识
+	UserId        string `protobuf:"bytes,3,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1710,9 +1851,11 @@ func (x *QuitGroupRequest) GetUserId() string {
 	return ""
 }
 
+// 退出群组响应承载响应数据
 type QuitGroupResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header        *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1754,13 +1897,19 @@ func (x *QuitGroupResponse) GetHeader() *v1.ResponseHeader {
 	return nil
 }
 
+// invite用户目标群组请求承载请求参数
 type InviteUsersToGroupRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	GroupId       string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
-	InviterUserId string                 `protobuf:"bytes,3,opt,name=inviter_user_id,json=inviterUserId,proto3" json:"inviter_user_id,omitempty"`
-	MemberUserIds []string               `protobuf:"bytes,4,rep,name=member_user_ids,json=memberUserIds,proto3" json:"member_user_ids,omitempty"`
-	Reason        string                 `protobuf:"bytes,5,opt,name=reason,proto3" json:"reason,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 群组业务标识
+	GroupId string `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	// inviter用户标识标识
+	InviterUserId string `protobuf:"bytes,3,opt,name=inviter_user_id,json=inviterUserId,proto3" json:"inviter_user_id,omitempty"`
+	// 成员用户标识列表列表
+	MemberUserIds []string `protobuf:"bytes,4,rep,name=member_user_ids,json=memberUserIds,proto3" json:"member_user_ids,omitempty"`
+	// 业务原因
+	Reason        string `protobuf:"bytes,5,opt,name=reason,proto3" json:"reason,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1830,11 +1979,15 @@ func (x *InviteUsersToGroupRequest) GetReason() string {
 	return ""
 }
 
+// invite用户目标群组响应承载响应数据
 type InviteUsersToGroupResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	AddedMembers  []*GroupMemberInfo     `protobuf:"bytes,2,rep,name=added_members,json=addedMembers,proto3" json:"added_members,omitempty"`
-	Applications  []*GroupApplication    `protobuf:"bytes,3,rep,name=applications,proto3" json:"applications,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// added成员列表
+	AddedMembers []*GroupMemberInfo `protobuf:"bytes,2,rep,name=added_members,json=addedMembers,proto3" json:"added_members,omitempty"`
+	// 申请列表
+	Applications  []*GroupApplication `protobuf:"bytes,3,rep,name=applications,proto3" json:"applications,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1890,15 +2043,21 @@ func (x *InviteUsersToGroupResponse) GetApplications() []*GroupApplication {
 	return nil
 }
 
+// 踢出群组成员请求承载请求参数
 type KickGroupMembersRequest struct {
-	state          protoimpl.MessageState `protogen:"open.v1"`
-	Meta           *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	GroupId        string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
-	OperatorUserId string                 `protobuf:"bytes,3,opt,name=operator_user_id,json=operatorUserId,proto3" json:"operator_user_id,omitempty"`
-	MemberUserIds  []string               `protobuf:"bytes,4,rep,name=member_user_ids,json=memberUserIds,proto3" json:"member_user_ids,omitempty"`
-	Reason         string                 `protobuf:"bytes,5,opt,name=reason,proto3" json:"reason,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 群组业务标识
+	GroupId string `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	// 操作人用户标识
+	OperatorUserId string `protobuf:"bytes,3,opt,name=operator_user_id,json=operatorUserId,proto3" json:"operator_user_id,omitempty"`
+	// 成员用户标识列表列表
+	MemberUserIds []string `protobuf:"bytes,4,rep,name=member_user_ids,json=memberUserIds,proto3" json:"member_user_ids,omitempty"`
+	// 业务原因
+	Reason        string `protobuf:"bytes,5,opt,name=reason,proto3" json:"reason,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *KickGroupMembersRequest) Reset() {
@@ -1966,10 +2125,13 @@ func (x *KickGroupMembersRequest) GetReason() string {
 	return ""
 }
 
+// 踢出群组成员响应承载响应数据
 type KickGroupMembersResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	KickedUserIds []string               `protobuf:"bytes,2,rep,name=kicked_user_ids,json=kickedUserIds,proto3" json:"kicked_user_ids,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 踢出用户标识列表列表
+	KickedUserIds []string `protobuf:"bytes,2,rep,name=kicked_user_ids,json=kickedUserIds,proto3" json:"kicked_user_ids,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2018,12 +2180,17 @@ func (x *KickGroupMembersResponse) GetKickedUserIds() []string {
 	return nil
 }
 
+// 列表群组成员请求承载请求参数
 type ListGroupMembersRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	GroupId       string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
-	Role          GroupRole              `protobuf:"varint,3,opt,name=role,proto3,enum=whocall.group.v1.GroupRole" json:"role,omitempty"`
-	Pagination    *v1.PaginationRequest  `protobuf:"bytes,4,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 群组业务标识
+	GroupId string `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	// 角色
+	Role GroupRole `protobuf:"varint,3,opt,name=role,proto3,enum=whocall.group.v1.GroupRole" json:"role,omitempty"`
+	// 分页字段
+	Pagination    *v1.PaginationRequest `protobuf:"bytes,4,opt,name=pagination,proto3" json:"pagination,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2086,10 +2253,14 @@ func (x *ListGroupMembersRequest) GetPagination() *v1.PaginationRequest {
 	return nil
 }
 
+// 列表群组成员响应承载响应数据
 type ListGroupMembersResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Members       []*GroupMemberInfo     `protobuf:"bytes,2,rep,name=members,proto3" json:"members,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 群成员列表
+	Members []*GroupMemberInfo `protobuf:"bytes,2,rep,name=members,proto3" json:"members,omitempty"`
+	// 分页字段
 	Pagination    *v1.PaginationResponse `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -2146,15 +2317,21 @@ func (x *ListGroupMembersResponse) GetPagination() *v1.PaginationResponse {
 	return nil
 }
 
+// set群组成员角色请求承载请求参数
 type SetGroupMemberRoleRequest struct {
-	state          protoimpl.MessageState `protogen:"open.v1"`
-	Meta           *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	GroupId        string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
-	OperatorUserId string                 `protobuf:"bytes,3,opt,name=operator_user_id,json=operatorUserId,proto3" json:"operator_user_id,omitempty"`
-	MemberUserId   string                 `protobuf:"bytes,4,opt,name=member_user_id,json=memberUserId,proto3" json:"member_user_id,omitempty"`
-	Role           GroupRole              `protobuf:"varint,5,opt,name=role,proto3,enum=whocall.group.v1.GroupRole" json:"role,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 群组业务标识
+	GroupId string `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	// 操作人用户标识
+	OperatorUserId string `protobuf:"bytes,3,opt,name=operator_user_id,json=operatorUserId,proto3" json:"operator_user_id,omitempty"`
+	// 成员用户标识标识
+	MemberUserId string `protobuf:"bytes,4,opt,name=member_user_id,json=memberUserId,proto3" json:"member_user_id,omitempty"`
+	// 角色
+	Role          GroupRole `protobuf:"varint,5,opt,name=role,proto3,enum=whocall.group.v1.GroupRole" json:"role,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *SetGroupMemberRoleRequest) Reset() {
@@ -2222,10 +2399,13 @@ func (x *SetGroupMemberRoleRequest) GetRole() GroupRole {
 	return GroupRole_GROUP_ROLE_UNSPECIFIED
 }
 
+// set群组成员角色响应承载响应数据
 type SetGroupMemberRoleResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Member        *GroupMemberInfo       `protobuf:"bytes,2,opt,name=member,proto3" json:"member,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 成员字段
+	Member        *GroupMemberInfo `protobuf:"bytes,2,opt,name=member,proto3" json:"member,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2274,15 +2454,21 @@ func (x *SetGroupMemberRoleResponse) GetMember() *GroupMemberInfo {
 	return nil
 }
 
+// 禁言群组成员请求承载请求参数
 type MuteGroupMemberRequest struct {
-	state          protoimpl.MessageState `protogen:"open.v1"`
-	Meta           *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	GroupId        string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
-	OperatorUserId string                 `protobuf:"bytes,3,opt,name=operator_user_id,json=operatorUserId,proto3" json:"operator_user_id,omitempty"`
-	MemberUserId   string                 `protobuf:"bytes,4,opt,name=member_user_id,json=memberUserId,proto3" json:"member_user_id,omitempty"`
-	MuteEndTimeMs  int64                  `protobuf:"varint,5,opt,name=mute_end_time_ms,json=muteEndTimeMs,proto3" json:"mute_end_time_ms,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 群组业务标识
+	GroupId string `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	// 操作人用户标识
+	OperatorUserId string `protobuf:"bytes,3,opt,name=operator_user_id,json=operatorUserId,proto3" json:"operator_user_id,omitempty"`
+	// 成员用户标识标识
+	MemberUserId string `protobuf:"bytes,4,opt,name=member_user_id,json=memberUserId,proto3" json:"member_user_id,omitempty"`
+	// 禁言end时间ms字段
+	MuteEndTimeMs int64 `protobuf:"varint,5,opt,name=mute_end_time_ms,json=muteEndTimeMs,proto3" json:"mute_end_time_ms,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *MuteGroupMemberRequest) Reset() {
@@ -2350,10 +2536,13 @@ func (x *MuteGroupMemberRequest) GetMuteEndTimeMs() int64 {
 	return 0
 }
 
+// 禁言群组成员响应承载响应数据
 type MuteGroupMemberResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Member        *GroupMemberInfo       `protobuf:"bytes,2,opt,name=member,proto3" json:"member,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 成员字段
+	Member        *GroupMemberInfo `protobuf:"bytes,2,opt,name=member,proto3" json:"member,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2402,14 +2591,19 @@ func (x *MuteGroupMemberResponse) GetMember() *GroupMemberInfo {
 	return nil
 }
 
+// set群组禁言请求承载请求参数
 type SetGroupMuteRequest struct {
-	state          protoimpl.MessageState `protogen:"open.v1"`
-	Meta           *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	GroupId        string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
-	OperatorUserId string                 `protobuf:"bytes,3,opt,name=operator_user_id,json=operatorUserId,proto3" json:"operator_user_id,omitempty"`
-	Muted          bool                   `protobuf:"varint,4,opt,name=muted,proto3" json:"muted,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 群组业务标识
+	GroupId string `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	// 操作人用户标识
+	OperatorUserId string `protobuf:"bytes,3,opt,name=operator_user_id,json=operatorUserId,proto3" json:"operator_user_id,omitempty"`
+	// muted字段
+	Muted         bool `protobuf:"varint,4,opt,name=muted,proto3" json:"muted,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *SetGroupMuteRequest) Reset() {
@@ -2470,10 +2664,13 @@ func (x *SetGroupMuteRequest) GetMuted() bool {
 	return false
 }
 
+// set群组禁言响应承载响应数据
 type SetGroupMuteResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Group         *GroupInfo             `protobuf:"bytes,2,opt,name=group,proto3" json:"group,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 群组数据
+	Group         *GroupInfo `protobuf:"bytes,2,opt,name=group,proto3" json:"group,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2522,12 +2719,17 @@ func (x *SetGroupMuteResponse) GetGroup() *GroupInfo {
 	return nil
 }
 
+// 转让群组群主请求承载请求参数
 type TransferGroupOwnerRequest struct {
-	state          protoimpl.MessageState `protogen:"open.v1"`
-	Meta           *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	GroupId        string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
-	OldOwnerUserId string                 `protobuf:"bytes,3,opt,name=old_owner_user_id,json=oldOwnerUserId,proto3" json:"old_owner_user_id,omitempty"`
-	NewOwnerUserId string                 `protobuf:"bytes,4,opt,name=new_owner_user_id,json=newOwnerUserId,proto3" json:"new_owner_user_id,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 群组业务标识
+	GroupId string `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	// 旧会话群主用户标识标识
+	OldOwnerUserId string `protobuf:"bytes,3,opt,name=old_owner_user_id,json=oldOwnerUserId,proto3" json:"old_owner_user_id,omitempty"`
+	// new群主用户标识标识
+	NewOwnerUserId string `protobuf:"bytes,4,opt,name=new_owner_user_id,json=newOwnerUserId,proto3" json:"new_owner_user_id,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -2590,10 +2792,13 @@ func (x *TransferGroupOwnerRequest) GetNewOwnerUserId() string {
 	return ""
 }
 
+// 转让群组群主响应承载响应数据
 type TransferGroupOwnerResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Group         *GroupInfo             `protobuf:"bytes,2,opt,name=group,proto3" json:"group,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 群组数据
+	Group         *GroupInfo `protobuf:"bytes,2,opt,name=group,proto3" json:"group,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2642,11 +2847,15 @@ func (x *TransferGroupOwnerResponse) GetGroup() *GroupInfo {
 	return nil
 }
 
+// 列表joined群组请求承载请求参数
 type ListJoinedGroupsRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Pagination    *v1.PaginationRequest  `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 分页字段
+	Pagination    *v1.PaginationRequest `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2702,10 +2911,14 @@ func (x *ListJoinedGroupsRequest) GetPagination() *v1.PaginationRequest {
 	return nil
 }
 
+// 列表joined群组响应承载响应数据
 type ListJoinedGroupsResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Groups        []*GroupInfo           `protobuf:"bytes,2,rep,name=groups,proto3" json:"groups,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 群组数据列表
+	Groups []*GroupInfo `protobuf:"bytes,2,rep,name=groups,proto3" json:"groups,omitempty"`
+	// 分页字段
 	Pagination    *v1.PaginationResponse `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache

@@ -23,22 +23,36 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// WebSocket命令定义可选枚举值
 type WsCommand int32
 
 const (
-	WsCommand_WS_COMMAND_UNSPECIFIED          WsCommand = 0
-	WsCommand_WS_COMMAND_CONNECT              WsCommand = 1
-	WsCommand_WS_COMMAND_HEARTBEAT            WsCommand = 2
-	WsCommand_WS_COMMAND_SEND_MSG             WsCommand = 1001
-	WsCommand_WS_COMMAND_SEND_MSG_RESP        WsCommand = 1002
-	WsCommand_WS_COMMAND_PUSH_MSG             WsCommand = 1003
-	WsCommand_WS_COMMAND_PULL_MSG             WsCommand = 1004
-	WsCommand_WS_COMMAND_MARK_READ            WsCommand = 1005
-	WsCommand_WS_COMMAND_KICKED               WsCommand = 2001
-	WsCommand_WS_COMMAND_USER_STATUS_CHANGED  WsCommand = 2002
+	// 未指定枚举值
+	WsCommand_WS_COMMAND_UNSPECIFIED WsCommand = 0
+	// WebSocket命令connect枚举值
+	WsCommand_WS_COMMAND_CONNECT WsCommand = 1
+	// WebSocket命令heartbeat枚举值
+	WsCommand_WS_COMMAND_HEARTBEAT WsCommand = 2
+	// WebSocket命令发送消息枚举值
+	WsCommand_WS_COMMAND_SEND_MSG WsCommand = 1001
+	// WebSocket命令发送消息响应枚举值
+	WsCommand_WS_COMMAND_SEND_MSG_RESP WsCommand = 1002
+	// WebSocket命令推送消息枚举值
+	WsCommand_WS_COMMAND_PUSH_MSG WsCommand = 1003
+	// WebSocket命令拉取消息枚举值
+	WsCommand_WS_COMMAND_PULL_MSG WsCommand = 1004
+	// WebSocket命令mark已读枚举值
+	WsCommand_WS_COMMAND_MARK_READ WsCommand = 1005
+	// 踢出状态枚举值
+	WsCommand_WS_COMMAND_KICKED WsCommand = 2001
+	// WebSocket命令用户状态changed枚举值
+	WsCommand_WS_COMMAND_USER_STATUS_CHANGED WsCommand = 2002
+	// WebSocket命令会话changed枚举值
 	WsCommand_WS_COMMAND_CONVERSATION_CHANGED WsCommand = 2003
-	WsCommand_WS_COMMAND_GROUP_CHANGED        WsCommand = 2004
-	WsCommand_WS_COMMAND_FRIEND_CHANGED       WsCommand = 2005
+	// WebSocket命令群组changed枚举值
+	WsCommand_WS_COMMAND_GROUP_CHANGED WsCommand = 2004
+	// WebSocket命令好友changed枚举值
+	WsCommand_WS_COMMAND_FRIEND_CHANGED WsCommand = 2005
 )
 
 // Enum value maps for WsCommand.
@@ -102,14 +116,20 @@ func (WsCommand) EnumDescriptor() ([]byte, []int) {
 	return file_whocall_gateway_v1_gateway_proto_rawDescGZIP(), []int{0}
 }
 
+// WebSocket帧类型定义可选枚举值
 type WsFrameType int32
 
 const (
+	// 未指定枚举值
 	WsFrameType_WS_FRAME_TYPE_UNSPECIFIED WsFrameType = 0
-	WsFrameType_WS_FRAME_TYPE_REQUEST     WsFrameType = 1
-	WsFrameType_WS_FRAME_TYPE_RESPONSE    WsFrameType = 2
-	WsFrameType_WS_FRAME_TYPE_PUSH        WsFrameType = 3
-	WsFrameType_WS_FRAME_TYPE_ACK         WsFrameType = 4
+	// WebSocket帧类型请求枚举值
+	WsFrameType_WS_FRAME_TYPE_REQUEST WsFrameType = 1
+	// WebSocket帧类型响应枚举值
+	WsFrameType_WS_FRAME_TYPE_RESPONSE WsFrameType = 2
+	// WebSocket帧类型推送枚举值
+	WsFrameType_WS_FRAME_TYPE_PUSH WsFrameType = 3
+	// WebSocket帧类型确认枚举值
+	WsFrameType_WS_FRAME_TYPE_ACK WsFrameType = 4
 )
 
 // Enum value maps for WsFrameType.
@@ -157,12 +177,16 @@ func (WsFrameType) EnumDescriptor() ([]byte, []int) {
 	return file_whocall_gateway_v1_gateway_proto_rawDescGZIP(), []int{1}
 }
 
+// 连接状态定义可选枚举值
 type ConnectionStatus int32
 
 const (
+	// 未指定枚举值
 	ConnectionStatus_CONNECTION_STATUS_UNSPECIFIED ConnectionStatus = 0
-	ConnectionStatus_CONNECTION_STATUS_ONLINE      ConnectionStatus = 1
-	ConnectionStatus_CONNECTION_STATUS_OFFLINE     ConnectionStatus = 2
+	// 连接状态在线枚举值
+	ConnectionStatus_CONNECTION_STATUS_ONLINE ConnectionStatus = 1
+	// 连接状态offline枚举值
+	ConnectionStatus_CONNECTION_STATUS_OFFLINE ConnectionStatus = 2
 )
 
 // Enum value maps for ConnectionStatus.
@@ -206,15 +230,23 @@ func (ConnectionStatus) EnumDescriptor() ([]byte, []int) {
 	return file_whocall_gateway_v1_gateway_proto_rawDescGZIP(), []int{2}
 }
 
+// WebSocket帧描述业务数据结构
 type WsFrame struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	RequestId     string                 `protobuf:"bytes,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
-	Command       WsCommand              `protobuf:"varint,2,opt,name=command,proto3,enum=whocall.gateway.v1.WsCommand" json:"command,omitempty"`
-	FrameType     WsFrameType            `protobuf:"varint,3,opt,name=frame_type,json=frameType,proto3,enum=whocall.gateway.v1.WsFrameType" json:"frame_type,omitempty"`
-	Seq           int64                  `protobuf:"varint,4,opt,name=seq,proto3" json:"seq,omitempty"`
-	Payload       []byte                 `protobuf:"bytes,5,opt,name=payload,proto3" json:"payload,omitempty"`
-	OperationId   string                 `protobuf:"bytes,6,opt,name=operation_id,json=operationId,proto3" json:"operation_id,omitempty"`
-	TimestampMs   int64                  `protobuf:"varint,7,opt,name=timestamp_ms,json=timestampMs,proto3" json:"timestamp_ms,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求标识标识
+	RequestId string `protobuf:"bytes,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
+	// 命令字段
+	Command WsCommand `protobuf:"varint,2,opt,name=command,proto3,enum=whocall.gateway.v1.WsCommand" json:"command,omitempty"`
+	// 帧类型类型
+	FrameType WsFrameType `protobuf:"varint,3,opt,name=frame_type,json=frameType,proto3,enum=whocall.gateway.v1.WsFrameType" json:"frame_type,omitempty"`
+	// 会话内递增消息序号
+	Seq int64 `protobuf:"varint,4,opt,name=seq,proto3" json:"seq,omitempty"`
+	// 事件负载
+	Payload []byte `protobuf:"bytes,5,opt,name=payload,proto3" json:"payload,omitempty"`
+	// 跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识
+	OperationId string `protobuf:"bytes,6,opt,name=operation_id,json=operationId,proto3" json:"operation_id,omitempty"`
+	// timestampms字段
+	TimestampMs   int64 `protobuf:"varint,7,opt,name=timestamp_ms,json=timestampMs,proto3" json:"timestamp_ms,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -298,13 +330,19 @@ func (x *WsFrame) GetTimestampMs() int64 {
 	return 0
 }
 
+// WebSocket确认描述业务数据结构
 type WsAck struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	RequestId     string                 `protobuf:"bytes,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
-	Command       WsCommand              `protobuf:"varint,2,opt,name=command,proto3,enum=whocall.gateway.v1.WsCommand" json:"command,omitempty"`
-	Code          int32                  `protobuf:"varint,3,opt,name=code,proto3" json:"code,omitempty"`
-	Message       string                 `protobuf:"bytes,4,opt,name=message,proto3" json:"message,omitempty"`
-	AckTimeMs     int64                  `protobuf:"varint,5,opt,name=ack_time_ms,json=ackTimeMs,proto3" json:"ack_time_ms,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求标识标识
+	RequestId string `protobuf:"bytes,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
+	// 命令字段
+	Command WsCommand `protobuf:"varint,2,opt,name=command,proto3,enum=whocall.gateway.v1.WsCommand" json:"command,omitempty"`
+	// 业务状态码
+	Code int32 `protobuf:"varint,3,opt,name=code,proto3" json:"code,omitempty"`
+	// 业务提示消息
+	Message string `protobuf:"bytes,4,opt,name=message,proto3" json:"message,omitempty"`
+	// 确认时间ms字段
+	AckTimeMs     int64 `protobuf:"varint,5,opt,name=ack_time_ms,json=ackTimeMs,proto3" json:"ack_time_ms,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -374,17 +412,27 @@ func (x *WsAck) GetAckTimeMs() int64 {
 	return 0
 }
 
+// 连接info描述业务数据结构
 type ConnectionInfo struct {
-	state            protoimpl.MessageState `protogen:"open.v1"`
-	ConnId           string                 `protobuf:"bytes,1,opt,name=conn_id,json=connId,proto3" json:"conn_id,omitempty"`
-	UserId           string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Platform         v1.Platform            `protobuf:"varint,3,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
-	DeviceId         string                 `protobuf:"bytes,4,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
-	ClientVersion    string                 `protobuf:"bytes,5,opt,name=client_version,json=clientVersion,proto3" json:"client_version,omitempty"`
-	RemoteAddr       string                 `protobuf:"bytes,6,opt,name=remote_addr,json=remoteAddr,proto3" json:"remote_addr,omitempty"`
-	Status           ConnectionStatus       `protobuf:"varint,7,opt,name=status,proto3,enum=whocall.gateway.v1.ConnectionStatus" json:"status,omitempty"`
-	ConnectedTimeMs  int64                  `protobuf:"varint,8,opt,name=connected_time_ms,json=connectedTimeMs,proto3" json:"connected_time_ms,omitempty"`
-	LastActiveTimeMs int64                  `protobuf:"varint,9,opt,name=last_active_time_ms,json=lastActiveTimeMs,proto3" json:"last_active_time_ms,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 网关连接标识
+	ConnId string `protobuf:"bytes,1,opt,name=conn_id,json=connId,proto3" json:"conn_id,omitempty"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 客户端平台
+	Platform v1.Platform `protobuf:"varint,3,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
+	// 客户端设备标识
+	DeviceId string `protobuf:"bytes,4,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
+	// 客户端版本
+	ClientVersion string `protobuf:"bytes,5,opt,name=client_version,json=clientVersion,proto3" json:"client_version,omitempty"`
+	// remoteaddr字段
+	RemoteAddr string `protobuf:"bytes,6,opt,name=remote_addr,json=remoteAddr,proto3" json:"remote_addr,omitempty"`
+	// 业务状态
+	Status ConnectionStatus `protobuf:"varint,7,opt,name=status,proto3,enum=whocall.gateway.v1.ConnectionStatus" json:"status,omitempty"`
+	// connected时间ms字段
+	ConnectedTimeMs int64 `protobuf:"varint,8,opt,name=connected_time_ms,json=connectedTimeMs,proto3" json:"connected_time_ms,omitempty"`
+	// lastactive时间ms字段
+	LastActiveTimeMs int64 `protobuf:"varint,9,opt,name=last_active_time_ms,json=lastActiveTimeMs,proto3" json:"last_active_time_ms,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
@@ -482,12 +530,17 @@ func (x *ConnectionInfo) GetLastActiveTimeMs() int64 {
 	return 0
 }
 
+// 推送消息请求承载请求参数
 type PushMsgRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserIds       []string               `protobuf:"bytes,2,rep,name=user_ids,json=userIds,proto3" json:"user_ids,omitempty"`
-	MsgData       *v11.MsgData           `protobuf:"bytes,3,opt,name=msg_data,json=msgData,proto3" json:"msg_data,omitempty"`
-	OfflinePush   bool                   `protobuf:"varint,4,opt,name=offline_push,json=offlinePush,proto3" json:"offline_push,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识列表
+	UserIds []string `protobuf:"bytes,2,rep,name=user_ids,json=userIds,proto3" json:"user_ids,omitempty"`
+	// 消息数据字段
+	MsgData *v11.MsgData `protobuf:"bytes,3,opt,name=msg_data,json=msgData,proto3" json:"msg_data,omitempty"`
+	// offline推送字段
+	OfflinePush   bool `protobuf:"varint,4,opt,name=offline_push,json=offlinePush,proto3" json:"offline_push,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -550,13 +603,17 @@ func (x *PushMsgRequest) GetOfflinePush() bool {
 	return false
 }
 
+// 推送消息响应承载响应数据
 type PushMsgResponse struct {
-	state            protoimpl.MessageState `protogen:"open.v1"`
-	Header           *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	DeliveredConnIds []string               `protobuf:"bytes,2,rep,name=delivered_conn_ids,json=deliveredConnIds,proto3" json:"delivered_conn_ids,omitempty"`
-	OfflineUserIds   []string               `protobuf:"bytes,3,rep,name=offline_user_ids,json=offlineUserIds,proto3" json:"offline_user_ids,omitempty"`
-	unknownFields    protoimpl.UnknownFields
-	sizeCache        protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// deliveredconn标识列表列表
+	DeliveredConnIds []string `protobuf:"bytes,2,rep,name=delivered_conn_ids,json=deliveredConnIds,proto3" json:"delivered_conn_ids,omitempty"`
+	// offline用户标识列表列表
+	OfflineUserIds []string `protobuf:"bytes,3,rep,name=offline_user_ids,json=offlineUserIds,proto3" json:"offline_user_ids,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
 }
 
 func (x *PushMsgResponse) Reset() {
@@ -610,13 +667,19 @@ func (x *PushMsgResponse) GetOfflineUserIds() []string {
 	return nil
 }
 
+// 推送事件请求承载请求参数
 type PushEventRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserIds       []string               `protobuf:"bytes,2,rep,name=user_ids,json=userIds,proto3" json:"user_ids,omitempty"`
-	Command       WsCommand              `protobuf:"varint,3,opt,name=command,proto3,enum=whocall.gateway.v1.WsCommand" json:"command,omitempty"`
-	Payload       []byte                 `protobuf:"bytes,4,opt,name=payload,proto3" json:"payload,omitempty"`
-	EventId       string                 `protobuf:"bytes,5,opt,name=event_id,json=eventId,proto3" json:"event_id,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识列表
+	UserIds []string `protobuf:"bytes,2,rep,name=user_ids,json=userIds,proto3" json:"user_ids,omitempty"`
+	// 命令字段
+	Command WsCommand `protobuf:"varint,3,opt,name=command,proto3,enum=whocall.gateway.v1.WsCommand" json:"command,omitempty"`
+	// 事件负载
+	Payload []byte `protobuf:"bytes,4,opt,name=payload,proto3" json:"payload,omitempty"`
+	// 事件标识标识
+	EventId       string `protobuf:"bytes,5,opt,name=event_id,json=eventId,proto3" json:"event_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -686,13 +749,17 @@ func (x *PushEventRequest) GetEventId() string {
 	return ""
 }
 
+// 推送事件响应承载响应数据
 type PushEventResponse struct {
-	state            protoimpl.MessageState `protogen:"open.v1"`
-	Header           *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	DeliveredConnIds []string               `protobuf:"bytes,2,rep,name=delivered_conn_ids,json=deliveredConnIds,proto3" json:"delivered_conn_ids,omitempty"`
-	OfflineUserIds   []string               `protobuf:"bytes,3,rep,name=offline_user_ids,json=offlineUserIds,proto3" json:"offline_user_ids,omitempty"`
-	unknownFields    protoimpl.UnknownFields
-	sizeCache        protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// deliveredconn标识列表列表
+	DeliveredConnIds []string `protobuf:"bytes,2,rep,name=delivered_conn_ids,json=deliveredConnIds,proto3" json:"delivered_conn_ids,omitempty"`
+	// offline用户标识列表列表
+	OfflineUserIds []string `protobuf:"bytes,3,rep,name=offline_user_ids,json=offlineUserIds,proto3" json:"offline_user_ids,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
 }
 
 func (x *PushEventResponse) Reset() {
@@ -746,13 +813,19 @@ func (x *PushEventResponse) GetOfflineUserIds() []string {
 	return nil
 }
 
+// 踢出在线请求承载请求参数
 type KickOnlineRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Platform      v1.Platform            `protobuf:"varint,3,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
-	DeviceId      string                 `protobuf:"bytes,4,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
-	Reason        string                 `protobuf:"bytes,5,opt,name=reason,proto3" json:"reason,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 客户端平台
+	Platform v1.Platform `protobuf:"varint,3,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
+	// 客户端设备标识
+	DeviceId string `protobuf:"bytes,4,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
+	// 业务原因
+	Reason        string `protobuf:"bytes,5,opt,name=reason,proto3" json:"reason,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -822,10 +895,13 @@ func (x *KickOnlineRequest) GetReason() string {
 	return ""
 }
 
+// 踢出在线响应承载响应数据
 type KickOnlineResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	KickedCount   int32                  `protobuf:"varint,2,opt,name=kicked_count,json=kickedCount,proto3" json:"kicked_count,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 踢出数量数量
+	KickedCount   int32 `protobuf:"varint,2,opt,name=kicked_count,json=kickedCount,proto3" json:"kicked_count,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -874,10 +950,13 @@ func (x *KickOnlineResponse) GetKickedCount() int32 {
 	return 0
 }
 
+// get在线连接请求承载请求参数
 type GetOnlineConnectionsRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserIds       []string               `protobuf:"bytes,2,rep,name=user_ids,json=userIds,proto3" json:"user_ids,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识列表
+	UserIds       []string `protobuf:"bytes,2,rep,name=user_ids,json=userIds,proto3" json:"user_ids,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -926,10 +1005,13 @@ func (x *GetOnlineConnectionsRequest) GetUserIds() []string {
 	return nil
 }
 
+// get在线连接响应承载响应数据
 type GetOnlineConnectionsResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Connections   []*ConnectionInfo      `protobuf:"bytes,2,rep,name=connections,proto3" json:"connections,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 连接列表
+	Connections   []*ConnectionInfo `protobuf:"bytes,2,rep,name=connections,proto3" json:"connections,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }

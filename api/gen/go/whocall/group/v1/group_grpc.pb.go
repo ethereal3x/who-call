@@ -40,22 +40,40 @@ const (
 // GroupServiceClient is the client API for GroupService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+//
+// 群组服务定义该领域的 RPC 接口
 type GroupServiceClient interface {
+	// 处理创建群组操作
 	CreateGroup(ctx context.Context, in *CreateGroupRequest, opts ...grpc.CallOption) (*CreateGroupResponse, error)
+	// 处理get群组操作
 	GetGroup(ctx context.Context, in *GetGroupRequest, opts ...grpc.CallOption) (*GetGroupResponse, error)
+	// 处理更新群组操作
 	UpdateGroup(ctx context.Context, in *UpdateGroupRequest, opts ...grpc.CallOption) (*UpdateGroupResponse, error)
+	// 处理dismiss群组操作
 	DismissGroup(ctx context.Context, in *DismissGroupRequest, opts ...grpc.CallOption) (*DismissGroupResponse, error)
+	// 处理加入群组操作
 	JoinGroup(ctx context.Context, in *JoinGroupRequest, opts ...grpc.CallOption) (*JoinGroupResponse, error)
+	// 处理处理群组申请操作
 	RespondGroupApplication(ctx context.Context, in *RespondGroupApplicationRequest, opts ...grpc.CallOption) (*RespondGroupApplicationResponse, error)
+	// 处理列表群组申请操作
 	ListGroupApplications(ctx context.Context, in *ListGroupApplicationsRequest, opts ...grpc.CallOption) (*ListGroupApplicationsResponse, error)
+	// 处理退出群组操作
 	QuitGroup(ctx context.Context, in *QuitGroupRequest, opts ...grpc.CallOption) (*QuitGroupResponse, error)
+	// 处理invite用户目标群组操作
 	InviteUsersToGroup(ctx context.Context, in *InviteUsersToGroupRequest, opts ...grpc.CallOption) (*InviteUsersToGroupResponse, error)
+	// 处理踢出群组成员操作
 	KickGroupMembers(ctx context.Context, in *KickGroupMembersRequest, opts ...grpc.CallOption) (*KickGroupMembersResponse, error)
+	// 处理列表群组成员操作
 	ListGroupMembers(ctx context.Context, in *ListGroupMembersRequest, opts ...grpc.CallOption) (*ListGroupMembersResponse, error)
+	// 处理set群组成员角色操作
 	SetGroupMemberRole(ctx context.Context, in *SetGroupMemberRoleRequest, opts ...grpc.CallOption) (*SetGroupMemberRoleResponse, error)
+	// 处理禁言群组成员操作
 	MuteGroupMember(ctx context.Context, in *MuteGroupMemberRequest, opts ...grpc.CallOption) (*MuteGroupMemberResponse, error)
+	// 处理set群组禁言操作
 	SetGroupMute(ctx context.Context, in *SetGroupMuteRequest, opts ...grpc.CallOption) (*SetGroupMuteResponse, error)
+	// 处理转让群组群主操作
 	TransferGroupOwner(ctx context.Context, in *TransferGroupOwnerRequest, opts ...grpc.CallOption) (*TransferGroupOwnerResponse, error)
+	// 处理列表joined群组操作
 	ListJoinedGroups(ctx context.Context, in *ListJoinedGroupsRequest, opts ...grpc.CallOption) (*ListJoinedGroupsResponse, error)
 }
 
@@ -230,22 +248,40 @@ func (c *groupServiceClient) ListJoinedGroups(ctx context.Context, in *ListJoine
 // GroupServiceServer is the server API for GroupService service.
 // All implementations should embed UnimplementedGroupServiceServer
 // for forward compatibility.
+//
+// 群组服务定义该领域的 RPC 接口
 type GroupServiceServer interface {
+	// 处理创建群组操作
 	CreateGroup(context.Context, *CreateGroupRequest) (*CreateGroupResponse, error)
+	// 处理get群组操作
 	GetGroup(context.Context, *GetGroupRequest) (*GetGroupResponse, error)
+	// 处理更新群组操作
 	UpdateGroup(context.Context, *UpdateGroupRequest) (*UpdateGroupResponse, error)
+	// 处理dismiss群组操作
 	DismissGroup(context.Context, *DismissGroupRequest) (*DismissGroupResponse, error)
+	// 处理加入群组操作
 	JoinGroup(context.Context, *JoinGroupRequest) (*JoinGroupResponse, error)
+	// 处理处理群组申请操作
 	RespondGroupApplication(context.Context, *RespondGroupApplicationRequest) (*RespondGroupApplicationResponse, error)
+	// 处理列表群组申请操作
 	ListGroupApplications(context.Context, *ListGroupApplicationsRequest) (*ListGroupApplicationsResponse, error)
+	// 处理退出群组操作
 	QuitGroup(context.Context, *QuitGroupRequest) (*QuitGroupResponse, error)
+	// 处理invite用户目标群组操作
 	InviteUsersToGroup(context.Context, *InviteUsersToGroupRequest) (*InviteUsersToGroupResponse, error)
+	// 处理踢出群组成员操作
 	KickGroupMembers(context.Context, *KickGroupMembersRequest) (*KickGroupMembersResponse, error)
+	// 处理列表群组成员操作
 	ListGroupMembers(context.Context, *ListGroupMembersRequest) (*ListGroupMembersResponse, error)
+	// 处理set群组成员角色操作
 	SetGroupMemberRole(context.Context, *SetGroupMemberRoleRequest) (*SetGroupMemberRoleResponse, error)
+	// 处理禁言群组成员操作
 	MuteGroupMember(context.Context, *MuteGroupMemberRequest) (*MuteGroupMemberResponse, error)
+	// 处理set群组禁言操作
 	SetGroupMute(context.Context, *SetGroupMuteRequest) (*SetGroupMuteResponse, error)
+	// 处理转让群组群主操作
 	TransferGroupOwner(context.Context, *TransferGroupOwnerRequest) (*TransferGroupOwnerResponse, error)
+	// 处理列表joined群组操作
 	ListJoinedGroups(context.Context, *ListJoinedGroupsRequest) (*ListJoinedGroupsResponse, error)
 }
 

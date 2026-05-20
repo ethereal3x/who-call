@@ -23,13 +23,18 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// 用户状态定义可选枚举值
 type UserStatus int32
 
 const (
+	// 未指定枚举值
 	UserStatus_USER_STATUS_UNSPECIFIED UserStatus = 0
-	UserStatus_USER_STATUS_NORMAL      UserStatus = 1
-	UserStatus_USER_STATUS_BANNED      UserStatus = 2
-	UserStatus_USER_STATUS_DELETED     UserStatus = 3
+	// 正常状态枚举值
+	UserStatus_USER_STATUS_NORMAL UserStatus = 1
+	// 用户状态banned枚举值
+	UserStatus_USER_STATUS_BANNED UserStatus = 2
+	// 用户状态deleted枚举值
+	UserStatus_USER_STATUS_DELETED UserStatus = 3
 )
 
 // Enum value maps for UserStatus.
@@ -75,13 +80,18 @@ func (UserStatus) EnumDescriptor() ([]byte, []int) {
 	return file_whocall_user_v1_user_proto_rawDescGZIP(), []int{0}
 }
 
+// 在线状态定义可选枚举值
 type OnlineStatus int32
 
 const (
+	// 未指定枚举值
 	OnlineStatus_ONLINE_STATUS_UNSPECIFIED OnlineStatus = 0
-	OnlineStatus_ONLINE_STATUS_OFFLINE     OnlineStatus = 1
-	OnlineStatus_ONLINE_STATUS_ONLINE      OnlineStatus = 2
-	OnlineStatus_ONLINE_STATUS_AWAY        OnlineStatus = 3
+	// 在线状态offline枚举值
+	OnlineStatus_ONLINE_STATUS_OFFLINE OnlineStatus = 1
+	// 在线状态在线枚举值
+	OnlineStatus_ONLINE_STATUS_ONLINE OnlineStatus = 2
+	// 在线状态away枚举值
+	OnlineStatus_ONLINE_STATUS_AWAY OnlineStatus = 3
 )
 
 // Enum value maps for OnlineStatus.
@@ -127,22 +137,35 @@ func (OnlineStatus) EnumDescriptor() ([]byte, []int) {
 	return file_whocall_user_v1_user_proto_rawDescGZIP(), []int{1}
 }
 
+// 用户资料描述业务数据结构
 type UserProfile struct {
-	state            protoimpl.MessageState  `protogen:"open.v1"`
-	UserId           string                  `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Username         string                  `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
-	Nickname         string                  `protobuf:"bytes,3,opt,name=nickname,proto3" json:"nickname,omitempty"`
-	AvatarUrl        string                  `protobuf:"bytes,4,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
-	Phone            string                  `protobuf:"bytes,5,opt,name=phone,proto3" json:"phone,omitempty"`
-	Email            string                  `protobuf:"bytes,6,opt,name=email,proto3" json:"email,omitempty"`
-	Gender           v1.Gender               `protobuf:"varint,7,opt,name=gender,proto3,enum=whocall.common.v1.Gender" json:"gender,omitempty"`
-	Status           UserStatus              `protobuf:"varint,8,opt,name=status,proto3,enum=whocall.user.v1.UserStatus" json:"status,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 登录用户名
+	Username string `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
+	// 用户昵称
+	Nickname string `protobuf:"bytes,3,opt,name=nickname,proto3" json:"nickname,omitempty"`
+	// 头像地址
+	AvatarUrl string `protobuf:"bytes,4,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
+	// 手机号字段
+	Phone string `protobuf:"bytes,5,opt,name=phone,proto3" json:"phone,omitempty"`
+	// 邮箱地址
+	Email string `protobuf:"bytes,6,opt,name=email,proto3" json:"email,omitempty"`
+	// 性别
+	Gender v1.Gender `protobuf:"varint,7,opt,name=gender,proto3,enum=whocall.common.v1.Gender" json:"gender,omitempty"`
+	// 业务状态
+	Status UserStatus `protobuf:"varint,8,opt,name=status,proto3,enum=whocall.user.v1.UserStatus" json:"status,omitempty"`
+	// global接收消息opt字段
 	GlobalRecvMsgOpt v1.ReceiveMessageOption `protobuf:"varint,9,opt,name=global_recv_msg_opt,json=globalRecvMsgOpt,proto3,enum=whocall.common.v1.ReceiveMessageOption" json:"global_recv_msg_opt,omitempty"`
-	CreateTimeMs     int64                   `protobuf:"varint,10,opt,name=create_time_ms,json=createTimeMs,proto3" json:"create_time_ms,omitempty"`
-	UpdateTimeMs     int64                   `protobuf:"varint,11,opt,name=update_time_ms,json=updateTimeMs,proto3" json:"update_time_ms,omitempty"`
-	Ex               string                  `protobuf:"bytes,12,opt,name=ex,proto3" json:"ex,omitempty"`
-	unknownFields    protoimpl.UnknownFields
-	sizeCache        protoimpl.SizeCache
+	// 创建时间ms字段
+	CreateTimeMs int64 `protobuf:"varint,10,opt,name=create_time_ms,json=createTimeMs,proto3" json:"create_time_ms,omitempty"`
+	// 更新时间ms字段
+	UpdateTimeMs int64 `protobuf:"varint,11,opt,name=update_time_ms,json=updateTimeMs,proto3" json:"update_time_ms,omitempty"`
+	// IM 扩展字段
+	Ex            string `protobuf:"bytes,12,opt,name=ex,proto3" json:"ex,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *UserProfile) Reset() {
@@ -259,10 +282,13 @@ func (x *UserProfile) GetEx() string {
 	return ""
 }
 
+// get资料请求承载请求参数
 type GetProfileRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识
+	UserId        string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -311,10 +337,13 @@ func (x *GetProfileRequest) GetUserId() string {
 	return ""
 }
 
+// get资料响应承载响应数据
 type GetProfileResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	User          *UserProfile           `protobuf:"bytes,2,opt,name=user,proto3" json:"user,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 用户字段
+	User          *UserProfile `protobuf:"bytes,2,opt,name=user,proto3" json:"user,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -363,10 +392,13 @@ func (x *GetProfileResponse) GetUser() *UserProfile {
 	return nil
 }
 
+// 批量getprofiles请求承载请求参数
 type BatchGetProfilesRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserIds       []string               `protobuf:"bytes,2,rep,name=user_ids,json=userIds,proto3" json:"user_ids,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识列表
+	UserIds       []string `protobuf:"bytes,2,rep,name=user_ids,json=userIds,proto3" json:"user_ids,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -415,10 +447,13 @@ func (x *BatchGetProfilesRequest) GetUserIds() []string {
 	return nil
 }
 
+// 批量getprofiles响应承载响应数据
 type BatchGetProfilesResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Users         []*UserProfile         `protobuf:"bytes,2,rep,name=users,proto3" json:"users,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 用户列表
+	Users         []*UserProfile `protobuf:"bytes,2,rep,name=users,proto3" json:"users,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -467,19 +502,29 @@ func (x *BatchGetProfilesResponse) GetUsers() []*UserProfile {
 	return nil
 }
 
+// 更新资料请求承载请求参数
 type UpdateProfileRequest struct {
-	state            protoimpl.MessageState  `protogen:"open.v1"`
-	Meta             *v1.RequestMeta         `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserId           string                  `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Nickname         string                  `protobuf:"bytes,3,opt,name=nickname,proto3" json:"nickname,omitempty"`
-	AvatarUrl        string                  `protobuf:"bytes,4,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
-	Phone            string                  `protobuf:"bytes,5,opt,name=phone,proto3" json:"phone,omitempty"`
-	Email            string                  `protobuf:"bytes,6,opt,name=email,proto3" json:"email,omitempty"`
-	Gender           v1.Gender               `protobuf:"varint,7,opt,name=gender,proto3,enum=whocall.common.v1.Gender" json:"gender,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 用户昵称
+	Nickname string `protobuf:"bytes,3,opt,name=nickname,proto3" json:"nickname,omitempty"`
+	// 头像地址
+	AvatarUrl string `protobuf:"bytes,4,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
+	// 手机号字段
+	Phone string `protobuf:"bytes,5,opt,name=phone,proto3" json:"phone,omitempty"`
+	// 邮箱地址
+	Email string `protobuf:"bytes,6,opt,name=email,proto3" json:"email,omitempty"`
+	// 性别
+	Gender v1.Gender `protobuf:"varint,7,opt,name=gender,proto3,enum=whocall.common.v1.Gender" json:"gender,omitempty"`
+	// global接收消息opt字段
 	GlobalRecvMsgOpt v1.ReceiveMessageOption `protobuf:"varint,8,opt,name=global_recv_msg_opt,json=globalRecvMsgOpt,proto3,enum=whocall.common.v1.ReceiveMessageOption" json:"global_recv_msg_opt,omitempty"`
-	Ex               string                  `protobuf:"bytes,9,opt,name=ex,proto3" json:"ex,omitempty"`
-	unknownFields    protoimpl.UnknownFields
-	sizeCache        protoimpl.SizeCache
+	// IM 扩展字段
+	Ex            string `protobuf:"bytes,9,opt,name=ex,proto3" json:"ex,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *UpdateProfileRequest) Reset() {
@@ -575,10 +620,13 @@ func (x *UpdateProfileRequest) GetEx() string {
 	return ""
 }
 
+// 更新资料响应承载响应数据
 type UpdateProfileResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	User          *UserProfile           `protobuf:"bytes,2,opt,name=user,proto3" json:"user,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 用户字段
+	User          *UserProfile `protobuf:"bytes,2,opt,name=user,proto3" json:"user,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -627,11 +675,15 @@ func (x *UpdateProfileResponse) GetUser() *UserProfile {
 	return nil
 }
 
+// 搜索用户请求承载请求参数
 type SearchUsersRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	Keyword       string                 `protobuf:"bytes,2,opt,name=keyword,proto3" json:"keyword,omitempty"`
-	Pagination    *v1.PaginationRequest  `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// keyword字段
+	Keyword string `protobuf:"bytes,2,opt,name=keyword,proto3" json:"keyword,omitempty"`
+	// 分页字段
+	Pagination    *v1.PaginationRequest `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -687,10 +739,14 @@ func (x *SearchUsersRequest) GetPagination() *v1.PaginationRequest {
 	return nil
 }
 
+// 搜索用户响应承载响应数据
 type SearchUsersResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Users         []*UserProfile         `protobuf:"bytes,2,rep,name=users,proto3" json:"users,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 用户列表
+	Users []*UserProfile `protobuf:"bytes,2,rep,name=users,proto3" json:"users,omitempty"`
+	// 分页字段
 	Pagination    *v1.PaginationResponse `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -747,10 +803,13 @@ func (x *SearchUsersResponse) GetPagination() *v1.PaginationResponse {
 	return nil
 }
 
+// get用户在线状态请求承载请求参数
 type GetUsersOnlineStatusRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserIds       []string               `protobuf:"bytes,2,rep,name=user_ids,json=userIds,proto3" json:"user_ids,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识列表
+	UserIds       []string `protobuf:"bytes,2,rep,name=user_ids,json=userIds,proto3" json:"user_ids,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -799,12 +858,17 @@ func (x *GetUsersOnlineStatusRequest) GetUserIds() []string {
 	return nil
 }
 
+// 用户在线状态描述业务数据结构
 type UserOnlineStatus struct {
-	state            protoimpl.MessageState `protogen:"open.v1"`
-	UserId           string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	OnlineStatus     OnlineStatus           `protobuf:"varint,2,opt,name=online_status,json=onlineStatus,proto3,enum=whocall.user.v1.OnlineStatus" json:"online_status,omitempty"`
-	Platforms        []v1.Platform          `protobuf:"varint,3,rep,packed,name=platforms,proto3,enum=whocall.common.v1.Platform" json:"platforms,omitempty"`
-	LastActiveTimeMs int64                  `protobuf:"varint,4,opt,name=last_active_time_ms,json=lastActiveTimeMs,proto3" json:"last_active_time_ms,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 在线状态状态
+	OnlineStatus OnlineStatus `protobuf:"varint,2,opt,name=online_status,json=onlineStatus,proto3,enum=whocall.user.v1.OnlineStatus" json:"online_status,omitempty"`
+	// platforms列表
+	Platforms []v1.Platform `protobuf:"varint,3,rep,packed,name=platforms,proto3,enum=whocall.common.v1.Platform" json:"platforms,omitempty"`
+	// lastactive时间ms字段
+	LastActiveTimeMs int64 `protobuf:"varint,4,opt,name=last_active_time_ms,json=lastActiveTimeMs,proto3" json:"last_active_time_ms,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
@@ -867,10 +931,13 @@ func (x *UserOnlineStatus) GetLastActiveTimeMs() int64 {
 	return 0
 }
 
+// get用户在线状态响应承载响应数据
 type GetUsersOnlineStatusResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Statuses      []*UserOnlineStatus    `protobuf:"bytes,2,rep,name=statuses,proto3" json:"statuses,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// statuses列表
+	Statuses      []*UserOnlineStatus `protobuf:"bytes,2,rep,name=statuses,proto3" json:"statuses,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -919,12 +986,17 @@ func (x *GetUsersOnlineStatusResponse) GetStatuses() []*UserOnlineStatus {
 	return nil
 }
 
+// set用户状态请求承载请求参数
 type SetUserStatusRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Status        UserStatus             `protobuf:"varint,3,opt,name=status,proto3,enum=whocall.user.v1.UserStatus" json:"status,omitempty"`
-	Reason        string                 `protobuf:"bytes,4,opt,name=reason,proto3" json:"reason,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 业务状态
+	Status UserStatus `protobuf:"varint,3,opt,name=status,proto3,enum=whocall.user.v1.UserStatus" json:"status,omitempty"`
+	// 业务原因
+	Reason        string `protobuf:"bytes,4,opt,name=reason,proto3" json:"reason,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -987,10 +1059,13 @@ func (x *SetUserStatusRequest) GetReason() string {
 	return ""
 }
 
+// set用户状态响应承载响应数据
 type SetUserStatusResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	User          *UserProfile           `protobuf:"bytes,2,opt,name=user,proto3" json:"user,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 用户字段
+	User          *UserProfile `protobuf:"bytes,2,opt,name=user,proto3" json:"user,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1039,10 +1114,14 @@ func (x *SetUserStatusResponse) GetUser() *UserProfile {
 	return nil
 }
 
+// setglobal接收消息opt请求承载请求参数
 type SetGlobalRecvMsgOptRequest struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	Meta          *v1.RequestMeta         `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserId        string                  `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 接收消息opt字段
 	RecvMsgOpt    v1.ReceiveMessageOption `protobuf:"varint,3,opt,name=recv_msg_opt,json=recvMsgOpt,proto3,enum=whocall.common.v1.ReceiveMessageOption" json:"recv_msg_opt,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -1099,9 +1178,12 @@ func (x *SetGlobalRecvMsgOptRequest) GetRecvMsgOpt() v1.ReceiveMessageOption {
 	return v1.ReceiveMessageOption(0)
 }
 
+// setglobal接收消息opt响应承载响应数据
 type SetGlobalRecvMsgOptResponse struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	Header        *v1.ResponseHeader      `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 接收消息opt字段
 	RecvMsgOpt    v1.ReceiveMessageOption `protobuf:"varint,2,opt,name=recv_msg_opt,json=recvMsgOpt,proto3,enum=whocall.common.v1.ReceiveMessageOption" json:"recv_msg_opt,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache

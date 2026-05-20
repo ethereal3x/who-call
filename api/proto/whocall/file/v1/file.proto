@@ -7,119 +7,199 @@ option go_package = "github.com/ethereal3x/who-call/api/gen/go/whocall/file/v1;f
 import "google/api/annotations.proto";
 import "whocall/common/v1/common.proto";
 
+// 文件服务定义该领域的 RPC 接口
 service FileService {
+    // 处理创建上传操作
     rpc CreateUpload(CreateUploadRequest) returns (CreateUploadResponse) {
         option (google.api.http) = { post: "/api/v1/files/uploads" body: "*" };
     }
 
+    // 处理完成上传操作
     rpc CompleteUpload(CompleteUploadRequest) returns (CompleteUploadResponse) {
         option (google.api.http) = { post: "/api/v1/files/uploads/{upload_id}:complete" body: "*" };
     }
 
+    // 处理get下载地址操作
     rpc GetDownloadUrl(GetDownloadUrlRequest) returns (GetDownloadUrlResponse) {
         option (google.api.http) = { get: "/api/v1/files/{file_id}/download-url" };
     }
 
+    // 处理删除文件操作
     rpc DeleteFile(DeleteFileRequest) returns (DeleteFileResponse) {
         option (google.api.http) = { delete: "/api/v1/files/{file_id}" };
     }
 }
 
+// 文件业务类型定义可选枚举值
 enum FileBizType {
+    // 未指定枚举值
     FILE_BIZ_TYPE_UNSPECIFIED = 0;
+    // 文件业务类型头像枚举值
     FILE_BIZ_TYPE_AVATAR = 1;
+    // 文件业务类型消息image枚举值
     FILE_BIZ_TYPE_MESSAGE_IMAGE = 2;
+    // 文件业务类型消息voice枚举值
     FILE_BIZ_TYPE_MESSAGE_VOICE = 3;
+    // 文件业务类型消息video枚举值
     FILE_BIZ_TYPE_MESSAGE_VIDEO = 4;
+    // 文件业务类型消息文件枚举值
     FILE_BIZ_TYPE_MESSAGE_FILE = 5;
+    // 文件业务类型群组头像枚举值
     FILE_BIZ_TYPE_GROUP_AVATAR = 6;
+    // 文件业务类型log枚举值
     FILE_BIZ_TYPE_LOG = 100;
 }
 
+// 上传状态定义可选枚举值
 enum UploadStatus {
+    // 未指定枚举值
     UPLOAD_STATUS_UNSPECIFIED = 0;
+    // 上传状态initiated枚举值
     UPLOAD_STATUS_INITIATED = 1;
+    // 上传状态uploading枚举值
     UPLOAD_STATUS_UPLOADING = 2;
+    // 上传状态completed枚举值
     UPLOAD_STATUS_COMPLETED = 3;
+    // 上传状态aborted枚举值
     UPLOAD_STATUS_ABORTED = 4;
+    // 过期状态枚举值
     UPLOAD_STATUS_EXPIRED = 5;
 }
 
+// 文件info描述业务数据结构
 message FileInfo {
+    // 文件业务标识
     string file_id = 1;
+    // 归属用户标识
     string owner_user_id = 2;
+    // 业务类型类型
     FileBizType biz_type = 3;
+    // 文件名
     string file_name = 4;
+    // 对象存储键
     string object_key = 5;
+    // 访问地址
     string url = 6;
+    // MIME 类型
     string mime_type = 7;
+    // 大小字段
     int64 size = 8;
+    // checksum字段
     string checksum = 9;
+    // 创建时间ms字段
     int64 create_time_ms = 10;
+    // IM 扩展字段
     string ex = 11;
 }
 
+// 上传part描述业务数据结构
 message UploadPart {
+    // partnumber字段
     int32 part_number = 1;
+    // 上传地址
     string upload_url = 2;
+    // headers字段
     map<string, string> headers = 3;
+    // part大小字段
     int64 part_size = 4;
 }
 
+// 创建上传请求承载请求参数
 message CreateUploadRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // 归属用户标识
     string owner_user_id = 2;
+    // 业务类型类型
     FileBizType biz_type = 3;
+    // 文件名
     string file_name = 4;
+    // MIME 类型
     string mime_type = 5;
+    // 大小字段
     int64 size = 6;
+    // checksum字段
     string checksum = 7;
+    // part数量数量
     int32 part_count = 8;
+    // IM 扩展字段
     string ex = 9;
 }
 
+// 创建上传响应承载响应数据
 message CreateUploadResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 上传标识标识
     string upload_id = 2;
+    // 文件业务标识
     string file_id = 3;
+    // 对象存储键
     string object_key = 4;
+    // 上传地址
     string upload_url = 5;
+    // parts列表
     repeated UploadPart parts = 6;
+    // expire时间ms字段
     int64 expire_time_ms = 7;
 }
 
+// 完成上传请求承载请求参数
 message CompleteUploadRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // 上传标识标识
     string upload_id = 2;
+    // 文件业务标识
     string file_id = 3;
+    // partetags列表
     repeated string part_etags = 4;
 }
 
+// 完成上传响应承载响应数据
 message CompleteUploadResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 文件字段
     FileInfo file = 2;
 }
 
+// get下载地址请求承载请求参数
 message GetDownloadUrlRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // 文件业务标识
     string file_id = 2;
+    // IM 用户业务标识
     string user_id = 3;
 }
 
+// get下载地址响应承载响应数据
 message GetDownloadUrlResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 下载地址
     string download_url = 2;
+    // headers字段
     map<string, string> headers = 3;
+    // expire时间ms字段
     int64 expire_time_ms = 4;
+    // 文件字段
     FileInfo file = 5;
 }
 
+// 删除文件请求承载请求参数
 message DeleteFileRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // 文件业务标识
     string file_id = 2;
+    // 操作人用户标识
     string operator_user_id = 3;
 }
 
+// 删除文件响应承载响应数据
 message DeleteFileResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
 }

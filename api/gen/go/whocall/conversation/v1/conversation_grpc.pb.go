@@ -31,13 +31,22 @@ const (
 // ConversationServiceClient is the client API for ConversationService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+//
+// 会话服务定义该领域的 RPC 接口
 type ConversationServiceClient interface {
+	// 处理get会话操作
 	GetConversation(ctx context.Context, in *GetConversationRequest, opts ...grpc.CallOption) (*GetConversationResponse, error)
+	// 处理列表会话操作
 	ListConversations(ctx context.Context, in *ListConversationsRequest, opts ...grpc.CallOption) (*ListConversationsResponse, error)
+	// 处理创建orget单聊会话操作
 	CreateOrGetSingleConversation(ctx context.Context, in *CreateOrGetSingleConversationRequest, opts ...grpc.CallOption) (*CreateOrGetSingleConversationResponse, error)
+	// 处理更新会话设置操作
 	UpdateConversationSettings(ctx context.Context, in *UpdateConversationSettingsRequest, opts ...grpc.CallOption) (*UpdateConversationSettingsResponse, error)
+	// 处理删除会话操作
 	DeleteConversation(ctx context.Context, in *DeleteConversationRequest, opts ...grpc.CallOption) (*DeleteConversationResponse, error)
+	// 处理clear会话消息操作
 	ClearConversationMessages(ctx context.Context, in *ClearConversationMessagesRequest, opts ...grpc.CallOption) (*ClearConversationMessagesResponse, error)
+	// 处理get会话序号操作
 	GetConversationSeq(ctx context.Context, in *GetConversationSeqRequest, opts ...grpc.CallOption) (*GetConversationSeqResponse, error)
 }
 
@@ -122,13 +131,22 @@ func (c *conversationServiceClient) GetConversationSeq(ctx context.Context, in *
 // ConversationServiceServer is the server API for ConversationService service.
 // All implementations should embed UnimplementedConversationServiceServer
 // for forward compatibility.
+//
+// 会话服务定义该领域的 RPC 接口
 type ConversationServiceServer interface {
+	// 处理get会话操作
 	GetConversation(context.Context, *GetConversationRequest) (*GetConversationResponse, error)
+	// 处理列表会话操作
 	ListConversations(context.Context, *ListConversationsRequest) (*ListConversationsResponse, error)
+	// 处理创建orget单聊会话操作
 	CreateOrGetSingleConversation(context.Context, *CreateOrGetSingleConversationRequest) (*CreateOrGetSingleConversationResponse, error)
+	// 处理更新会话设置操作
 	UpdateConversationSettings(context.Context, *UpdateConversationSettingsRequest) (*UpdateConversationSettingsResponse, error)
+	// 处理删除会话操作
 	DeleteConversation(context.Context, *DeleteConversationRequest) (*DeleteConversationResponse, error)
+	// 处理clear会话消息操作
 	ClearConversationMessages(context.Context, *ClearConversationMessagesRequest) (*ClearConversationMessagesResponse, error)
+	// 处理get会话序号操作
 	GetConversationSeq(context.Context, *GetConversationSeqRequest) (*GetConversationSeqResponse, error)
 }
 

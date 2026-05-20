@@ -7,230 +7,368 @@ option go_package = "github.com/ethereal3x/who-call/api/gen/go/whocall/friend/v1
 import "google/api/annotations.proto";
 import "whocall/common/v1/common.proto";
 
+// 好友服务定义该领域的 RPC 接口
 service FriendService {
+    // 处理申请好友操作
     rpc ApplyFriend(ApplyFriendRequest) returns (ApplyFriendResponse) {
         option (google.api.http) = { post: "/api/v1/friends/applications" body: "*" };
     }
 
+    // 处理处理好友申请操作
     rpc RespondFriendApplication(RespondFriendApplicationRequest) returns (RespondFriendApplicationResponse) {
         option (google.api.http) = { post: "/api/v1/friends/applications/{application_id}:respond" body: "*" };
     }
 
+    // 处理列表好友申请操作
     rpc ListFriendApplications(ListFriendApplicationsRequest) returns (ListFriendApplicationsResponse) {
         option (google.api.http) = { get: "/api/v1/users/{user_id}/friends/applications" };
     }
 
+    // 处理列表好友操作
     rpc ListFriends(ListFriendsRequest) returns (ListFriendsResponse) {
         option (google.api.http) = { get: "/api/v1/users/{user_id}/friends" };
     }
 
+    // 处理get好友info操作
     rpc GetFriendInfo(GetFriendInfoRequest) returns (GetFriendInfoResponse) {
         option (google.api.http) = { get: "/api/v1/users/{user_id}/friends/{friend_user_id}" };
     }
 
+    // 处理删除好友操作
     rpc DeleteFriend(DeleteFriendRequest) returns (DeleteFriendResponse) {
         option (google.api.http) = { delete: "/api/v1/users/{user_id}/friends/{friend_user_id}" };
     }
 
+    // 处理set好友备注操作
     rpc SetFriendRemark(SetFriendRemarkRequest) returns (SetFriendRemarkResponse) {
         option (google.api.http) = { patch: "/api/v1/users/{user_id}/friends/{friend_user_id}/remark" body: "*" };
     }
 
+    // 处理check好友操作
     rpc CheckFriend(CheckFriendRequest) returns (CheckFriendResponse) {
         option (google.api.http) = { post: "/api/v1/friends:check" body: "*" };
     }
 
+    // 处理addblack操作
     rpc AddBlack(AddBlackRequest) returns (AddBlackResponse) {
         option (google.api.http) = { post: "/api/v1/users/{user_id}/blacklist" body: "*" };
     }
 
+    // 处理removeblack操作
     rpc RemoveBlack(RemoveBlackRequest) returns (RemoveBlackResponse) {
         option (google.api.http) = { delete: "/api/v1/users/{user_id}/blacklist/{blocked_user_id}" };
     }
 
+    // 处理列表black操作
     rpc ListBlack(ListBlackRequest) returns (ListBlackResponse) {
         option (google.api.http) = { get: "/api/v1/users/{user_id}/blacklist" };
     }
 }
 
+// 好友申请状态定义可选枚举值
 enum FriendApplicationStatus {
+    // 未指定枚举值
     FRIEND_APPLICATION_STATUS_UNSPECIFIED = 0;
+    // 待处理状态枚举值
     FRIEND_APPLICATION_STATUS_PENDING = 1;
+    // 已接受状态枚举值
     FRIEND_APPLICATION_STATUS_ACCEPTED = 2;
+    // 已拒绝状态枚举值
     FRIEND_APPLICATION_STATUS_REJECTED = 3;
+    // 好友申请状态canceled枚举值
     FRIEND_APPLICATION_STATUS_CANCELED = 4;
 }
 
+// 好友relation状态定义可选枚举值
 enum FriendRelationStatus {
+    // 未指定枚举值
     FRIEND_RELATION_STATUS_UNSPECIFIED = 0;
+    // 好友relation状态无枚举值
     FRIEND_RELATION_STATUS_NONE = 1;
+    // 好友relation状态好友枚举值
     FRIEND_RELATION_STATUS_FRIEND = 2;
+    // 好友relation状态blacked枚举值
     FRIEND_RELATION_STATUS_BLACKED = 3;
+    // 好友relation状态blockedbypeer枚举值
     FRIEND_RELATION_STATUS_BLOCKED_BY_PEER = 4;
 }
 
+// 好友info描述业务数据结构
 message FriendInfo {
+    // 归属用户标识
     string owner_user_id = 1;
+    // 好友用户标识
     string friend_user_id = 2;
+    // 好友备注
     string remark = 3;
+    // 好友数据
     whocall.common.v1.UserRef friend = 4;
+    // 接收消息opt字段
     whocall.common.v1.ReceiveMessageOption recv_msg_opt = 5;
+    // 创建时间ms字段
     int64 create_time_ms = 6;
+    // IM 扩展字段
     string ex = 7;
 }
 
+// 好友申请描述业务数据结构
 message FriendApplication {
+    // 申请标识标识
     string application_id = 1;
+    // 发起方用户标识
     string from_user_id = 2;
+    // 目标用户标识
     string to_user_id = 3;
+    // 来源用户字段
     whocall.common.v1.UserRef from_user = 4;
+    // 目标用户字段
     whocall.common.v1.UserRef to_user = 5;
+    // 请求消息字段
     string request_message = 6;
+    // handle消息字段
     string handle_message = 7;
+    // 业务状态
     FriendApplicationStatus status = 8;
+    // 创建时间ms字段
     int64 create_time_ms = 9;
+    // handle时间ms字段
     int64 handle_time_ms = 10;
+    // IM 扩展字段
     string ex = 11;
 }
 
+// blackinfo描述业务数据结构
 message BlackInfo {
+    // 归属用户标识
     string owner_user_id = 1;
+    // blocked用户标识标识
     string blocked_user_id = 2;
+    // blocked用户字段
     whocall.common.v1.UserRef blocked_user = 3;
+    // 创建时间ms字段
     int64 create_time_ms = 4;
 }
 
+// 申请好友请求承载请求参数
 message ApplyFriendRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // 发起方用户标识
     string from_user_id = 2;
+    // 目标用户标识
     string to_user_id = 3;
+    // 请求消息字段
     string request_message = 4;
+    // IM 扩展字段
     string ex = 5;
 }
 
+// 申请好友响应承载响应数据
 message ApplyFriendResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 申请字段
     FriendApplication application = 2;
 }
 
+// 处理好友申请请求承载请求参数
 message RespondFriendApplicationRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // 申请标识标识
     string application_id = 2;
+    // 处理人用户标识
     string handler_user_id = 3;
+    // accept字段
     bool accept = 4;
+    // handle消息字段
     string handle_message = 5;
 }
 
+// 处理好友申请响应承载响应数据
 message RespondFriendApplicationResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 申请字段
     FriendApplication application = 2;
+    // 好友数据
     FriendInfo friend = 3;
 }
 
+// 列表好友申请请求承载请求参数
 message ListFriendApplicationsRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // 业务状态
     FriendApplicationStatus status = 3;
+    // incoming字段
     bool incoming = 4;
+    // 分页字段
     whocall.common.v1.PaginationRequest pagination = 5;
 }
 
+// 列表好友申请响应承载响应数据
 message ListFriendApplicationsResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 申请列表
     repeated FriendApplication applications = 2;
+    // 分页字段
     whocall.common.v1.PaginationResponse pagination = 3;
 }
 
+// 列表好友请求承载请求参数
 message ListFriendsRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // 分页字段
     whocall.common.v1.PaginationRequest pagination = 3;
 }
 
+// 列表好友响应承载响应数据
 message ListFriendsResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 好友数据列表
     repeated FriendInfo friends = 2;
+    // 分页字段
     whocall.common.v1.PaginationResponse pagination = 3;
 }
 
+// get好友info请求承载请求参数
 message GetFriendInfoRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // 好友用户标识
     string friend_user_id = 3;
 }
 
+// get好友info响应承载响应数据
 message GetFriendInfoResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 好友数据
     FriendInfo friend = 2;
 }
 
+// 删除好友请求承载请求参数
 message DeleteFriendRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // 好友用户标识
     string friend_user_id = 3;
 }
 
+// 删除好友响应承载响应数据
 message DeleteFriendResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
 }
 
+// set好友备注请求承载请求参数
 message SetFriendRemarkRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // 好友用户标识
     string friend_user_id = 3;
+    // 好友备注
     string remark = 4;
 }
 
+// set好友备注响应承载响应数据
 message SetFriendRemarkResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 好友数据
     FriendInfo friend = 2;
 }
 
+// check好友请求承载请求参数
 message CheckFriendRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // target用户标识列表列表
     repeated string target_user_ids = 3;
 }
 
+// 好友relationcheck结果描述业务数据结构
 message FriendRelationCheckResult {
+    // target用户标识标识
     string target_user_id = 1;
+    // 业务状态
     FriendRelationStatus status = 2;
 }
 
+// check好友响应承载响应数据
 message CheckFriendResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // results列表
     repeated FriendRelationCheckResult results = 2;
 }
 
+// addblack请求承载请求参数
 message AddBlackRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // blocked用户标识标识
     string blocked_user_id = 3;
 }
 
+// addblack响应承载响应数据
 message AddBlackResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // black字段
     BlackInfo black = 2;
 }
 
+// removeblack请求承载请求参数
 message RemoveBlackRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // blocked用户标识标识
     string blocked_user_id = 3;
 }
 
+// removeblack响应承载响应数据
 message RemoveBlackResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
 }
 
+// 列表black请求承载请求参数
 message ListBlackRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // 分页字段
     whocall.common.v1.PaginationRequest pagination = 3;
 }
 
+// 列表black响应承载响应数据
 message ListBlackResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // blacks列表
     repeated BlackInfo blacks = 2;
+    // 分页字段
     whocall.common.v1.PaginationResponse pagination = 3;
 }

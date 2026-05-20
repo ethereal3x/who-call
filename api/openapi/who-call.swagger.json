@@ -42,6 +42,7 @@
   "paths": {
     "/api/v1/auth/force-logout": {
       "post": {
+        "summary": "处理强制退出登录操作",
         "operationId": "AuthService_ForceLogout",
         "responses": {
           "200": {
@@ -74,6 +75,7 @@
     },
     "/api/v1/auth/login": {
       "post": {
+        "summary": "处理登录操作",
         "operationId": "AuthService_Login",
         "responses": {
           "200": {
@@ -106,6 +108,7 @@
     },
     "/api/v1/auth/logout": {
       "post": {
+        "summary": "处理退出登录操作",
         "operationId": "AuthService_Logout",
         "responses": {
           "200": {
@@ -138,6 +141,7 @@
     },
     "/api/v1/auth/parse-token": {
       "post": {
+        "summary": "处理解析令牌操作",
         "operationId": "AuthService_ParseToken",
         "responses": {
           "200": {
@@ -170,6 +174,7 @@
     },
     "/api/v1/auth/refresh": {
       "post": {
+        "summary": "处理刷新令牌操作",
         "operationId": "AuthService_RefreshToken",
         "responses": {
           "200": {
@@ -202,6 +207,7 @@
     },
     "/api/v1/auth/register": {
       "post": {
+        "summary": "处理注册操作",
         "operationId": "AuthService_Register",
         "responses": {
           "200": {
@@ -234,6 +240,7 @@
     },
     "/api/v1/auth/users/{userId}/devices": {
       "get": {
+        "summary": "处理列表登录设备操作",
         "operationId": "AuthService_ListLoginDevices",
         "responses": {
           "200": {
@@ -252,30 +259,35 @@
         "parameters": [
           {
             "name": "userId",
+            "description": "IM 用户业务标识",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "meta.operationId",
+            "description": "跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.traceId",
+            "description": "链路追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.caller",
+            "description": "调用方标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.platform",
+            "description": "客户端平台\n\n - PLATFORM_UNSPECIFIED: 未指定枚举值\n - PLATFORM_IOS: 平台iOS枚举值\n - PLATFORM_ANDROID: 平台Android枚举值\n - PLATFORM_WEB: 平台Web枚举值\n - PLATFORM_WINDOWS: 平台Windows枚举值\n - PLATFORM_MACOS: 平台macOS枚举值\n - PLATFORM_LINUX: 平台Linux枚举值\n - PLATFORM_ADMIN: 平台管理员枚举值\n - PLATFORM_SERVER: 平台服务端枚举值",
             "in": "query",
             "required": false,
             "type": "string",
@@ -294,30 +306,35 @@
           },
           {
             "name": "meta.deviceId",
+            "description": "客户端设备标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.connId",
+            "description": "网关连接标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.userId",
+            "description": "IM 用户业务标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.clientVersion",
+            "description": "客户端版本",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.locale",
+            "description": "语言区域",
             "in": "query",
             "required": false,
             "type": "string"
@@ -330,6 +347,7 @@
     },
     "/api/v1/auth/users/{userId}/devices:kick": {
       "post": {
+        "summary": "处理踢出设备操作",
         "operationId": "AuthService_KickDevice",
         "responses": {
           "200": {
@@ -348,6 +366,7 @@
         "parameters": [
           {
             "name": "userId",
+            "description": "IM 用户业务标识",
             "in": "path",
             "required": true,
             "type": "string"
@@ -368,6 +387,7 @@
     },
     "/api/v1/conversations/seq": {
       "post": {
+        "summary": "处理get会话序号操作",
         "operationId": "ConversationService_GetConversationSeq",
         "responses": {
           "200": {
@@ -400,6 +420,7 @@
     },
     "/api/v1/conversations/single": {
       "post": {
+        "summary": "处理创建orget单聊会话操作",
         "operationId": "ConversationService_CreateOrGetSingleConversation",
         "responses": {
           "200": {
@@ -432,6 +453,7 @@
     },
     "/api/v1/conversations/{conversationId}": {
       "get": {
+        "summary": "处理get会话操作",
         "operationId": "ConversationService_GetConversation",
         "responses": {
           "200": {
@@ -450,30 +472,35 @@
         "parameters": [
           {
             "name": "conversationId",
+            "description": "会话业务标识",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "meta.operationId",
+            "description": "跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.traceId",
+            "description": "链路追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.caller",
+            "description": "调用方标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.platform",
+            "description": "客户端平台\n\n - PLATFORM_UNSPECIFIED: 未指定枚举值\n - PLATFORM_IOS: 平台iOS枚举值\n - PLATFORM_ANDROID: 平台Android枚举值\n - PLATFORM_WEB: 平台Web枚举值\n - PLATFORM_WINDOWS: 平台Windows枚举值\n - PLATFORM_MACOS: 平台macOS枚举值\n - PLATFORM_LINUX: 平台Linux枚举值\n - PLATFORM_ADMIN: 平台管理员枚举值\n - PLATFORM_SERVER: 平台服务端枚举值",
             "in": "query",
             "required": false,
             "type": "string",
@@ -492,36 +519,42 @@
           },
           {
             "name": "meta.deviceId",
+            "description": "客户端设备标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.connId",
+            "description": "网关连接标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.userId",
+            "description": "IM 用户业务标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.clientVersion",
+            "description": "客户端版本",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.locale",
+            "description": "语言区域",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "userId",
+            "description": "IM 用户业务标识",
             "in": "query",
             "required": false,
             "type": "string"
@@ -534,6 +567,7 @@
     },
     "/api/v1/conversations/{conversationId}/settings": {
       "patch": {
+        "summary": "处理更新会话设置操作",
         "operationId": "ConversationService_UpdateConversationSettings",
         "responses": {
           "200": {
@@ -552,6 +586,7 @@
         "parameters": [
           {
             "name": "conversationId",
+            "description": "会话业务标识",
             "in": "path",
             "required": true,
             "type": "string"
@@ -572,6 +607,7 @@
     },
     "/api/v1/conversations/{conversationId}:clear-messages": {
       "post": {
+        "summary": "处理clear会话消息操作",
         "operationId": "ConversationService_ClearConversationMessages",
         "responses": {
           "200": {
@@ -590,6 +626,7 @@
         "parameters": [
           {
             "name": "conversationId",
+            "description": "会话业务标识",
             "in": "path",
             "required": true,
             "type": "string"
@@ -610,6 +647,7 @@
     },
     "/api/v1/files/uploads": {
       "post": {
+        "summary": "处理创建上传操作",
         "operationId": "FileService_CreateUpload",
         "responses": {
           "200": {
@@ -642,6 +680,7 @@
     },
     "/api/v1/files/uploads/{uploadId}:complete": {
       "post": {
+        "summary": "处理完成上传操作",
         "operationId": "FileService_CompleteUpload",
         "responses": {
           "200": {
@@ -660,6 +699,7 @@
         "parameters": [
           {
             "name": "uploadId",
+            "description": "上传标识标识",
             "in": "path",
             "required": true,
             "type": "string"
@@ -680,6 +720,7 @@
     },
     "/api/v1/files/{fileId}": {
       "delete": {
+        "summary": "处理删除文件操作",
         "operationId": "FileService_DeleteFile",
         "responses": {
           "200": {
@@ -698,30 +739,35 @@
         "parameters": [
           {
             "name": "fileId",
+            "description": "文件业务标识",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "meta.operationId",
+            "description": "跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.traceId",
+            "description": "链路追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.caller",
+            "description": "调用方标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.platform",
+            "description": "客户端平台\n\n - PLATFORM_UNSPECIFIED: 未指定枚举值\n - PLATFORM_IOS: 平台iOS枚举值\n - PLATFORM_ANDROID: 平台Android枚举值\n - PLATFORM_WEB: 平台Web枚举值\n - PLATFORM_WINDOWS: 平台Windows枚举值\n - PLATFORM_MACOS: 平台macOS枚举值\n - PLATFORM_LINUX: 平台Linux枚举值\n - PLATFORM_ADMIN: 平台管理员枚举值\n - PLATFORM_SERVER: 平台服务端枚举值",
             "in": "query",
             "required": false,
             "type": "string",
@@ -740,36 +786,42 @@
           },
           {
             "name": "meta.deviceId",
+            "description": "客户端设备标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.connId",
+            "description": "网关连接标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.userId",
+            "description": "IM 用户业务标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.clientVersion",
+            "description": "客户端版本",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.locale",
+            "description": "语言区域",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "operatorUserId",
+            "description": "操作人用户标识",
             "in": "query",
             "required": false,
             "type": "string"
@@ -782,6 +834,7 @@
     },
     "/api/v1/files/{fileId}/download-url": {
       "get": {
+        "summary": "处理get下载地址操作",
         "operationId": "FileService_GetDownloadUrl",
         "responses": {
           "200": {
@@ -800,30 +853,35 @@
         "parameters": [
           {
             "name": "fileId",
+            "description": "文件业务标识",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "meta.operationId",
+            "description": "跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.traceId",
+            "description": "链路追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.caller",
+            "description": "调用方标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.platform",
+            "description": "客户端平台\n\n - PLATFORM_UNSPECIFIED: 未指定枚举值\n - PLATFORM_IOS: 平台iOS枚举值\n - PLATFORM_ANDROID: 平台Android枚举值\n - PLATFORM_WEB: 平台Web枚举值\n - PLATFORM_WINDOWS: 平台Windows枚举值\n - PLATFORM_MACOS: 平台macOS枚举值\n - PLATFORM_LINUX: 平台Linux枚举值\n - PLATFORM_ADMIN: 平台管理员枚举值\n - PLATFORM_SERVER: 平台服务端枚举值",
             "in": "query",
             "required": false,
             "type": "string",
@@ -842,36 +900,42 @@
           },
           {
             "name": "meta.deviceId",
+            "description": "客户端设备标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.connId",
+            "description": "网关连接标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.userId",
+            "description": "IM 用户业务标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.clientVersion",
+            "description": "客户端版本",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.locale",
+            "description": "语言区域",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "userId",
+            "description": "IM 用户业务标识",
             "in": "query",
             "required": false,
             "type": "string"
@@ -884,6 +948,7 @@
     },
     "/api/v1/friends/applications": {
       "post": {
+        "summary": "处理申请好友操作",
         "operationId": "FriendService_ApplyFriend",
         "responses": {
           "200": {
@@ -916,6 +981,7 @@
     },
     "/api/v1/friends/applications/{applicationId}:respond": {
       "post": {
+        "summary": "处理处理好友申请操作",
         "operationId": "FriendService_RespondFriendApplication",
         "responses": {
           "200": {
@@ -934,6 +1000,7 @@
         "parameters": [
           {
             "name": "applicationId",
+            "description": "申请标识标识",
             "in": "path",
             "required": true,
             "type": "string"
@@ -954,6 +1021,7 @@
     },
     "/api/v1/friends:check": {
       "post": {
+        "summary": "处理check好友操作",
         "operationId": "FriendService_CheckFriend",
         "responses": {
           "200": {
@@ -986,6 +1054,7 @@
     },
     "/api/v1/groups": {
       "post": {
+        "summary": "处理创建群组操作",
         "operationId": "GroupService_CreateGroup",
         "responses": {
           "200": {
@@ -1018,6 +1087,7 @@
     },
     "/api/v1/groups/applications/{applicationId}:respond": {
       "post": {
+        "summary": "处理处理群组申请操作",
         "operationId": "GroupService_RespondGroupApplication",
         "responses": {
           "200": {
@@ -1036,6 +1106,7 @@
         "parameters": [
           {
             "name": "applicationId",
+            "description": "申请标识标识",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1056,6 +1127,7 @@
     },
     "/api/v1/groups/{groupId}": {
       "get": {
+        "summary": "处理get群组操作",
         "operationId": "GroupService_GetGroup",
         "responses": {
           "200": {
@@ -1074,30 +1146,35 @@
         "parameters": [
           {
             "name": "groupId",
+            "description": "群组业务标识",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "meta.operationId",
+            "description": "跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.traceId",
+            "description": "链路追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.caller",
+            "description": "调用方标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.platform",
+            "description": "客户端平台\n\n - PLATFORM_UNSPECIFIED: 未指定枚举值\n - PLATFORM_IOS: 平台iOS枚举值\n - PLATFORM_ANDROID: 平台Android枚举值\n - PLATFORM_WEB: 平台Web枚举值\n - PLATFORM_WINDOWS: 平台Windows枚举值\n - PLATFORM_MACOS: 平台macOS枚举值\n - PLATFORM_LINUX: 平台Linux枚举值\n - PLATFORM_ADMIN: 平台管理员枚举值\n - PLATFORM_SERVER: 平台服务端枚举值",
             "in": "query",
             "required": false,
             "type": "string",
@@ -1116,30 +1193,35 @@
           },
           {
             "name": "meta.deviceId",
+            "description": "客户端设备标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.connId",
+            "description": "网关连接标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.userId",
+            "description": "IM 用户业务标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.clientVersion",
+            "description": "客户端版本",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.locale",
+            "description": "语言区域",
             "in": "query",
             "required": false,
             "type": "string"
@@ -1150,6 +1232,7 @@
         ]
       },
       "patch": {
+        "summary": "处理更新群组操作",
         "operationId": "GroupService_UpdateGroup",
         "responses": {
           "200": {
@@ -1168,6 +1251,7 @@
         "parameters": [
           {
             "name": "groupId",
+            "description": "群组业务标识",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1188,6 +1272,7 @@
     },
     "/api/v1/groups/{groupId}/applications": {
       "get": {
+        "summary": "处理列表群组申请操作",
         "operationId": "GroupService_ListGroupApplications",
         "responses": {
           "200": {
@@ -1206,30 +1291,35 @@
         "parameters": [
           {
             "name": "groupId",
+            "description": "群组业务标识",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "meta.operationId",
+            "description": "跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.traceId",
+            "description": "链路追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.caller",
+            "description": "调用方标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.platform",
+            "description": "客户端平台\n\n - PLATFORM_UNSPECIFIED: 未指定枚举值\n - PLATFORM_IOS: 平台iOS枚举值\n - PLATFORM_ANDROID: 平台Android枚举值\n - PLATFORM_WEB: 平台Web枚举值\n - PLATFORM_WINDOWS: 平台Windows枚举值\n - PLATFORM_MACOS: 平台macOS枚举值\n - PLATFORM_LINUX: 平台Linux枚举值\n - PLATFORM_ADMIN: 平台管理员枚举值\n - PLATFORM_SERVER: 平台服务端枚举值",
             "in": "query",
             "required": false,
             "type": "string",
@@ -1248,36 +1338,42 @@
           },
           {
             "name": "meta.deviceId",
+            "description": "客户端设备标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.connId",
+            "description": "网关连接标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.userId",
+            "description": "IM 用户业务标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.clientVersion",
+            "description": "客户端版本",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.locale",
+            "description": "语言区域",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "status",
+            "description": "业务状态\n\n - GROUP_APPLICATION_STATUS_UNSPECIFIED: 未指定枚举值\n - GROUP_APPLICATION_STATUS_PENDING: 待处理状态枚举值\n - GROUP_APPLICATION_STATUS_ACCEPTED: 已接受状态枚举值\n - GROUP_APPLICATION_STATUS_REJECTED: 已拒绝状态枚举值\n - GROUP_APPLICATION_STATUS_CANCELED: 群组申请状态canceled枚举值",
             "in": "query",
             "required": false,
             "type": "string",
@@ -1292,6 +1388,7 @@
           },
           {
             "name": "pagination.page",
+            "description": "分页页码",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -1299,6 +1396,7 @@
           },
           {
             "name": "pagination.size",
+            "description": "大小字段",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -1306,6 +1404,7 @@
           },
           {
             "name": "pagination.cursor",
+            "description": "游标字段",
             "in": "query",
             "required": false,
             "type": "string"
@@ -1316,6 +1415,7 @@
         ]
       },
       "post": {
+        "summary": "处理加入群组操作",
         "operationId": "GroupService_JoinGroup",
         "responses": {
           "200": {
@@ -1334,6 +1434,7 @@
         "parameters": [
           {
             "name": "groupId",
+            "description": "群组业务标识",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1354,6 +1455,7 @@
     },
     "/api/v1/groups/{groupId}/members": {
       "get": {
+        "summary": "处理列表群组成员操作",
         "operationId": "GroupService_ListGroupMembers",
         "responses": {
           "200": {
@@ -1372,30 +1474,35 @@
         "parameters": [
           {
             "name": "groupId",
+            "description": "群组业务标识",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "meta.operationId",
+            "description": "跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.traceId",
+            "description": "链路追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.caller",
+            "description": "调用方标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.platform",
+            "description": "客户端平台\n\n - PLATFORM_UNSPECIFIED: 未指定枚举值\n - PLATFORM_IOS: 平台iOS枚举值\n - PLATFORM_ANDROID: 平台Android枚举值\n - PLATFORM_WEB: 平台Web枚举值\n - PLATFORM_WINDOWS: 平台Windows枚举值\n - PLATFORM_MACOS: 平台macOS枚举值\n - PLATFORM_LINUX: 平台Linux枚举值\n - PLATFORM_ADMIN: 平台管理员枚举值\n - PLATFORM_SERVER: 平台服务端枚举值",
             "in": "query",
             "required": false,
             "type": "string",
@@ -1414,36 +1521,42 @@
           },
           {
             "name": "meta.deviceId",
+            "description": "客户端设备标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.connId",
+            "description": "网关连接标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.userId",
+            "description": "IM 用户业务标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.clientVersion",
+            "description": "客户端版本",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.locale",
+            "description": "语言区域",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "role",
+            "description": "角色\n\n - GROUP_ROLE_UNSPECIFIED: 未指定枚举值\n - GROUP_ROLE_MEMBER: 群组角色成员枚举值\n - GROUP_ROLE_ADMIN: 群组角色管理员枚举值\n - GROUP_ROLE_OWNER: 群组角色群主枚举值",
             "in": "query",
             "required": false,
             "type": "string",
@@ -1457,6 +1570,7 @@
           },
           {
             "name": "pagination.page",
+            "description": "分页页码",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -1464,6 +1578,7 @@
           },
           {
             "name": "pagination.size",
+            "description": "大小字段",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -1471,6 +1586,7 @@
           },
           {
             "name": "pagination.cursor",
+            "description": "游标字段",
             "in": "query",
             "required": false,
             "type": "string"
@@ -1483,6 +1599,7 @@
     },
     "/api/v1/groups/{groupId}/members/{memberUserId}/mute": {
       "post": {
+        "summary": "处理禁言群组成员操作",
         "operationId": "GroupService_MuteGroupMember",
         "responses": {
           "200": {
@@ -1501,12 +1618,14 @@
         "parameters": [
           {
             "name": "groupId",
+            "description": "群组业务标识",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "memberUserId",
+            "description": "成员用户标识标识",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1527,6 +1646,7 @@
     },
     "/api/v1/groups/{groupId}/members/{memberUserId}/role": {
       "post": {
+        "summary": "处理set群组成员角色操作",
         "operationId": "GroupService_SetGroupMemberRole",
         "responses": {
           "200": {
@@ -1545,12 +1665,14 @@
         "parameters": [
           {
             "name": "groupId",
+            "description": "群组业务标识",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "memberUserId",
+            "description": "成员用户标识标识",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1571,6 +1693,7 @@
     },
     "/api/v1/groups/{groupId}/members:invite": {
       "post": {
+        "summary": "处理invite用户目标群组操作",
         "operationId": "GroupService_InviteUsersToGroup",
         "responses": {
           "200": {
@@ -1589,6 +1712,7 @@
         "parameters": [
           {
             "name": "groupId",
+            "description": "群组业务标识",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1609,6 +1733,7 @@
     },
     "/api/v1/groups/{groupId}/members:kick": {
       "post": {
+        "summary": "处理踢出群组成员操作",
         "operationId": "GroupService_KickGroupMembers",
         "responses": {
           "200": {
@@ -1627,6 +1752,7 @@
         "parameters": [
           {
             "name": "groupId",
+            "description": "群组业务标识",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1647,6 +1773,7 @@
     },
     "/api/v1/groups/{groupId}/mute": {
       "post": {
+        "summary": "处理set群组禁言操作",
         "operationId": "GroupService_SetGroupMute",
         "responses": {
           "200": {
@@ -1665,6 +1792,7 @@
         "parameters": [
           {
             "name": "groupId",
+            "description": "群组业务标识",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1685,6 +1813,7 @@
     },
     "/api/v1/groups/{groupId}:dismiss": {
       "post": {
+        "summary": "处理dismiss群组操作",
         "operationId": "GroupService_DismissGroup",
         "responses": {
           "200": {
@@ -1703,6 +1832,7 @@
         "parameters": [
           {
             "name": "groupId",
+            "description": "群组业务标识",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1723,6 +1853,7 @@
     },
     "/api/v1/groups/{groupId}:quit": {
       "post": {
+        "summary": "处理退出群组操作",
         "operationId": "GroupService_QuitGroup",
         "responses": {
           "200": {
@@ -1741,6 +1872,7 @@
         "parameters": [
           {
             "name": "groupId",
+            "description": "群组业务标识",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1761,6 +1893,7 @@
     },
     "/api/v1/groups/{groupId}:transfer-owner": {
       "post": {
+        "summary": "处理转让群组群主操作",
         "operationId": "GroupService_TransferGroupOwner",
         "responses": {
           "200": {
@@ -1779,6 +1912,7 @@
         "parameters": [
           {
             "name": "groupId",
+            "description": "群组业务标识",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1799,6 +1933,7 @@
     },
     "/api/v1/messages/batch-send": {
       "post": {
+        "summary": "处理批量发送消息操作",
         "operationId": "MsgService_BatchSendMsg",
         "responses": {
           "200": {
@@ -1831,6 +1966,7 @@
     },
     "/api/v1/messages/delete": {
       "post": {
+        "summary": "处理删除消息操作",
         "operationId": "MsgService_DeleteMsg",
         "responses": {
           "200": {
@@ -1863,6 +1999,7 @@
     },
     "/api/v1/messages/mark-read": {
       "post": {
+        "summary": "处理mark会话已读操作",
         "operationId": "MsgService_MarkConversationRead",
         "responses": {
           "200": {
@@ -1895,6 +2032,7 @@
     },
     "/api/v1/messages/newest-seq": {
       "post": {
+        "summary": "处理getnewest序号操作",
         "operationId": "MsgService_GetNewestSeq",
         "responses": {
           "200": {
@@ -1927,6 +2065,7 @@
     },
     "/api/v1/messages/pull-by-seq-list": {
       "post": {
+        "summary": "处理拉取消息by序号列表操作",
         "operationId": "MsgService_PullMsgBySeqList",
         "responses": {
           "200": {
@@ -1959,6 +2098,7 @@
     },
     "/api/v1/messages/pull-by-seq-range": {
       "post": {
+        "summary": "处理拉取消息by序号range操作",
         "operationId": "MsgService_PullMsgBySeqRange",
         "responses": {
           "200": {
@@ -1991,6 +2131,7 @@
     },
     "/api/v1/messages/revoke": {
       "post": {
+        "summary": "处理撤回消息操作",
         "operationId": "MsgService_RevokeMsg",
         "responses": {
           "200": {
@@ -2023,6 +2164,7 @@
     },
     "/api/v1/messages/send": {
       "post": {
+        "summary": "处理发送消息操作",
         "operationId": "MsgService_SendMsg",
         "responses": {
           "200": {
@@ -2055,6 +2197,7 @@
     },
     "/api/v1/messages/{serverMsgId}": {
       "get": {
+        "summary": "处理get消息操作",
         "operationId": "MsgService_GetMsg",
         "responses": {
           "200": {
@@ -2073,30 +2216,35 @@
         "parameters": [
           {
             "name": "serverMsgId",
+            "description": "服务端消息唯一标识",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "meta.operationId",
+            "description": "跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.traceId",
+            "description": "链路追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.caller",
+            "description": "调用方标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.platform",
+            "description": "客户端平台\n\n - PLATFORM_UNSPECIFIED: 未指定枚举值\n - PLATFORM_IOS: 平台iOS枚举值\n - PLATFORM_ANDROID: 平台Android枚举值\n - PLATFORM_WEB: 平台Web枚举值\n - PLATFORM_WINDOWS: 平台Windows枚举值\n - PLATFORM_MACOS: 平台macOS枚举值\n - PLATFORM_LINUX: 平台Linux枚举值\n - PLATFORM_ADMIN: 平台管理员枚举值\n - PLATFORM_SERVER: 平台服务端枚举值",
             "in": "query",
             "required": false,
             "type": "string",
@@ -2115,42 +2263,49 @@
           },
           {
             "name": "meta.deviceId",
+            "description": "客户端设备标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.connId",
+            "description": "网关连接标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.userId",
+            "description": "IM 用户业务标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.clientVersion",
+            "description": "客户端版本",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.locale",
+            "description": "语言区域",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "userId",
+            "description": "IM 用户业务标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "conversationId",
+            "description": "会话业务标识",
             "in": "query",
             "required": false,
             "type": "string"
@@ -2163,6 +2318,7 @@
     },
     "/api/v1/push/system-notifications": {
       "post": {
+        "summary": "处理推送系统通知操作",
         "operationId": "PushService_PushSystemNotification",
         "responses": {
           "200": {
@@ -2195,6 +2351,7 @@
     },
     "/api/v1/push/tokens": {
       "post": {
+        "summary": "处理注册推送令牌操作",
         "operationId": "PushService_RegisterPushToken",
         "responses": {
           "200": {
@@ -2227,6 +2384,7 @@
     },
     "/api/v1/push/tokens/{tokenId}": {
       "delete": {
+        "summary": "处理unregister推送令牌操作",
         "operationId": "PushService_UnregisterPushToken",
         "responses": {
           "200": {
@@ -2245,30 +2403,35 @@
         "parameters": [
           {
             "name": "tokenId",
+            "description": "令牌标识标识",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "meta.operationId",
+            "description": "跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.traceId",
+            "description": "链路追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.caller",
+            "description": "调用方标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.platform",
+            "description": "客户端平台\n\n - PLATFORM_UNSPECIFIED: 未指定枚举值\n - PLATFORM_IOS: 平台iOS枚举值\n - PLATFORM_ANDROID: 平台Android枚举值\n - PLATFORM_WEB: 平台Web枚举值\n - PLATFORM_WINDOWS: 平台Windows枚举值\n - PLATFORM_MACOS: 平台macOS枚举值\n - PLATFORM_LINUX: 平台Linux枚举值\n - PLATFORM_ADMIN: 平台管理员枚举值\n - PLATFORM_SERVER: 平台服务端枚举值",
             "in": "query",
             "required": false,
             "type": "string",
@@ -2287,36 +2450,42 @@
           },
           {
             "name": "meta.deviceId",
+            "description": "客户端设备标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.connId",
+            "description": "网关连接标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.userId",
+            "description": "IM 用户业务标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.clientVersion",
+            "description": "客户端版本",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.locale",
+            "description": "语言区域",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "userId",
+            "description": "IM 用户业务标识",
             "in": "query",
             "required": false,
             "type": "string"
@@ -2329,6 +2498,7 @@
     },
     "/api/v1/users/online-status": {
       "post": {
+        "summary": "处理get用户在线状态操作",
         "operationId": "UserService_GetUsersOnlineStatus",
         "responses": {
           "200": {
@@ -2361,6 +2531,7 @@
     },
     "/api/v1/users/{userId}": {
       "get": {
+        "summary": "处理get资料操作",
         "operationId": "UserService_GetProfile",
         "responses": {
           "200": {
@@ -2379,30 +2550,35 @@
         "parameters": [
           {
             "name": "userId",
+            "description": "IM 用户业务标识",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "meta.operationId",
+            "description": "跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.traceId",
+            "description": "链路追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.caller",
+            "description": "调用方标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.platform",
+            "description": "客户端平台\n\n - PLATFORM_UNSPECIFIED: 未指定枚举值\n - PLATFORM_IOS: 平台iOS枚举值\n - PLATFORM_ANDROID: 平台Android枚举值\n - PLATFORM_WEB: 平台Web枚举值\n - PLATFORM_WINDOWS: 平台Windows枚举值\n - PLATFORM_MACOS: 平台macOS枚举值\n - PLATFORM_LINUX: 平台Linux枚举值\n - PLATFORM_ADMIN: 平台管理员枚举值\n - PLATFORM_SERVER: 平台服务端枚举值",
             "in": "query",
             "required": false,
             "type": "string",
@@ -2421,30 +2597,35 @@
           },
           {
             "name": "meta.deviceId",
+            "description": "客户端设备标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.connId",
+            "description": "网关连接标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.userId",
+            "description": "IM 用户业务标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.clientVersion",
+            "description": "客户端版本",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.locale",
+            "description": "语言区域",
             "in": "query",
             "required": false,
             "type": "string"
@@ -2455,6 +2636,7 @@
         ]
       },
       "patch": {
+        "summary": "处理更新资料操作",
         "operationId": "UserService_UpdateProfile",
         "responses": {
           "200": {
@@ -2473,6 +2655,7 @@
         "parameters": [
           {
             "name": "userId",
+            "description": "IM 用户业务标识",
             "in": "path",
             "required": true,
             "type": "string"
@@ -2493,6 +2676,7 @@
     },
     "/api/v1/users/{userId}/blacklist": {
       "get": {
+        "summary": "处理列表black操作",
         "operationId": "FriendService_ListBlack",
         "responses": {
           "200": {
@@ -2511,30 +2695,35 @@
         "parameters": [
           {
             "name": "userId",
+            "description": "IM 用户业务标识",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "meta.operationId",
+            "description": "跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.traceId",
+            "description": "链路追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.caller",
+            "description": "调用方标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.platform",
+            "description": "客户端平台\n\n - PLATFORM_UNSPECIFIED: 未指定枚举值\n - PLATFORM_IOS: 平台iOS枚举值\n - PLATFORM_ANDROID: 平台Android枚举值\n - PLATFORM_WEB: 平台Web枚举值\n - PLATFORM_WINDOWS: 平台Windows枚举值\n - PLATFORM_MACOS: 平台macOS枚举值\n - PLATFORM_LINUX: 平台Linux枚举值\n - PLATFORM_ADMIN: 平台管理员枚举值\n - PLATFORM_SERVER: 平台服务端枚举值",
             "in": "query",
             "required": false,
             "type": "string",
@@ -2553,36 +2742,42 @@
           },
           {
             "name": "meta.deviceId",
+            "description": "客户端设备标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.connId",
+            "description": "网关连接标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.userId",
+            "description": "IM 用户业务标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.clientVersion",
+            "description": "客户端版本",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.locale",
+            "description": "语言区域",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "pagination.page",
+            "description": "分页页码",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -2590,6 +2785,7 @@
           },
           {
             "name": "pagination.size",
+            "description": "大小字段",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -2597,6 +2793,7 @@
           },
           {
             "name": "pagination.cursor",
+            "description": "游标字段",
             "in": "query",
             "required": false,
             "type": "string"
@@ -2607,6 +2804,7 @@
         ]
       },
       "post": {
+        "summary": "处理addblack操作",
         "operationId": "FriendService_AddBlack",
         "responses": {
           "200": {
@@ -2625,6 +2823,7 @@
         "parameters": [
           {
             "name": "userId",
+            "description": "IM 用户业务标识",
             "in": "path",
             "required": true,
             "type": "string"
@@ -2645,6 +2844,7 @@
     },
     "/api/v1/users/{userId}/blacklist/{blockedUserId}": {
       "delete": {
+        "summary": "处理removeblack操作",
         "operationId": "FriendService_RemoveBlack",
         "responses": {
           "200": {
@@ -2663,36 +2863,42 @@
         "parameters": [
           {
             "name": "userId",
+            "description": "IM 用户业务标识",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "blockedUserId",
+            "description": "blocked用户标识标识",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "meta.operationId",
+            "description": "跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.traceId",
+            "description": "链路追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.caller",
+            "description": "调用方标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.platform",
+            "description": "客户端平台\n\n - PLATFORM_UNSPECIFIED: 未指定枚举值\n - PLATFORM_IOS: 平台iOS枚举值\n - PLATFORM_ANDROID: 平台Android枚举值\n - PLATFORM_WEB: 平台Web枚举值\n - PLATFORM_WINDOWS: 平台Windows枚举值\n - PLATFORM_MACOS: 平台macOS枚举值\n - PLATFORM_LINUX: 平台Linux枚举值\n - PLATFORM_ADMIN: 平台管理员枚举值\n - PLATFORM_SERVER: 平台服务端枚举值",
             "in": "query",
             "required": false,
             "type": "string",
@@ -2711,30 +2917,35 @@
           },
           {
             "name": "meta.deviceId",
+            "description": "客户端设备标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.connId",
+            "description": "网关连接标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.userId",
+            "description": "IM 用户业务标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.clientVersion",
+            "description": "客户端版本",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.locale",
+            "description": "语言区域",
             "in": "query",
             "required": false,
             "type": "string"
@@ -2747,6 +2958,7 @@
     },
     "/api/v1/users/{userId}/conversations": {
       "get": {
+        "summary": "处理列表会话操作",
         "operationId": "ConversationService_ListConversations",
         "responses": {
           "200": {
@@ -2765,30 +2977,35 @@
         "parameters": [
           {
             "name": "userId",
+            "description": "IM 用户业务标识",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "meta.operationId",
+            "description": "跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.traceId",
+            "description": "链路追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.caller",
+            "description": "调用方标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.platform",
+            "description": "客户端平台\n\n - PLATFORM_UNSPECIFIED: 未指定枚举值\n - PLATFORM_IOS: 平台iOS枚举值\n - PLATFORM_ANDROID: 平台Android枚举值\n - PLATFORM_WEB: 平台Web枚举值\n - PLATFORM_WINDOWS: 平台Windows枚举值\n - PLATFORM_MACOS: 平台macOS枚举值\n - PLATFORM_LINUX: 平台Linux枚举值\n - PLATFORM_ADMIN: 平台管理员枚举值\n - PLATFORM_SERVER: 平台服务端枚举值",
             "in": "query",
             "required": false,
             "type": "string",
@@ -2807,36 +3024,42 @@
           },
           {
             "name": "meta.deviceId",
+            "description": "客户端设备标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.connId",
+            "description": "网关连接标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.userId",
+            "description": "IM 用户业务标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.clientVersion",
+            "description": "客户端版本",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.locale",
+            "description": "语言区域",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "pagination.page",
+            "description": "分页页码",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -2844,6 +3067,7 @@
           },
           {
             "name": "pagination.size",
+            "description": "大小字段",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -2851,6 +3075,7 @@
           },
           {
             "name": "pagination.cursor",
+            "description": "游标字段",
             "in": "query",
             "required": false,
             "type": "string"
@@ -2863,6 +3088,7 @@
     },
     "/api/v1/users/{userId}/conversations/{conversationId}": {
       "delete": {
+        "summary": "处理删除会话操作",
         "operationId": "ConversationService_DeleteConversation",
         "responses": {
           "200": {
@@ -2881,36 +3107,42 @@
         "parameters": [
           {
             "name": "userId",
+            "description": "IM 用户业务标识",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "conversationId",
+            "description": "会话业务标识",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "meta.operationId",
+            "description": "跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.traceId",
+            "description": "链路追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.caller",
+            "description": "调用方标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.platform",
+            "description": "客户端平台\n\n - PLATFORM_UNSPECIFIED: 未指定枚举值\n - PLATFORM_IOS: 平台iOS枚举值\n - PLATFORM_ANDROID: 平台Android枚举值\n - PLATFORM_WEB: 平台Web枚举值\n - PLATFORM_WINDOWS: 平台Windows枚举值\n - PLATFORM_MACOS: 平台macOS枚举值\n - PLATFORM_LINUX: 平台Linux枚举值\n - PLATFORM_ADMIN: 平台管理员枚举值\n - PLATFORM_SERVER: 平台服务端枚举值",
             "in": "query",
             "required": false,
             "type": "string",
@@ -2929,30 +3161,35 @@
           },
           {
             "name": "meta.deviceId",
+            "description": "客户端设备标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.connId",
+            "description": "网关连接标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.userId",
+            "description": "IM 用户业务标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.clientVersion",
+            "description": "客户端版本",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.locale",
+            "description": "语言区域",
             "in": "query",
             "required": false,
             "type": "string"
@@ -2965,6 +3202,7 @@
     },
     "/api/v1/users/{userId}/friends": {
       "get": {
+        "summary": "处理列表好友操作",
         "operationId": "FriendService_ListFriends",
         "responses": {
           "200": {
@@ -2983,30 +3221,35 @@
         "parameters": [
           {
             "name": "userId",
+            "description": "IM 用户业务标识",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "meta.operationId",
+            "description": "跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.traceId",
+            "description": "链路追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.caller",
+            "description": "调用方标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.platform",
+            "description": "客户端平台\n\n - PLATFORM_UNSPECIFIED: 未指定枚举值\n - PLATFORM_IOS: 平台iOS枚举值\n - PLATFORM_ANDROID: 平台Android枚举值\n - PLATFORM_WEB: 平台Web枚举值\n - PLATFORM_WINDOWS: 平台Windows枚举值\n - PLATFORM_MACOS: 平台macOS枚举值\n - PLATFORM_LINUX: 平台Linux枚举值\n - PLATFORM_ADMIN: 平台管理员枚举值\n - PLATFORM_SERVER: 平台服务端枚举值",
             "in": "query",
             "required": false,
             "type": "string",
@@ -3025,36 +3268,42 @@
           },
           {
             "name": "meta.deviceId",
+            "description": "客户端设备标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.connId",
+            "description": "网关连接标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.userId",
+            "description": "IM 用户业务标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.clientVersion",
+            "description": "客户端版本",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.locale",
+            "description": "语言区域",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "pagination.page",
+            "description": "分页页码",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3062,6 +3311,7 @@
           },
           {
             "name": "pagination.size",
+            "description": "大小字段",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3069,6 +3319,7 @@
           },
           {
             "name": "pagination.cursor",
+            "description": "游标字段",
             "in": "query",
             "required": false,
             "type": "string"
@@ -3081,6 +3332,7 @@
     },
     "/api/v1/users/{userId}/friends/applications": {
       "get": {
+        "summary": "处理列表好友申请操作",
         "operationId": "FriendService_ListFriendApplications",
         "responses": {
           "200": {
@@ -3099,30 +3351,35 @@
         "parameters": [
           {
             "name": "userId",
+            "description": "IM 用户业务标识",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "meta.operationId",
+            "description": "跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.traceId",
+            "description": "链路追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.caller",
+            "description": "调用方标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.platform",
+            "description": "客户端平台\n\n - PLATFORM_UNSPECIFIED: 未指定枚举值\n - PLATFORM_IOS: 平台iOS枚举值\n - PLATFORM_ANDROID: 平台Android枚举值\n - PLATFORM_WEB: 平台Web枚举值\n - PLATFORM_WINDOWS: 平台Windows枚举值\n - PLATFORM_MACOS: 平台macOS枚举值\n - PLATFORM_LINUX: 平台Linux枚举值\n - PLATFORM_ADMIN: 平台管理员枚举值\n - PLATFORM_SERVER: 平台服务端枚举值",
             "in": "query",
             "required": false,
             "type": "string",
@@ -3141,36 +3398,42 @@
           },
           {
             "name": "meta.deviceId",
+            "description": "客户端设备标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.connId",
+            "description": "网关连接标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.userId",
+            "description": "IM 用户业务标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.clientVersion",
+            "description": "客户端版本",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.locale",
+            "description": "语言区域",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "status",
+            "description": "业务状态\n\n - FRIEND_APPLICATION_STATUS_UNSPECIFIED: 未指定枚举值\n - FRIEND_APPLICATION_STATUS_PENDING: 待处理状态枚举值\n - FRIEND_APPLICATION_STATUS_ACCEPTED: 已接受状态枚举值\n - FRIEND_APPLICATION_STATUS_REJECTED: 已拒绝状态枚举值\n - FRIEND_APPLICATION_STATUS_CANCELED: 好友申请状态canceled枚举值",
             "in": "query",
             "required": false,
             "type": "string",
@@ -3185,12 +3448,14 @@
           },
           {
             "name": "incoming",
+            "description": "incoming字段",
             "in": "query",
             "required": false,
             "type": "boolean"
           },
           {
             "name": "pagination.page",
+            "description": "分页页码",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3198,6 +3463,7 @@
           },
           {
             "name": "pagination.size",
+            "description": "大小字段",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3205,6 +3471,7 @@
           },
           {
             "name": "pagination.cursor",
+            "description": "游标字段",
             "in": "query",
             "required": false,
             "type": "string"
@@ -3217,6 +3484,7 @@
     },
     "/api/v1/users/{userId}/friends/{friendUserId}": {
       "get": {
+        "summary": "处理get好友info操作",
         "operationId": "FriendService_GetFriendInfo",
         "responses": {
           "200": {
@@ -3235,36 +3503,42 @@
         "parameters": [
           {
             "name": "userId",
+            "description": "IM 用户业务标识",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "friendUserId",
+            "description": "好友用户标识",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "meta.operationId",
+            "description": "跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.traceId",
+            "description": "链路追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.caller",
+            "description": "调用方标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.platform",
+            "description": "客户端平台\n\n - PLATFORM_UNSPECIFIED: 未指定枚举值\n - PLATFORM_IOS: 平台iOS枚举值\n - PLATFORM_ANDROID: 平台Android枚举值\n - PLATFORM_WEB: 平台Web枚举值\n - PLATFORM_WINDOWS: 平台Windows枚举值\n - PLATFORM_MACOS: 平台macOS枚举值\n - PLATFORM_LINUX: 平台Linux枚举值\n - PLATFORM_ADMIN: 平台管理员枚举值\n - PLATFORM_SERVER: 平台服务端枚举值",
             "in": "query",
             "required": false,
             "type": "string",
@@ -3283,30 +3557,35 @@
           },
           {
             "name": "meta.deviceId",
+            "description": "客户端设备标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.connId",
+            "description": "网关连接标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.userId",
+            "description": "IM 用户业务标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.clientVersion",
+            "description": "客户端版本",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.locale",
+            "description": "语言区域",
             "in": "query",
             "required": false,
             "type": "string"
@@ -3317,6 +3596,7 @@
         ]
       },
       "delete": {
+        "summary": "处理删除好友操作",
         "operationId": "FriendService_DeleteFriend",
         "responses": {
           "200": {
@@ -3335,36 +3615,42 @@
         "parameters": [
           {
             "name": "userId",
+            "description": "IM 用户业务标识",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "friendUserId",
+            "description": "好友用户标识",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "meta.operationId",
+            "description": "跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.traceId",
+            "description": "链路追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.caller",
+            "description": "调用方标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.platform",
+            "description": "客户端平台\n\n - PLATFORM_UNSPECIFIED: 未指定枚举值\n - PLATFORM_IOS: 平台iOS枚举值\n - PLATFORM_ANDROID: 平台Android枚举值\n - PLATFORM_WEB: 平台Web枚举值\n - PLATFORM_WINDOWS: 平台Windows枚举值\n - PLATFORM_MACOS: 平台macOS枚举值\n - PLATFORM_LINUX: 平台Linux枚举值\n - PLATFORM_ADMIN: 平台管理员枚举值\n - PLATFORM_SERVER: 平台服务端枚举值",
             "in": "query",
             "required": false,
             "type": "string",
@@ -3383,30 +3669,35 @@
           },
           {
             "name": "meta.deviceId",
+            "description": "客户端设备标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.connId",
+            "description": "网关连接标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.userId",
+            "description": "IM 用户业务标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.clientVersion",
+            "description": "客户端版本",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.locale",
+            "description": "语言区域",
             "in": "query",
             "required": false,
             "type": "string"
@@ -3419,6 +3710,7 @@
     },
     "/api/v1/users/{userId}/friends/{friendUserId}/remark": {
       "patch": {
+        "summary": "处理set好友备注操作",
         "operationId": "FriendService_SetFriendRemark",
         "responses": {
           "200": {
@@ -3437,12 +3729,14 @@
         "parameters": [
           {
             "name": "userId",
+            "description": "IM 用户业务标识",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "friendUserId",
+            "description": "好友用户标识",
             "in": "path",
             "required": true,
             "type": "string"
@@ -3463,6 +3757,7 @@
     },
     "/api/v1/users/{userId}/groups": {
       "get": {
+        "summary": "处理列表joined群组操作",
         "operationId": "GroupService_ListJoinedGroups",
         "responses": {
           "200": {
@@ -3481,30 +3776,35 @@
         "parameters": [
           {
             "name": "userId",
+            "description": "IM 用户业务标识",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "meta.operationId",
+            "description": "跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.traceId",
+            "description": "链路追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.caller",
+            "description": "调用方标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.platform",
+            "description": "客户端平台\n\n - PLATFORM_UNSPECIFIED: 未指定枚举值\n - PLATFORM_IOS: 平台iOS枚举值\n - PLATFORM_ANDROID: 平台Android枚举值\n - PLATFORM_WEB: 平台Web枚举值\n - PLATFORM_WINDOWS: 平台Windows枚举值\n - PLATFORM_MACOS: 平台macOS枚举值\n - PLATFORM_LINUX: 平台Linux枚举值\n - PLATFORM_ADMIN: 平台管理员枚举值\n - PLATFORM_SERVER: 平台服务端枚举值",
             "in": "query",
             "required": false,
             "type": "string",
@@ -3523,36 +3823,42 @@
           },
           {
             "name": "meta.deviceId",
+            "description": "客户端设备标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.connId",
+            "description": "网关连接标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.userId",
+            "description": "IM 用户业务标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.clientVersion",
+            "description": "客户端版本",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.locale",
+            "description": "语言区域",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "pagination.page",
+            "description": "分页页码",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3560,6 +3866,7 @@
           },
           {
             "name": "pagination.size",
+            "description": "大小字段",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3567,6 +3874,7 @@
           },
           {
             "name": "pagination.cursor",
+            "description": "游标字段",
             "in": "query",
             "required": false,
             "type": "string"
@@ -3579,6 +3887,7 @@
     },
     "/api/v1/users/{userId}/push/tokens": {
       "get": {
+        "summary": "处理列表推送tokens操作",
         "operationId": "PushService_ListPushTokens",
         "responses": {
           "200": {
@@ -3597,30 +3906,35 @@
         "parameters": [
           {
             "name": "userId",
+            "description": "IM 用户业务标识",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "meta.operationId",
+            "description": "跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.traceId",
+            "description": "链路追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.caller",
+            "description": "调用方标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.platform",
+            "description": "客户端平台\n\n - PLATFORM_UNSPECIFIED: 未指定枚举值\n - PLATFORM_IOS: 平台iOS枚举值\n - PLATFORM_ANDROID: 平台Android枚举值\n - PLATFORM_WEB: 平台Web枚举值\n - PLATFORM_WINDOWS: 平台Windows枚举值\n - PLATFORM_MACOS: 平台macOS枚举值\n - PLATFORM_LINUX: 平台Linux枚举值\n - PLATFORM_ADMIN: 平台管理员枚举值\n - PLATFORM_SERVER: 平台服务端枚举值",
             "in": "query",
             "required": false,
             "type": "string",
@@ -3639,30 +3953,35 @@
           },
           {
             "name": "meta.deviceId",
+            "description": "客户端设备标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.connId",
+            "description": "网关连接标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.userId",
+            "description": "IM 用户业务标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.clientVersion",
+            "description": "客户端版本",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.locale",
+            "description": "语言区域",
             "in": "query",
             "required": false,
             "type": "string"
@@ -3675,6 +3994,7 @@
     },
     "/api/v1/users/{userId}/recv-msg-opt": {
       "post": {
+        "summary": "处理setglobal接收消息opt操作",
         "operationId": "UserService_SetGlobalRecvMsgOpt",
         "responses": {
           "200": {
@@ -3693,6 +4013,7 @@
         "parameters": [
           {
             "name": "userId",
+            "description": "IM 用户业务标识",
             "in": "path",
             "required": true,
             "type": "string"
@@ -3713,6 +4034,7 @@
     },
     "/api/v1/users/{userId}/status": {
       "post": {
+        "summary": "处理set用户状态操作",
         "operationId": "UserService_SetUserStatus",
         "responses": {
           "200": {
@@ -3731,6 +4053,7 @@
         "parameters": [
           {
             "name": "userId",
+            "description": "IM 用户业务标识",
             "in": "path",
             "required": true,
             "type": "string"
@@ -3751,6 +4074,7 @@
     },
     "/api/v1/users:batch-get": {
       "post": {
+        "summary": "处理批量getprofiles操作",
         "operationId": "UserService_BatchGetProfiles",
         "responses": {
           "200": {
@@ -3783,6 +4107,7 @@
     },
     "/api/v1/users:search": {
       "get": {
+        "summary": "处理搜索用户操作",
         "operationId": "UserService_SearchUsers",
         "responses": {
           "200": {
@@ -3801,24 +4126,28 @@
         "parameters": [
           {
             "name": "meta.operationId",
+            "description": "跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.traceId",
+            "description": "链路追踪标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.caller",
+            "description": "调用方标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.platform",
+            "description": "客户端平台\n\n - PLATFORM_UNSPECIFIED: 未指定枚举值\n - PLATFORM_IOS: 平台iOS枚举值\n - PLATFORM_ANDROID: 平台Android枚举值\n - PLATFORM_WEB: 平台Web枚举值\n - PLATFORM_WINDOWS: 平台Windows枚举值\n - PLATFORM_MACOS: 平台macOS枚举值\n - PLATFORM_LINUX: 平台Linux枚举值\n - PLATFORM_ADMIN: 平台管理员枚举值\n - PLATFORM_SERVER: 平台服务端枚举值",
             "in": "query",
             "required": false,
             "type": "string",
@@ -3837,42 +4166,49 @@
           },
           {
             "name": "meta.deviceId",
+            "description": "客户端设备标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.connId",
+            "description": "网关连接标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.userId",
+            "description": "IM 用户业务标识",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.clientVersion",
+            "description": "客户端版本",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "meta.locale",
+            "description": "语言区域",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "keyword",
+            "description": "keyword字段",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "pagination.page",
+            "description": "分页页码",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3880,6 +4216,7 @@
           },
           {
             "name": "pagination.size",
+            "description": "大小字段",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -3887,6 +4224,7 @@
           },
           {
             "name": "pagination.cursor",
+            "description": "游标字段",
             "in": "query",
             "required": false,
             "type": "string"
@@ -3903,345 +4241,442 @@
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "platform": {
-          "$ref": "#/definitions/v1Platform"
+          "$ref": "#/definitions/v1Platform",
+          "title": "客户端平台"
         },
         "deviceId": {
-          "type": "string"
+          "type": "string",
+          "title": "客户端设备标识"
         },
         "reason": {
-          "type": "string"
+          "type": "string",
+          "title": "业务原因"
         }
-      }
+      },
+      "title": "踢出设备请求承载请求参数"
     },
     "ConversationServiceClearConversationMessagesBody": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "userId": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 用户业务标识"
         },
         "clearBeforeSeq": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "clearbefore序号序号"
         }
-      }
+      },
+      "title": "clear会话消息请求承载请求参数"
     },
     "ConversationServiceUpdateConversationSettingsBody": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "userId": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 用户业务标识"
         },
         "settings": {
-          "$ref": "#/definitions/v1ConversationSettings"
+          "$ref": "#/definitions/v1ConversationSettings",
+          "title": "设置字段"
         }
-      }
+      },
+      "title": "更新会话设置请求承载请求参数"
     },
     "FileServiceCompleteUploadBody": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "fileId": {
-          "type": "string"
+          "type": "string",
+          "title": "文件业务标识"
         },
         "partEtags": {
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "title": "partetags列表"
         }
-      }
+      },
+      "title": "完成上传请求承载请求参数"
     },
     "FriendServiceAddBlackBody": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "blockedUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "blocked用户标识标识"
         }
-      }
+      },
+      "title": "addblack请求承载请求参数"
     },
     "FriendServiceRespondFriendApplicationBody": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "handlerUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "处理人用户标识"
         },
         "accept": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "accept字段"
         },
         "handleMessage": {
-          "type": "string"
+          "type": "string",
+          "title": "handle消息字段"
         }
-      }
+      },
+      "title": "处理好友申请请求承载请求参数"
     },
     "FriendServiceSetFriendRemarkBody": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "remark": {
-          "type": "string"
+          "type": "string",
+          "title": "好友备注"
         }
-      }
+      },
+      "title": "set好友备注请求承载请求参数"
     },
     "GroupServiceDismissGroupBody": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "operatorUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "操作人用户标识"
         },
         "reason": {
-          "type": "string"
+          "type": "string",
+          "title": "业务原因"
         }
-      }
+      },
+      "title": "dismiss群组请求承载请求参数"
     },
     "GroupServiceInviteUsersToGroupBody": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "inviterUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "inviter用户标识标识"
         },
         "memberUserIds": {
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "title": "成员用户标识列表列表"
         },
         "reason": {
-          "type": "string"
+          "type": "string",
+          "title": "业务原因"
         }
-      }
+      },
+      "title": "invite用户目标群组请求承载请求参数"
     },
     "GroupServiceJoinGroupBody": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "userId": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 用户业务标识"
         },
         "requestMessage": {
-          "type": "string"
+          "type": "string",
+          "title": "请求消息字段"
         },
         "joinSource": {
-          "$ref": "#/definitions/v1GroupJoinSource"
+          "$ref": "#/definitions/v1GroupJoinSource",
+          "title": "加入来源字段"
         },
         "inviterUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "inviter用户标识标识"
         }
-      }
+      },
+      "title": "加入群组请求承载请求参数"
     },
     "GroupServiceKickGroupMembersBody": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "operatorUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "操作人用户标识"
         },
         "memberUserIds": {
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "title": "成员用户标识列表列表"
         },
         "reason": {
-          "type": "string"
+          "type": "string",
+          "title": "业务原因"
         }
-      }
+      },
+      "title": "踢出群组成员请求承载请求参数"
     },
     "GroupServiceMuteGroupMemberBody": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "operatorUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "操作人用户标识"
         },
         "muteEndTimeMs": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "禁言end时间ms字段"
         }
-      }
+      },
+      "title": "禁言群组成员请求承载请求参数"
     },
     "GroupServiceQuitGroupBody": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "userId": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 用户业务标识"
         }
-      }
+      },
+      "title": "退出群组请求承载请求参数"
     },
     "GroupServiceRespondGroupApplicationBody": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "handlerUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "处理人用户标识"
         },
         "accept": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "accept字段"
         },
         "handleMessage": {
-          "type": "string"
+          "type": "string",
+          "title": "handle消息字段"
         }
-      }
+      },
+      "title": "处理群组申请请求承载请求参数"
     },
     "GroupServiceSetGroupMemberRoleBody": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "operatorUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "操作人用户标识"
         },
         "role": {
-          "$ref": "#/definitions/v1GroupRole"
+          "$ref": "#/definitions/v1GroupRole",
+          "title": "角色"
         }
-      }
+      },
+      "title": "set群组成员角色请求承载请求参数"
     },
     "GroupServiceSetGroupMuteBody": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "operatorUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "操作人用户标识"
         },
         "muted": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "muted字段"
         }
-      }
+      },
+      "title": "set群组禁言请求承载请求参数"
     },
     "GroupServiceTransferGroupOwnerBody": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "oldOwnerUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "旧会话群主用户标识标识"
         },
         "newOwnerUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "new群主用户标识标识"
         }
-      }
+      },
+      "title": "转让群组群主请求承载请求参数"
     },
     "GroupServiceUpdateGroupBody": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "operatorUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "操作人用户标识"
         },
         "groupName": {
-          "type": "string"
+          "type": "string",
+          "title": "群组名称"
         },
         "avatarUrl": {
-          "type": "string"
+          "type": "string",
+          "title": "头像地址"
         },
         "introduction": {
-          "type": "string"
+          "type": "string",
+          "title": "群简介"
         },
         "notification": {
-          "type": "string"
+          "type": "string",
+          "title": "群公告内容"
         },
         "needVerification": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "needverification字段"
         },
         "ex": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 扩展字段"
         }
-      }
+      },
+      "title": "更新群组请求承载请求参数"
     },
     "UserServiceSetGlobalRecvMsgOptBody": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "recvMsgOpt": {
-          "$ref": "#/definitions/v1ReceiveMessageOption"
+          "$ref": "#/definitions/v1ReceiveMessageOption",
+          "title": "接收消息opt字段"
         }
-      }
+      },
+      "title": "setglobal接收消息opt请求承载请求参数"
     },
     "UserServiceSetUserStatusBody": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "status": {
-          "$ref": "#/definitions/v1UserStatus"
+          "$ref": "#/definitions/v1UserStatus",
+          "title": "业务状态"
         },
         "reason": {
-          "type": "string"
+          "type": "string",
+          "title": "业务原因"
         }
-      }
+      },
+      "title": "set用户状态请求承载请求参数"
     },
     "UserServiceUpdateProfileBody": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "nickname": {
-          "type": "string"
+          "type": "string",
+          "title": "用户昵称"
         },
         "avatarUrl": {
-          "type": "string"
+          "type": "string",
+          "title": "头像地址"
         },
         "phone": {
-          "type": "string"
+          "type": "string",
+          "title": "手机号字段"
         },
         "email": {
-          "type": "string"
+          "type": "string",
+          "title": "邮箱地址"
         },
         "gender": {
-          "$ref": "#/definitions/v1Gender"
+          "$ref": "#/definitions/v1Gender",
+          "title": "性别"
         },
         "globalRecvMsgOpt": {
-          "$ref": "#/definitions/v1ReceiveMessageOption"
+          "$ref": "#/definitions/v1ReceiveMessageOption",
+          "title": "global接收消息opt字段"
         },
         "ex": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 扩展字段"
         }
-      }
+      },
+      "title": "更新资料请求承载请求参数"
     },
     "protobufAny": {
       "type": "object",
@@ -4275,175 +4710,217 @@
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "black": {
-          "$ref": "#/definitions/v1BlackInfo"
+          "$ref": "#/definitions/v1BlackInfo",
+          "title": "black字段"
         }
-      }
+      },
+      "title": "addblack响应承载响应数据"
     },
     "v1ApplyFriendRequest": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "fromUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "发起方用户标识"
         },
         "toUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "目标用户标识"
         },
         "requestMessage": {
-          "type": "string"
+          "type": "string",
+          "title": "请求消息字段"
         },
         "ex": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 扩展字段"
         }
-      }
+      },
+      "title": "申请好友请求承载请求参数"
     },
     "v1ApplyFriendResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "application": {
-          "$ref": "#/definitions/v1FriendApplication"
+          "$ref": "#/definitions/v1FriendApplication",
+          "title": "申请字段"
         }
-      }
+      },
+      "title": "申请好友响应承载响应数据"
     },
     "v1BatchGetProfilesRequest": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "userIds": {
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "title": "IM 用户业务标识列表"
         }
-      }
+      },
+      "title": "批量getprofiles请求承载请求参数"
     },
     "v1BatchGetProfilesResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "users": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/v1UserProfile"
-          }
+          },
+          "title": "用户列表"
         }
-      }
+      },
+      "title": "批量getprofiles响应承载响应数据"
     },
     "v1BatchSendMsgRequest": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "messages": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/v1MsgData"
-          }
+          },
+          "title": "消息列表"
         }
-      }
+      },
+      "title": "批量发送消息请求承载请求参数"
     },
     "v1BatchSendMsgResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "results": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/v1SendMsgResult"
-          }
+          },
+          "title": "results列表"
         }
-      }
+      },
+      "title": "批量发送消息响应承载响应数据"
     },
     "v1BlackInfo": {
       "type": "object",
       "properties": {
         "ownerUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "归属用户标识"
         },
         "blockedUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "blocked用户标识标识"
         },
         "blockedUser": {
-          "$ref": "#/definitions/v1UserRef"
+          "$ref": "#/definitions/v1UserRef",
+          "title": "blocked用户字段"
         },
         "createTimeMs": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "创建时间ms字段"
         }
-      }
+      },
+      "title": "blackinfo描述业务数据结构"
     },
     "v1CheckFriendRequest": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "userId": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 用户业务标识"
         },
         "targetUserIds": {
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "title": "target用户标识列表列表"
         }
-      }
+      },
+      "title": "check好友请求承载请求参数"
     },
     "v1CheckFriendResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "results": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/v1FriendRelationCheckResult"
-          }
+          },
+          "title": "results列表"
         }
-      }
+      },
+      "title": "check好友响应承载响应数据"
     },
     "v1ClearConversationMessagesResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "clearedMaxSeq": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "cleared最大序号序号"
         }
-      }
+      },
+      "title": "clear会话消息响应承载响应数据"
     },
     "v1CompleteUploadResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "file": {
-          "$ref": "#/definitions/v1FileInfo"
+          "$ref": "#/definitions/v1FileInfo",
+          "title": "文件字段"
         }
-      }
+      },
+      "title": "完成上传响应承载响应数据"
     },
     "v1ContentType": {
       "type": "string",
@@ -4468,124 +4945,159 @@
         "CONTENT_TYPE_CONVERSATION_CHANGED_NOTIFICATION",
         "CONTENT_TYPE_SYSTEM_NOTIFICATION"
       ],
-      "default": "CONTENT_TYPE_UNSPECIFIED"
+      "default": "CONTENT_TYPE_UNSPECIFIED",
+      "description": "- CONTENT_TYPE_UNSPECIFIED: 未指定枚举值\n - CONTENT_TYPE_TEXT: 内容类型text枚举值\n - CONTENT_TYPE_IMAGE: 内容类型image枚举值\n - CONTENT_TYPE_VOICE: 内容类型voice枚举值\n - CONTENT_TYPE_VIDEO: 内容类型video枚举值\n - CONTENT_TYPE_FILE: 内容类型文件枚举值\n - CONTENT_TYPE_LOCATION: 内容类型location枚举值\n - CONTENT_TYPE_CARD: 内容类型card枚举值\n - CONTENT_TYPE_MERGER: 内容类型merger枚举值\n - CONTENT_TYPE_AT_TEXT: 内容类型时间text枚举值\n - CONTENT_TYPE_CUSTOM: 内容类型custom枚举值\n - CONTENT_TYPE_TYPING: 内容类型typing枚举值\n - CONTENT_TYPE_REVOKE: 内容类型撤回枚举值\n - CONTENT_TYPE_READ_RECEIPT: 内容类型已读回执枚举值\n - CONTENT_TYPE_FRIEND_APPLICATION_NOTIFICATION: 内容类型好友申请通知枚举值\n - CONTENT_TYPE_GROUP_APPLICATION_NOTIFICATION: 内容类型群组申请通知枚举值\n - CONTENT_TYPE_GROUP_MEMBER_CHANGED_NOTIFICATION: 内容类型群组成员changed通知枚举值\n - CONTENT_TYPE_CONVERSATION_CHANGED_NOTIFICATION: 内容类型会话changed通知枚举值\n - CONTENT_TYPE_SYSTEM_NOTIFICATION: 内容类型系统通知枚举值",
+      "title": "内容类型定义可选枚举值"
     },
     "v1ConversationInfo": {
       "type": "object",
       "properties": {
         "ownerUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "归属用户标识"
         },
         "conversationId": {
-          "type": "string"
+          "type": "string",
+          "title": "会话业务标识"
         },
         "conversationType": {
-          "$ref": "#/definitions/v1ConversationType"
+          "$ref": "#/definitions/v1ConversationType",
+          "title": "会话类型"
         },
         "userId": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 用户业务标识"
         },
         "groupId": {
-          "type": "string"
+          "type": "string",
+          "title": "群组业务标识"
         },
         "showName": {
-          "type": "string"
+          "type": "string",
+          "title": "show名称名称"
         },
         "faceUrl": {
-          "type": "string"
+          "type": "string",
+          "title": "头像地址"
         },
         "status": {
-          "$ref": "#/definitions/v1ConversationStatus"
+          "$ref": "#/definitions/v1ConversationStatus",
+          "title": "业务状态"
         },
         "settings": {
-          "$ref": "#/definitions/v1ConversationSettings"
+          "$ref": "#/definitions/v1ConversationSettings",
+          "title": "设置字段"
         },
         "groupAtType": {
-          "$ref": "#/definitions/v1GroupAtType"
+          "$ref": "#/definitions/v1GroupAtType",
+          "title": "群组时间类型类型"
         },
         "minSeq": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "最小消息序号"
         },
         "maxSeq": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "最大消息序号"
         },
         "readSeq": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "用户已读消息序号"
         },
         "unreadCount": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "unread数量数量"
         },
         "latestMsg": {
-          "$ref": "#/definitions/v1MsgData"
+          "$ref": "#/definitions/v1MsgData",
+          "title": "最新消息字段"
         },
         "latestMsgSendTimeMs": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "最新消息发送时间ms字段"
         },
         "createTimeMs": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "创建时间ms字段"
         },
         "updateTimeMs": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "更新时间ms字段"
         }
-      }
+      },
+      "title": "会话info描述业务数据结构"
     },
     "v1ConversationSeq": {
       "type": "object",
       "properties": {
         "conversationId": {
-          "type": "string"
+          "type": "string",
+          "title": "会话业务标识"
         },
         "minSeq": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "最小消息序号"
         },
         "maxSeq": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "最大消息序号"
         },
         "readSeq": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "用户已读消息序号"
         }
-      }
+      },
+      "title": "会话序号描述业务数据结构"
     },
     "v1ConversationSettings": {
       "type": "object",
       "properties": {
         "isPinned": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "ispinned字段"
         },
         "recvMsgOpt": {
-          "$ref": "#/definitions/v1ReceiveMessageOption"
+          "$ref": "#/definitions/v1ReceiveMessageOption",
+          "title": "接收消息opt字段"
         },
         "isPrivateChat": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "is私有chat字段"
         },
         "isMsgDestruct": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "is消息destruct字段"
         },
         "burnDurationSeconds": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "burn时长seconds字段"
         },
         "msgDestructTimeMs": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "消息destruct时间ms字段"
         },
         "attachedInfo": {
-          "type": "string"
+          "type": "string",
+          "title": "attachedinfo字段"
         },
         "ex": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 扩展字段"
         }
-      }
+      },
+      "title": "会话设置描述业务数据结构"
     },
     "v1ConversationStatus": {
       "type": "string",
@@ -4595,7 +5107,9 @@
         "CONVERSATION_STATUS_DELETED",
         "CONVERSATION_STATUS_ARCHIVED"
       ],
-      "default": "CONVERSATION_STATUS_UNSPECIFIED"
+      "default": "CONVERSATION_STATUS_UNSPECIFIED",
+      "description": "- CONVERSATION_STATUS_UNSPECIFIED: 未指定枚举值\n - CONVERSATION_STATUS_NORMAL: 正常状态枚举值\n - CONVERSATION_STATUS_DELETED: 会话状态deleted枚举值\n - CONVERSATION_STATUS_ARCHIVED: 会话状态archived枚举值",
+      "title": "会话状态定义可选枚举值"
     },
     "v1ConversationType": {
       "type": "string",
@@ -4606,217 +5120,274 @@
         "CONVERSATION_TYPE_NOTIFICATION",
         "CONVERSATION_TYPE_SYSTEM"
       ],
-      "default": "CONVERSATION_TYPE_UNSPECIFIED"
+      "default": "CONVERSATION_TYPE_UNSPECIFIED",
+      "description": "- CONVERSATION_TYPE_UNSPECIFIED: 未指定枚举值\n - CONVERSATION_TYPE_SINGLE: 会话类型单聊枚举值\n - CONVERSATION_TYPE_GROUP: 会话类型群组枚举值\n - CONVERSATION_TYPE_NOTIFICATION: 会话类型通知枚举值\n - CONVERSATION_TYPE_SYSTEM: 会话类型系统枚举值",
+      "title": "会话类型定义可选枚举值"
     },
     "v1CreateGroupRequest": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "ownerUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "归属用户标识"
         },
         "groupName": {
-          "type": "string"
+          "type": "string",
+          "title": "群组名称"
         },
         "avatarUrl": {
-          "type": "string"
+          "type": "string",
+          "title": "头像地址"
         },
         "introduction": {
-          "type": "string"
+          "type": "string",
+          "title": "群简介"
         },
         "groupType": {
-          "$ref": "#/definitions/v1GroupType"
+          "$ref": "#/definitions/v1GroupType",
+          "title": "群组类型类型"
         },
         "memberUserIds": {
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "title": "成员用户标识列表列表"
         },
         "adminUserIds": {
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "title": "管理员用户标识列表列表"
         },
         "needVerification": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "needverification字段"
         },
         "ex": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 扩展字段"
         }
-      }
+      },
+      "title": "创建群组请求承载请求参数"
     },
     "v1CreateGroupResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "group": {
-          "$ref": "#/definitions/v1GroupInfo"
+          "$ref": "#/definitions/v1GroupInfo",
+          "title": "群组数据"
         },
         "members": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/v1GroupMemberInfo"
-          }
+          },
+          "title": "群成员列表"
         }
-      }
+      },
+      "title": "创建群组响应承载响应数据"
     },
     "v1CreateOrGetSingleConversationRequest": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "ownerUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "归属用户标识"
         },
         "peerUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "peer用户标识标识"
         }
-      }
+      },
+      "title": "创建orget单聊会话请求承载请求参数"
     },
     "v1CreateOrGetSingleConversationResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "conversation": {
-          "$ref": "#/definitions/v1ConversationInfo"
+          "$ref": "#/definitions/v1ConversationInfo",
+          "title": "会话数据"
         }
-      }
+      },
+      "title": "创建orget单聊会话响应承载响应数据"
     },
     "v1CreateUploadRequest": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "ownerUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "归属用户标识"
         },
         "bizType": {
-          "$ref": "#/definitions/v1FileBizType"
+          "$ref": "#/definitions/v1FileBizType",
+          "title": "业务类型类型"
         },
         "fileName": {
-          "type": "string"
+          "type": "string",
+          "title": "文件名"
         },
         "mimeType": {
-          "type": "string"
+          "type": "string",
+          "title": "MIME 类型"
         },
         "size": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "大小字段"
         },
         "checksum": {
-          "type": "string"
+          "type": "string",
+          "title": "checksum字段"
         },
         "partCount": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "title": "part数量数量"
         },
         "ex": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 扩展字段"
         }
-      }
+      },
+      "title": "创建上传请求承载请求参数"
     },
     "v1CreateUploadResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "uploadId": {
-          "type": "string"
+          "type": "string",
+          "title": "上传标识标识"
         },
         "fileId": {
-          "type": "string"
+          "type": "string",
+          "title": "文件业务标识"
         },
         "objectKey": {
-          "type": "string"
+          "type": "string",
+          "title": "对象存储键"
         },
         "uploadUrl": {
-          "type": "string"
+          "type": "string",
+          "title": "上传地址"
         },
         "parts": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/v1UploadPart"
-          }
+          },
+          "title": "parts列表"
         },
         "expireTimeMs": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "expire时间ms字段"
         }
-      }
+      },
+      "title": "创建上传响应承载响应数据"
     },
     "v1DeleteConversationResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         }
-      }
+      },
+      "title": "删除会话响应承载响应数据"
     },
     "v1DeleteFileResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         }
-      }
+      },
+      "title": "删除文件响应承载响应数据"
     },
     "v1DeleteFriendResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         }
-      }
+      },
+      "title": "删除好友响应承载响应数据"
     },
     "v1DeleteMsgRequest": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "operatorUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "操作人用户标识"
         },
         "conversationId": {
-          "type": "string"
+          "type": "string",
+          "title": "会话业务标识"
         },
         "serverMsgIds": {
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "title": "服务端消息唯一标识列表"
         },
         "deleteScope": {
-          "$ref": "#/definitions/v1DeleteScope"
+          "$ref": "#/definitions/v1DeleteScope",
+          "title": "删除scope字段"
         }
-      }
+      },
+      "title": "删除消息请求承载请求参数"
     },
     "v1DeleteMsgResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "deletedServerMsgIds": {
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "title": "deleted服务端消息标识列表列表"
         }
-      }
+      },
+      "title": "删除消息响应承载响应数据"
     },
     "v1DeleteScope": {
       "type": "string",
@@ -4825,15 +5396,19 @@
         "DELETE_SCOPE_LOCAL",
         "DELETE_SCOPE_ALL"
       ],
-      "default": "DELETE_SCOPE_UNSPECIFIED"
+      "default": "DELETE_SCOPE_UNSPECIFIED",
+      "description": "- DELETE_SCOPE_UNSPECIFIED: 未指定枚举值\n - DELETE_SCOPE_LOCAL: 删除scopelocal枚举值\n - DELETE_SCOPE_ALL: 删除scope全部枚举值",
+      "title": "删除scope定义可选枚举值"
     },
     "v1DismissGroupResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         }
-      }
+      },
+      "title": "dismiss群组响应承载响应数据"
     },
     "v1FileBizType": {
       "type": "string",
@@ -4847,119 +5422,154 @@
         "FILE_BIZ_TYPE_GROUP_AVATAR",
         "FILE_BIZ_TYPE_LOG"
       ],
-      "default": "FILE_BIZ_TYPE_UNSPECIFIED"
+      "default": "FILE_BIZ_TYPE_UNSPECIFIED",
+      "description": "- FILE_BIZ_TYPE_UNSPECIFIED: 未指定枚举值\n - FILE_BIZ_TYPE_AVATAR: 文件业务类型头像枚举值\n - FILE_BIZ_TYPE_MESSAGE_IMAGE: 文件业务类型消息image枚举值\n - FILE_BIZ_TYPE_MESSAGE_VOICE: 文件业务类型消息voice枚举值\n - FILE_BIZ_TYPE_MESSAGE_VIDEO: 文件业务类型消息video枚举值\n - FILE_BIZ_TYPE_MESSAGE_FILE: 文件业务类型消息文件枚举值\n - FILE_BIZ_TYPE_GROUP_AVATAR: 文件业务类型群组头像枚举值\n - FILE_BIZ_TYPE_LOG: 文件业务类型log枚举值",
+      "title": "文件业务类型定义可选枚举值"
     },
     "v1FileInfo": {
       "type": "object",
       "properties": {
         "fileId": {
-          "type": "string"
+          "type": "string",
+          "title": "文件业务标识"
         },
         "ownerUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "归属用户标识"
         },
         "bizType": {
-          "$ref": "#/definitions/v1FileBizType"
+          "$ref": "#/definitions/v1FileBizType",
+          "title": "业务类型类型"
         },
         "fileName": {
-          "type": "string"
+          "type": "string",
+          "title": "文件名"
         },
         "objectKey": {
-          "type": "string"
+          "type": "string",
+          "title": "对象存储键"
         },
         "url": {
-          "type": "string"
+          "type": "string",
+          "title": "访问地址"
         },
         "mimeType": {
-          "type": "string"
+          "type": "string",
+          "title": "MIME 类型"
         },
         "size": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "大小字段"
         },
         "checksum": {
-          "type": "string"
+          "type": "string",
+          "title": "checksum字段"
         },
         "createTimeMs": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "创建时间ms字段"
         },
         "ex": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 扩展字段"
         }
-      }
+      },
+      "title": "文件info描述业务数据结构"
     },
     "v1ForceLogoutRequest": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "userId": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 用户业务标识"
         },
         "platform": {
-          "$ref": "#/definitions/v1Platform"
+          "$ref": "#/definitions/v1Platform",
+          "title": "客户端平台"
         },
         "deviceId": {
-          "type": "string"
+          "type": "string",
+          "title": "客户端设备标识"
         },
         "reason": {
-          "type": "string"
+          "type": "string",
+          "title": "业务原因"
         }
-      }
+      },
+      "title": "强制退出登录请求承载请求参数"
     },
     "v1ForceLogoutResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "kickedCount": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "title": "踢出数量数量"
         }
-      }
+      },
+      "title": "强制退出登录响应承载响应数据"
     },
     "v1FriendApplication": {
       "type": "object",
       "properties": {
         "applicationId": {
-          "type": "string"
+          "type": "string",
+          "title": "申请标识标识"
         },
         "fromUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "发起方用户标识"
         },
         "toUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "目标用户标识"
         },
         "fromUser": {
-          "$ref": "#/definitions/v1UserRef"
+          "$ref": "#/definitions/v1UserRef",
+          "title": "来源用户字段"
         },
         "toUser": {
-          "$ref": "#/definitions/v1UserRef"
+          "$ref": "#/definitions/v1UserRef",
+          "title": "目标用户字段"
         },
         "requestMessage": {
-          "type": "string"
+          "type": "string",
+          "title": "请求消息字段"
         },
         "handleMessage": {
-          "type": "string"
+          "type": "string",
+          "title": "handle消息字段"
         },
         "status": {
-          "$ref": "#/definitions/v1FriendApplicationStatus"
+          "$ref": "#/definitions/v1FriendApplicationStatus",
+          "title": "业务状态"
         },
         "createTimeMs": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "创建时间ms字段"
         },
         "handleTimeMs": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "handle时间ms字段"
         },
         "ex": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 扩展字段"
         }
-      }
+      },
+      "title": "好友申请描述业务数据结构"
     },
     "v1FriendApplicationStatus": {
       "type": "string",
@@ -4970,45 +5580,58 @@
         "FRIEND_APPLICATION_STATUS_REJECTED",
         "FRIEND_APPLICATION_STATUS_CANCELED"
       ],
-      "default": "FRIEND_APPLICATION_STATUS_UNSPECIFIED"
+      "default": "FRIEND_APPLICATION_STATUS_UNSPECIFIED",
+      "description": "- FRIEND_APPLICATION_STATUS_UNSPECIFIED: 未指定枚举值\n - FRIEND_APPLICATION_STATUS_PENDING: 待处理状态枚举值\n - FRIEND_APPLICATION_STATUS_ACCEPTED: 已接受状态枚举值\n - FRIEND_APPLICATION_STATUS_REJECTED: 已拒绝状态枚举值\n - FRIEND_APPLICATION_STATUS_CANCELED: 好友申请状态canceled枚举值",
+      "title": "好友申请状态定义可选枚举值"
     },
     "v1FriendInfo": {
       "type": "object",
       "properties": {
         "ownerUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "归属用户标识"
         },
         "friendUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "好友用户标识"
         },
         "remark": {
-          "type": "string"
+          "type": "string",
+          "title": "好友备注"
         },
         "friend": {
-          "$ref": "#/definitions/v1UserRef"
+          "$ref": "#/definitions/v1UserRef",
+          "title": "好友数据"
         },
         "recvMsgOpt": {
-          "$ref": "#/definitions/v1ReceiveMessageOption"
+          "$ref": "#/definitions/v1ReceiveMessageOption",
+          "title": "接收消息opt字段"
         },
         "createTimeMs": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "创建时间ms字段"
         },
         "ex": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 扩展字段"
         }
-      }
+      },
+      "title": "好友info描述业务数据结构"
     },
     "v1FriendRelationCheckResult": {
       "type": "object",
       "properties": {
         "targetUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "target用户标识标识"
         },
         "status": {
-          "$ref": "#/definitions/v1FriendRelationStatus"
+          "$ref": "#/definitions/v1FriendRelationStatus",
+          "title": "业务状态"
         }
-      }
+      },
+      "title": "好友relationcheck结果描述业务数据结构"
     },
     "v1FriendRelationStatus": {
       "type": "string",
@@ -5019,7 +5642,9 @@
         "FRIEND_RELATION_STATUS_BLACKED",
         "FRIEND_RELATION_STATUS_BLOCKED_BY_PEER"
       ],
-      "default": "FRIEND_RELATION_STATUS_UNSPECIFIED"
+      "default": "FRIEND_RELATION_STATUS_UNSPECIFIED",
+      "description": "- FRIEND_RELATION_STATUS_UNSPECIFIED: 未指定枚举值\n - FRIEND_RELATION_STATUS_NONE: 好友relation状态无枚举值\n - FRIEND_RELATION_STATUS_FRIEND: 好友relation状态好友枚举值\n - FRIEND_RELATION_STATUS_BLACKED: 好友relation状态blacked枚举值\n - FRIEND_RELATION_STATUS_BLOCKED_BY_PEER: 好友relation状态blockedbypeer枚举值",
+      "title": "好友relation状态定义可选枚举值"
     },
     "v1Gender": {
       "type": "string",
@@ -5029,222 +5654,278 @@
         "GENDER_FEMALE",
         "GENDER_OTHER"
       ],
-      "default": "GENDER_UNSPECIFIED"
+      "default": "GENDER_UNSPECIFIED",
+      "description": "- GENDER_UNSPECIFIED: 未指定枚举值\n - GENDER_MALE: 性别男性枚举值\n - GENDER_FEMALE: 性别女性枚举值\n - GENDER_OTHER: 性别其他枚举值",
+      "title": "性别定义可选枚举值"
     },
     "v1GetConversationResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "conversation": {
-          "$ref": "#/definitions/v1ConversationInfo"
+          "$ref": "#/definitions/v1ConversationInfo",
+          "title": "会话数据"
         }
-      }
+      },
+      "title": "get会话响应承载响应数据"
     },
     "v1GetConversationSeqRequest": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "userId": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 用户业务标识"
         },
         "conversationIds": {
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "title": "会话业务标识列表"
         }
-      }
+      },
+      "title": "get会话序号请求承载请求参数"
     },
     "v1GetConversationSeqResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "seqs": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/v1ConversationSeq"
-          }
+          },
+          "title": "消息序号列表"
         }
-      }
+      },
+      "title": "get会话序号响应承载响应数据"
     },
     "v1GetDownloadUrlResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "downloadUrl": {
-          "type": "string"
+          "type": "string",
+          "title": "下载地址"
         },
         "headers": {
           "type": "object",
           "additionalProperties": {
             "type": "string"
-          }
+          },
+          "title": "headers字段"
         },
         "expireTimeMs": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "expire时间ms字段"
         },
         "file": {
-          "$ref": "#/definitions/v1FileInfo"
+          "$ref": "#/definitions/v1FileInfo",
+          "title": "文件字段"
         }
-      }
+      },
+      "title": "get下载地址响应承载响应数据"
     },
     "v1GetFriendInfoResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "friend": {
-          "$ref": "#/definitions/v1FriendInfo"
+          "$ref": "#/definitions/v1FriendInfo",
+          "title": "好友数据"
         }
-      }
+      },
+      "title": "get好友info响应承载响应数据"
     },
     "v1GetGroupResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "group": {
-          "$ref": "#/definitions/v1GroupInfo"
+          "$ref": "#/definitions/v1GroupInfo",
+          "title": "群组数据"
         }
-      }
+      },
+      "title": "get群组响应承载响应数据"
     },
     "v1GetMsgResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "msgData": {
-          "$ref": "#/definitions/v1MsgData"
+          "$ref": "#/definitions/v1MsgData",
+          "title": "消息数据字段"
         }
-      }
+      },
+      "title": "get消息响应承载响应数据"
     },
     "v1GetNewestSeqRequest": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "userId": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 用户业务标识"
         },
         "conversationIds": {
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "title": "会话业务标识列表"
         }
-      }
+      },
+      "title": "getnewest序号请求承载请求参数"
     },
     "v1GetNewestSeqResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "seqs": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/v1ConversationSeq"
-          }
+          },
+          "title": "消息序号列表"
         }
-      }
+      },
+      "title": "getnewest序号响应承载响应数据"
     },
     "v1GetProfileResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "user": {
-          "$ref": "#/definitions/v1UserProfile"
+          "$ref": "#/definitions/v1UserProfile",
+          "title": "用户字段"
         }
-      }
+      },
+      "title": "get资料响应承载响应数据"
     },
     "v1GetUsersOnlineStatusRequest": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "userIds": {
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "title": "IM 用户业务标识列表"
         }
-      }
+      },
+      "title": "get用户在线状态请求承载请求参数"
     },
     "v1GetUsersOnlineStatusResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "statuses": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/v1UserOnlineStatus"
-          }
+          },
+          "title": "statuses列表"
         }
-      }
+      },
+      "title": "get用户在线状态响应承载响应数据"
     },
     "v1GroupApplication": {
       "type": "object",
       "properties": {
         "applicationId": {
-          "type": "string"
+          "type": "string",
+          "title": "申请标识标识"
         },
         "groupId": {
-          "type": "string"
+          "type": "string",
+          "title": "群组业务标识"
         },
         "fromUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "发起方用户标识"
         },
         "inviterUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "inviter用户标识标识"
         },
         "handleUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "handle用户标识标识"
         },
         "requestMessage": {
-          "type": "string"
+          "type": "string",
+          "title": "请求消息字段"
         },
         "handleMessage": {
-          "type": "string"
+          "type": "string",
+          "title": "handle消息字段"
         },
         "status": {
-          "$ref": "#/definitions/v1GroupApplicationStatus"
+          "$ref": "#/definitions/v1GroupApplicationStatus",
+          "title": "业务状态"
         },
         "joinSource": {
-          "$ref": "#/definitions/v1GroupJoinSource"
+          "$ref": "#/definitions/v1GroupJoinSource",
+          "title": "加入来源字段"
         },
         "createTimeMs": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "创建时间ms字段"
         },
         "handleTimeMs": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "handle时间ms字段"
         },
         "ex": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 扩展字段"
         }
-      }
+      },
+      "title": "群组申请描述业务数据结构"
     },
     "v1GroupApplicationStatus": {
       "type": "string",
@@ -5255,7 +5936,9 @@
         "GROUP_APPLICATION_STATUS_REJECTED",
         "GROUP_APPLICATION_STATUS_CANCELED"
       ],
-      "default": "GROUP_APPLICATION_STATUS_UNSPECIFIED"
+      "default": "GROUP_APPLICATION_STATUS_UNSPECIFIED",
+      "description": "- GROUP_APPLICATION_STATUS_UNSPECIFIED: 未指定枚举值\n - GROUP_APPLICATION_STATUS_PENDING: 待处理状态枚举值\n - GROUP_APPLICATION_STATUS_ACCEPTED: 已接受状态枚举值\n - GROUP_APPLICATION_STATUS_REJECTED: 已拒绝状态枚举值\n - GROUP_APPLICATION_STATUS_CANCELED: 群组申请状态canceled枚举值",
+      "title": "群组申请状态定义可选枚举值"
     },
     "v1GroupAtType": {
       "type": "string",
@@ -5266,54 +5949,70 @@
         "GROUP_AT_TYPE_AT_ALL",
         "GROUP_AT_TYPE_AT_ALL_AT_ME"
       ],
-      "default": "GROUP_AT_TYPE_UNSPECIFIED"
+      "default": "GROUP_AT_TYPE_UNSPECIFIED",
+      "description": "- GROUP_AT_TYPE_UNSPECIFIED: 未指定枚举值\n - GROUP_AT_TYPE_NONE: 群组时间类型无枚举值\n - GROUP_AT_TYPE_AT_ME: 群组时间类型时间me枚举值\n - GROUP_AT_TYPE_AT_ALL: 群组时间类型时间全部枚举值\n - GROUP_AT_TYPE_AT_ALL_AT_ME: 群组时间类型时间全部时间me枚举值",
+      "title": "群组时间类型定义可选枚举值"
     },
     "v1GroupInfo": {
       "type": "object",
       "properties": {
         "groupId": {
-          "type": "string"
+          "type": "string",
+          "title": "群组业务标识"
         },
         "groupName": {
-          "type": "string"
+          "type": "string",
+          "title": "群组名称"
         },
         "avatarUrl": {
-          "type": "string"
+          "type": "string",
+          "title": "头像地址"
         },
         "introduction": {
-          "type": "string"
+          "type": "string",
+          "title": "群简介"
         },
         "notification": {
-          "type": "string"
+          "type": "string",
+          "title": "群公告内容"
         },
         "ownerUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "归属用户标识"
         },
         "groupType": {
-          "$ref": "#/definitions/v1GroupType"
+          "$ref": "#/definitions/v1GroupType",
+          "title": "群组类型类型"
         },
         "status": {
-          "$ref": "#/definitions/v1GroupStatus"
+          "$ref": "#/definitions/v1GroupStatus",
+          "title": "业务状态"
         },
         "memberCount": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "title": "成员数量数量"
         },
         "needVerification": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "needverification字段"
         },
         "createTimeMs": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "创建时间ms字段"
         },
         "updateTimeMs": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "更新时间ms字段"
         },
         "ex": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 扩展字段"
         }
-      }
+      },
+      "title": "群组info描述业务数据结构"
     },
     "v1GroupJoinSource": {
       "type": "string",
@@ -5324,50 +6023,65 @@
         "GROUP_JOIN_SOURCE_QR_CODE",
         "GROUP_JOIN_SOURCE_ADMIN"
       ],
-      "default": "GROUP_JOIN_SOURCE_UNSPECIFIED"
+      "default": "GROUP_JOIN_SOURCE_UNSPECIFIED",
+      "description": "- GROUP_JOIN_SOURCE_UNSPECIFIED: 未指定枚举值\n - GROUP_JOIN_SOURCE_SEARCH: 群组加入来源搜索枚举值\n - GROUP_JOIN_SOURCE_INVITE: 群组加入来源invite枚举值\n - GROUP_JOIN_SOURCE_QR_CODE: 群组加入来源qr编码枚举值\n - GROUP_JOIN_SOURCE_ADMIN: 群组加入来源管理员枚举值",
+      "title": "群组加入来源定义可选枚举值"
     },
     "v1GroupMemberInfo": {
       "type": "object",
       "properties": {
         "groupId": {
-          "type": "string"
+          "type": "string",
+          "title": "群组业务标识"
         },
         "userId": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 用户业务标识"
         },
         "nickname": {
-          "type": "string"
+          "type": "string",
+          "title": "用户昵称"
         },
         "avatarUrl": {
-          "type": "string"
+          "type": "string",
+          "title": "头像地址"
         },
         "groupNickname": {
-          "type": "string"
+          "type": "string",
+          "title": "群组昵称字段"
         },
         "role": {
-          "$ref": "#/definitions/v1GroupRole"
+          "$ref": "#/definitions/v1GroupRole",
+          "title": "角色"
         },
         "recvMsgOpt": {
-          "$ref": "#/definitions/v1ReceiveMessageOption"
+          "$ref": "#/definitions/v1ReceiveMessageOption",
+          "title": "接收消息opt字段"
         },
         "muteEndTimeMs": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "禁言end时间ms字段"
         },
         "joinTimeMs": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "加入时间ms字段"
         },
         "joinSource": {
-          "$ref": "#/definitions/v1GroupJoinSource"
+          "$ref": "#/definitions/v1GroupJoinSource",
+          "title": "加入来源字段"
         },
         "inviterUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "inviter用户标识标识"
         },
         "ex": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 扩展字段"
         }
-      }
+      },
+      "title": "群组成员info描述业务数据结构"
     },
     "v1GroupRole": {
       "type": "string",
@@ -5377,7 +6091,9 @@
         "GROUP_ROLE_ADMIN",
         "GROUP_ROLE_OWNER"
       ],
-      "default": "GROUP_ROLE_UNSPECIFIED"
+      "default": "GROUP_ROLE_UNSPECIFIED",
+      "description": "- GROUP_ROLE_UNSPECIFIED: 未指定枚举值\n - GROUP_ROLE_MEMBER: 群组角色成员枚举值\n - GROUP_ROLE_ADMIN: 群组角色管理员枚举值\n - GROUP_ROLE_OWNER: 群组角色群主枚举值",
+      "title": "群组角色定义可选枚举值"
     },
     "v1GroupStatus": {
       "type": "string",
@@ -5387,7 +6103,9 @@
         "GROUP_STATUS_MUTED",
         "GROUP_STATUS_DISMISSED"
       ],
-      "default": "GROUP_STATUS_UNSPECIFIED"
+      "default": "GROUP_STATUS_UNSPECIFIED",
+      "description": "- GROUP_STATUS_UNSPECIFIED: 未指定枚举值\n - GROUP_STATUS_NORMAL: 正常状态枚举值\n - GROUP_STATUS_MUTED: 群组状态muted枚举值\n - GROUP_STATUS_DISMISSED: 群组状态dismissed枚举值",
+      "title": "群组状态定义可选枚举值"
     },
     "v1GroupType": {
       "type": "string",
@@ -5396,262 +6114,323 @@
         "GROUP_TYPE_NORMAL",
         "GROUP_TYPE_SUPER"
       ],
-      "default": "GROUP_TYPE_UNSPECIFIED"
+      "default": "GROUP_TYPE_UNSPECIFIED",
+      "description": "- GROUP_TYPE_UNSPECIFIED: 未指定枚举值\n - GROUP_TYPE_NORMAL: 正常状态枚举值\n - GROUP_TYPE_SUPER: 群组类型super枚举值",
+      "title": "群组类型定义可选枚举值"
     },
     "v1InviteUsersToGroupResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "addedMembers": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/v1GroupMemberInfo"
-          }
+          },
+          "title": "added成员列表"
         },
         "applications": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/v1GroupApplication"
-          }
+          },
+          "title": "申请列表"
         }
-      }
+      },
+      "title": "invite用户目标群组响应承载响应数据"
     },
     "v1JoinGroupResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "application": {
-          "$ref": "#/definitions/v1GroupApplication"
+          "$ref": "#/definitions/v1GroupApplication",
+          "title": "申请字段"
         },
         "member": {
-          "$ref": "#/definitions/v1GroupMemberInfo"
+          "$ref": "#/definitions/v1GroupMemberInfo",
+          "title": "成员字段"
         }
-      }
+      },
+      "title": "加入群组响应承载响应数据"
     },
     "v1KickDeviceResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "kickedCount": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "title": "踢出数量数量"
         }
-      }
+      },
+      "title": "踢出设备响应承载响应数据"
     },
     "v1KickGroupMembersResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "kickedUserIds": {
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "title": "踢出用户标识列表列表"
         }
-      }
+      },
+      "title": "踢出群组成员响应承载响应数据"
     },
     "v1ListBlackResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "blacks": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/v1BlackInfo"
-          }
+          },
+          "title": "blacks列表"
         },
         "pagination": {
-          "$ref": "#/definitions/v1PaginationResponse"
+          "$ref": "#/definitions/v1PaginationResponse",
+          "title": "分页字段"
         }
-      }
+      },
+      "title": "列表black响应承载响应数据"
     },
     "v1ListConversationsResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "conversations": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/v1ConversationInfo"
-          }
+          },
+          "title": "会话数据列表"
         },
         "pagination": {
-          "$ref": "#/definitions/v1PaginationResponse"
+          "$ref": "#/definitions/v1PaginationResponse",
+          "title": "分页字段"
         }
-      }
+      },
+      "title": "列表会话响应承载响应数据"
     },
     "v1ListFriendApplicationsResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "applications": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/v1FriendApplication"
-          }
+          },
+          "title": "申请列表"
         },
         "pagination": {
-          "$ref": "#/definitions/v1PaginationResponse"
+          "$ref": "#/definitions/v1PaginationResponse",
+          "title": "分页字段"
         }
-      }
+      },
+      "title": "列表好友申请响应承载响应数据"
     },
     "v1ListFriendsResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "friends": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/v1FriendInfo"
-          }
+          },
+          "title": "好友数据列表"
         },
         "pagination": {
-          "$ref": "#/definitions/v1PaginationResponse"
+          "$ref": "#/definitions/v1PaginationResponse",
+          "title": "分页字段"
         }
-      }
+      },
+      "title": "列表好友响应承载响应数据"
     },
     "v1ListGroupApplicationsResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "applications": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/v1GroupApplication"
-          }
+          },
+          "title": "申请列表"
         },
         "pagination": {
-          "$ref": "#/definitions/v1PaginationResponse"
+          "$ref": "#/definitions/v1PaginationResponse",
+          "title": "分页字段"
         }
-      }
+      },
+      "title": "列表群组申请响应承载响应数据"
     },
     "v1ListGroupMembersResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "members": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/v1GroupMemberInfo"
-          }
+          },
+          "title": "群成员列表"
         },
         "pagination": {
-          "$ref": "#/definitions/v1PaginationResponse"
+          "$ref": "#/definitions/v1PaginationResponse",
+          "title": "分页字段"
         }
-      }
+      },
+      "title": "列表群组成员响应承载响应数据"
     },
     "v1ListJoinedGroupsResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "groups": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/v1GroupInfo"
-          }
+          },
+          "title": "群组数据列表"
         },
         "pagination": {
-          "$ref": "#/definitions/v1PaginationResponse"
+          "$ref": "#/definitions/v1PaginationResponse",
+          "title": "分页字段"
         }
-      }
+      },
+      "title": "列表joined群组响应承载响应数据"
     },
     "v1ListLoginDevicesResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "devices": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/v1LoginDevice"
-          }
+          },
+          "title": "设备列表"
         }
-      }
+      },
+      "title": "列表登录设备响应承载响应数据"
     },
     "v1ListPushTokensResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "pushTokens": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/v1PushToken"
-          }
+          },
+          "title": "推送tokens列表"
         }
-      }
+      },
+      "title": "列表推送tokens响应承载响应数据"
     },
     "v1LoginDevice": {
       "type": "object",
       "properties": {
         "userId": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 用户业务标识"
         },
         "platform": {
-          "$ref": "#/definitions/v1Platform"
+          "$ref": "#/definitions/v1Platform",
+          "title": "客户端平台"
         },
         "deviceId": {
-          "type": "string"
+          "type": "string",
+          "title": "客户端设备标识"
         },
         "deviceName": {
-          "type": "string"
+          "type": "string",
+          "title": "设备名称名称"
         },
         "clientVersion": {
-          "type": "string"
+          "type": "string",
+          "title": "客户端版本"
         },
         "connId": {
-          "type": "string"
+          "type": "string",
+          "title": "网关连接标识"
         },
         "lastLoginIp": {
-          "type": "string"
+          "type": "string",
+          "title": "last登录ip字段"
         },
         "lastLoginTimeMs": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "last登录时间ms字段"
         },
         "lastActiveTimeMs": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "lastactive时间ms字段"
         },
         "tokenStatus": {
-          "$ref": "#/definitions/v1TokenStatus"
+          "$ref": "#/definitions/v1TokenStatus",
+          "title": "令牌状态"
         }
-      }
+      },
+      "title": "登录设备描述业务数据结构"
     },
     "v1LoginPolicy": {
       "type": "string",
@@ -5661,126 +6440,162 @@
         "LOGIN_POLICY_KICK_SAME_PLATFORM",
         "LOGIN_POLICY_KICK_ALL_OLD"
       ],
-      "default": "LOGIN_POLICY_UNSPECIFIED"
+      "default": "LOGIN_POLICY_UNSPECIFIED",
+      "description": "- LOGIN_POLICY_UNSPECIFIED: 未指定枚举值\n - LOGIN_POLICY_MULTI_PLATFORM: 登录策略多端平台枚举值\n - LOGIN_POLICY_KICK_SAME_PLATFORM: 登录策略踢出same平台枚举值\n - LOGIN_POLICY_KICK_ALL_OLD: 登录策略踢出全部旧会话枚举值",
+      "title": "登录策略定义可选枚举值"
     },
     "v1LoginRequest": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "username": {
-          "type": "string"
+          "type": "string",
+          "title": "登录用户名"
         },
         "password": {
-          "type": "string"
+          "type": "string",
+          "title": "登录密码或凭据载荷"
         },
         "platform": {
-          "$ref": "#/definitions/v1Platform"
+          "$ref": "#/definitions/v1Platform",
+          "title": "客户端平台"
         },
         "deviceId": {
-          "type": "string"
+          "type": "string",
+          "title": "客户端设备标识"
         },
         "deviceName": {
-          "type": "string"
+          "type": "string",
+          "title": "设备名称名称"
         },
         "clientVersion": {
-          "type": "string"
+          "type": "string",
+          "title": "客户端版本"
         },
         "loginPolicy": {
-          "$ref": "#/definitions/v1LoginPolicy"
+          "$ref": "#/definitions/v1LoginPolicy",
+          "title": "登录策略字段"
         }
-      }
+      },
+      "title": "登录请求承载请求参数"
     },
     "v1LoginResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "userId": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 用户业务标识"
         },
         "accessToken": {
-          "type": "string"
+          "type": "string",
+          "title": "访问令牌"
         },
         "refreshToken": {
-          "type": "string"
+          "type": "string",
+          "title": "刷新令牌"
         },
         "accessTokenExpireAt": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "title": "access令牌expire时间时间"
         },
         "refreshTokenExpireAt": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "title": "刷新令牌expire时间时间"
         }
-      }
+      },
+      "title": "登录响应承载响应数据"
     },
     "v1LogoutRequest": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "userId": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 用户业务标识"
         },
         "platform": {
-          "$ref": "#/definitions/v1Platform"
+          "$ref": "#/definitions/v1Platform",
+          "title": "客户端平台"
         },
         "deviceId": {
-          "type": "string"
+          "type": "string",
+          "title": "客户端设备标识"
         },
         "logoutAllDevices": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "退出登录全部设备字段"
         }
-      }
+      },
+      "title": "退出登录请求承载请求参数"
     },
     "v1LogoutResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         }
-      }
+      },
+      "title": "退出登录响应承载响应数据"
     },
     "v1MarkConversationReadRequest": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "userId": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 用户业务标识"
         },
         "conversationId": {
-          "type": "string"
+          "type": "string",
+          "title": "会话业务标识"
         },
         "readSeq": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "用户已读消息序号"
         }
-      }
+      },
+      "title": "mark会话已读请求承载请求参数"
     },
     "v1MarkConversationReadResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "conversationId": {
-          "type": "string"
+          "type": "string",
+          "title": "会话业务标识"
         },
         "readSeq": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "用户已读消息序号"
         },
         "unreadCount": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "unread数量数量"
         }
-      }
+      },
+      "title": "mark会话已读响应承载响应数据"
     },
     "v1MessageStatus": {
       "type": "string",
@@ -5795,154 +6610,200 @@
         "MESSAGE_STATUS_DELETED",
         "MESSAGE_STATUS_FAILED"
       ],
-      "default": "MESSAGE_STATUS_UNSPECIFIED"
+      "default": "MESSAGE_STATUS_UNSPECIFIED",
+      "description": "- MESSAGE_STATUS_UNSPECIFIED: 未指定枚举值\n - MESSAGE_STATUS_SENDING: 消息状态sending枚举值\n - MESSAGE_STATUS_SENT: 消息状态sent枚举值\n - MESSAGE_STATUS_PERSISTED: 消息状态persisted枚举值\n - MESSAGE_STATUS_DELIVERED: 消息状态delivered枚举值\n - MESSAGE_STATUS_READ: 消息状态已读枚举值\n - MESSAGE_STATUS_REVOKED: 撤销状态枚举值\n - MESSAGE_STATUS_DELETED: 消息状态deleted枚举值\n - MESSAGE_STATUS_FAILED: 消息状态失败枚举值",
+      "title": "消息状态定义可选枚举值"
     },
     "v1MsgData": {
       "type": "object",
       "properties": {
         "clientMsgId": {
-          "type": "string"
+          "type": "string",
+          "title": "客户端消息幂等标识"
         },
         "serverMsgId": {
-          "type": "string"
+          "type": "string",
+          "title": "服务端消息唯一标识"
         },
         "sendId": {
-          "type": "string"
+          "type": "string",
+          "title": "发送方用户标识"
         },
         "recvId": {
-          "type": "string"
+          "type": "string",
+          "title": "接收方用户标识"
         },
         "groupId": {
-          "type": "string"
+          "type": "string",
+          "title": "群组业务标识"
         },
         "conversationId": {
-          "type": "string"
+          "type": "string",
+          "title": "会话业务标识"
         },
         "conversationSeq": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "会话内消息序号"
         },
         "conversationType": {
-          "$ref": "#/definitions/v1ConversationType"
+          "$ref": "#/definitions/v1ConversationType",
+          "title": "会话类型"
         },
         "senderPlatform": {
-          "$ref": "#/definitions/v1Platform"
+          "$ref": "#/definitions/v1Platform",
+          "title": "sender平台字段"
         },
         "senderNickname": {
-          "type": "string"
+          "type": "string",
+          "title": "sender昵称字段"
         },
         "senderAvatarUrl": {
-          "type": "string"
+          "type": "string",
+          "title": "sender头像地址地址"
         },
         "contentType": {
-          "$ref": "#/definitions/v1ContentType"
+          "$ref": "#/definitions/v1ContentType",
+          "title": "消息内容类型"
         },
         "content": {
           "type": "string",
-          "format": "byte"
+          "format": "byte",
+          "title": "消息内容载荷"
         },
         "status": {
-          "$ref": "#/definitions/v1MessageStatus"
+          "$ref": "#/definitions/v1MessageStatus",
+          "title": "业务状态"
         },
         "isRead": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "is已读字段"
         },
         "options": {
-          "$ref": "#/definitions/v1MsgOptions"
+          "$ref": "#/definitions/v1MsgOptions",
+          "title": "options字段"
         },
         "offlinePushInfo": {
-          "$ref": "#/definitions/v1OfflinePushInfo"
+          "$ref": "#/definitions/v1OfflinePushInfo",
+          "title": "offline推送info字段"
         },
         "atUserIds": {
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "title": "时间用户标识列表列表"
         },
         "sendTimeMs": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "发送时间ms字段"
         },
         "createTimeMs": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "创建时间ms字段"
         },
         "operationId": {
-          "type": "string"
+          "type": "string",
+          "title": "跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识"
         },
         "attachedInfo": {
-          "type": "string"
+          "type": "string",
+          "title": "attachedinfo字段"
         },
         "ex": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 扩展字段"
         },
         "quoteServerMsgId": {
-          "type": "string"
+          "type": "string",
+          "title": "quote服务端消息标识标识"
         }
-      }
+      },
+      "title": "消息数据描述业务数据结构"
     },
     "v1MsgOptions": {
       "type": "object",
       "properties": {
         "isPersistent": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "ispersistent字段"
         },
         "isOfflinePush": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "isoffline推送字段"
         },
         "isHistory": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "ishistory字段"
         },
         "isSenderSync": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "issender同步字段"
         },
         "isUnreadCount": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "isunread数量数量"
         },
         "isConversationUpdate": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "is会话更新字段"
         },
         "isNotification": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "is通知字段"
         },
         "isReadReceipt": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "is已读回执字段"
         }
-      }
+      },
+      "title": "消息options描述业务数据结构"
     },
     "v1MuteGroupMemberResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "member": {
-          "$ref": "#/definitions/v1GroupMemberInfo"
+          "$ref": "#/definitions/v1GroupMemberInfo",
+          "title": "成员字段"
         }
-      }
+      },
+      "title": "禁言群组成员响应承载响应数据"
     },
     "v1OfflinePushInfo": {
       "type": "object",
       "properties": {
         "title": {
-          "type": "string"
+          "type": "string",
+          "title": "title字段"
         },
         "desc": {
-          "type": "string"
+          "type": "string",
+          "title": "降序字段"
         },
         "ext": {
-          "type": "string"
+          "type": "string",
+          "title": "ext字段"
         },
         "iosBadgeCount": {
-          "type": "string"
+          "type": "string",
+          "title": "iOSbadge数量数量"
         },
         "iosPushSound": {
-          "type": "string"
+          "type": "string",
+          "title": "iOS推送sound字段"
         },
         "iosBadgeCountEnabled": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "iOSbadge数量启用字段"
         }
-      }
+      },
+      "title": "offline推送info描述业务数据结构"
     },
     "v1OnlineStatus": {
       "type": "string",
@@ -5952,73 +6813,93 @@
         "ONLINE_STATUS_ONLINE",
         "ONLINE_STATUS_AWAY"
       ],
-      "default": "ONLINE_STATUS_UNSPECIFIED"
+      "default": "ONLINE_STATUS_UNSPECIFIED",
+      "description": "- ONLINE_STATUS_UNSPECIFIED: 未指定枚举值\n - ONLINE_STATUS_OFFLINE: 在线状态offline枚举值\n - ONLINE_STATUS_ONLINE: 在线状态在线枚举值\n - ONLINE_STATUS_AWAY: 在线状态away枚举值",
+      "title": "在线状态定义可选枚举值"
     },
     "v1PaginationRequest": {
       "type": "object",
       "properties": {
         "page": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "title": "分页页码"
         },
         "size": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "title": "大小字段"
         },
         "cursor": {
-          "type": "string"
+          "type": "string",
+          "title": "游标字段"
         }
-      }
+      },
+      "title": "分页请求承载请求参数"
     },
     "v1PaginationResponse": {
       "type": "object",
       "properties": {
         "total": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "总记录数"
         },
         "nextCursor": {
-          "type": "string"
+          "type": "string",
+          "title": "下一页游标"
         },
         "hasMore": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "是否还有更多数据"
         }
-      }
+      },
+      "title": "分页响应承载响应数据"
     },
     "v1ParseTokenRequest": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "accessToken": {
-          "type": "string"
+          "type": "string",
+          "title": "访问令牌"
         }
-      }
+      },
+      "title": "解析令牌请求承载请求参数"
     },
     "v1ParseTokenResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "userId": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 用户业务标识"
         },
         "platform": {
-          "$ref": "#/definitions/v1Platform"
+          "$ref": "#/definitions/v1Platform",
+          "title": "客户端平台"
         },
         "deviceId": {
-          "type": "string"
+          "type": "string",
+          "title": "客户端设备标识"
         },
         "tokenStatus": {
-          "$ref": "#/definitions/v1TokenStatus"
+          "$ref": "#/definitions/v1TokenStatus",
+          "title": "令牌状态"
         },
         "expireAt": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "title": "expire时间时间"
         }
-      }
+      },
+      "title": "解析令牌响应承载响应数据"
     },
     "v1Platform": {
       "type": "string",
@@ -6033,108 +6914,133 @@
         "PLATFORM_ADMIN",
         "PLATFORM_SERVER"
       ],
-      "default": "PLATFORM_UNSPECIFIED"
+      "default": "PLATFORM_UNSPECIFIED",
+      "description": "- PLATFORM_UNSPECIFIED: 未指定枚举值\n - PLATFORM_IOS: 平台iOS枚举值\n - PLATFORM_ANDROID: 平台Android枚举值\n - PLATFORM_WEB: 平台Web枚举值\n - PLATFORM_WINDOWS: 平台Windows枚举值\n - PLATFORM_MACOS: 平台macOS枚举值\n - PLATFORM_LINUX: 平台Linux枚举值\n - PLATFORM_ADMIN: 平台管理员枚举值\n - PLATFORM_SERVER: 平台服务端枚举值",
+      "title": "平台定义可选枚举值"
     },
     "v1PullMsgBySeqListRequest": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "userId": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 用户业务标识"
         },
         "conversationId": {
-          "type": "string"
+          "type": "string",
+          "title": "会话业务标识"
         },
         "seqs": {
           "type": "array",
           "items": {
             "type": "string",
             "format": "int64"
-          }
+          },
+          "title": "消息序号列表"
         }
-      }
+      },
+      "title": "拉取消息by序号列表请求承载请求参数"
     },
     "v1PullMsgBySeqListResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "messages": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/v1MsgData"
-          }
+          },
+          "title": "消息列表"
         },
         "missingSeqs": {
           "type": "array",
           "items": {
             "type": "string",
             "format": "int64"
-          }
+          },
+          "title": "missingseqs列表"
         }
-      }
+      },
+      "title": "拉取消息by序号列表响应承载响应数据"
     },
     "v1PullMsgBySeqRangeRequest": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "userId": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 用户业务标识"
         },
         "conversationId": {
-          "type": "string"
+          "type": "string",
+          "title": "会话业务标识"
         },
         "beginSeq": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "begin序号序号"
         },
         "endSeq": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "结束消息序号"
         },
         "limit": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "title": "限制字段"
         },
         "order": {
-          "$ref": "#/definitions/v1PullOrder"
+          "$ref": "#/definitions/v1PullOrder",
+          "title": "顺序字段"
         }
-      }
+      },
+      "title": "拉取消息by序号range请求承载请求参数"
     },
     "v1PullMsgBySeqRangeResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "messages": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/v1MsgData"
-          }
+          },
+          "title": "消息列表"
         },
         "nextBeginSeq": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "下一页begin序号序号"
         },
         "hasMore": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "是否还有更多数据"
         },
         "missingSeqs": {
           "type": "array",
           "items": {
             "type": "string",
             "format": "int64"
-          }
+          },
+          "title": "missingseqs列表"
         }
-      }
+      },
+      "title": "拉取消息by序号range响应承载响应数据"
     },
     "v1PullOrder": {
       "type": "string",
@@ -6143,7 +7049,9 @@
         "PULL_ORDER_ASC",
         "PULL_ORDER_DESC"
       ],
-      "default": "PULL_ORDER_UNSPECIFIED"
+      "default": "PULL_ORDER_UNSPECIFIED",
+      "description": "- PULL_ORDER_UNSPECIFIED: 未指定枚举值\n - PULL_ORDER_ASC: 拉取顺序升序枚举值\n - PULL_ORDER_DESC: 拉取顺序降序枚举值",
+      "title": "拉取顺序定义可选枚举值"
     },
     "v1PushProvider": {
       "type": "string",
@@ -6158,87 +7066,110 @@
         "PUSH_PROVIDER_MEIZU",
         "PUSH_PROVIDER_WEB_PUSH"
       ],
-      "default": "PUSH_PROVIDER_UNSPECIFIED"
+      "default": "PUSH_PROVIDER_UNSPECIFIED",
+      "description": "- PUSH_PROVIDER_UNSPECIFIED: 未指定枚举值\n - PUSH_PROVIDER_APNS: 推送providerapns枚举值\n - PUSH_PROVIDER_FCM: 推送providerfcm枚举值\n - PUSH_PROVIDER_HUAWEI: 推送providerhuawei枚举值\n - PUSH_PROVIDER_XIAOMI: 推送providerxiaomi枚举值\n - PUSH_PROVIDER_OPPO: 推送provideroppo枚举值\n - PUSH_PROVIDER_VIVO: 推送providervivo枚举值\n - PUSH_PROVIDER_MEIZU: 推送providermeizu枚举值\n - PUSH_PROVIDER_WEB_PUSH: 推送providerWeb推送枚举值",
+      "title": "推送provider定义可选枚举值"
     },
     "v1PushSystemNotificationRequest": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "userIds": {
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "title": "IM 用户业务标识列表"
         },
         "title": {
-          "type": "string"
+          "type": "string",
+          "title": "title字段"
         },
         "content": {
-          "type": "string"
+          "type": "string",
+          "title": "消息内容载荷"
         },
         "ext": {
-          "type": "string"
+          "type": "string",
+          "title": "ext字段"
         }
-      }
+      },
+      "title": "推送系统通知请求承载请求参数"
     },
     "v1PushSystemNotificationResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "successUserIds": {
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "title": "成功用户标识列表列表"
         },
         "failedUserIds": {
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "title": "失败用户标识列表列表"
         }
-      }
+      },
+      "title": "推送系统通知响应承载响应数据"
     },
     "v1PushToken": {
       "type": "object",
       "properties": {
         "tokenId": {
-          "type": "string"
+          "type": "string",
+          "title": "令牌标识标识"
         },
         "userId": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 用户业务标识"
         },
         "platform": {
-          "$ref": "#/definitions/v1Platform"
+          "$ref": "#/definitions/v1Platform",
+          "title": "客户端平台"
         },
         "provider": {
-          "$ref": "#/definitions/v1PushProvider"
+          "$ref": "#/definitions/v1PushProvider",
+          "title": "provider字段"
         },
         "token": {
-          "type": "string"
+          "type": "string",
+          "title": "会话令牌"
         },
         "deviceId": {
-          "type": "string"
+          "type": "string",
+          "title": "客户端设备标识"
         },
         "appBundleId": {
-          "type": "string"
+          "type": "string",
+          "title": "appbundle标识标识"
         },
         "status": {
-          "$ref": "#/definitions/v1PushTokenStatus"
+          "$ref": "#/definitions/v1PushTokenStatus",
+          "title": "业务状态"
         },
         "createTimeMs": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "创建时间ms字段"
         },
         "updateTimeMs": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "更新时间ms字段"
         }
-      }
+      },
+      "title": "推送令牌描述业务数据结构"
     },
     "v1PushTokenStatus": {
       "type": "string",
@@ -6248,15 +7179,19 @@
         "PUSH_TOKEN_STATUS_INVALID",
         "PUSH_TOKEN_STATUS_DISABLED"
       ],
-      "default": "PUSH_TOKEN_STATUS_UNSPECIFIED"
+      "default": "PUSH_TOKEN_STATUS_UNSPECIFIED",
+      "description": "- PUSH_TOKEN_STATUS_UNSPECIFIED: 未指定枚举值\n - PUSH_TOKEN_STATUS_ACTIVE: 推送令牌状态active枚举值\n - PUSH_TOKEN_STATUS_INVALID: 推送令牌状态invalid枚举值\n - PUSH_TOKEN_STATUS_DISABLED: 禁用状态枚举值",
+      "title": "推送令牌状态定义可选枚举值"
     },
     "v1QuitGroupResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         }
-      }
+      },
+      "title": "退出群组响应承载响应数据"
     },
     "v1ReceiveMessageOption": {
       "type": "string",
@@ -6266,369 +7201,473 @@
         "RECEIVE_MESSAGE_OPTION_NOT_NOTIFY",
         "RECEIVE_MESSAGE_OPTION_NOT_RECEIVE"
       ],
-      "default": "RECEIVE_MESSAGE_OPTION_UNSPECIFIED"
+      "default": "RECEIVE_MESSAGE_OPTION_UNSPECIFIED",
+      "description": "- RECEIVE_MESSAGE_OPTION_UNSPECIFIED: 未指定枚举值\n - RECEIVE_MESSAGE_OPTION_RECEIVE: 接收消息option接收枚举值\n - RECEIVE_MESSAGE_OPTION_NOT_NOTIFY: 接收消息option不提醒枚举值\n - RECEIVE_MESSAGE_OPTION_NOT_RECEIVE: 接收消息option不接收枚举值",
+      "title": "接收消息option定义可选枚举值"
     },
     "v1RefreshTokenRequest": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "refreshToken": {
-          "type": "string"
+          "type": "string",
+          "title": "刷新令牌"
         },
         "deviceId": {
-          "type": "string"
+          "type": "string",
+          "title": "客户端设备标识"
         }
-      }
+      },
+      "title": "刷新令牌请求承载请求参数"
     },
     "v1RefreshTokenResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "accessToken": {
-          "type": "string"
+          "type": "string",
+          "title": "访问令牌"
         },
         "refreshToken": {
-          "type": "string"
+          "type": "string",
+          "title": "刷新令牌"
         },
         "accessTokenExpireAt": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "title": "access令牌expire时间时间"
         },
         "refreshTokenExpireAt": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "title": "刷新令牌expire时间时间"
         }
-      }
+      },
+      "title": "刷新令牌响应承载响应数据"
     },
     "v1RegisterPushTokenRequest": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "userId": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 用户业务标识"
         },
         "platform": {
-          "$ref": "#/definitions/v1Platform"
+          "$ref": "#/definitions/v1Platform",
+          "title": "客户端平台"
         },
         "provider": {
-          "$ref": "#/definitions/v1PushProvider"
+          "$ref": "#/definitions/v1PushProvider",
+          "title": "provider字段"
         },
         "token": {
-          "type": "string"
+          "type": "string",
+          "title": "会话令牌"
         },
         "deviceId": {
-          "type": "string"
+          "type": "string",
+          "title": "客户端设备标识"
         },
         "appBundleId": {
-          "type": "string"
+          "type": "string",
+          "title": "appbundle标识标识"
         }
-      }
+      },
+      "title": "注册推送令牌请求承载请求参数"
     },
     "v1RegisterPushTokenResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "pushToken": {
-          "$ref": "#/definitions/v1PushToken"
+          "$ref": "#/definitions/v1PushToken",
+          "title": "推送令牌字段"
         }
-      }
+      },
+      "title": "注册推送令牌响应承载响应数据"
     },
     "v1RegisterRequest": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "username": {
-          "type": "string"
+          "type": "string",
+          "title": "登录用户名"
         },
         "password": {
-          "type": "string"
+          "type": "string",
+          "title": "登录密码或凭据载荷"
         },
         "nickname": {
-          "type": "string"
+          "type": "string",
+          "title": "用户昵称"
         },
         "avatarUrl": {
-          "type": "string"
+          "type": "string",
+          "title": "头像地址"
         },
         "phone": {
-          "type": "string"
+          "type": "string",
+          "title": "手机号字段"
         },
         "email": {
-          "type": "string"
+          "type": "string",
+          "title": "邮箱地址"
         }
-      }
+      },
+      "title": "注册请求承载请求参数"
     },
     "v1RegisterResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "userId": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 用户业务标识"
         }
-      }
+      },
+      "title": "注册响应承载响应数据"
     },
     "v1RemoveBlackResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         }
-      }
+      },
+      "title": "removeblack响应承载响应数据"
     },
     "v1RequestMeta": {
       "type": "object",
       "properties": {
         "operationId": {
-          "type": "string"
+          "type": "string",
+          "title": "跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识"
         },
         "traceId": {
-          "type": "string"
+          "type": "string",
+          "title": "链路追踪标识"
         },
         "caller": {
-          "type": "string"
+          "type": "string",
+          "title": "调用方标识"
         },
         "platform": {
-          "$ref": "#/definitions/v1Platform"
+          "$ref": "#/definitions/v1Platform",
+          "title": "客户端平台"
         },
         "deviceId": {
-          "type": "string"
+          "type": "string",
+          "title": "客户端设备标识"
         },
         "connId": {
-          "type": "string"
+          "type": "string",
+          "title": "网关连接标识"
         },
         "userId": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 用户业务标识"
         },
         "clientVersion": {
-          "type": "string"
+          "type": "string",
+          "title": "客户端版本"
         },
         "locale": {
-          "type": "string"
+          "type": "string",
+          "title": "语言区域"
         }
-      }
+      },
+      "title": "请求元信息描述业务数据结构"
     },
     "v1RespondFriendApplicationResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "application": {
-          "$ref": "#/definitions/v1FriendApplication"
+          "$ref": "#/definitions/v1FriendApplication",
+          "title": "申请字段"
         },
         "friend": {
-          "$ref": "#/definitions/v1FriendInfo"
+          "$ref": "#/definitions/v1FriendInfo",
+          "title": "好友数据"
         }
-      }
+      },
+      "title": "处理好友申请响应承载响应数据"
     },
     "v1RespondGroupApplicationResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "application": {
-          "$ref": "#/definitions/v1GroupApplication"
+          "$ref": "#/definitions/v1GroupApplication",
+          "title": "申请字段"
         },
         "member": {
-          "$ref": "#/definitions/v1GroupMemberInfo"
+          "$ref": "#/definitions/v1GroupMemberInfo",
+          "title": "成员字段"
         }
-      }
+      },
+      "title": "处理群组申请响应承载响应数据"
     },
     "v1ResponseHeader": {
       "type": "object",
       "properties": {
         "code": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "title": "业务状态码"
         },
         "message": {
-          "type": "string"
+          "type": "string",
+          "title": "业务提示消息"
         },
         "operationId": {
-          "type": "string"
+          "type": "string",
+          "title": "跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识"
         },
         "traceId": {
-          "type": "string"
+          "type": "string",
+          "title": "链路追踪标识"
         },
         "serverTimeMs": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "服务端时间ms字段"
         }
-      }
+      },
+      "title": "响应响应头描述业务数据结构"
     },
     "v1RevokeMsgRequest": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "operatorUserId": {
-          "type": "string"
+          "type": "string",
+          "title": "操作人用户标识"
         },
         "conversationId": {
-          "type": "string"
+          "type": "string",
+          "title": "会话业务标识"
         },
         "serverMsgId": {
-          "type": "string"
+          "type": "string",
+          "title": "服务端消息唯一标识"
         },
         "reason": {
-          "type": "string"
+          "type": "string",
+          "title": "业务原因"
         }
-      }
+      },
+      "title": "撤回消息请求承载请求参数"
     },
     "v1RevokeMsgResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "revokeMsg": {
-          "$ref": "#/definitions/v1MsgData"
+          "$ref": "#/definitions/v1MsgData",
+          "title": "撤回消息字段"
         }
-      }
+      },
+      "title": "撤回消息响应承载响应数据"
     },
     "v1SearchUsersResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "users": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/v1UserProfile"
-          }
+          },
+          "title": "用户列表"
         },
         "pagination": {
-          "$ref": "#/definitions/v1PaginationResponse"
+          "$ref": "#/definitions/v1PaginationResponse",
+          "title": "分页字段"
         }
-      }
+      },
+      "title": "搜索用户响应承载响应数据"
     },
     "v1SendMsgRequest": {
       "type": "object",
       "properties": {
         "meta": {
-          "$ref": "#/definitions/v1RequestMeta"
+          "$ref": "#/definitions/v1RequestMeta",
+          "title": "请求元信息用于追踪和调用方上下文"
         },
         "msgData": {
-          "$ref": "#/definitions/v1MsgData"
+          "$ref": "#/definitions/v1MsgData",
+          "title": "消息数据字段"
         }
-      }
+      },
+      "title": "发送消息请求承载请求参数"
     },
     "v1SendMsgResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "serverMsgId": {
-          "type": "string"
+          "type": "string",
+          "title": "服务端消息唯一标识"
         },
         "clientMsgId": {
-          "type": "string"
+          "type": "string",
+          "title": "客户端消息幂等标识"
         },
         "sendTimeMs": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "发送时间ms字段"
         },
         "conversationSeq": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "会话内消息序号"
         },
         "msgData": {
-          "$ref": "#/definitions/v1MsgData"
+          "$ref": "#/definitions/v1MsgData",
+          "title": "消息数据字段"
         }
-      }
+      },
+      "title": "发送消息响应承载响应数据"
     },
     "v1SendMsgResult": {
       "type": "object",
       "properties": {
         "clientMsgId": {
-          "type": "string"
+          "type": "string",
+          "title": "客户端消息幂等标识"
         },
         "serverMsgId": {
-          "type": "string"
+          "type": "string",
+          "title": "服务端消息唯一标识"
         },
         "conversationSeq": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "会话内消息序号"
         },
         "code": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "title": "业务状态码"
         },
         "message": {
-          "type": "string"
+          "type": "string",
+          "title": "业务提示消息"
         }
-      }
+      },
+      "title": "发送消息结果描述业务数据结构"
     },
     "v1SetFriendRemarkResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "friend": {
-          "$ref": "#/definitions/v1FriendInfo"
+          "$ref": "#/definitions/v1FriendInfo",
+          "title": "好友数据"
         }
-      }
+      },
+      "title": "set好友备注响应承载响应数据"
     },
     "v1SetGlobalRecvMsgOptResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "recvMsgOpt": {
-          "$ref": "#/definitions/v1ReceiveMessageOption"
+          "$ref": "#/definitions/v1ReceiveMessageOption",
+          "title": "接收消息opt字段"
         }
-      }
+      },
+      "title": "setglobal接收消息opt响应承载响应数据"
     },
     "v1SetGroupMemberRoleResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "member": {
-          "$ref": "#/definitions/v1GroupMemberInfo"
+          "$ref": "#/definitions/v1GroupMemberInfo",
+          "title": "成员字段"
         }
-      }
+      },
+      "title": "set群组成员角色响应承载响应数据"
     },
     "v1SetGroupMuteResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "group": {
-          "$ref": "#/definitions/v1GroupInfo"
+          "$ref": "#/definitions/v1GroupInfo",
+          "title": "群组数据"
         }
-      }
+      },
+      "title": "set群组禁言响应承载响应数据"
     },
     "v1SetUserStatusResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "user": {
-          "$ref": "#/definitions/v1UserProfile"
+          "$ref": "#/definitions/v1UserProfile",
+          "title": "用户字段"
         }
-      }
+      },
+      "title": "set用户状态响应承载响应数据"
     },
     "v1TokenStatus": {
       "type": "string",
@@ -6639,159 +7678,202 @@
         "TOKEN_STATUS_REVOKED",
         "TOKEN_STATUS_KICKED"
       ],
-      "default": "TOKEN_STATUS_UNSPECIFIED"
+      "default": "TOKEN_STATUS_UNSPECIFIED",
+      "description": "- TOKEN_STATUS_UNSPECIFIED: 未指定枚举值\n - TOKEN_STATUS_VALID: 有效状态枚举值\n - TOKEN_STATUS_EXPIRED: 过期状态枚举值\n - TOKEN_STATUS_REVOKED: 撤销状态枚举值\n - TOKEN_STATUS_KICKED: 踢出状态枚举值",
+      "title": "令牌状态定义可选枚举值"
     },
     "v1TransferGroupOwnerResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "group": {
-          "$ref": "#/definitions/v1GroupInfo"
+          "$ref": "#/definitions/v1GroupInfo",
+          "title": "群组数据"
         }
-      }
+      },
+      "title": "转让群组群主响应承载响应数据"
     },
     "v1UnregisterPushTokenResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         }
-      }
+      },
+      "title": "unregister推送令牌响应承载响应数据"
     },
     "v1UpdateConversationSettingsResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "conversation": {
-          "$ref": "#/definitions/v1ConversationInfo"
+          "$ref": "#/definitions/v1ConversationInfo",
+          "title": "会话数据"
         }
-      }
+      },
+      "title": "更新会话设置响应承载响应数据"
     },
     "v1UpdateGroupResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "group": {
-          "$ref": "#/definitions/v1GroupInfo"
+          "$ref": "#/definitions/v1GroupInfo",
+          "title": "群组数据"
         }
-      }
+      },
+      "title": "更新群组响应承载响应数据"
     },
     "v1UpdateProfileResponse": {
       "type": "object",
       "properties": {
         "header": {
-          "$ref": "#/definitions/v1ResponseHeader"
+          "$ref": "#/definitions/v1ResponseHeader",
+          "title": "响应头包含状态码和追踪信息"
         },
         "user": {
-          "$ref": "#/definitions/v1UserProfile"
+          "$ref": "#/definitions/v1UserProfile",
+          "title": "用户字段"
         }
-      }
+      },
+      "title": "更新资料响应承载响应数据"
     },
     "v1UploadPart": {
       "type": "object",
       "properties": {
         "partNumber": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "title": "partnumber字段"
         },
         "uploadUrl": {
-          "type": "string"
+          "type": "string",
+          "title": "上传地址"
         },
         "headers": {
           "type": "object",
           "additionalProperties": {
             "type": "string"
-          }
+          },
+          "title": "headers字段"
         },
         "partSize": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "part大小字段"
         }
-      }
+      },
+      "title": "上传part描述业务数据结构"
     },
     "v1UserOnlineStatus": {
       "type": "object",
       "properties": {
         "userId": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 用户业务标识"
         },
         "onlineStatus": {
-          "$ref": "#/definitions/v1OnlineStatus"
+          "$ref": "#/definitions/v1OnlineStatus",
+          "title": "在线状态状态"
         },
         "platforms": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1Platform"
-          }
+          },
+          "title": "platforms列表"
         },
         "lastActiveTimeMs": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "lastactive时间ms字段"
         }
-      }
+      },
+      "title": "用户在线状态描述业务数据结构"
     },
     "v1UserProfile": {
       "type": "object",
       "properties": {
         "userId": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 用户业务标识"
         },
         "username": {
-          "type": "string"
+          "type": "string",
+          "title": "登录用户名"
         },
         "nickname": {
-          "type": "string"
+          "type": "string",
+          "title": "用户昵称"
         },
         "avatarUrl": {
-          "type": "string"
+          "type": "string",
+          "title": "头像地址"
         },
         "phone": {
-          "type": "string"
+          "type": "string",
+          "title": "手机号字段"
         },
         "email": {
-          "type": "string"
+          "type": "string",
+          "title": "邮箱地址"
         },
         "gender": {
-          "$ref": "#/definitions/v1Gender"
+          "$ref": "#/definitions/v1Gender",
+          "title": "性别"
         },
         "status": {
-          "$ref": "#/definitions/v1UserStatus"
+          "$ref": "#/definitions/v1UserStatus",
+          "title": "业务状态"
         },
         "globalRecvMsgOpt": {
-          "$ref": "#/definitions/v1ReceiveMessageOption"
+          "$ref": "#/definitions/v1ReceiveMessageOption",
+          "title": "global接收消息opt字段"
         },
         "createTimeMs": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "创建时间ms字段"
         },
         "updateTimeMs": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "更新时间ms字段"
         },
         "ex": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 扩展字段"
         }
-      }
+      },
+      "title": "用户资料描述业务数据结构"
     },
     "v1UserRef": {
       "type": "object",
       "properties": {
         "userId": {
-          "type": "string"
+          "type": "string",
+          "title": "IM 用户业务标识"
         },
         "nickname": {
-          "type": "string"
+          "type": "string",
+          "title": "用户昵称"
         },
         "avatarUrl": {
-          "type": "string"
+          "type": "string",
+          "title": "头像地址"
         }
-      }
+      },
+      "title": "用户ref描述业务数据结构"
     },
     "v1UserStatus": {
       "type": "string",
@@ -6801,7 +7883,9 @@
         "USER_STATUS_BANNED",
         "USER_STATUS_DELETED"
       ],
-      "default": "USER_STATUS_UNSPECIFIED"
+      "default": "USER_STATUS_UNSPECIFIED",
+      "description": "- USER_STATUS_UNSPECIFIED: 未指定枚举值\n - USER_STATUS_NORMAL: 正常状态枚举值\n - USER_STATUS_BANNED: 用户状态banned枚举值\n - USER_STATUS_DELETED: 用户状态deleted枚举值",
+      "title": "用户状态定义可选枚举值"
     }
   }
 }

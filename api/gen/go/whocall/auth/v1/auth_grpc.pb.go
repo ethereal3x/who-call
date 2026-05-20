@@ -32,14 +32,24 @@ const (
 // AuthServiceClient is the client API for AuthService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+//
+// 认证服务定义该领域的 RPC 接口
 type AuthServiceClient interface {
+	// 处理注册操作
 	Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error)
+	// 处理登录操作
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
+	// 处理刷新令牌操作
 	RefreshToken(ctx context.Context, in *RefreshTokenRequest, opts ...grpc.CallOption) (*RefreshTokenResponse, error)
+	// 处理退出登录操作
 	Logout(ctx context.Context, in *LogoutRequest, opts ...grpc.CallOption) (*LogoutResponse, error)
+	// 处理强制退出登录操作
 	ForceLogout(ctx context.Context, in *ForceLogoutRequest, opts ...grpc.CallOption) (*ForceLogoutResponse, error)
+	// 处理解析令牌操作
 	ParseToken(ctx context.Context, in *ParseTokenRequest, opts ...grpc.CallOption) (*ParseTokenResponse, error)
+	// 处理列表登录设备操作
 	ListLoginDevices(ctx context.Context, in *ListLoginDevicesRequest, opts ...grpc.CallOption) (*ListLoginDevicesResponse, error)
+	// 处理踢出设备操作
 	KickDevice(ctx context.Context, in *KickDeviceRequest, opts ...grpc.CallOption) (*KickDeviceResponse, error)
 }
 
@@ -134,14 +144,24 @@ func (c *authServiceClient) KickDevice(ctx context.Context, in *KickDeviceReques
 // AuthServiceServer is the server API for AuthService service.
 // All implementations should embed UnimplementedAuthServiceServer
 // for forward compatibility.
+//
+// 认证服务定义该领域的 RPC 接口
 type AuthServiceServer interface {
+	// 处理注册操作
 	Register(context.Context, *RegisterRequest) (*RegisterResponse, error)
+	// 处理登录操作
 	Login(context.Context, *LoginRequest) (*LoginResponse, error)
+	// 处理刷新令牌操作
 	RefreshToken(context.Context, *RefreshTokenRequest) (*RefreshTokenResponse, error)
+	// 处理退出登录操作
 	Logout(context.Context, *LogoutRequest) (*LogoutResponse, error)
+	// 处理强制退出登录操作
 	ForceLogout(context.Context, *ForceLogoutRequest) (*ForceLogoutResponse, error)
+	// 处理解析令牌操作
 	ParseToken(context.Context, *ParseTokenRequest) (*ParseTokenResponse, error)
+	// 处理列表登录设备操作
 	ListLoginDevices(context.Context, *ListLoginDevicesRequest) (*ListLoginDevicesResponse, error)
+	// 处理踢出设备操作
 	KickDevice(context.Context, *KickDeviceRequest) (*KickDeviceResponse, error)
 }
 

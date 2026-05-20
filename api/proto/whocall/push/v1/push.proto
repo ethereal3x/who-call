@@ -8,116 +8,190 @@ import "google/api/annotations.proto";
 import "whocall/common/v1/common.proto";
 import "whocall/msg/v1/msg.proto";
 
+// 推送服务定义该领域的 RPC 接口
 service PushService {
+    // 处理注册推送令牌操作
     rpc RegisterPushToken(RegisterPushTokenRequest) returns (RegisterPushTokenResponse) {
         option (google.api.http) = { post: "/api/v1/push/tokens" body: "*" };
     }
 
+    // 处理unregister推送令牌操作
     rpc UnregisterPushToken(UnregisterPushTokenRequest) returns (UnregisterPushTokenResponse) {
         option (google.api.http) = { delete: "/api/v1/push/tokens/{token_id}" };
     }
 
+    // 处理列表推送tokens操作
     rpc ListPushTokens(ListPushTokensRequest) returns (ListPushTokensResponse) {
         option (google.api.http) = { get: "/api/v1/users/{user_id}/push/tokens" };
     }
 
+    // 处理推送offline消息操作
     rpc PushOfflineMsg(PushOfflineMsgRequest) returns (PushOfflineMsgResponse);
 
+    // 处理推送系统通知操作
     rpc PushSystemNotification(PushSystemNotificationRequest) returns (PushSystemNotificationResponse) {
         option (google.api.http) = { post: "/api/v1/push/system-notifications" body: "*" };
     }
 }
 
+// 推送provider定义可选枚举值
 enum PushProvider {
+    // 未指定枚举值
     PUSH_PROVIDER_UNSPECIFIED = 0;
+    // 推送providerapns枚举值
     PUSH_PROVIDER_APNS = 1;
+    // 推送providerfcm枚举值
     PUSH_PROVIDER_FCM = 2;
+    // 推送providerhuawei枚举值
     PUSH_PROVIDER_HUAWEI = 3;
+    // 推送providerxiaomi枚举值
     PUSH_PROVIDER_XIAOMI = 4;
+    // 推送provideroppo枚举值
     PUSH_PROVIDER_OPPO = 5;
+    // 推送providervivo枚举值
     PUSH_PROVIDER_VIVO = 6;
+    // 推送providermeizu枚举值
     PUSH_PROVIDER_MEIZU = 7;
+    // 推送providerWeb推送枚举值
     PUSH_PROVIDER_WEB_PUSH = 8;
 }
 
+// 推送令牌状态定义可选枚举值
 enum PushTokenStatus {
+    // 未指定枚举值
     PUSH_TOKEN_STATUS_UNSPECIFIED = 0;
+    // 推送令牌状态active枚举值
     PUSH_TOKEN_STATUS_ACTIVE = 1;
+    // 推送令牌状态invalid枚举值
     PUSH_TOKEN_STATUS_INVALID = 2;
+    // 禁用状态枚举值
     PUSH_TOKEN_STATUS_DISABLED = 3;
 }
 
+// 推送令牌描述业务数据结构
 message PushToken {
+    // 令牌标识标识
     string token_id = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // 客户端平台
     whocall.common.v1.Platform platform = 3;
+    // provider字段
     PushProvider provider = 4;
+    // 会话令牌
     string token = 5;
+    // 客户端设备标识
     string device_id = 6;
+    // appbundle标识标识
     string app_bundle_id = 7;
+    // 业务状态
     PushTokenStatus status = 8;
+    // 创建时间ms字段
     int64 create_time_ms = 9;
+    // 更新时间ms字段
     int64 update_time_ms = 10;
 }
 
+// 注册推送令牌请求承载请求参数
 message RegisterPushTokenRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // 客户端平台
     whocall.common.v1.Platform platform = 3;
+    // provider字段
     PushProvider provider = 4;
+    // 会话令牌
     string token = 5;
+    // 客户端设备标识
     string device_id = 6;
+    // appbundle标识标识
     string app_bundle_id = 7;
 }
 
+// 注册推送令牌响应承载响应数据
 message RegisterPushTokenResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 推送令牌字段
     PushToken push_token = 2;
 }
 
+// unregister推送令牌请求承载请求参数
 message UnregisterPushTokenRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // 令牌标识标识
     string token_id = 2;
+    // IM 用户业务标识
     string user_id = 3;
 }
 
+// unregister推送令牌响应承载响应数据
 message UnregisterPushTokenResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
 }
 
+// 列表推送tokens请求承载请求参数
 message ListPushTokensRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
 }
 
+// 列表推送tokens响应承载响应数据
 message ListPushTokensResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 推送tokens列表
     repeated PushToken push_tokens = 2;
 }
 
+// 推送offline消息请求承载请求参数
 message PushOfflineMsgRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识列表
     repeated string user_ids = 2;
+    // 消息数据字段
     whocall.msg.v1.MsgData msg_data = 3;
+    // offline推送info字段
     whocall.common.v1.OfflinePushInfo offline_push_info = 4;
 }
 
+// 推送offline消息响应承载响应数据
 message PushOfflineMsgResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 成功用户标识列表列表
     repeated string success_user_ids = 2;
+    // 失败用户标识列表列表
     repeated string failed_user_ids = 3;
 }
 
+// 推送系统通知请求承载请求参数
 message PushSystemNotificationRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识列表
     repeated string user_ids = 2;
+    // title字段
     string title = 3;
+    // 消息内容载荷
     string content = 4;
+    // ext字段
     string ext = 5;
 }
 
+// 推送系统通知响应承载响应数据
 message PushSystemNotificationResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 成功用户标识列表列表
     repeated string success_user_ids = 2;
+    // 失败用户标识列表列表
     repeated string failed_user_ids = 3;
 }

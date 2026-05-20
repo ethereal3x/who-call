@@ -8,175 +8,285 @@ import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
 import "whocall/common/v1/common.proto";
 
+// 认证服务定义该领域的 RPC 接口
 service AuthService {
+    // 处理注册操作
     rpc Register(RegisterRequest) returns (RegisterResponse) {
         option (google.api.http) = { post: "/api/v1/auth/register" body: "*" };
     }
 
+    // 处理登录操作
     rpc Login(LoginRequest) returns (LoginResponse) {
         option (google.api.http) = { post: "/api/v1/auth/login" body: "*" };
     }
 
+    // 处理刷新令牌操作
     rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse) {
         option (google.api.http) = { post: "/api/v1/auth/refresh" body: "*" };
     }
 
+    // 处理退出登录操作
     rpc Logout(LogoutRequest) returns (LogoutResponse) {
         option (google.api.http) = { post: "/api/v1/auth/logout" body: "*" };
     }
 
+    // 处理强制退出登录操作
     rpc ForceLogout(ForceLogoutRequest) returns (ForceLogoutResponse) {
         option (google.api.http) = { post: "/api/v1/auth/force-logout" body: "*" };
     }
 
+    // 处理解析令牌操作
     rpc ParseToken(ParseTokenRequest) returns (ParseTokenResponse) {
         option (google.api.http) = { post: "/api/v1/auth/parse-token" body: "*" };
     }
 
+    // 处理列表登录设备操作
     rpc ListLoginDevices(ListLoginDevicesRequest) returns (ListLoginDevicesResponse) {
         option (google.api.http) = { get: "/api/v1/auth/users/{user_id}/devices" };
     }
 
+    // 处理踢出设备操作
     rpc KickDevice(KickDeviceRequest) returns (KickDeviceResponse) {
         option (google.api.http) = { post: "/api/v1/auth/users/{user_id}/devices:kick" body: "*" };
     }
 }
 
+// 令牌状态定义可选枚举值
 enum TokenStatus {
+    // 未指定枚举值
     TOKEN_STATUS_UNSPECIFIED = 0;
+    // 有效状态枚举值
     TOKEN_STATUS_VALID = 1;
+    // 过期状态枚举值
     TOKEN_STATUS_EXPIRED = 2;
+    // 撤销状态枚举值
     TOKEN_STATUS_REVOKED = 3;
+    // 踢出状态枚举值
     TOKEN_STATUS_KICKED = 4;
 }
 
+// 登录策略定义可选枚举值
 enum LoginPolicy {
+    // 未指定枚举值
     LOGIN_POLICY_UNSPECIFIED = 0;
+    // 登录策略多端平台枚举值
     LOGIN_POLICY_MULTI_PLATFORM = 1;
+    // 登录策略踢出same平台枚举值
     LOGIN_POLICY_KICK_SAME_PLATFORM = 2;
+    // 登录策略踢出全部旧会话枚举值
     LOGIN_POLICY_KICK_ALL_OLD = 3;
 }
 
+// 注册请求承载请求参数
 message RegisterRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // 登录用户名
     string username = 2;
+    // 登录密码或凭据载荷
     string password = 3;
+    // 用户昵称
     string nickname = 4;
+    // 头像地址
     string avatar_url = 5;
+    // 手机号字段
     string phone = 6;
+    // 邮箱地址
     string email = 7;
 }
 
+// 注册响应承载响应数据
 message RegisterResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // IM 用户业务标识
     string user_id = 2;
 }
 
+// 登录请求承载请求参数
 message LoginRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // 登录用户名
     string username = 2;
+    // 登录密码或凭据载荷
     string password = 3;
+    // 客户端平台
     whocall.common.v1.Platform platform = 4;
+    // 客户端设备标识
     string device_id = 5;
+    // 设备名称名称
     string device_name = 6;
+    // 客户端版本
     string client_version = 7;
+    // 登录策略字段
     LoginPolicy login_policy = 8;
 }
 
+// 登录响应承载响应数据
 message LoginResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // 访问令牌
     string access_token = 3;
+    // 刷新令牌
     string refresh_token = 4;
+    // access令牌expire时间时间
     google.protobuf.Timestamp access_token_expire_at = 5;
+    // 刷新令牌expire时间时间
     google.protobuf.Timestamp refresh_token_expire_at = 6;
 }
 
+// 刷新令牌请求承载请求参数
 message RefreshTokenRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // 刷新令牌
     string refresh_token = 2;
+    // 客户端设备标识
     string device_id = 3;
 }
 
+// 刷新令牌响应承载响应数据
 message RefreshTokenResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 访问令牌
     string access_token = 2;
+    // 刷新令牌
     string refresh_token = 3;
+    // access令牌expire时间时间
     google.protobuf.Timestamp access_token_expire_at = 4;
+    // 刷新令牌expire时间时间
     google.protobuf.Timestamp refresh_token_expire_at = 5;
 }
 
+// 退出登录请求承载请求参数
 message LogoutRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // 客户端平台
     whocall.common.v1.Platform platform = 3;
+    // 客户端设备标识
     string device_id = 4;
+    // 退出登录全部设备字段
     bool logout_all_devices = 5;
 }
 
+// 退出登录响应承载响应数据
 message LogoutResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
 }
 
+// 强制退出登录请求承载请求参数
 message ForceLogoutRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // 客户端平台
     whocall.common.v1.Platform platform = 3;
+    // 客户端设备标识
     string device_id = 4;
+    // 业务原因
     string reason = 5;
 }
 
+// 强制退出登录响应承载响应数据
 message ForceLogoutResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 踢出数量数量
     int32 kicked_count = 2;
 }
 
+// 解析令牌请求承载请求参数
 message ParseTokenRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // 访问令牌
     string access_token = 2;
 }
 
+// 解析令牌响应承载响应数据
 message ParseTokenResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // 客户端平台
     whocall.common.v1.Platform platform = 3;
+    // 客户端设备标识
     string device_id = 4;
+    // 令牌状态
     TokenStatus token_status = 5;
+    // expire时间时间
     google.protobuf.Timestamp expire_at = 6;
 }
 
+// 登录设备描述业务数据结构
 message LoginDevice {
+    // IM 用户业务标识
     string user_id = 1;
+    // 客户端平台
     whocall.common.v1.Platform platform = 2;
+    // 客户端设备标识
     string device_id = 3;
+    // 设备名称名称
     string device_name = 4;
+    // 客户端版本
     string client_version = 5;
+    // 网关连接标识
     string conn_id = 6;
+    // last登录ip字段
     string last_login_ip = 7;
+    // last登录时间ms字段
     int64 last_login_time_ms = 8;
+    // lastactive时间ms字段
     int64 last_active_time_ms = 9;
+    // 令牌状态
     TokenStatus token_status = 10;
 }
 
+// 列表登录设备请求承载请求参数
 message ListLoginDevicesRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
 }
 
+// 列表登录设备响应承载响应数据
 message ListLoginDevicesResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 设备列表
     repeated LoginDevice devices = 2;
 }
 
+// 踢出设备请求承载请求参数
 message KickDeviceRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // 客户端平台
     whocall.common.v1.Platform platform = 3;
+    // 客户端设备标识
     string device_id = 4;
+    // 业务原因
     string reason = 5;
 }
 
+// 踢出设备响应承载响应数据
 message KickDeviceResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 踢出数量数量
     int32 kicked_count = 2;
 }

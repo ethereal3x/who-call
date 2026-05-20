@@ -23,28 +23,48 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// 内容类型定义可选枚举值
 type ContentType int32
 
 const (
-	ContentType_CONTENT_TYPE_UNSPECIFIED                       ContentType = 0
-	ContentType_CONTENT_TYPE_TEXT                              ContentType = 101
-	ContentType_CONTENT_TYPE_IMAGE                             ContentType = 102
-	ContentType_CONTENT_TYPE_VOICE                             ContentType = 103
-	ContentType_CONTENT_TYPE_VIDEO                             ContentType = 104
-	ContentType_CONTENT_TYPE_FILE                              ContentType = 105
-	ContentType_CONTENT_TYPE_LOCATION                          ContentType = 106
-	ContentType_CONTENT_TYPE_CARD                              ContentType = 107
-	ContentType_CONTENT_TYPE_MERGER                            ContentType = 108
-	ContentType_CONTENT_TYPE_AT_TEXT                           ContentType = 109
-	ContentType_CONTENT_TYPE_CUSTOM                            ContentType = 110
-	ContentType_CONTENT_TYPE_TYPING                            ContentType = 200
-	ContentType_CONTENT_TYPE_REVOKE                            ContentType = 201
-	ContentType_CONTENT_TYPE_READ_RECEIPT                      ContentType = 202
-	ContentType_CONTENT_TYPE_FRIEND_APPLICATION_NOTIFICATION   ContentType = 301
-	ContentType_CONTENT_TYPE_GROUP_APPLICATION_NOTIFICATION    ContentType = 302
+	// 未指定枚举值
+	ContentType_CONTENT_TYPE_UNSPECIFIED ContentType = 0
+	// 内容类型text枚举值
+	ContentType_CONTENT_TYPE_TEXT ContentType = 101
+	// 内容类型image枚举值
+	ContentType_CONTENT_TYPE_IMAGE ContentType = 102
+	// 内容类型voice枚举值
+	ContentType_CONTENT_TYPE_VOICE ContentType = 103
+	// 内容类型video枚举值
+	ContentType_CONTENT_TYPE_VIDEO ContentType = 104
+	// 内容类型文件枚举值
+	ContentType_CONTENT_TYPE_FILE ContentType = 105
+	// 内容类型location枚举值
+	ContentType_CONTENT_TYPE_LOCATION ContentType = 106
+	// 内容类型card枚举值
+	ContentType_CONTENT_TYPE_CARD ContentType = 107
+	// 内容类型merger枚举值
+	ContentType_CONTENT_TYPE_MERGER ContentType = 108
+	// 内容类型时间text枚举值
+	ContentType_CONTENT_TYPE_AT_TEXT ContentType = 109
+	// 内容类型custom枚举值
+	ContentType_CONTENT_TYPE_CUSTOM ContentType = 110
+	// 内容类型typing枚举值
+	ContentType_CONTENT_TYPE_TYPING ContentType = 200
+	// 内容类型撤回枚举值
+	ContentType_CONTENT_TYPE_REVOKE ContentType = 201
+	// 内容类型已读回执枚举值
+	ContentType_CONTENT_TYPE_READ_RECEIPT ContentType = 202
+	// 内容类型好友申请通知枚举值
+	ContentType_CONTENT_TYPE_FRIEND_APPLICATION_NOTIFICATION ContentType = 301
+	// 内容类型群组申请通知枚举值
+	ContentType_CONTENT_TYPE_GROUP_APPLICATION_NOTIFICATION ContentType = 302
+	// 内容类型群组成员changed通知枚举值
 	ContentType_CONTENT_TYPE_GROUP_MEMBER_CHANGED_NOTIFICATION ContentType = 303
+	// 内容类型会话changed通知枚举值
 	ContentType_CONTENT_TYPE_CONVERSATION_CHANGED_NOTIFICATION ContentType = 304
-	ContentType_CONTENT_TYPE_SYSTEM_NOTIFICATION               ContentType = 900
+	// 内容类型系统通知枚举值
+	ContentType_CONTENT_TYPE_SYSTEM_NOTIFICATION ContentType = 900
 )
 
 // Enum value maps for ContentType.
@@ -120,18 +140,28 @@ func (ContentType) EnumDescriptor() ([]byte, []int) {
 	return file_whocall_msg_v1_msg_proto_rawDescGZIP(), []int{0}
 }
 
+// 消息状态定义可选枚举值
 type MessageStatus int32
 
 const (
+	// 未指定枚举值
 	MessageStatus_MESSAGE_STATUS_UNSPECIFIED MessageStatus = 0
-	MessageStatus_MESSAGE_STATUS_SENDING     MessageStatus = 1
-	MessageStatus_MESSAGE_STATUS_SENT        MessageStatus = 2
-	MessageStatus_MESSAGE_STATUS_PERSISTED   MessageStatus = 3
-	MessageStatus_MESSAGE_STATUS_DELIVERED   MessageStatus = 4
-	MessageStatus_MESSAGE_STATUS_READ        MessageStatus = 5
-	MessageStatus_MESSAGE_STATUS_REVOKED     MessageStatus = 6
-	MessageStatus_MESSAGE_STATUS_DELETED     MessageStatus = 7
-	MessageStatus_MESSAGE_STATUS_FAILED      MessageStatus = 8
+	// 消息状态sending枚举值
+	MessageStatus_MESSAGE_STATUS_SENDING MessageStatus = 1
+	// 消息状态sent枚举值
+	MessageStatus_MESSAGE_STATUS_SENT MessageStatus = 2
+	// 消息状态persisted枚举值
+	MessageStatus_MESSAGE_STATUS_PERSISTED MessageStatus = 3
+	// 消息状态delivered枚举值
+	MessageStatus_MESSAGE_STATUS_DELIVERED MessageStatus = 4
+	// 消息状态已读枚举值
+	MessageStatus_MESSAGE_STATUS_READ MessageStatus = 5
+	// 撤销状态枚举值
+	MessageStatus_MESSAGE_STATUS_REVOKED MessageStatus = 6
+	// 消息状态deleted枚举值
+	MessageStatus_MESSAGE_STATUS_DELETED MessageStatus = 7
+	// 消息状态失败枚举值
+	MessageStatus_MESSAGE_STATUS_FAILED MessageStatus = 8
 )
 
 // Enum value maps for MessageStatus.
@@ -187,12 +217,16 @@ func (MessageStatus) EnumDescriptor() ([]byte, []int) {
 	return file_whocall_msg_v1_msg_proto_rawDescGZIP(), []int{1}
 }
 
+// 拉取顺序定义可选枚举值
 type PullOrder int32
 
 const (
+	// 未指定枚举值
 	PullOrder_PULL_ORDER_UNSPECIFIED PullOrder = 0
-	PullOrder_PULL_ORDER_ASC         PullOrder = 1
-	PullOrder_PULL_ORDER_DESC        PullOrder = 2
+	// 拉取顺序升序枚举值
+	PullOrder_PULL_ORDER_ASC PullOrder = 1
+	// 拉取顺序降序枚举值
+	PullOrder_PULL_ORDER_DESC PullOrder = 2
 )
 
 // Enum value maps for PullOrder.
@@ -236,12 +270,16 @@ func (PullOrder) EnumDescriptor() ([]byte, []int) {
 	return file_whocall_msg_v1_msg_proto_rawDescGZIP(), []int{2}
 }
 
+// 删除scope定义可选枚举值
 type DeleteScope int32
 
 const (
+	// 未指定枚举值
 	DeleteScope_DELETE_SCOPE_UNSPECIFIED DeleteScope = 0
-	DeleteScope_DELETE_SCOPE_LOCAL       DeleteScope = 1
-	DeleteScope_DELETE_SCOPE_ALL         DeleteScope = 2
+	// 删除scopelocal枚举值
+	DeleteScope_DELETE_SCOPE_LOCAL DeleteScope = 1
+	// 删除scope全部枚举值
+	DeleteScope_DELETE_SCOPE_ALL DeleteScope = 2
 )
 
 // Enum value maps for DeleteScope.
@@ -285,18 +323,27 @@ func (DeleteScope) EnumDescriptor() ([]byte, []int) {
 	return file_whocall_msg_v1_msg_proto_rawDescGZIP(), []int{3}
 }
 
+// 消息options描述业务数据结构
 type MsgOptions struct {
-	state                protoimpl.MessageState `protogen:"open.v1"`
-	IsPersistent         bool                   `protobuf:"varint,1,opt,name=is_persistent,json=isPersistent,proto3" json:"is_persistent,omitempty"`
-	IsOfflinePush        bool                   `protobuf:"varint,2,opt,name=is_offline_push,json=isOfflinePush,proto3" json:"is_offline_push,omitempty"`
-	IsHistory            bool                   `protobuf:"varint,3,opt,name=is_history,json=isHistory,proto3" json:"is_history,omitempty"`
-	IsSenderSync         bool                   `protobuf:"varint,4,opt,name=is_sender_sync,json=isSenderSync,proto3" json:"is_sender_sync,omitempty"`
-	IsUnreadCount        bool                   `protobuf:"varint,5,opt,name=is_unread_count,json=isUnreadCount,proto3" json:"is_unread_count,omitempty"`
-	IsConversationUpdate bool                   `protobuf:"varint,6,opt,name=is_conversation_update,json=isConversationUpdate,proto3" json:"is_conversation_update,omitempty"`
-	IsNotification       bool                   `protobuf:"varint,7,opt,name=is_notification,json=isNotification,proto3" json:"is_notification,omitempty"`
-	IsReadReceipt        bool                   `protobuf:"varint,8,opt,name=is_read_receipt,json=isReadReceipt,proto3" json:"is_read_receipt,omitempty"`
-	unknownFields        protoimpl.UnknownFields
-	sizeCache            protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// ispersistent字段
+	IsPersistent bool `protobuf:"varint,1,opt,name=is_persistent,json=isPersistent,proto3" json:"is_persistent,omitempty"`
+	// isoffline推送字段
+	IsOfflinePush bool `protobuf:"varint,2,opt,name=is_offline_push,json=isOfflinePush,proto3" json:"is_offline_push,omitempty"`
+	// ishistory字段
+	IsHistory bool `protobuf:"varint,3,opt,name=is_history,json=isHistory,proto3" json:"is_history,omitempty"`
+	// issender同步字段
+	IsSenderSync bool `protobuf:"varint,4,opt,name=is_sender_sync,json=isSenderSync,proto3" json:"is_sender_sync,omitempty"`
+	// isunread数量数量
+	IsUnreadCount bool `protobuf:"varint,5,opt,name=is_unread_count,json=isUnreadCount,proto3" json:"is_unread_count,omitempty"`
+	// is会话更新字段
+	IsConversationUpdate bool `protobuf:"varint,6,opt,name=is_conversation_update,json=isConversationUpdate,proto3" json:"is_conversation_update,omitempty"`
+	// is通知字段
+	IsNotification bool `protobuf:"varint,7,opt,name=is_notification,json=isNotification,proto3" json:"is_notification,omitempty"`
+	// is已读回执字段
+	IsReadReceipt bool `protobuf:"varint,8,opt,name=is_read_receipt,json=isReadReceipt,proto3" json:"is_read_receipt,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *MsgOptions) Reset() {
@@ -385,32 +432,57 @@ func (x *MsgOptions) GetIsReadReceipt() bool {
 	return false
 }
 
+// 消息数据描述业务数据结构
 type MsgData struct {
-	state            protoimpl.MessageState `protogen:"open.v1"`
-	ClientMsgId      string                 `protobuf:"bytes,1,opt,name=client_msg_id,json=clientMsgId,proto3" json:"client_msg_id,omitempty"`
-	ServerMsgId      string                 `protobuf:"bytes,2,opt,name=server_msg_id,json=serverMsgId,proto3" json:"server_msg_id,omitempty"`
-	SendId           string                 `protobuf:"bytes,3,opt,name=send_id,json=sendId,proto3" json:"send_id,omitempty"`
-	RecvId           string                 `protobuf:"bytes,4,opt,name=recv_id,json=recvId,proto3" json:"recv_id,omitempty"`
-	GroupId          string                 `protobuf:"bytes,5,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
-	ConversationId   string                 `protobuf:"bytes,6,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
-	ConversationSeq  int64                  `protobuf:"varint,7,opt,name=conversation_seq,json=conversationSeq,proto3" json:"conversation_seq,omitempty"`
-	ConversationType v1.ConversationType    `protobuf:"varint,8,opt,name=conversation_type,json=conversationType,proto3,enum=whocall.common.v1.ConversationType" json:"conversation_type,omitempty"`
-	SenderPlatform   v1.Platform            `protobuf:"varint,9,opt,name=sender_platform,json=senderPlatform,proto3,enum=whocall.common.v1.Platform" json:"sender_platform,omitempty"`
-	SenderNickname   string                 `protobuf:"bytes,10,opt,name=sender_nickname,json=senderNickname,proto3" json:"sender_nickname,omitempty"`
-	SenderAvatarUrl  string                 `protobuf:"bytes,11,opt,name=sender_avatar_url,json=senderAvatarUrl,proto3" json:"sender_avatar_url,omitempty"`
-	ContentType      ContentType            `protobuf:"varint,12,opt,name=content_type,json=contentType,proto3,enum=whocall.msg.v1.ContentType" json:"content_type,omitempty"`
-	Content          []byte                 `protobuf:"bytes,13,opt,name=content,proto3" json:"content,omitempty"`
-	Status           MessageStatus          `protobuf:"varint,14,opt,name=status,proto3,enum=whocall.msg.v1.MessageStatus" json:"status,omitempty"`
-	IsRead           bool                   `protobuf:"varint,15,opt,name=is_read,json=isRead,proto3" json:"is_read,omitempty"`
-	Options          *MsgOptions            `protobuf:"bytes,16,opt,name=options,proto3" json:"options,omitempty"`
-	OfflinePushInfo  *v1.OfflinePushInfo    `protobuf:"bytes,17,opt,name=offline_push_info,json=offlinePushInfo,proto3" json:"offline_push_info,omitempty"`
-	AtUserIds        []string               `protobuf:"bytes,18,rep,name=at_user_ids,json=atUserIds,proto3" json:"at_user_ids,omitempty"`
-	SendTimeMs       int64                  `protobuf:"varint,19,opt,name=send_time_ms,json=sendTimeMs,proto3" json:"send_time_ms,omitempty"`
-	CreateTimeMs     int64                  `protobuf:"varint,20,opt,name=create_time_ms,json=createTimeMs,proto3" json:"create_time_ms,omitempty"`
-	OperationId      string                 `protobuf:"bytes,21,opt,name=operation_id,json=operationId,proto3" json:"operation_id,omitempty"`
-	AttachedInfo     string                 `protobuf:"bytes,22,opt,name=attached_info,json=attachedInfo,proto3" json:"attached_info,omitempty"`
-	Ex               string                 `protobuf:"bytes,23,opt,name=ex,proto3" json:"ex,omitempty"`
-	QuoteServerMsgId string                 `protobuf:"bytes,24,opt,name=quote_server_msg_id,json=quoteServerMsgId,proto3" json:"quote_server_msg_id,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 客户端消息幂等标识
+	ClientMsgId string `protobuf:"bytes,1,opt,name=client_msg_id,json=clientMsgId,proto3" json:"client_msg_id,omitempty"`
+	// 服务端消息唯一标识
+	ServerMsgId string `protobuf:"bytes,2,opt,name=server_msg_id,json=serverMsgId,proto3" json:"server_msg_id,omitempty"`
+	// 发送方用户标识
+	SendId string `protobuf:"bytes,3,opt,name=send_id,json=sendId,proto3" json:"send_id,omitempty"`
+	// 接收方用户标识
+	RecvId string `protobuf:"bytes,4,opt,name=recv_id,json=recvId,proto3" json:"recv_id,omitempty"`
+	// 群组业务标识
+	GroupId string `protobuf:"bytes,5,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	// 会话业务标识
+	ConversationId string `protobuf:"bytes,6,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
+	// 会话内消息序号
+	ConversationSeq int64 `protobuf:"varint,7,opt,name=conversation_seq,json=conversationSeq,proto3" json:"conversation_seq,omitempty"`
+	// 会话类型
+	ConversationType v1.ConversationType `protobuf:"varint,8,opt,name=conversation_type,json=conversationType,proto3,enum=whocall.common.v1.ConversationType" json:"conversation_type,omitempty"`
+	// sender平台字段
+	SenderPlatform v1.Platform `protobuf:"varint,9,opt,name=sender_platform,json=senderPlatform,proto3,enum=whocall.common.v1.Platform" json:"sender_platform,omitempty"`
+	// sender昵称字段
+	SenderNickname string `protobuf:"bytes,10,opt,name=sender_nickname,json=senderNickname,proto3" json:"sender_nickname,omitempty"`
+	// sender头像地址地址
+	SenderAvatarUrl string `protobuf:"bytes,11,opt,name=sender_avatar_url,json=senderAvatarUrl,proto3" json:"sender_avatar_url,omitempty"`
+	// 消息内容类型
+	ContentType ContentType `protobuf:"varint,12,opt,name=content_type,json=contentType,proto3,enum=whocall.msg.v1.ContentType" json:"content_type,omitempty"`
+	// 消息内容载荷
+	Content []byte `protobuf:"bytes,13,opt,name=content,proto3" json:"content,omitempty"`
+	// 业务状态
+	Status MessageStatus `protobuf:"varint,14,opt,name=status,proto3,enum=whocall.msg.v1.MessageStatus" json:"status,omitempty"`
+	// is已读字段
+	IsRead bool `protobuf:"varint,15,opt,name=is_read,json=isRead,proto3" json:"is_read,omitempty"`
+	// options字段
+	Options *MsgOptions `protobuf:"bytes,16,opt,name=options,proto3" json:"options,omitempty"`
+	// offline推送info字段
+	OfflinePushInfo *v1.OfflinePushInfo `protobuf:"bytes,17,opt,name=offline_push_info,json=offlinePushInfo,proto3" json:"offline_push_info,omitempty"`
+	// 时间用户标识列表列表
+	AtUserIds []string `protobuf:"bytes,18,rep,name=at_user_ids,json=atUserIds,proto3" json:"at_user_ids,omitempty"`
+	// 发送时间ms字段
+	SendTimeMs int64 `protobuf:"varint,19,opt,name=send_time_ms,json=sendTimeMs,proto3" json:"send_time_ms,omitempty"`
+	// 创建时间ms字段
+	CreateTimeMs int64 `protobuf:"varint,20,opt,name=create_time_ms,json=createTimeMs,proto3" json:"create_time_ms,omitempty"`
+	// 跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识
+	OperationId string `protobuf:"bytes,21,opt,name=operation_id,json=operationId,proto3" json:"operation_id,omitempty"`
+	// attachedinfo字段
+	AttachedInfo string `protobuf:"bytes,22,opt,name=attached_info,json=attachedInfo,proto3" json:"attached_info,omitempty"`
+	// IM 扩展字段
+	Ex string `protobuf:"bytes,23,opt,name=ex,proto3" json:"ex,omitempty"`
+	// quote服务端消息标识标识
+	QuoteServerMsgId string `protobuf:"bytes,24,opt,name=quote_server_msg_id,json=quoteServerMsgId,proto3" json:"quote_server_msg_id,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
@@ -613,9 +685,11 @@ func (x *MsgData) GetQuoteServerMsgId() string {
 	return ""
 }
 
+// text内容描述业务数据结构
 type TextContent struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Text          string                 `protobuf:"bytes,1,opt,name=text,proto3" json:"text,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// text字段
+	Text          string `protobuf:"bytes,1,opt,name=text,proto3" json:"text,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -657,15 +731,23 @@ func (x *TextContent) GetText() string {
 	return ""
 }
 
+// image内容描述业务数据结构
 type ImageContent struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	FileId        string                 `protobuf:"bytes,1,opt,name=file_id,json=fileId,proto3" json:"file_id,omitempty"`
-	Url           string                 `protobuf:"bytes,2,opt,name=url,proto3" json:"url,omitempty"`
-	Width         int32                  `protobuf:"varint,3,opt,name=width,proto3" json:"width,omitempty"`
-	Height        int32                  `protobuf:"varint,4,opt,name=height,proto3" json:"height,omitempty"`
-	Size          int64                  `protobuf:"varint,5,opt,name=size,proto3" json:"size,omitempty"`
-	MimeType      string                 `protobuf:"bytes,6,opt,name=mime_type,json=mimeType,proto3" json:"mime_type,omitempty"`
-	ThumbnailUrl  string                 `protobuf:"bytes,7,opt,name=thumbnail_url,json=thumbnailUrl,proto3" json:"thumbnail_url,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 文件业务标识
+	FileId string `protobuf:"bytes,1,opt,name=file_id,json=fileId,proto3" json:"file_id,omitempty"`
+	// 访问地址
+	Url string `protobuf:"bytes,2,opt,name=url,proto3" json:"url,omitempty"`
+	// width字段
+	Width int32 `protobuf:"varint,3,opt,name=width,proto3" json:"width,omitempty"`
+	// height字段
+	Height int32 `protobuf:"varint,4,opt,name=height,proto3" json:"height,omitempty"`
+	// 大小字段
+	Size int64 `protobuf:"varint,5,opt,name=size,proto3" json:"size,omitempty"`
+	// MIME 类型
+	MimeType string `protobuf:"bytes,6,opt,name=mime_type,json=mimeType,proto3" json:"mime_type,omitempty"`
+	// 缩略图地址地址
+	ThumbnailUrl  string `protobuf:"bytes,7,opt,name=thumbnail_url,json=thumbnailUrl,proto3" json:"thumbnail_url,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -749,15 +831,21 @@ func (x *ImageContent) GetThumbnailUrl() string {
 	return ""
 }
 
+// voice内容描述业务数据结构
 type VoiceContent struct {
-	state           protoimpl.MessageState `protogen:"open.v1"`
-	FileId          string                 `protobuf:"bytes,1,opt,name=file_id,json=fileId,proto3" json:"file_id,omitempty"`
-	Url             string                 `protobuf:"bytes,2,opt,name=url,proto3" json:"url,omitempty"`
-	DurationSeconds int32                  `protobuf:"varint,3,opt,name=duration_seconds,json=durationSeconds,proto3" json:"duration_seconds,omitempty"`
-	Size            int64                  `protobuf:"varint,4,opt,name=size,proto3" json:"size,omitempty"`
-	MimeType        string                 `protobuf:"bytes,5,opt,name=mime_type,json=mimeType,proto3" json:"mime_type,omitempty"`
-	unknownFields   protoimpl.UnknownFields
-	sizeCache       protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 文件业务标识
+	FileId string `protobuf:"bytes,1,opt,name=file_id,json=fileId,proto3" json:"file_id,omitempty"`
+	// 访问地址
+	Url string `protobuf:"bytes,2,opt,name=url,proto3" json:"url,omitempty"`
+	// 时长seconds字段
+	DurationSeconds int32 `protobuf:"varint,3,opt,name=duration_seconds,json=durationSeconds,proto3" json:"duration_seconds,omitempty"`
+	// 大小字段
+	Size int64 `protobuf:"varint,4,opt,name=size,proto3" json:"size,omitempty"`
+	// MIME 类型
+	MimeType      string `protobuf:"bytes,5,opt,name=mime_type,json=mimeType,proto3" json:"mime_type,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *VoiceContent) Reset() {
@@ -825,18 +913,27 @@ func (x *VoiceContent) GetMimeType() string {
 	return ""
 }
 
+// video内容描述业务数据结构
 type VideoContent struct {
-	state           protoimpl.MessageState `protogen:"open.v1"`
-	FileId          string                 `protobuf:"bytes,1,opt,name=file_id,json=fileId,proto3" json:"file_id,omitempty"`
-	Url             string                 `protobuf:"bytes,2,opt,name=url,proto3" json:"url,omitempty"`
-	SnapshotUrl     string                 `protobuf:"bytes,3,opt,name=snapshot_url,json=snapshotUrl,proto3" json:"snapshot_url,omitempty"`
-	Width           int32                  `protobuf:"varint,4,opt,name=width,proto3" json:"width,omitempty"`
-	Height          int32                  `protobuf:"varint,5,opt,name=height,proto3" json:"height,omitempty"`
-	DurationSeconds int32                  `protobuf:"varint,6,opt,name=duration_seconds,json=durationSeconds,proto3" json:"duration_seconds,omitempty"`
-	Size            int64                  `protobuf:"varint,7,opt,name=size,proto3" json:"size,omitempty"`
-	MimeType        string                 `protobuf:"bytes,8,opt,name=mime_type,json=mimeType,proto3" json:"mime_type,omitempty"`
-	unknownFields   protoimpl.UnknownFields
-	sizeCache       protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 文件业务标识
+	FileId string `protobuf:"bytes,1,opt,name=file_id,json=fileId,proto3" json:"file_id,omitempty"`
+	// 访问地址
+	Url string `protobuf:"bytes,2,opt,name=url,proto3" json:"url,omitempty"`
+	// snapshot地址地址
+	SnapshotUrl string `protobuf:"bytes,3,opt,name=snapshot_url,json=snapshotUrl,proto3" json:"snapshot_url,omitempty"`
+	// width字段
+	Width int32 `protobuf:"varint,4,opt,name=width,proto3" json:"width,omitempty"`
+	// height字段
+	Height int32 `protobuf:"varint,5,opt,name=height,proto3" json:"height,omitempty"`
+	// 时长seconds字段
+	DurationSeconds int32 `protobuf:"varint,6,opt,name=duration_seconds,json=durationSeconds,proto3" json:"duration_seconds,omitempty"`
+	// 大小字段
+	Size int64 `protobuf:"varint,7,opt,name=size,proto3" json:"size,omitempty"`
+	// MIME 类型
+	MimeType      string `protobuf:"bytes,8,opt,name=mime_type,json=mimeType,proto3" json:"mime_type,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *VideoContent) Reset() {
@@ -925,14 +1022,21 @@ func (x *VideoContent) GetMimeType() string {
 	return ""
 }
 
+// 文件内容描述业务数据结构
 type FileContent struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	FileId        string                 `protobuf:"bytes,1,opt,name=file_id,json=fileId,proto3" json:"file_id,omitempty"`
-	FileName      string                 `protobuf:"bytes,2,opt,name=file_name,json=fileName,proto3" json:"file_name,omitempty"`
-	Url           string                 `protobuf:"bytes,3,opt,name=url,proto3" json:"url,omitempty"`
-	Size          int64                  `protobuf:"varint,4,opt,name=size,proto3" json:"size,omitempty"`
-	MimeType      string                 `protobuf:"bytes,5,opt,name=mime_type,json=mimeType,proto3" json:"mime_type,omitempty"`
-	Checksum      string                 `protobuf:"bytes,6,opt,name=checksum,proto3" json:"checksum,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 文件业务标识
+	FileId string `protobuf:"bytes,1,opt,name=file_id,json=fileId,proto3" json:"file_id,omitempty"`
+	// 文件名
+	FileName string `protobuf:"bytes,2,opt,name=file_name,json=fileName,proto3" json:"file_name,omitempty"`
+	// 访问地址
+	Url string `protobuf:"bytes,3,opt,name=url,proto3" json:"url,omitempty"`
+	// 大小字段
+	Size int64 `protobuf:"varint,4,opt,name=size,proto3" json:"size,omitempty"`
+	// MIME 类型
+	MimeType string `protobuf:"bytes,5,opt,name=mime_type,json=mimeType,proto3" json:"mime_type,omitempty"`
+	// checksum字段
+	Checksum      string `protobuf:"bytes,6,opt,name=checksum,proto3" json:"checksum,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1009,11 +1113,15 @@ func (x *FileContent) GetChecksum() string {
 	return ""
 }
 
+// location内容描述业务数据结构
 type LocationContent struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Longitude     float64                `protobuf:"fixed64,1,opt,name=longitude,proto3" json:"longitude,omitempty"`
-	Latitude      float64                `protobuf:"fixed64,2,opt,name=latitude,proto3" json:"latitude,omitempty"`
-	Description   string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// longitude字段
+	Longitude float64 `protobuf:"fixed64,1,opt,name=longitude,proto3" json:"longitude,omitempty"`
+	// latitude字段
+	Latitude float64 `protobuf:"fixed64,2,opt,name=latitude,proto3" json:"latitude,omitempty"`
+	// description字段
+	Description   string `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1069,11 +1177,15 @@ func (x *LocationContent) GetDescription() string {
 	return ""
 }
 
+// card内容描述业务数据结构
 type CardContent struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Nickname      string                 `protobuf:"bytes,2,opt,name=nickname,proto3" json:"nickname,omitempty"`
-	AvatarUrl     string                 `protobuf:"bytes,3,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 用户昵称
+	Nickname string `protobuf:"bytes,2,opt,name=nickname,proto3" json:"nickname,omitempty"`
+	// 头像地址
+	AvatarUrl     string `protobuf:"bytes,3,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1129,11 +1241,15 @@ func (x *CardContent) GetAvatarUrl() string {
 	return ""
 }
 
+// 时间text内容描述业务数据结构
 type AtTextContent struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Text          string                 `protobuf:"bytes,1,opt,name=text,proto3" json:"text,omitempty"`
-	AtUserIds     []string               `protobuf:"bytes,2,rep,name=at_user_ids,json=atUserIds,proto3" json:"at_user_ids,omitempty"`
-	AtAll         bool                   `protobuf:"varint,3,opt,name=at_all,json=atAll,proto3" json:"at_all,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// text字段
+	Text string `protobuf:"bytes,1,opt,name=text,proto3" json:"text,omitempty"`
+	// 时间用户标识列表列表
+	AtUserIds []string `protobuf:"bytes,2,rep,name=at_user_ids,json=atUserIds,proto3" json:"at_user_ids,omitempty"`
+	// 时间全部字段
+	AtAll         bool `protobuf:"varint,3,opt,name=at_all,json=atAll,proto3" json:"at_all,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1189,12 +1305,17 @@ func (x *AtTextContent) GetAtAll() bool {
 	return false
 }
 
+// custom内容描述业务数据结构
 type CustomContent struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Type          string                 `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
-	Data          string                 `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
-	Description   string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
-	Extension     string                 `protobuf:"bytes,4,opt,name=extension,proto3" json:"extension,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 业务类型
+	Type string `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	// 数据字段
+	Data string `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
+	// description字段
+	Description string `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	// extension字段
+	Extension     string `protobuf:"bytes,4,opt,name=extension,proto3" json:"extension,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1257,13 +1378,19 @@ func (x *CustomContent) GetExtension() string {
 	return ""
 }
 
+// 撤回内容描述业务数据结构
 type RevokeContent struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	RevokerUserId string                 `protobuf:"bytes,1,opt,name=revoker_user_id,json=revokerUserId,proto3" json:"revoker_user_id,omitempty"`
-	ServerMsgId   string                 `protobuf:"bytes,2,opt,name=server_msg_id,json=serverMsgId,proto3" json:"server_msg_id,omitempty"`
-	ClientMsgId   string                 `protobuf:"bytes,3,opt,name=client_msg_id,json=clientMsgId,proto3" json:"client_msg_id,omitempty"`
-	RevokeTimeMs  int64                  `protobuf:"varint,4,opt,name=revoke_time_ms,json=revokeTimeMs,proto3" json:"revoke_time_ms,omitempty"`
-	Reason        string                 `protobuf:"bytes,5,opt,name=reason,proto3" json:"reason,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// revoker用户标识标识
+	RevokerUserId string `protobuf:"bytes,1,opt,name=revoker_user_id,json=revokerUserId,proto3" json:"revoker_user_id,omitempty"`
+	// 服务端消息唯一标识
+	ServerMsgId string `protobuf:"bytes,2,opt,name=server_msg_id,json=serverMsgId,proto3" json:"server_msg_id,omitempty"`
+	// 客户端消息幂等标识
+	ClientMsgId string `protobuf:"bytes,3,opt,name=client_msg_id,json=clientMsgId,proto3" json:"client_msg_id,omitempty"`
+	// 撤回时间ms字段
+	RevokeTimeMs int64 `protobuf:"varint,4,opt,name=revoke_time_ms,json=revokeTimeMs,proto3" json:"revoke_time_ms,omitempty"`
+	// 业务原因
+	Reason        string `protobuf:"bytes,5,opt,name=reason,proto3" json:"reason,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1333,15 +1460,21 @@ func (x *RevokeContent) GetReason() string {
 	return ""
 }
 
+// 已读回执内容描述业务数据结构
 type ReadReceiptContent struct {
-	state          protoimpl.MessageState `protogen:"open.v1"`
-	ConversationId string                 `protobuf:"bytes,1,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
-	ReaderUserId   string                 `protobuf:"bytes,2,opt,name=reader_user_id,json=readerUserId,proto3" json:"reader_user_id,omitempty"`
-	ReadSeq        int64                  `protobuf:"varint,3,opt,name=read_seq,json=readSeq,proto3" json:"read_seq,omitempty"`
-	ServerMsgIds   []string               `protobuf:"bytes,4,rep,name=server_msg_ids,json=serverMsgIds,proto3" json:"server_msg_ids,omitempty"`
-	ReadTimeMs     int64                  `protobuf:"varint,5,opt,name=read_time_ms,json=readTimeMs,proto3" json:"read_time_ms,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 会话业务标识
+	ConversationId string `protobuf:"bytes,1,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
+	// reader用户标识标识
+	ReaderUserId string `protobuf:"bytes,2,opt,name=reader_user_id,json=readerUserId,proto3" json:"reader_user_id,omitempty"`
+	// 用户已读消息序号
+	ReadSeq int64 `protobuf:"varint,3,opt,name=read_seq,json=readSeq,proto3" json:"read_seq,omitempty"`
+	// 服务端消息唯一标识列表
+	ServerMsgIds []string `protobuf:"bytes,4,rep,name=server_msg_ids,json=serverMsgIds,proto3" json:"server_msg_ids,omitempty"`
+	// 已读时间ms字段
+	ReadTimeMs    int64 `protobuf:"varint,5,opt,name=read_time_ms,json=readTimeMs,proto3" json:"read_time_ms,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *ReadReceiptContent) Reset() {
@@ -1409,10 +1542,13 @@ func (x *ReadReceiptContent) GetReadTimeMs() int64 {
 	return 0
 }
 
+// 发送消息请求承载请求参数
 type SendMsgRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	MsgData       *MsgData               `protobuf:"bytes,2,opt,name=msg_data,json=msgData,proto3" json:"msg_data,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 消息数据字段
+	MsgData       *MsgData `protobuf:"bytes,2,opt,name=msg_data,json=msgData,proto3" json:"msg_data,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1461,16 +1597,23 @@ func (x *SendMsgRequest) GetMsgData() *MsgData {
 	return nil
 }
 
+// 发送消息响应承载响应数据
 type SendMsgResponse struct {
-	state           protoimpl.MessageState `protogen:"open.v1"`
-	Header          *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	ServerMsgId     string                 `protobuf:"bytes,2,opt,name=server_msg_id,json=serverMsgId,proto3" json:"server_msg_id,omitempty"`
-	ClientMsgId     string                 `protobuf:"bytes,3,opt,name=client_msg_id,json=clientMsgId,proto3" json:"client_msg_id,omitempty"`
-	SendTimeMs      int64                  `protobuf:"varint,4,opt,name=send_time_ms,json=sendTimeMs,proto3" json:"send_time_ms,omitempty"`
-	ConversationSeq int64                  `protobuf:"varint,5,opt,name=conversation_seq,json=conversationSeq,proto3" json:"conversation_seq,omitempty"`
-	MsgData         *MsgData               `protobuf:"bytes,6,opt,name=msg_data,json=msgData,proto3" json:"msg_data,omitempty"`
-	unknownFields   protoimpl.UnknownFields
-	sizeCache       protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 服务端消息唯一标识
+	ServerMsgId string `protobuf:"bytes,2,opt,name=server_msg_id,json=serverMsgId,proto3" json:"server_msg_id,omitempty"`
+	// 客户端消息幂等标识
+	ClientMsgId string `protobuf:"bytes,3,opt,name=client_msg_id,json=clientMsgId,proto3" json:"client_msg_id,omitempty"`
+	// 发送时间ms字段
+	SendTimeMs int64 `protobuf:"varint,4,opt,name=send_time_ms,json=sendTimeMs,proto3" json:"send_time_ms,omitempty"`
+	// 会话内消息序号
+	ConversationSeq int64 `protobuf:"varint,5,opt,name=conversation_seq,json=conversationSeq,proto3" json:"conversation_seq,omitempty"`
+	// 消息数据字段
+	MsgData       *MsgData `protobuf:"bytes,6,opt,name=msg_data,json=msgData,proto3" json:"msg_data,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *SendMsgResponse) Reset() {
@@ -1545,10 +1688,13 @@ func (x *SendMsgResponse) GetMsgData() *MsgData {
 	return nil
 }
 
+// 批量发送消息请求承载请求参数
 type BatchSendMsgRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	Messages      []*MsgData             `protobuf:"bytes,2,rep,name=messages,proto3" json:"messages,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 消息列表
+	Messages      []*MsgData `protobuf:"bytes,2,rep,name=messages,proto3" json:"messages,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1597,15 +1743,21 @@ func (x *BatchSendMsgRequest) GetMessages() []*MsgData {
 	return nil
 }
 
+// 发送消息结果描述业务数据结构
 type SendMsgResult struct {
-	state           protoimpl.MessageState `protogen:"open.v1"`
-	ClientMsgId     string                 `protobuf:"bytes,1,opt,name=client_msg_id,json=clientMsgId,proto3" json:"client_msg_id,omitempty"`
-	ServerMsgId     string                 `protobuf:"bytes,2,opt,name=server_msg_id,json=serverMsgId,proto3" json:"server_msg_id,omitempty"`
-	ConversationSeq int64                  `protobuf:"varint,3,opt,name=conversation_seq,json=conversationSeq,proto3" json:"conversation_seq,omitempty"`
-	Code            int32                  `protobuf:"varint,4,opt,name=code,proto3" json:"code,omitempty"`
-	Message         string                 `protobuf:"bytes,5,opt,name=message,proto3" json:"message,omitempty"`
-	unknownFields   protoimpl.UnknownFields
-	sizeCache       protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 客户端消息幂等标识
+	ClientMsgId string `protobuf:"bytes,1,opt,name=client_msg_id,json=clientMsgId,proto3" json:"client_msg_id,omitempty"`
+	// 服务端消息唯一标识
+	ServerMsgId string `protobuf:"bytes,2,opt,name=server_msg_id,json=serverMsgId,proto3" json:"server_msg_id,omitempty"`
+	// 会话内消息序号
+	ConversationSeq int64 `protobuf:"varint,3,opt,name=conversation_seq,json=conversationSeq,proto3" json:"conversation_seq,omitempty"`
+	// 业务状态码
+	Code int32 `protobuf:"varint,4,opt,name=code,proto3" json:"code,omitempty"`
+	// 业务提示消息
+	Message       string `protobuf:"bytes,5,opt,name=message,proto3" json:"message,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *SendMsgResult) Reset() {
@@ -1673,10 +1825,13 @@ func (x *SendMsgResult) GetMessage() string {
 	return ""
 }
 
+// 批量发送消息响应承载响应数据
 type BatchSendMsgResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Results       []*SendMsgResult       `protobuf:"bytes,2,rep,name=results,proto3" json:"results,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// results列表
+	Results       []*SendMsgResult `protobuf:"bytes,2,rep,name=results,proto3" json:"results,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1725,11 +1880,15 @@ func (x *BatchSendMsgResponse) GetResults() []*SendMsgResult {
 	return nil
 }
 
+// getnewest序号请求承载请求参数
 type GetNewestSeqRequest struct {
-	state           protoimpl.MessageState `protogen:"open.v1"`
-	Meta            *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserId          string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	ConversationIds []string               `protobuf:"bytes,3,rep,name=conversation_ids,json=conversationIds,proto3" json:"conversation_ids,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 会话业务标识列表
+	ConversationIds []string `protobuf:"bytes,3,rep,name=conversation_ids,json=conversationIds,proto3" json:"conversation_ids,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
@@ -1785,14 +1944,19 @@ func (x *GetNewestSeqRequest) GetConversationIds() []string {
 	return nil
 }
 
+// 会话序号描述业务数据结构
 type ConversationSeq struct {
-	state          protoimpl.MessageState `protogen:"open.v1"`
-	ConversationId string                 `protobuf:"bytes,1,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
-	MinSeq         int64                  `protobuf:"varint,2,opt,name=min_seq,json=minSeq,proto3" json:"min_seq,omitempty"`
-	MaxSeq         int64                  `protobuf:"varint,3,opt,name=max_seq,json=maxSeq,proto3" json:"max_seq,omitempty"`
-	ReadSeq        int64                  `protobuf:"varint,4,opt,name=read_seq,json=readSeq,proto3" json:"read_seq,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 会话业务标识
+	ConversationId string `protobuf:"bytes,1,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
+	// 最小消息序号
+	MinSeq int64 `protobuf:"varint,2,opt,name=min_seq,json=minSeq,proto3" json:"min_seq,omitempty"`
+	// 最大消息序号
+	MaxSeq int64 `protobuf:"varint,3,opt,name=max_seq,json=maxSeq,proto3" json:"max_seq,omitempty"`
+	// 用户已读消息序号
+	ReadSeq       int64 `protobuf:"varint,4,opt,name=read_seq,json=readSeq,proto3" json:"read_seq,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *ConversationSeq) Reset() {
@@ -1853,10 +2017,13 @@ func (x *ConversationSeq) GetReadSeq() int64 {
 	return 0
 }
 
+// getnewest序号响应承载响应数据
 type GetNewestSeqResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Seqs          []*ConversationSeq     `protobuf:"bytes,2,rep,name=seqs,proto3" json:"seqs,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 消息序号列表
+	Seqs          []*ConversationSeq `protobuf:"bytes,2,rep,name=seqs,proto3" json:"seqs,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1905,14 +2072,19 @@ func (x *GetNewestSeqResponse) GetSeqs() []*ConversationSeq {
 	return nil
 }
 
+// 拉取消息by序号列表请求承载请求参数
 type PullMsgBySeqListRequest struct {
-	state          protoimpl.MessageState `protogen:"open.v1"`
-	Meta           *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserId         string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	ConversationId string                 `protobuf:"bytes,3,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
-	Seqs           []int64                `protobuf:"varint,4,rep,packed,name=seqs,proto3" json:"seqs,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 会话业务标识
+	ConversationId string `protobuf:"bytes,3,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
+	// 消息序号列表
+	Seqs          []int64 `protobuf:"varint,4,rep,packed,name=seqs,proto3" json:"seqs,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *PullMsgBySeqListRequest) Reset() {
@@ -1973,11 +2145,15 @@ func (x *PullMsgBySeqListRequest) GetSeqs() []int64 {
 	return nil
 }
 
+// 拉取消息by序号列表响应承载响应数据
 type PullMsgBySeqListResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Messages      []*MsgData             `protobuf:"bytes,2,rep,name=messages,proto3" json:"messages,omitempty"`
-	MissingSeqs   []int64                `protobuf:"varint,3,rep,packed,name=missing_seqs,json=missingSeqs,proto3" json:"missing_seqs,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 消息列表
+	Messages []*MsgData `protobuf:"bytes,2,rep,name=messages,proto3" json:"messages,omitempty"`
+	// missingseqs列表
+	MissingSeqs   []int64 `protobuf:"varint,3,rep,packed,name=missing_seqs,json=missingSeqs,proto3" json:"missing_seqs,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2033,17 +2209,25 @@ func (x *PullMsgBySeqListResponse) GetMissingSeqs() []int64 {
 	return nil
 }
 
+// 拉取消息by序号range请求承载请求参数
 type PullMsgBySeqRangeRequest struct {
-	state          protoimpl.MessageState `protogen:"open.v1"`
-	Meta           *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserId         string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	ConversationId string                 `protobuf:"bytes,3,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
-	BeginSeq       int64                  `protobuf:"varint,4,opt,name=begin_seq,json=beginSeq,proto3" json:"begin_seq,omitempty"`
-	EndSeq         int64                  `protobuf:"varint,5,opt,name=end_seq,json=endSeq,proto3" json:"end_seq,omitempty"`
-	Limit          int32                  `protobuf:"varint,6,opt,name=limit,proto3" json:"limit,omitempty"`
-	Order          PullOrder              `protobuf:"varint,7,opt,name=order,proto3,enum=whocall.msg.v1.PullOrder" json:"order,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 会话业务标识
+	ConversationId string `protobuf:"bytes,3,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
+	// begin序号序号
+	BeginSeq int64 `protobuf:"varint,4,opt,name=begin_seq,json=beginSeq,proto3" json:"begin_seq,omitempty"`
+	// 结束消息序号
+	EndSeq int64 `protobuf:"varint,5,opt,name=end_seq,json=endSeq,proto3" json:"end_seq,omitempty"`
+	// 限制字段
+	Limit int32 `protobuf:"varint,6,opt,name=limit,proto3" json:"limit,omitempty"`
+	// 顺序字段
+	Order         PullOrder `protobuf:"varint,7,opt,name=order,proto3,enum=whocall.msg.v1.PullOrder" json:"order,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *PullMsgBySeqRangeRequest) Reset() {
@@ -2125,13 +2309,19 @@ func (x *PullMsgBySeqRangeRequest) GetOrder() PullOrder {
 	return PullOrder_PULL_ORDER_UNSPECIFIED
 }
 
+// 拉取消息by序号range响应承载响应数据
 type PullMsgBySeqRangeResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Messages      []*MsgData             `protobuf:"bytes,2,rep,name=messages,proto3" json:"messages,omitempty"`
-	NextBeginSeq  int64                  `protobuf:"varint,3,opt,name=next_begin_seq,json=nextBeginSeq,proto3" json:"next_begin_seq,omitempty"`
-	HasMore       bool                   `protobuf:"varint,4,opt,name=has_more,json=hasMore,proto3" json:"has_more,omitempty"`
-	MissingSeqs   []int64                `protobuf:"varint,5,rep,packed,name=missing_seqs,json=missingSeqs,proto3" json:"missing_seqs,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 消息列表
+	Messages []*MsgData `protobuf:"bytes,2,rep,name=messages,proto3" json:"messages,omitempty"`
+	// 下一页begin序号序号
+	NextBeginSeq int64 `protobuf:"varint,3,opt,name=next_begin_seq,json=nextBeginSeq,proto3" json:"next_begin_seq,omitempty"`
+	// 是否还有更多数据
+	HasMore bool `protobuf:"varint,4,opt,name=has_more,json=hasMore,proto3" json:"has_more,omitempty"`
+	// missingseqs列表
+	MissingSeqs   []int64 `protobuf:"varint,5,rep,packed,name=missing_seqs,json=missingSeqs,proto3" json:"missing_seqs,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2201,14 +2391,19 @@ func (x *PullMsgBySeqRangeResponse) GetMissingSeqs() []int64 {
 	return nil
 }
 
+// mark会话已读请求承载请求参数
 type MarkConversationReadRequest struct {
-	state          protoimpl.MessageState `protogen:"open.v1"`
-	Meta           *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserId         string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	ConversationId string                 `protobuf:"bytes,3,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
-	ReadSeq        int64                  `protobuf:"varint,4,opt,name=read_seq,json=readSeq,proto3" json:"read_seq,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 会话业务标识
+	ConversationId string `protobuf:"bytes,3,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
+	// 用户已读消息序号
+	ReadSeq       int64 `protobuf:"varint,4,opt,name=read_seq,json=readSeq,proto3" json:"read_seq,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *MarkConversationReadRequest) Reset() {
@@ -2269,14 +2464,19 @@ func (x *MarkConversationReadRequest) GetReadSeq() int64 {
 	return 0
 }
 
+// mark会话已读响应承载响应数据
 type MarkConversationReadResponse struct {
-	state          protoimpl.MessageState `protogen:"open.v1"`
-	Header         *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	ConversationId string                 `protobuf:"bytes,2,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
-	ReadSeq        int64                  `protobuf:"varint,3,opt,name=read_seq,json=readSeq,proto3" json:"read_seq,omitempty"`
-	UnreadCount    int64                  `protobuf:"varint,4,opt,name=unread_count,json=unreadCount,proto3" json:"unread_count,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 会话业务标识
+	ConversationId string `protobuf:"bytes,2,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
+	// 用户已读消息序号
+	ReadSeq int64 `protobuf:"varint,3,opt,name=read_seq,json=readSeq,proto3" json:"read_seq,omitempty"`
+	// unread数量数量
+	UnreadCount   int64 `protobuf:"varint,4,opt,name=unread_count,json=unreadCount,proto3" json:"unread_count,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *MarkConversationReadResponse) Reset() {
@@ -2337,15 +2537,21 @@ func (x *MarkConversationReadResponse) GetUnreadCount() int64 {
 	return 0
 }
 
+// 撤回消息请求承载请求参数
 type RevokeMsgRequest struct {
-	state          protoimpl.MessageState `protogen:"open.v1"`
-	Meta           *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	OperatorUserId string                 `protobuf:"bytes,2,opt,name=operator_user_id,json=operatorUserId,proto3" json:"operator_user_id,omitempty"`
-	ConversationId string                 `protobuf:"bytes,3,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
-	ServerMsgId    string                 `protobuf:"bytes,4,opt,name=server_msg_id,json=serverMsgId,proto3" json:"server_msg_id,omitempty"`
-	Reason         string                 `protobuf:"bytes,5,opt,name=reason,proto3" json:"reason,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 操作人用户标识
+	OperatorUserId string `protobuf:"bytes,2,opt,name=operator_user_id,json=operatorUserId,proto3" json:"operator_user_id,omitempty"`
+	// 会话业务标识
+	ConversationId string `protobuf:"bytes,3,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
+	// 服务端消息唯一标识
+	ServerMsgId string `protobuf:"bytes,4,opt,name=server_msg_id,json=serverMsgId,proto3" json:"server_msg_id,omitempty"`
+	// 业务原因
+	Reason        string `protobuf:"bytes,5,opt,name=reason,proto3" json:"reason,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *RevokeMsgRequest) Reset() {
@@ -2413,10 +2619,13 @@ func (x *RevokeMsgRequest) GetReason() string {
 	return ""
 }
 
+// 撤回消息响应承载响应数据
 type RevokeMsgResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	RevokeMsg     *MsgData               `protobuf:"bytes,2,opt,name=revoke_msg,json=revokeMsg,proto3" json:"revoke_msg,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 撤回消息字段
+	RevokeMsg     *MsgData `protobuf:"bytes,2,opt,name=revoke_msg,json=revokeMsg,proto3" json:"revoke_msg,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2465,15 +2674,21 @@ func (x *RevokeMsgResponse) GetRevokeMsg() *MsgData {
 	return nil
 }
 
+// 删除消息请求承载请求参数
 type DeleteMsgRequest struct {
-	state          protoimpl.MessageState `protogen:"open.v1"`
-	Meta           *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	OperatorUserId string                 `protobuf:"bytes,2,opt,name=operator_user_id,json=operatorUserId,proto3" json:"operator_user_id,omitempty"`
-	ConversationId string                 `protobuf:"bytes,3,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
-	ServerMsgIds   []string               `protobuf:"bytes,4,rep,name=server_msg_ids,json=serverMsgIds,proto3" json:"server_msg_ids,omitempty"`
-	DeleteScope    DeleteScope            `protobuf:"varint,5,opt,name=delete_scope,json=deleteScope,proto3,enum=whocall.msg.v1.DeleteScope" json:"delete_scope,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 操作人用户标识
+	OperatorUserId string `protobuf:"bytes,2,opt,name=operator_user_id,json=operatorUserId,proto3" json:"operator_user_id,omitempty"`
+	// 会话业务标识
+	ConversationId string `protobuf:"bytes,3,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
+	// 服务端消息唯一标识列表
+	ServerMsgIds []string `protobuf:"bytes,4,rep,name=server_msg_ids,json=serverMsgIds,proto3" json:"server_msg_ids,omitempty"`
+	// 删除scope字段
+	DeleteScope   DeleteScope `protobuf:"varint,5,opt,name=delete_scope,json=deleteScope,proto3,enum=whocall.msg.v1.DeleteScope" json:"delete_scope,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *DeleteMsgRequest) Reset() {
@@ -2541,10 +2756,13 @@ func (x *DeleteMsgRequest) GetDeleteScope() DeleteScope {
 	return DeleteScope_DELETE_SCOPE_UNSPECIFIED
 }
 
+// 删除消息响应承载响应数据
 type DeleteMsgResponse struct {
-	state               protoimpl.MessageState `protogen:"open.v1"`
-	Header              *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	DeletedServerMsgIds []string               `protobuf:"bytes,2,rep,name=deleted_server_msg_ids,json=deletedServerMsgIds,proto3" json:"deleted_server_msg_ids,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// deleted服务端消息标识列表列表
+	DeletedServerMsgIds []string `protobuf:"bytes,2,rep,name=deleted_server_msg_ids,json=deletedServerMsgIds,proto3" json:"deleted_server_msg_ids,omitempty"`
 	unknownFields       protoimpl.UnknownFields
 	sizeCache           protoimpl.SizeCache
 }
@@ -2593,14 +2811,19 @@ func (x *DeleteMsgResponse) GetDeletedServerMsgIds() []string {
 	return nil
 }
 
+// get消息请求承载请求参数
 type GetMsgRequest struct {
-	state          protoimpl.MessageState `protogen:"open.v1"`
-	Meta           *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserId         string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	ConversationId string                 `protobuf:"bytes,3,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
-	ServerMsgId    string                 `protobuf:"bytes,4,opt,name=server_msg_id,json=serverMsgId,proto3" json:"server_msg_id,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 会话业务标识
+	ConversationId string `protobuf:"bytes,3,opt,name=conversation_id,json=conversationId,proto3" json:"conversation_id,omitempty"`
+	// 服务端消息唯一标识
+	ServerMsgId   string `protobuf:"bytes,4,opt,name=server_msg_id,json=serverMsgId,proto3" json:"server_msg_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetMsgRequest) Reset() {
@@ -2661,10 +2884,13 @@ func (x *GetMsgRequest) GetServerMsgId() string {
 	return ""
 }
 
+// get消息响应承载响应数据
 type GetMsgResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	MsgData       *MsgData               `protobuf:"bytes,2,opt,name=msg_data,json=msgData,proto3" json:"msg_data,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 消息数据字段
+	MsgData       *MsgData `protobuf:"bytes,2,opt,name=msg_data,json=msgData,proto3" json:"msg_data,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }

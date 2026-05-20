@@ -21,59 +21,110 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// 错误编码定义可选枚举值
 type ErrorCode int32
 
 const (
-	ErrorCode_ERROR_CODE_UNSPECIFIED               ErrorCode = 0
-	ErrorCode_ERROR_CODE_OK                        ErrorCode = 200
-	ErrorCode_ERROR_CODE_BAD_REQUEST               ErrorCode = 40000
-	ErrorCode_ERROR_CODE_UNAUTHORIZED              ErrorCode = 40100
-	ErrorCode_ERROR_CODE_FORBIDDEN                 ErrorCode = 40300
-	ErrorCode_ERROR_CODE_NOT_FOUND                 ErrorCode = 40400
-	ErrorCode_ERROR_CODE_CONFLICT                  ErrorCode = 40900
-	ErrorCode_ERROR_CODE_GONE                      ErrorCode = 41000
-	ErrorCode_ERROR_CODE_UNPROCESSABLE_ENTITY      ErrorCode = 42200
-	ErrorCode_ERROR_CODE_RATE_LIMITED              ErrorCode = 42900
-	ErrorCode_ERROR_CODE_INTERNAL                  ErrorCode = 50000
-	ErrorCode_ERROR_CODE_UNAVAILABLE               ErrorCode = 50300
-	ErrorCode_ERROR_CODE_TOKEN_EXPIRED             ErrorCode = 40101
-	ErrorCode_ERROR_CODE_TOKEN_INVALID             ErrorCode = 40102
-	ErrorCode_ERROR_CODE_TOKEN_REVOKED             ErrorCode = 40103
-	ErrorCode_ERROR_CODE_TOKEN_KICKED              ErrorCode = 40110
-	ErrorCode_ERROR_CODE_DEVICE_NOT_LOGIN          ErrorCode = 40111
-	ErrorCode_ERROR_CODE_USER_BANNED               ErrorCode = 40310
-	ErrorCode_ERROR_CODE_USER_NOT_FOUND            ErrorCode = 40410
-	ErrorCode_ERROR_CODE_USERNAME_EXISTS           ErrorCode = 40901
-	ErrorCode_ERROR_CODE_FRIEND_REQUIRED           ErrorCode = 40320
-	ErrorCode_ERROR_CODE_BLOCKED_BY_PEER           ErrorCode = 40321
-	ErrorCode_ERROR_CODE_FRIEND_REQUEST_NOT_FOUND  ErrorCode = 40420
-	ErrorCode_ERROR_CODE_FRIEND_REQUEST_HANDLED    ErrorCode = 40920
-	ErrorCode_ERROR_CODE_ALREADY_FRIEND            ErrorCode = 40921
-	ErrorCode_ERROR_CODE_GROUP_MEMBER_REQUIRED     ErrorCode = 40330
-	ErrorCode_ERROR_CODE_GROUP_ADMIN_REQUIRED      ErrorCode = 40331
-	ErrorCode_ERROR_CODE_GROUP_OWNER_REQUIRED      ErrorCode = 40332
-	ErrorCode_ERROR_CODE_GROUP_MUTED               ErrorCode = 40333
-	ErrorCode_ERROR_CODE_GROUP_MEMBER_MUTED        ErrorCode = 40334
-	ErrorCode_ERROR_CODE_GROUP_NOT_FOUND           ErrorCode = 40430
-	ErrorCode_ERROR_CODE_GROUP_DISMISSED           ErrorCode = 40930
-	ErrorCode_ERROR_CODE_GROUP_MEMBER_EXISTS       ErrorCode = 40931
+	// 未指定枚举值
+	ErrorCode_ERROR_CODE_UNSPECIFIED ErrorCode = 0
+	// 错误编码ok枚举值
+	ErrorCode_ERROR_CODE_OK ErrorCode = 200
+	// 错误编码bad请求枚举值
+	ErrorCode_ERROR_CODE_BAD_REQUEST ErrorCode = 40000
+	// 错误编码unauthorized枚举值
+	ErrorCode_ERROR_CODE_UNAUTHORIZED ErrorCode = 40100
+	// 错误编码forbidden枚举值
+	ErrorCode_ERROR_CODE_FORBIDDEN ErrorCode = 40300
+	// 错误编码不found枚举值
+	ErrorCode_ERROR_CODE_NOT_FOUND ErrorCode = 40400
+	// 错误编码conflict枚举值
+	ErrorCode_ERROR_CODE_CONFLICT ErrorCode = 40900
+	// 错误编码gone枚举值
+	ErrorCode_ERROR_CODE_GONE ErrorCode = 41000
+	// 错误编码unprocessableentity枚举值
+	ErrorCode_ERROR_CODE_UNPROCESSABLE_ENTITY ErrorCode = 42200
+	// 错误编码ratelimited枚举值
+	ErrorCode_ERROR_CODE_RATE_LIMITED ErrorCode = 42900
+	// 错误编码内部枚举值
+	ErrorCode_ERROR_CODE_INTERNAL ErrorCode = 50000
+	// 错误编码unavailable枚举值
+	ErrorCode_ERROR_CODE_UNAVAILABLE ErrorCode = 50300
+	// 过期状态枚举值
+	ErrorCode_ERROR_CODE_TOKEN_EXPIRED ErrorCode = 40101
+	// 错误编码令牌invalid枚举值
+	ErrorCode_ERROR_CODE_TOKEN_INVALID ErrorCode = 40102
+	// 撤销状态枚举值
+	ErrorCode_ERROR_CODE_TOKEN_REVOKED ErrorCode = 40103
+	// 踢出状态枚举值
+	ErrorCode_ERROR_CODE_TOKEN_KICKED ErrorCode = 40110
+	// 错误编码设备不登录枚举值
+	ErrorCode_ERROR_CODE_DEVICE_NOT_LOGIN ErrorCode = 40111
+	// 错误编码用户banned枚举值
+	ErrorCode_ERROR_CODE_USER_BANNED ErrorCode = 40310
+	// 错误编码用户不found枚举值
+	ErrorCode_ERROR_CODE_USER_NOT_FOUND ErrorCode = 40410
+	// 错误编码usernameexists枚举值
+	ErrorCode_ERROR_CODE_USERNAME_EXISTS ErrorCode = 40901
+	// 错误编码好友required枚举值
+	ErrorCode_ERROR_CODE_FRIEND_REQUIRED ErrorCode = 40320
+	// 错误编码blockedbypeer枚举值
+	ErrorCode_ERROR_CODE_BLOCKED_BY_PEER ErrorCode = 40321
+	// 错误编码好友请求不found枚举值
+	ErrorCode_ERROR_CODE_FRIEND_REQUEST_NOT_FOUND ErrorCode = 40420
+	// 错误编码好友请求handled枚举值
+	ErrorCode_ERROR_CODE_FRIEND_REQUEST_HANDLED ErrorCode = 40920
+	// 错误编码already好友枚举值
+	ErrorCode_ERROR_CODE_ALREADY_FRIEND ErrorCode = 40921
+	// 错误编码群组成员required枚举值
+	ErrorCode_ERROR_CODE_GROUP_MEMBER_REQUIRED ErrorCode = 40330
+	// 错误编码群组管理员required枚举值
+	ErrorCode_ERROR_CODE_GROUP_ADMIN_REQUIRED ErrorCode = 40331
+	// 错误编码群组群主required枚举值
+	ErrorCode_ERROR_CODE_GROUP_OWNER_REQUIRED ErrorCode = 40332
+	// 错误编码群组muted枚举值
+	ErrorCode_ERROR_CODE_GROUP_MUTED ErrorCode = 40333
+	// 错误编码群组成员muted枚举值
+	ErrorCode_ERROR_CODE_GROUP_MEMBER_MUTED ErrorCode = 40334
+	// 错误编码群组不found枚举值
+	ErrorCode_ERROR_CODE_GROUP_NOT_FOUND ErrorCode = 40430
+	// 错误编码群组dismissed枚举值
+	ErrorCode_ERROR_CODE_GROUP_DISMISSED ErrorCode = 40930
+	// 错误编码群组成员exists枚举值
+	ErrorCode_ERROR_CODE_GROUP_MEMBER_EXISTS ErrorCode = 40931
+	// 错误编码群组申请handled枚举值
 	ErrorCode_ERROR_CODE_GROUP_APPLICATION_HANDLED ErrorCode = 40932
-	ErrorCode_ERROR_CODE_DUPLICATE_CLIENT_MSG      ErrorCode = 40910
-	ErrorCode_ERROR_CODE_MSG_NOT_FOUND             ErrorCode = 40440
-	ErrorCode_ERROR_CODE_MSG_ALREADY_REVOKED       ErrorCode = 40911
-	ErrorCode_ERROR_CODE_MSG_REVOKE_EXPIRED        ErrorCode = 40913
-	ErrorCode_ERROR_CODE_SEQ_CONFLICT              ErrorCode = 40912
-	ErrorCode_ERROR_CODE_CONTENT_TYPE_UNSUPPORTED  ErrorCode = 42210
-	ErrorCode_ERROR_CODE_CONVERSATION_NOT_FOUND    ErrorCode = 40450
-	ErrorCode_ERROR_CODE_CONVERSATION_MUTED        ErrorCode = 40350
-	ErrorCode_ERROR_CODE_FILE_NOT_FOUND            ErrorCode = 40460
-	ErrorCode_ERROR_CODE_FILE_UPLOAD_EXPIRED       ErrorCode = 41010
-	ErrorCode_ERROR_CODE_FILE_TOO_LARGE            ErrorCode = 42260
-	ErrorCode_ERROR_CODE_PUSH_TOKEN_INVALID        ErrorCode = 42220
+	// 错误编码duplicate客户端消息枚举值
+	ErrorCode_ERROR_CODE_DUPLICATE_CLIENT_MSG ErrorCode = 40910
+	// 错误编码消息不found枚举值
+	ErrorCode_ERROR_CODE_MSG_NOT_FOUND ErrorCode = 40440
+	// 撤销状态枚举值
+	ErrorCode_ERROR_CODE_MSG_ALREADY_REVOKED ErrorCode = 40911
+	// 过期状态枚举值
+	ErrorCode_ERROR_CODE_MSG_REVOKE_EXPIRED ErrorCode = 40913
+	// 错误编码序号conflict枚举值
+	ErrorCode_ERROR_CODE_SEQ_CONFLICT ErrorCode = 40912
+	// 错误编码内容类型unsupported枚举值
+	ErrorCode_ERROR_CODE_CONTENT_TYPE_UNSUPPORTED ErrorCode = 42210
+	// 错误编码会话不found枚举值
+	ErrorCode_ERROR_CODE_CONVERSATION_NOT_FOUND ErrorCode = 40450
+	// 错误编码会话muted枚举值
+	ErrorCode_ERROR_CODE_CONVERSATION_MUTED ErrorCode = 40350
+	// 错误编码文件不found枚举值
+	ErrorCode_ERROR_CODE_FILE_NOT_FOUND ErrorCode = 40460
+	// 过期状态枚举值
+	ErrorCode_ERROR_CODE_FILE_UPLOAD_EXPIRED ErrorCode = 41010
+	// 错误编码文件toolarge枚举值
+	ErrorCode_ERROR_CODE_FILE_TOO_LARGE ErrorCode = 42260
+	// 错误编码推送令牌invalid枚举值
+	ErrorCode_ERROR_CODE_PUSH_TOKEN_INVALID ErrorCode = 42220
+	// 错误编码推送providerunavailable枚举值
 	ErrorCode_ERROR_CODE_PUSH_PROVIDER_UNAVAILABLE ErrorCode = 50320
-	ErrorCode_ERROR_CODE_OUTBOX_PUBLISH_FAILED     ErrorCode = 50310
-	ErrorCode_ERROR_CODE_DLQ_REPLAY_REJECTED       ErrorCode = 40950
-	ErrorCode_ERROR_CODE_CRONTASK_LOCKED           ErrorCode = 40951
+	// 错误编码outboxpublish失败枚举值
+	ErrorCode_ERROR_CODE_OUTBOX_PUBLISH_FAILED ErrorCode = 50310
+	// 已拒绝状态枚举值
+	ErrorCode_ERROR_CODE_DLQ_REPLAY_REJECTED ErrorCode = 40950
+	// 错误编码crontasklocked枚举值
+	ErrorCode_ERROR_CODE_CRONTASK_LOCKED ErrorCode = 40951
 )
 
 // Enum value maps for ErrorCode.
@@ -211,18 +262,28 @@ func (ErrorCode) EnumDescriptor() ([]byte, []int) {
 	return file_whocall_error_v1_error_proto_rawDescGZIP(), []int{0}
 }
 
+// 可靠性错误分类定义可选枚举值
 type ReliabilityErrorClass int32
 
 const (
-	ReliabilityErrorClass_RELIABILITY_ERROR_CLASS_UNSPECIFIED          ReliabilityErrorClass = 0
-	ReliabilityErrorClass_RELIABILITY_ERROR_CLASS_TRANSIENT_NETWORK    ReliabilityErrorClass = 1
-	ReliabilityErrorClass_RELIABILITY_ERROR_CLASS_PROVIDER_RATE_LIMIT  ReliabilityErrorClass = 2
-	ReliabilityErrorClass_RELIABILITY_ERROR_CLASS_SCHEMA_INCOMPATIBLE  ReliabilityErrorClass = 3
-	ReliabilityErrorClass_RELIABILITY_ERROR_CLASS_POISON_MESSAGE       ReliabilityErrorClass = 4
+	// 未指定枚举值
+	ReliabilityErrorClass_RELIABILITY_ERROR_CLASS_UNSPECIFIED ReliabilityErrorClass = 0
+	// 可靠性错误分类transientnetwork枚举值
+	ReliabilityErrorClass_RELIABILITY_ERROR_CLASS_TRANSIENT_NETWORK ReliabilityErrorClass = 1
+	// 可靠性错误分类providerrate限制枚举值
+	ReliabilityErrorClass_RELIABILITY_ERROR_CLASS_PROVIDER_RATE_LIMIT ReliabilityErrorClass = 2
+	// 可靠性错误分类schemaincompatible枚举值
+	ReliabilityErrorClass_RELIABILITY_ERROR_CLASS_SCHEMA_INCOMPATIBLE ReliabilityErrorClass = 3
+	// 可靠性错误分类poison消息枚举值
+	ReliabilityErrorClass_RELIABILITY_ERROR_CLASS_POISON_MESSAGE ReliabilityErrorClass = 4
+	// 可靠性错误分类idempotencyconflict枚举值
 	ReliabilityErrorClass_RELIABILITY_ERROR_CLASS_IDEMPOTENCY_CONFLICT ReliabilityErrorClass = 5
-	ReliabilityErrorClass_RELIABILITY_ERROR_CLASS_PERMISSION_DENIED    ReliabilityErrorClass = 6
+	// 可靠性错误分类permissiondenied枚举值
+	ReliabilityErrorClass_RELIABILITY_ERROR_CLASS_PERMISSION_DENIED ReliabilityErrorClass = 6
+	// 可靠性错误分类secretorcredential枚举值
 	ReliabilityErrorClass_RELIABILITY_ERROR_CLASS_SECRET_OR_CREDENTIAL ReliabilityErrorClass = 7
-	ReliabilityErrorClass_RELIABILITY_ERROR_CLASS_DATA_INCONSISTENT    ReliabilityErrorClass = 8
+	// 可靠性错误分类数据inconsistent枚举值
+	ReliabilityErrorClass_RELIABILITY_ERROR_CLASS_DATA_INCONSISTENT ReliabilityErrorClass = 8
 )
 
 // Enum value maps for ReliabilityErrorClass.

@@ -23,14 +23,20 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// 好友申请状态定义可选枚举值
 type FriendApplicationStatus int32
 
 const (
+	// 未指定枚举值
 	FriendApplicationStatus_FRIEND_APPLICATION_STATUS_UNSPECIFIED FriendApplicationStatus = 0
-	FriendApplicationStatus_FRIEND_APPLICATION_STATUS_PENDING     FriendApplicationStatus = 1
-	FriendApplicationStatus_FRIEND_APPLICATION_STATUS_ACCEPTED    FriendApplicationStatus = 2
-	FriendApplicationStatus_FRIEND_APPLICATION_STATUS_REJECTED    FriendApplicationStatus = 3
-	FriendApplicationStatus_FRIEND_APPLICATION_STATUS_CANCELED    FriendApplicationStatus = 4
+	// 待处理状态枚举值
+	FriendApplicationStatus_FRIEND_APPLICATION_STATUS_PENDING FriendApplicationStatus = 1
+	// 已接受状态枚举值
+	FriendApplicationStatus_FRIEND_APPLICATION_STATUS_ACCEPTED FriendApplicationStatus = 2
+	// 已拒绝状态枚举值
+	FriendApplicationStatus_FRIEND_APPLICATION_STATUS_REJECTED FriendApplicationStatus = 3
+	// 好友申请状态canceled枚举值
+	FriendApplicationStatus_FRIEND_APPLICATION_STATUS_CANCELED FriendApplicationStatus = 4
 )
 
 // Enum value maps for FriendApplicationStatus.
@@ -78,13 +84,19 @@ func (FriendApplicationStatus) EnumDescriptor() ([]byte, []int) {
 	return file_whocall_friend_v1_friend_proto_rawDescGZIP(), []int{0}
 }
 
+// 好友relation状态定义可选枚举值
 type FriendRelationStatus int32
 
 const (
-	FriendRelationStatus_FRIEND_RELATION_STATUS_UNSPECIFIED     FriendRelationStatus = 0
-	FriendRelationStatus_FRIEND_RELATION_STATUS_NONE            FriendRelationStatus = 1
-	FriendRelationStatus_FRIEND_RELATION_STATUS_FRIEND          FriendRelationStatus = 2
-	FriendRelationStatus_FRIEND_RELATION_STATUS_BLACKED         FriendRelationStatus = 3
+	// 未指定枚举值
+	FriendRelationStatus_FRIEND_RELATION_STATUS_UNSPECIFIED FriendRelationStatus = 0
+	// 好友relation状态无枚举值
+	FriendRelationStatus_FRIEND_RELATION_STATUS_NONE FriendRelationStatus = 1
+	// 好友relation状态好友枚举值
+	FriendRelationStatus_FRIEND_RELATION_STATUS_FRIEND FriendRelationStatus = 2
+	// 好友relation状态blacked枚举值
+	FriendRelationStatus_FRIEND_RELATION_STATUS_BLACKED FriendRelationStatus = 3
+	// 好友relation状态blockedbypeer枚举值
 	FriendRelationStatus_FRIEND_RELATION_STATUS_BLOCKED_BY_PEER FriendRelationStatus = 4
 )
 
@@ -133,15 +145,23 @@ func (FriendRelationStatus) EnumDescriptor() ([]byte, []int) {
 	return file_whocall_friend_v1_friend_proto_rawDescGZIP(), []int{1}
 }
 
+// 好友info描述业务数据结构
 type FriendInfo struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	OwnerUserId   string                  `protobuf:"bytes,1,opt,name=owner_user_id,json=ownerUserId,proto3" json:"owner_user_id,omitempty"`
-	FriendUserId  string                  `protobuf:"bytes,2,opt,name=friend_user_id,json=friendUserId,proto3" json:"friend_user_id,omitempty"`
-	Remark        string                  `protobuf:"bytes,3,opt,name=remark,proto3" json:"remark,omitempty"`
-	Friend        *v1.UserRef             `protobuf:"bytes,4,opt,name=friend,proto3" json:"friend,omitempty"`
-	RecvMsgOpt    v1.ReceiveMessageOption `protobuf:"varint,5,opt,name=recv_msg_opt,json=recvMsgOpt,proto3,enum=whocall.common.v1.ReceiveMessageOption" json:"recv_msg_opt,omitempty"`
-	CreateTimeMs  int64                   `protobuf:"varint,6,opt,name=create_time_ms,json=createTimeMs,proto3" json:"create_time_ms,omitempty"`
-	Ex            string                  `protobuf:"bytes,7,opt,name=ex,proto3" json:"ex,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 归属用户标识
+	OwnerUserId string `protobuf:"bytes,1,opt,name=owner_user_id,json=ownerUserId,proto3" json:"owner_user_id,omitempty"`
+	// 好友用户标识
+	FriendUserId string `protobuf:"bytes,2,opt,name=friend_user_id,json=friendUserId,proto3" json:"friend_user_id,omitempty"`
+	// 好友备注
+	Remark string `protobuf:"bytes,3,opt,name=remark,proto3" json:"remark,omitempty"`
+	// 好友数据
+	Friend *v1.UserRef `protobuf:"bytes,4,opt,name=friend,proto3" json:"friend,omitempty"`
+	// 接收消息opt字段
+	RecvMsgOpt v1.ReceiveMessageOption `protobuf:"varint,5,opt,name=recv_msg_opt,json=recvMsgOpt,proto3,enum=whocall.common.v1.ReceiveMessageOption" json:"recv_msg_opt,omitempty"`
+	// 创建时间ms字段
+	CreateTimeMs int64 `protobuf:"varint,6,opt,name=create_time_ms,json=createTimeMs,proto3" json:"create_time_ms,omitempty"`
+	// IM 扩展字段
+	Ex            string `protobuf:"bytes,7,opt,name=ex,proto3" json:"ex,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -225,21 +245,33 @@ func (x *FriendInfo) GetEx() string {
 	return ""
 }
 
+// 好友申请描述业务数据结构
 type FriendApplication struct {
-	state          protoimpl.MessageState  `protogen:"open.v1"`
-	ApplicationId  string                  `protobuf:"bytes,1,opt,name=application_id,json=applicationId,proto3" json:"application_id,omitempty"`
-	FromUserId     string                  `protobuf:"bytes,2,opt,name=from_user_id,json=fromUserId,proto3" json:"from_user_id,omitempty"`
-	ToUserId       string                  `protobuf:"bytes,3,opt,name=to_user_id,json=toUserId,proto3" json:"to_user_id,omitempty"`
-	FromUser       *v1.UserRef             `protobuf:"bytes,4,opt,name=from_user,json=fromUser,proto3" json:"from_user,omitempty"`
-	ToUser         *v1.UserRef             `protobuf:"bytes,5,opt,name=to_user,json=toUser,proto3" json:"to_user,omitempty"`
-	RequestMessage string                  `protobuf:"bytes,6,opt,name=request_message,json=requestMessage,proto3" json:"request_message,omitempty"`
-	HandleMessage  string                  `protobuf:"bytes,7,opt,name=handle_message,json=handleMessage,proto3" json:"handle_message,omitempty"`
-	Status         FriendApplicationStatus `protobuf:"varint,8,opt,name=status,proto3,enum=whocall.friend.v1.FriendApplicationStatus" json:"status,omitempty"`
-	CreateTimeMs   int64                   `protobuf:"varint,9,opt,name=create_time_ms,json=createTimeMs,proto3" json:"create_time_ms,omitempty"`
-	HandleTimeMs   int64                   `protobuf:"varint,10,opt,name=handle_time_ms,json=handleTimeMs,proto3" json:"handle_time_ms,omitempty"`
-	Ex             string                  `protobuf:"bytes,11,opt,name=ex,proto3" json:"ex,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 申请标识标识
+	ApplicationId string `protobuf:"bytes,1,opt,name=application_id,json=applicationId,proto3" json:"application_id,omitempty"`
+	// 发起方用户标识
+	FromUserId string `protobuf:"bytes,2,opt,name=from_user_id,json=fromUserId,proto3" json:"from_user_id,omitempty"`
+	// 目标用户标识
+	ToUserId string `protobuf:"bytes,3,opt,name=to_user_id,json=toUserId,proto3" json:"to_user_id,omitempty"`
+	// 来源用户字段
+	FromUser *v1.UserRef `protobuf:"bytes,4,opt,name=from_user,json=fromUser,proto3" json:"from_user,omitempty"`
+	// 目标用户字段
+	ToUser *v1.UserRef `protobuf:"bytes,5,opt,name=to_user,json=toUser,proto3" json:"to_user,omitempty"`
+	// 请求消息字段
+	RequestMessage string `protobuf:"bytes,6,opt,name=request_message,json=requestMessage,proto3" json:"request_message,omitempty"`
+	// handle消息字段
+	HandleMessage string `protobuf:"bytes,7,opt,name=handle_message,json=handleMessage,proto3" json:"handle_message,omitempty"`
+	// 业务状态
+	Status FriendApplicationStatus `protobuf:"varint,8,opt,name=status,proto3,enum=whocall.friend.v1.FriendApplicationStatus" json:"status,omitempty"`
+	// 创建时间ms字段
+	CreateTimeMs int64 `protobuf:"varint,9,opt,name=create_time_ms,json=createTimeMs,proto3" json:"create_time_ms,omitempty"`
+	// handle时间ms字段
+	HandleTimeMs int64 `protobuf:"varint,10,opt,name=handle_time_ms,json=handleTimeMs,proto3" json:"handle_time_ms,omitempty"`
+	// IM 扩展字段
+	Ex            string `protobuf:"bytes,11,opt,name=ex,proto3" json:"ex,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *FriendApplication) Reset() {
@@ -349,12 +381,17 @@ func (x *FriendApplication) GetEx() string {
 	return ""
 }
 
+// blackinfo描述业务数据结构
 type BlackInfo struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	OwnerUserId   string                 `protobuf:"bytes,1,opt,name=owner_user_id,json=ownerUserId,proto3" json:"owner_user_id,omitempty"`
-	BlockedUserId string                 `protobuf:"bytes,2,opt,name=blocked_user_id,json=blockedUserId,proto3" json:"blocked_user_id,omitempty"`
-	BlockedUser   *v1.UserRef            `protobuf:"bytes,3,opt,name=blocked_user,json=blockedUser,proto3" json:"blocked_user,omitempty"`
-	CreateTimeMs  int64                  `protobuf:"varint,4,opt,name=create_time_ms,json=createTimeMs,proto3" json:"create_time_ms,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 归属用户标识
+	OwnerUserId string `protobuf:"bytes,1,opt,name=owner_user_id,json=ownerUserId,proto3" json:"owner_user_id,omitempty"`
+	// blocked用户标识标识
+	BlockedUserId string `protobuf:"bytes,2,opt,name=blocked_user_id,json=blockedUserId,proto3" json:"blocked_user_id,omitempty"`
+	// blocked用户字段
+	BlockedUser *v1.UserRef `protobuf:"bytes,3,opt,name=blocked_user,json=blockedUser,proto3" json:"blocked_user,omitempty"`
+	// 创建时间ms字段
+	CreateTimeMs  int64 `protobuf:"varint,4,opt,name=create_time_ms,json=createTimeMs,proto3" json:"create_time_ms,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -417,15 +454,21 @@ func (x *BlackInfo) GetCreateTimeMs() int64 {
 	return 0
 }
 
+// 申请好友请求承载请求参数
 type ApplyFriendRequest struct {
-	state          protoimpl.MessageState `protogen:"open.v1"`
-	Meta           *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	FromUserId     string                 `protobuf:"bytes,2,opt,name=from_user_id,json=fromUserId,proto3" json:"from_user_id,omitempty"`
-	ToUserId       string                 `protobuf:"bytes,3,opt,name=to_user_id,json=toUserId,proto3" json:"to_user_id,omitempty"`
-	RequestMessage string                 `protobuf:"bytes,4,opt,name=request_message,json=requestMessage,proto3" json:"request_message,omitempty"`
-	Ex             string                 `protobuf:"bytes,5,opt,name=ex,proto3" json:"ex,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 发起方用户标识
+	FromUserId string `protobuf:"bytes,2,opt,name=from_user_id,json=fromUserId,proto3" json:"from_user_id,omitempty"`
+	// 目标用户标识
+	ToUserId string `protobuf:"bytes,3,opt,name=to_user_id,json=toUserId,proto3" json:"to_user_id,omitempty"`
+	// 请求消息字段
+	RequestMessage string `protobuf:"bytes,4,opt,name=request_message,json=requestMessage,proto3" json:"request_message,omitempty"`
+	// IM 扩展字段
+	Ex            string `protobuf:"bytes,5,opt,name=ex,proto3" json:"ex,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *ApplyFriendRequest) Reset() {
@@ -493,10 +536,13 @@ func (x *ApplyFriendRequest) GetEx() string {
 	return ""
 }
 
+// 申请好友响应承载响应数据
 type ApplyFriendResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Application   *FriendApplication     `protobuf:"bytes,2,opt,name=application,proto3" json:"application,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 申请字段
+	Application   *FriendApplication `protobuf:"bytes,2,opt,name=application,proto3" json:"application,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -545,13 +591,19 @@ func (x *ApplyFriendResponse) GetApplication() *FriendApplication {
 	return nil
 }
 
+// 处理好友申请请求承载请求参数
 type RespondFriendApplicationRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	ApplicationId string                 `protobuf:"bytes,2,opt,name=application_id,json=applicationId,proto3" json:"application_id,omitempty"`
-	HandlerUserId string                 `protobuf:"bytes,3,opt,name=handler_user_id,json=handlerUserId,proto3" json:"handler_user_id,omitempty"`
-	Accept        bool                   `protobuf:"varint,4,opt,name=accept,proto3" json:"accept,omitempty"`
-	HandleMessage string                 `protobuf:"bytes,5,opt,name=handle_message,json=handleMessage,proto3" json:"handle_message,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 申请标识标识
+	ApplicationId string `protobuf:"bytes,2,opt,name=application_id,json=applicationId,proto3" json:"application_id,omitempty"`
+	// 处理人用户标识
+	HandlerUserId string `protobuf:"bytes,3,opt,name=handler_user_id,json=handlerUserId,proto3" json:"handler_user_id,omitempty"`
+	// accept字段
+	Accept bool `protobuf:"varint,4,opt,name=accept,proto3" json:"accept,omitempty"`
+	// handle消息字段
+	HandleMessage string `protobuf:"bytes,5,opt,name=handle_message,json=handleMessage,proto3" json:"handle_message,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -621,11 +673,15 @@ func (x *RespondFriendApplicationRequest) GetHandleMessage() string {
 	return ""
 }
 
+// 处理好友申请响应承载响应数据
 type RespondFriendApplicationResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Application   *FriendApplication     `protobuf:"bytes,2,opt,name=application,proto3" json:"application,omitempty"`
-	Friend        *FriendInfo            `protobuf:"bytes,3,opt,name=friend,proto3" json:"friend,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 申请字段
+	Application *FriendApplication `protobuf:"bytes,2,opt,name=application,proto3" json:"application,omitempty"`
+	// 好友数据
+	Friend        *FriendInfo `protobuf:"bytes,3,opt,name=friend,proto3" json:"friend,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -681,13 +737,19 @@ func (x *RespondFriendApplicationResponse) GetFriend() *FriendInfo {
 	return nil
 }
 
+// 列表好友申请请求承载请求参数
 type ListFriendApplicationsRequest struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	Meta          *v1.RequestMeta         `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserId        string                  `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Status        FriendApplicationStatus `protobuf:"varint,3,opt,name=status,proto3,enum=whocall.friend.v1.FriendApplicationStatus" json:"status,omitempty"`
-	Incoming      bool                    `protobuf:"varint,4,opt,name=incoming,proto3" json:"incoming,omitempty"`
-	Pagination    *v1.PaginationRequest   `protobuf:"bytes,5,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 业务状态
+	Status FriendApplicationStatus `protobuf:"varint,3,opt,name=status,proto3,enum=whocall.friend.v1.FriendApplicationStatus" json:"status,omitempty"`
+	// incoming字段
+	Incoming bool `protobuf:"varint,4,opt,name=incoming,proto3" json:"incoming,omitempty"`
+	// 分页字段
+	Pagination    *v1.PaginationRequest `protobuf:"bytes,5,opt,name=pagination,proto3" json:"pagination,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -757,10 +819,14 @@ func (x *ListFriendApplicationsRequest) GetPagination() *v1.PaginationRequest {
 	return nil
 }
 
+// 列表好友申请响应承载响应数据
 type ListFriendApplicationsResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Applications  []*FriendApplication   `protobuf:"bytes,2,rep,name=applications,proto3" json:"applications,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 申请列表
+	Applications []*FriendApplication `protobuf:"bytes,2,rep,name=applications,proto3" json:"applications,omitempty"`
+	// 分页字段
 	Pagination    *v1.PaginationResponse `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -817,11 +883,15 @@ func (x *ListFriendApplicationsResponse) GetPagination() *v1.PaginationResponse 
 	return nil
 }
 
+// 列表好友请求承载请求参数
 type ListFriendsRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Pagination    *v1.PaginationRequest  `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 分页字段
+	Pagination    *v1.PaginationRequest `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -877,10 +947,14 @@ func (x *ListFriendsRequest) GetPagination() *v1.PaginationRequest {
 	return nil
 }
 
+// 列表好友响应承载响应数据
 type ListFriendsResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Friends       []*FriendInfo          `protobuf:"bytes,2,rep,name=friends,proto3" json:"friends,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 好友数据列表
+	Friends []*FriendInfo `protobuf:"bytes,2,rep,name=friends,proto3" json:"friends,omitempty"`
+	// 分页字段
 	Pagination    *v1.PaginationResponse `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -937,11 +1011,15 @@ func (x *ListFriendsResponse) GetPagination() *v1.PaginationResponse {
 	return nil
 }
 
+// get好友info请求承载请求参数
 type GetFriendInfoRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	FriendUserId  string                 `protobuf:"bytes,3,opt,name=friend_user_id,json=friendUserId,proto3" json:"friend_user_id,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 好友用户标识
+	FriendUserId  string `protobuf:"bytes,3,opt,name=friend_user_id,json=friendUserId,proto3" json:"friend_user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -997,10 +1075,13 @@ func (x *GetFriendInfoRequest) GetFriendUserId() string {
 	return ""
 }
 
+// get好友info响应承载响应数据
 type GetFriendInfoResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Friend        *FriendInfo            `protobuf:"bytes,2,opt,name=friend,proto3" json:"friend,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 好友数据
+	Friend        *FriendInfo `protobuf:"bytes,2,opt,name=friend,proto3" json:"friend,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1049,11 +1130,15 @@ func (x *GetFriendInfoResponse) GetFriend() *FriendInfo {
 	return nil
 }
 
+// 删除好友请求承载请求参数
 type DeleteFriendRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	FriendUserId  string                 `protobuf:"bytes,3,opt,name=friend_user_id,json=friendUserId,proto3" json:"friend_user_id,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 好友用户标识
+	FriendUserId  string `protobuf:"bytes,3,opt,name=friend_user_id,json=friendUserId,proto3" json:"friend_user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1109,9 +1194,11 @@ func (x *DeleteFriendRequest) GetFriendUserId() string {
 	return ""
 }
 
+// 删除好友响应承载响应数据
 type DeleteFriendResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header        *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1153,12 +1240,17 @@ func (x *DeleteFriendResponse) GetHeader() *v1.ResponseHeader {
 	return nil
 }
 
+// set好友备注请求承载请求参数
 type SetFriendRemarkRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	FriendUserId  string                 `protobuf:"bytes,3,opt,name=friend_user_id,json=friendUserId,proto3" json:"friend_user_id,omitempty"`
-	Remark        string                 `protobuf:"bytes,4,opt,name=remark,proto3" json:"remark,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 好友用户标识
+	FriendUserId string `protobuf:"bytes,3,opt,name=friend_user_id,json=friendUserId,proto3" json:"friend_user_id,omitempty"`
+	// 好友备注
+	Remark        string `protobuf:"bytes,4,opt,name=remark,proto3" json:"remark,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1221,10 +1313,13 @@ func (x *SetFriendRemarkRequest) GetRemark() string {
 	return ""
 }
 
+// set好友备注响应承载响应数据
 type SetFriendRemarkResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Friend        *FriendInfo            `protobuf:"bytes,2,opt,name=friend,proto3" json:"friend,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 好友数据
+	Friend        *FriendInfo `protobuf:"bytes,2,opt,name=friend,proto3" json:"friend,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1273,11 +1368,15 @@ func (x *SetFriendRemarkResponse) GetFriend() *FriendInfo {
 	return nil
 }
 
+// check好友请求承载请求参数
 type CheckFriendRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	TargetUserIds []string               `protobuf:"bytes,3,rep,name=target_user_ids,json=targetUserIds,proto3" json:"target_user_ids,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// target用户标识列表列表
+	TargetUserIds []string `protobuf:"bytes,3,rep,name=target_user_ids,json=targetUserIds,proto3" json:"target_user_ids,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1333,10 +1432,13 @@ func (x *CheckFriendRequest) GetTargetUserIds() []string {
 	return nil
 }
 
+// 好友relationcheck结果描述业务数据结构
 type FriendRelationCheckResult struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	TargetUserId  string                 `protobuf:"bytes,1,opt,name=target_user_id,json=targetUserId,proto3" json:"target_user_id,omitempty"`
-	Status        FriendRelationStatus   `protobuf:"varint,2,opt,name=status,proto3,enum=whocall.friend.v1.FriendRelationStatus" json:"status,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// target用户标识标识
+	TargetUserId string `protobuf:"bytes,1,opt,name=target_user_id,json=targetUserId,proto3" json:"target_user_id,omitempty"`
+	// 业务状态
+	Status        FriendRelationStatus `protobuf:"varint,2,opt,name=status,proto3,enum=whocall.friend.v1.FriendRelationStatus" json:"status,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1385,9 +1487,12 @@ func (x *FriendRelationCheckResult) GetStatus() FriendRelationStatus {
 	return FriendRelationStatus_FRIEND_RELATION_STATUS_UNSPECIFIED
 }
 
+// check好友响应承载响应数据
 type CheckFriendResponse struct {
-	state         protoimpl.MessageState       `protogen:"open.v1"`
-	Header        *v1.ResponseHeader           `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// results列表
 	Results       []*FriendRelationCheckResult `protobuf:"bytes,2,rep,name=results,proto3" json:"results,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -1437,11 +1542,15 @@ func (x *CheckFriendResponse) GetResults() []*FriendRelationCheckResult {
 	return nil
 }
 
+// addblack请求承载请求参数
 type AddBlackRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	BlockedUserId string                 `protobuf:"bytes,3,opt,name=blocked_user_id,json=blockedUserId,proto3" json:"blocked_user_id,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// blocked用户标识标识
+	BlockedUserId string `protobuf:"bytes,3,opt,name=blocked_user_id,json=blockedUserId,proto3" json:"blocked_user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1497,10 +1606,13 @@ func (x *AddBlackRequest) GetBlockedUserId() string {
 	return ""
 }
 
+// addblack响应承载响应数据
 type AddBlackResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Black         *BlackInfo             `protobuf:"bytes,2,opt,name=black,proto3" json:"black,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// black字段
+	Black         *BlackInfo `protobuf:"bytes,2,opt,name=black,proto3" json:"black,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1549,11 +1661,15 @@ func (x *AddBlackResponse) GetBlack() *BlackInfo {
 	return nil
 }
 
+// removeblack请求承载请求参数
 type RemoveBlackRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	BlockedUserId string                 `protobuf:"bytes,3,opt,name=blocked_user_id,json=blockedUserId,proto3" json:"blocked_user_id,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// blocked用户标识标识
+	BlockedUserId string `protobuf:"bytes,3,opt,name=blocked_user_id,json=blockedUserId,proto3" json:"blocked_user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1609,9 +1725,11 @@ func (x *RemoveBlackRequest) GetBlockedUserId() string {
 	return ""
 }
 
+// removeblack响应承载响应数据
 type RemoveBlackResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header        *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1653,11 +1771,15 @@ func (x *RemoveBlackResponse) GetHeader() *v1.ResponseHeader {
 	return nil
 }
 
+// 列表black请求承载请求参数
 type ListBlackRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Pagination    *v1.PaginationRequest  `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 分页字段
+	Pagination    *v1.PaginationRequest `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1713,10 +1835,14 @@ func (x *ListBlackRequest) GetPagination() *v1.PaginationRequest {
 	return nil
 }
 
+// 列表black响应承载响应数据
 type ListBlackResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Blacks        []*BlackInfo           `protobuf:"bytes,2,rep,name=blacks,proto3" json:"blacks,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// blacks列表
+	Blacks []*BlackInfo `protobuf:"bytes,2,rep,name=blacks,proto3" json:"blacks,omitempty"`
+	// 分页字段
 	Pagination    *v1.PaginationResponse `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache

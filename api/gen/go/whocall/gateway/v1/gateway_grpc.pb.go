@@ -28,10 +28,16 @@ const (
 // GatewayInternalServiceClient is the client API for GatewayInternalService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+//
+// 网关内部服务定义该领域的 RPC 接口
 type GatewayInternalServiceClient interface {
+	// 处理推送消息操作
 	PushMsg(ctx context.Context, in *PushMsgRequest, opts ...grpc.CallOption) (*PushMsgResponse, error)
+	// 处理推送事件操作
 	PushEvent(ctx context.Context, in *PushEventRequest, opts ...grpc.CallOption) (*PushEventResponse, error)
+	// 处理踢出在线操作
 	KickOnline(ctx context.Context, in *KickOnlineRequest, opts ...grpc.CallOption) (*KickOnlineResponse, error)
+	// 处理get在线连接操作
 	GetOnlineConnections(ctx context.Context, in *GetOnlineConnectionsRequest, opts ...grpc.CallOption) (*GetOnlineConnectionsResponse, error)
 }
 
@@ -86,10 +92,16 @@ func (c *gatewayInternalServiceClient) GetOnlineConnections(ctx context.Context,
 // GatewayInternalServiceServer is the server API for GatewayInternalService service.
 // All implementations should embed UnimplementedGatewayInternalServiceServer
 // for forward compatibility.
+//
+// 网关内部服务定义该领域的 RPC 接口
 type GatewayInternalServiceServer interface {
+	// 处理推送消息操作
 	PushMsg(context.Context, *PushMsgRequest) (*PushMsgResponse, error)
+	// 处理推送事件操作
 	PushEvent(context.Context, *PushEventRequest) (*PushEventResponse, error)
+	// 处理踢出在线操作
 	KickOnline(context.Context, *KickOnlineRequest) (*KickOnlineResponse, error)
+	// 处理get在线连接操作
 	GetOnlineConnections(context.Context, *GetOnlineConnectionsRequest) (*GetOnlineConnectionsResponse, error)
 }
 

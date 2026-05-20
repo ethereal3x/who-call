@@ -29,11 +29,18 @@ const (
 // PushServiceClient is the client API for PushService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+//
+// 推送服务定义该领域的 RPC 接口
 type PushServiceClient interface {
+	// 处理注册推送令牌操作
 	RegisterPushToken(ctx context.Context, in *RegisterPushTokenRequest, opts ...grpc.CallOption) (*RegisterPushTokenResponse, error)
+	// 处理unregister推送令牌操作
 	UnregisterPushToken(ctx context.Context, in *UnregisterPushTokenRequest, opts ...grpc.CallOption) (*UnregisterPushTokenResponse, error)
+	// 处理列表推送tokens操作
 	ListPushTokens(ctx context.Context, in *ListPushTokensRequest, opts ...grpc.CallOption) (*ListPushTokensResponse, error)
+	// 处理推送offline消息操作
 	PushOfflineMsg(ctx context.Context, in *PushOfflineMsgRequest, opts ...grpc.CallOption) (*PushOfflineMsgResponse, error)
+	// 处理推送系统通知操作
 	PushSystemNotification(ctx context.Context, in *PushSystemNotificationRequest, opts ...grpc.CallOption) (*PushSystemNotificationResponse, error)
 }
 
@@ -98,11 +105,18 @@ func (c *pushServiceClient) PushSystemNotification(ctx context.Context, in *Push
 // PushServiceServer is the server API for PushService service.
 // All implementations should embed UnimplementedPushServiceServer
 // for forward compatibility.
+//
+// 推送服务定义该领域的 RPC 接口
 type PushServiceServer interface {
+	// 处理注册推送令牌操作
 	RegisterPushToken(context.Context, *RegisterPushTokenRequest) (*RegisterPushTokenResponse, error)
+	// 处理unregister推送令牌操作
 	UnregisterPushToken(context.Context, *UnregisterPushTokenRequest) (*UnregisterPushTokenResponse, error)
+	// 处理列表推送tokens操作
 	ListPushTokens(context.Context, *ListPushTokensRequest) (*ListPushTokensResponse, error)
+	// 处理推送offline消息操作
 	PushOfflineMsg(context.Context, *PushOfflineMsgRequest) (*PushOfflineMsgResponse, error)
+	// 处理推送系统通知操作
 	PushSystemNotification(context.Context, *PushSystemNotificationRequest) (*PushSystemNotificationResponse, error)
 }
 

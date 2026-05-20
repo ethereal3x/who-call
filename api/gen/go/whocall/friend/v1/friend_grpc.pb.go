@@ -35,17 +35,30 @@ const (
 // FriendServiceClient is the client API for FriendService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+//
+// 好友服务定义该领域的 RPC 接口
 type FriendServiceClient interface {
+	// 处理申请好友操作
 	ApplyFriend(ctx context.Context, in *ApplyFriendRequest, opts ...grpc.CallOption) (*ApplyFriendResponse, error)
+	// 处理处理好友申请操作
 	RespondFriendApplication(ctx context.Context, in *RespondFriendApplicationRequest, opts ...grpc.CallOption) (*RespondFriendApplicationResponse, error)
+	// 处理列表好友申请操作
 	ListFriendApplications(ctx context.Context, in *ListFriendApplicationsRequest, opts ...grpc.CallOption) (*ListFriendApplicationsResponse, error)
+	// 处理列表好友操作
 	ListFriends(ctx context.Context, in *ListFriendsRequest, opts ...grpc.CallOption) (*ListFriendsResponse, error)
+	// 处理get好友info操作
 	GetFriendInfo(ctx context.Context, in *GetFriendInfoRequest, opts ...grpc.CallOption) (*GetFriendInfoResponse, error)
+	// 处理删除好友操作
 	DeleteFriend(ctx context.Context, in *DeleteFriendRequest, opts ...grpc.CallOption) (*DeleteFriendResponse, error)
+	// 处理set好友备注操作
 	SetFriendRemark(ctx context.Context, in *SetFriendRemarkRequest, opts ...grpc.CallOption) (*SetFriendRemarkResponse, error)
+	// 处理check好友操作
 	CheckFriend(ctx context.Context, in *CheckFriendRequest, opts ...grpc.CallOption) (*CheckFriendResponse, error)
+	// 处理addblack操作
 	AddBlack(ctx context.Context, in *AddBlackRequest, opts ...grpc.CallOption) (*AddBlackResponse, error)
+	// 处理removeblack操作
 	RemoveBlack(ctx context.Context, in *RemoveBlackRequest, opts ...grpc.CallOption) (*RemoveBlackResponse, error)
+	// 处理列表black操作
 	ListBlack(ctx context.Context, in *ListBlackRequest, opts ...grpc.CallOption) (*ListBlackResponse, error)
 }
 
@@ -170,17 +183,30 @@ func (c *friendServiceClient) ListBlack(ctx context.Context, in *ListBlackReques
 // FriendServiceServer is the server API for FriendService service.
 // All implementations should embed UnimplementedFriendServiceServer
 // for forward compatibility.
+//
+// 好友服务定义该领域的 RPC 接口
 type FriendServiceServer interface {
+	// 处理申请好友操作
 	ApplyFriend(context.Context, *ApplyFriendRequest) (*ApplyFriendResponse, error)
+	// 处理处理好友申请操作
 	RespondFriendApplication(context.Context, *RespondFriendApplicationRequest) (*RespondFriendApplicationResponse, error)
+	// 处理列表好友申请操作
 	ListFriendApplications(context.Context, *ListFriendApplicationsRequest) (*ListFriendApplicationsResponse, error)
+	// 处理列表好友操作
 	ListFriends(context.Context, *ListFriendsRequest) (*ListFriendsResponse, error)
+	// 处理get好友info操作
 	GetFriendInfo(context.Context, *GetFriendInfoRequest) (*GetFriendInfoResponse, error)
+	// 处理删除好友操作
 	DeleteFriend(context.Context, *DeleteFriendRequest) (*DeleteFriendResponse, error)
+	// 处理set好友备注操作
 	SetFriendRemark(context.Context, *SetFriendRemarkRequest) (*SetFriendRemarkResponse, error)
+	// 处理check好友操作
 	CheckFriend(context.Context, *CheckFriendRequest) (*CheckFriendResponse, error)
+	// 处理addblack操作
 	AddBlack(context.Context, *AddBlackRequest) (*AddBlackResponse, error)
+	// 处理removeblack操作
 	RemoveBlack(context.Context, *RemoveBlackRequest) (*RemoveBlackResponse, error)
+	// 处理列表black操作
 	ListBlack(context.Context, *ListBlackRequest) (*ListBlackResponse, error)
 }
 

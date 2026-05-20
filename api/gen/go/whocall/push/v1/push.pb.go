@@ -24,18 +24,28 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// 推送provider定义可选枚举值
 type PushProvider int32
 
 const (
+	// 未指定枚举值
 	PushProvider_PUSH_PROVIDER_UNSPECIFIED PushProvider = 0
-	PushProvider_PUSH_PROVIDER_APNS        PushProvider = 1
-	PushProvider_PUSH_PROVIDER_FCM         PushProvider = 2
-	PushProvider_PUSH_PROVIDER_HUAWEI      PushProvider = 3
-	PushProvider_PUSH_PROVIDER_XIAOMI      PushProvider = 4
-	PushProvider_PUSH_PROVIDER_OPPO        PushProvider = 5
-	PushProvider_PUSH_PROVIDER_VIVO        PushProvider = 6
-	PushProvider_PUSH_PROVIDER_MEIZU       PushProvider = 7
-	PushProvider_PUSH_PROVIDER_WEB_PUSH    PushProvider = 8
+	// 推送providerapns枚举值
+	PushProvider_PUSH_PROVIDER_APNS PushProvider = 1
+	// 推送providerfcm枚举值
+	PushProvider_PUSH_PROVIDER_FCM PushProvider = 2
+	// 推送providerhuawei枚举值
+	PushProvider_PUSH_PROVIDER_HUAWEI PushProvider = 3
+	// 推送providerxiaomi枚举值
+	PushProvider_PUSH_PROVIDER_XIAOMI PushProvider = 4
+	// 推送provideroppo枚举值
+	PushProvider_PUSH_PROVIDER_OPPO PushProvider = 5
+	// 推送providervivo枚举值
+	PushProvider_PUSH_PROVIDER_VIVO PushProvider = 6
+	// 推送providermeizu枚举值
+	PushProvider_PUSH_PROVIDER_MEIZU PushProvider = 7
+	// 推送providerWeb推送枚举值
+	PushProvider_PUSH_PROVIDER_WEB_PUSH PushProvider = 8
 )
 
 // Enum value maps for PushProvider.
@@ -91,13 +101,18 @@ func (PushProvider) EnumDescriptor() ([]byte, []int) {
 	return file_whocall_push_v1_push_proto_rawDescGZIP(), []int{0}
 }
 
+// 推送令牌状态定义可选枚举值
 type PushTokenStatus int32
 
 const (
+	// 未指定枚举值
 	PushTokenStatus_PUSH_TOKEN_STATUS_UNSPECIFIED PushTokenStatus = 0
-	PushTokenStatus_PUSH_TOKEN_STATUS_ACTIVE      PushTokenStatus = 1
-	PushTokenStatus_PUSH_TOKEN_STATUS_INVALID     PushTokenStatus = 2
-	PushTokenStatus_PUSH_TOKEN_STATUS_DISABLED    PushTokenStatus = 3
+	// 推送令牌状态active枚举值
+	PushTokenStatus_PUSH_TOKEN_STATUS_ACTIVE PushTokenStatus = 1
+	// 推送令牌状态invalid枚举值
+	PushTokenStatus_PUSH_TOKEN_STATUS_INVALID PushTokenStatus = 2
+	// 禁用状态枚举值
+	PushTokenStatus_PUSH_TOKEN_STATUS_DISABLED PushTokenStatus = 3
 )
 
 // Enum value maps for PushTokenStatus.
@@ -143,18 +158,29 @@ func (PushTokenStatus) EnumDescriptor() ([]byte, []int) {
 	return file_whocall_push_v1_push_proto_rawDescGZIP(), []int{1}
 }
 
+// 推送令牌描述业务数据结构
 type PushToken struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	TokenId       string                 `protobuf:"bytes,1,opt,name=token_id,json=tokenId,proto3" json:"token_id,omitempty"`
-	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Platform      v1.Platform            `protobuf:"varint,3,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
-	Provider      PushProvider           `protobuf:"varint,4,opt,name=provider,proto3,enum=whocall.push.v1.PushProvider" json:"provider,omitempty"`
-	Token         string                 `protobuf:"bytes,5,opt,name=token,proto3" json:"token,omitempty"`
-	DeviceId      string                 `protobuf:"bytes,6,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
-	AppBundleId   string                 `protobuf:"bytes,7,opt,name=app_bundle_id,json=appBundleId,proto3" json:"app_bundle_id,omitempty"`
-	Status        PushTokenStatus        `protobuf:"varint,8,opt,name=status,proto3,enum=whocall.push.v1.PushTokenStatus" json:"status,omitempty"`
-	CreateTimeMs  int64                  `protobuf:"varint,9,opt,name=create_time_ms,json=createTimeMs,proto3" json:"create_time_ms,omitempty"`
-	UpdateTimeMs  int64                  `protobuf:"varint,10,opt,name=update_time_ms,json=updateTimeMs,proto3" json:"update_time_ms,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 令牌标识标识
+	TokenId string `protobuf:"bytes,1,opt,name=token_id,json=tokenId,proto3" json:"token_id,omitempty"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 客户端平台
+	Platform v1.Platform `protobuf:"varint,3,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
+	// provider字段
+	Provider PushProvider `protobuf:"varint,4,opt,name=provider,proto3,enum=whocall.push.v1.PushProvider" json:"provider,omitempty"`
+	// 会话令牌
+	Token string `protobuf:"bytes,5,opt,name=token,proto3" json:"token,omitempty"`
+	// 客户端设备标识
+	DeviceId string `protobuf:"bytes,6,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
+	// appbundle标识标识
+	AppBundleId string `protobuf:"bytes,7,opt,name=app_bundle_id,json=appBundleId,proto3" json:"app_bundle_id,omitempty"`
+	// 业务状态
+	Status PushTokenStatus `protobuf:"varint,8,opt,name=status,proto3,enum=whocall.push.v1.PushTokenStatus" json:"status,omitempty"`
+	// 创建时间ms字段
+	CreateTimeMs int64 `protobuf:"varint,9,opt,name=create_time_ms,json=createTimeMs,proto3" json:"create_time_ms,omitempty"`
+	// 更新时间ms字段
+	UpdateTimeMs  int64 `protobuf:"varint,10,opt,name=update_time_ms,json=updateTimeMs,proto3" json:"update_time_ms,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -259,15 +285,23 @@ func (x *PushToken) GetUpdateTimeMs() int64 {
 	return 0
 }
 
+// 注册推送令牌请求承载请求参数
 type RegisterPushTokenRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Platform      v1.Platform            `protobuf:"varint,3,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
-	Provider      PushProvider           `protobuf:"varint,4,opt,name=provider,proto3,enum=whocall.push.v1.PushProvider" json:"provider,omitempty"`
-	Token         string                 `protobuf:"bytes,5,opt,name=token,proto3" json:"token,omitempty"`
-	DeviceId      string                 `protobuf:"bytes,6,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
-	AppBundleId   string                 `protobuf:"bytes,7,opt,name=app_bundle_id,json=appBundleId,proto3" json:"app_bundle_id,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 客户端平台
+	Platform v1.Platform `protobuf:"varint,3,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
+	// provider字段
+	Provider PushProvider `protobuf:"varint,4,opt,name=provider,proto3,enum=whocall.push.v1.PushProvider" json:"provider,omitempty"`
+	// 会话令牌
+	Token string `protobuf:"bytes,5,opt,name=token,proto3" json:"token,omitempty"`
+	// 客户端设备标识
+	DeviceId string `protobuf:"bytes,6,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
+	// appbundle标识标识
+	AppBundleId   string `protobuf:"bytes,7,opt,name=app_bundle_id,json=appBundleId,proto3" json:"app_bundle_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -351,10 +385,13 @@ func (x *RegisterPushTokenRequest) GetAppBundleId() string {
 	return ""
 }
 
+// 注册推送令牌响应承载响应数据
 type RegisterPushTokenResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	PushToken     *PushToken             `protobuf:"bytes,2,opt,name=push_token,json=pushToken,proto3" json:"push_token,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 推送令牌字段
+	PushToken     *PushToken `protobuf:"bytes,2,opt,name=push_token,json=pushToken,proto3" json:"push_token,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -403,11 +440,15 @@ func (x *RegisterPushTokenResponse) GetPushToken() *PushToken {
 	return nil
 }
 
+// unregister推送令牌请求承载请求参数
 type UnregisterPushTokenRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	TokenId       string                 `protobuf:"bytes,2,opt,name=token_id,json=tokenId,proto3" json:"token_id,omitempty"`
-	UserId        string                 `protobuf:"bytes,3,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 令牌标识标识
+	TokenId string `protobuf:"bytes,2,opt,name=token_id,json=tokenId,proto3" json:"token_id,omitempty"`
+	// IM 用户业务标识
+	UserId        string `protobuf:"bytes,3,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -463,9 +504,11 @@ func (x *UnregisterPushTokenRequest) GetUserId() string {
 	return ""
 }
 
+// unregister推送令牌响应承载响应数据
 type UnregisterPushTokenResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header        *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -507,10 +550,13 @@ func (x *UnregisterPushTokenResponse) GetHeader() *v1.ResponseHeader {
 	return nil
 }
 
+// 列表推送tokens请求承载请求参数
 type ListPushTokensRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识
+	UserId        string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -559,10 +605,13 @@ func (x *ListPushTokensRequest) GetUserId() string {
 	return ""
 }
 
+// 列表推送tokens响应承载响应数据
 type ListPushTokensResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	PushTokens    []*PushToken           `protobuf:"bytes,2,rep,name=push_tokens,json=pushTokens,proto3" json:"push_tokens,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 推送tokens列表
+	PushTokens    []*PushToken `protobuf:"bytes,2,rep,name=push_tokens,json=pushTokens,proto3" json:"push_tokens,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -611,12 +660,17 @@ func (x *ListPushTokensResponse) GetPushTokens() []*PushToken {
 	return nil
 }
 
+// 推送offline消息请求承载请求参数
 type PushOfflineMsgRequest struct {
-	state           protoimpl.MessageState `protogen:"open.v1"`
-	Meta            *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserIds         []string               `protobuf:"bytes,2,rep,name=user_ids,json=userIds,proto3" json:"user_ids,omitempty"`
-	MsgData         *v11.MsgData           `protobuf:"bytes,3,opt,name=msg_data,json=msgData,proto3" json:"msg_data,omitempty"`
-	OfflinePushInfo *v1.OfflinePushInfo    `protobuf:"bytes,4,opt,name=offline_push_info,json=offlinePushInfo,proto3" json:"offline_push_info,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识列表
+	UserIds []string `protobuf:"bytes,2,rep,name=user_ids,json=userIds,proto3" json:"user_ids,omitempty"`
+	// 消息数据字段
+	MsgData *v11.MsgData `protobuf:"bytes,3,opt,name=msg_data,json=msgData,proto3" json:"msg_data,omitempty"`
+	// offline推送info字段
+	OfflinePushInfo *v1.OfflinePushInfo `protobuf:"bytes,4,opt,name=offline_push_info,json=offlinePushInfo,proto3" json:"offline_push_info,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
@@ -679,13 +733,17 @@ func (x *PushOfflineMsgRequest) GetOfflinePushInfo() *v1.OfflinePushInfo {
 	return nil
 }
 
+// 推送offline消息响应承载响应数据
 type PushOfflineMsgResponse struct {
-	state          protoimpl.MessageState `protogen:"open.v1"`
-	Header         *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	SuccessUserIds []string               `protobuf:"bytes,2,rep,name=success_user_ids,json=successUserIds,proto3" json:"success_user_ids,omitempty"`
-	FailedUserIds  []string               `protobuf:"bytes,3,rep,name=failed_user_ids,json=failedUserIds,proto3" json:"failed_user_ids,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 成功用户标识列表列表
+	SuccessUserIds []string `protobuf:"bytes,2,rep,name=success_user_ids,json=successUserIds,proto3" json:"success_user_ids,omitempty"`
+	// 失败用户标识列表列表
+	FailedUserIds []string `protobuf:"bytes,3,rep,name=failed_user_ids,json=failedUserIds,proto3" json:"failed_user_ids,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *PushOfflineMsgResponse) Reset() {
@@ -739,13 +797,19 @@ func (x *PushOfflineMsgResponse) GetFailedUserIds() []string {
 	return nil
 }
 
+// 推送系统通知请求承载请求参数
 type PushSystemNotificationRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserIds       []string               `protobuf:"bytes,2,rep,name=user_ids,json=userIds,proto3" json:"user_ids,omitempty"`
-	Title         string                 `protobuf:"bytes,3,opt,name=title,proto3" json:"title,omitempty"`
-	Content       string                 `protobuf:"bytes,4,opt,name=content,proto3" json:"content,omitempty"`
-	Ext           string                 `protobuf:"bytes,5,opt,name=ext,proto3" json:"ext,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识列表
+	UserIds []string `protobuf:"bytes,2,rep,name=user_ids,json=userIds,proto3" json:"user_ids,omitempty"`
+	// title字段
+	Title string `protobuf:"bytes,3,opt,name=title,proto3" json:"title,omitempty"`
+	// 消息内容载荷
+	Content string `protobuf:"bytes,4,opt,name=content,proto3" json:"content,omitempty"`
+	// ext字段
+	Ext           string `protobuf:"bytes,5,opt,name=ext,proto3" json:"ext,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -815,13 +879,17 @@ func (x *PushSystemNotificationRequest) GetExt() string {
 	return ""
 }
 
+// 推送系统通知响应承载响应数据
 type PushSystemNotificationResponse struct {
-	state          protoimpl.MessageState `protogen:"open.v1"`
-	Header         *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	SuccessUserIds []string               `protobuf:"bytes,2,rep,name=success_user_ids,json=successUserIds,proto3" json:"success_user_ids,omitempty"`
-	FailedUserIds  []string               `protobuf:"bytes,3,rep,name=failed_user_ids,json=failedUserIds,proto3" json:"failed_user_ids,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 成功用户标识列表列表
+	SuccessUserIds []string `protobuf:"bytes,2,rep,name=success_user_ids,json=successUserIds,proto3" json:"success_user_ids,omitempty"`
+	// 失败用户标识列表列表
+	FailedUserIds []string `protobuf:"bytes,3,rep,name=failed_user_ids,json=failedUserIds,proto3" json:"failed_user_ids,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *PushSystemNotificationResponse) Reset() {

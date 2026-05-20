@@ -4,94 +4,162 @@ package whocall.common.v1;
 
 option go_package = "github.com/ethereal3x/who-call/api/gen/go/whocall/common/v1;commonv1";
 
+// 平台定义可选枚举值
 enum Platform {
+    // 未指定枚举值
     PLATFORM_UNSPECIFIED = 0;
+    // 平台iOS枚举值
     PLATFORM_IOS = 1;
+    // 平台Android枚举值
     PLATFORM_ANDROID = 2;
+    // 平台Web枚举值
     PLATFORM_WEB = 3;
+    // 平台Windows枚举值
     PLATFORM_WINDOWS = 4;
+    // 平台macOS枚举值
     PLATFORM_MACOS = 5;
+    // 平台Linux枚举值
     PLATFORM_LINUX = 6;
+    // 平台管理员枚举值
     PLATFORM_ADMIN = 100;
+    // 平台服务端枚举值
     PLATFORM_SERVER = 101;
 }
 
+// 会话类型定义可选枚举值
 enum ConversationType {
+    // 未指定枚举值
     CONVERSATION_TYPE_UNSPECIFIED = 0;
+    // 会话类型单聊枚举值
     CONVERSATION_TYPE_SINGLE = 1;
+    // 会话类型群组枚举值
     CONVERSATION_TYPE_GROUP = 2;
+    // 会话类型通知枚举值
     CONVERSATION_TYPE_NOTIFICATION = 3;
+    // 会话类型系统枚举值
     CONVERSATION_TYPE_SYSTEM = 4;
 }
 
+// 接收消息option定义可选枚举值
 enum ReceiveMessageOption {
+    // 未指定枚举值
     RECEIVE_MESSAGE_OPTION_UNSPECIFIED = 0;
+    // 接收消息option接收枚举值
     RECEIVE_MESSAGE_OPTION_RECEIVE = 1;
+    // 接收消息option不提醒枚举值
     RECEIVE_MESSAGE_OPTION_NOT_NOTIFY = 2;
+    // 接收消息option不接收枚举值
     RECEIVE_MESSAGE_OPTION_NOT_RECEIVE = 3;
 }
 
+// 性别定义可选枚举值
 enum Gender {
+    // 未指定枚举值
     GENDER_UNSPECIFIED = 0;
+    // 性别男性枚举值
     GENDER_MALE = 1;
+    // 性别女性枚举值
     GENDER_FEMALE = 2;
+    // 性别其他枚举值
     GENDER_OTHER = 3;
 }
 
+// 排序顺序定义可选枚举值
 enum SortOrder {
+    // 未指定枚举值
     SORT_ORDER_UNSPECIFIED = 0;
+    // 排序顺序升序枚举值
     SORT_ORDER_ASC = 1;
+    // 排序顺序降序枚举值
     SORT_ORDER_DESC = 2;
 }
 
+// 请求元信息描述业务数据结构
 message RequestMeta {
+    // 跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识
     string operation_id = 1;
+    // 链路追踪标识
     string trace_id = 2;
+    // 调用方标识
     string caller = 3;
+    // 客户端平台
     Platform platform = 4;
+    // 客户端设备标识
     string device_id = 5;
+    // 网关连接标识
     string conn_id = 6;
+    // IM 用户业务标识
     string user_id = 7;
+    // 客户端版本
     string client_version = 8;
+    // 语言区域
     string locale = 9;
 }
 
+// 响应响应头描述业务数据结构
 message ResponseHeader {
+    // 业务状态码
     int32 code = 1;
+    // 业务提示消息
     string message = 2;
+    // 跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识
     string operation_id = 3;
+    // 链路追踪标识
     string trace_id = 4;
+    // 服务端时间ms字段
     int64 server_time_ms = 5;
 }
 
+// 分页请求承载请求参数
 message PaginationRequest {
+    // 分页页码
     int32 page = 1;
+    // 大小字段
     int32 size = 2;
+    // 游标字段
     string cursor = 3;
 }
 
+// 分页响应承载响应数据
 message PaginationResponse {
+    // 总记录数
     int64 total = 1;
+    // 下一页游标
     string next_cursor = 2;
+    // 是否还有更多数据
     bool has_more = 3;
 }
 
+// 用户ref描述业务数据结构
 message UserRef {
+    // IM 用户业务标识
     string user_id = 1;
+    // 用户昵称
     string nickname = 2;
+    // 头像地址
     string avatar_url = 3;
 }
 
+// offline推送info描述业务数据结构
 message OfflinePushInfo {
+    // title字段
     string title = 1;
+    // 降序字段
     string desc = 2;
+    // ext字段
     string ext = 3;
+    // iOSbadge数量数量
     string ios_badge_count = 4;
+    // iOS推送sound字段
     string ios_push_sound = 5;
+    // iOSbadge数量启用字段
     bool ios_badge_count_enabled = 6;
 }
 
+// 键值描述业务数据结构
 message KeyValue {
+    // 字段键
     string key = 1;
+    // 字段值
     string value = 2;
 }

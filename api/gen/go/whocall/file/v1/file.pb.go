@@ -23,17 +23,26 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// 文件业务类型定义可选枚举值
 type FileBizType int32
 
 const (
-	FileBizType_FILE_BIZ_TYPE_UNSPECIFIED   FileBizType = 0
-	FileBizType_FILE_BIZ_TYPE_AVATAR        FileBizType = 1
+	// 未指定枚举值
+	FileBizType_FILE_BIZ_TYPE_UNSPECIFIED FileBizType = 0
+	// 文件业务类型头像枚举值
+	FileBizType_FILE_BIZ_TYPE_AVATAR FileBizType = 1
+	// 文件业务类型消息image枚举值
 	FileBizType_FILE_BIZ_TYPE_MESSAGE_IMAGE FileBizType = 2
+	// 文件业务类型消息voice枚举值
 	FileBizType_FILE_BIZ_TYPE_MESSAGE_VOICE FileBizType = 3
+	// 文件业务类型消息video枚举值
 	FileBizType_FILE_BIZ_TYPE_MESSAGE_VIDEO FileBizType = 4
-	FileBizType_FILE_BIZ_TYPE_MESSAGE_FILE  FileBizType = 5
-	FileBizType_FILE_BIZ_TYPE_GROUP_AVATAR  FileBizType = 6
-	FileBizType_FILE_BIZ_TYPE_LOG           FileBizType = 100
+	// 文件业务类型消息文件枚举值
+	FileBizType_FILE_BIZ_TYPE_MESSAGE_FILE FileBizType = 5
+	// 文件业务类型群组头像枚举值
+	FileBizType_FILE_BIZ_TYPE_GROUP_AVATAR FileBizType = 6
+	// 文件业务类型log枚举值
+	FileBizType_FILE_BIZ_TYPE_LOG FileBizType = 100
 )
 
 // Enum value maps for FileBizType.
@@ -87,15 +96,22 @@ func (FileBizType) EnumDescriptor() ([]byte, []int) {
 	return file_whocall_file_v1_file_proto_rawDescGZIP(), []int{0}
 }
 
+// 上传状态定义可选枚举值
 type UploadStatus int32
 
 const (
+	// 未指定枚举值
 	UploadStatus_UPLOAD_STATUS_UNSPECIFIED UploadStatus = 0
-	UploadStatus_UPLOAD_STATUS_INITIATED   UploadStatus = 1
-	UploadStatus_UPLOAD_STATUS_UPLOADING   UploadStatus = 2
-	UploadStatus_UPLOAD_STATUS_COMPLETED   UploadStatus = 3
-	UploadStatus_UPLOAD_STATUS_ABORTED     UploadStatus = 4
-	UploadStatus_UPLOAD_STATUS_EXPIRED     UploadStatus = 5
+	// 上传状态initiated枚举值
+	UploadStatus_UPLOAD_STATUS_INITIATED UploadStatus = 1
+	// 上传状态uploading枚举值
+	UploadStatus_UPLOAD_STATUS_UPLOADING UploadStatus = 2
+	// 上传状态completed枚举值
+	UploadStatus_UPLOAD_STATUS_COMPLETED UploadStatus = 3
+	// 上传状态aborted枚举值
+	UploadStatus_UPLOAD_STATUS_ABORTED UploadStatus = 4
+	// 过期状态枚举值
+	UploadStatus_UPLOAD_STATUS_EXPIRED UploadStatus = 5
 )
 
 // Enum value maps for UploadStatus.
@@ -145,19 +161,31 @@ func (UploadStatus) EnumDescriptor() ([]byte, []int) {
 	return file_whocall_file_v1_file_proto_rawDescGZIP(), []int{1}
 }
 
+// 文件info描述业务数据结构
 type FileInfo struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	FileId        string                 `protobuf:"bytes,1,opt,name=file_id,json=fileId,proto3" json:"file_id,omitempty"`
-	OwnerUserId   string                 `protobuf:"bytes,2,opt,name=owner_user_id,json=ownerUserId,proto3" json:"owner_user_id,omitempty"`
-	BizType       FileBizType            `protobuf:"varint,3,opt,name=biz_type,json=bizType,proto3,enum=whocall.file.v1.FileBizType" json:"biz_type,omitempty"`
-	FileName      string                 `protobuf:"bytes,4,opt,name=file_name,json=fileName,proto3" json:"file_name,omitempty"`
-	ObjectKey     string                 `protobuf:"bytes,5,opt,name=object_key,json=objectKey,proto3" json:"object_key,omitempty"`
-	Url           string                 `protobuf:"bytes,6,opt,name=url,proto3" json:"url,omitempty"`
-	MimeType      string                 `protobuf:"bytes,7,opt,name=mime_type,json=mimeType,proto3" json:"mime_type,omitempty"`
-	Size          int64                  `protobuf:"varint,8,opt,name=size,proto3" json:"size,omitempty"`
-	Checksum      string                 `protobuf:"bytes,9,opt,name=checksum,proto3" json:"checksum,omitempty"`
-	CreateTimeMs  int64                  `protobuf:"varint,10,opt,name=create_time_ms,json=createTimeMs,proto3" json:"create_time_ms,omitempty"`
-	Ex            string                 `protobuf:"bytes,11,opt,name=ex,proto3" json:"ex,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 文件业务标识
+	FileId string `protobuf:"bytes,1,opt,name=file_id,json=fileId,proto3" json:"file_id,omitempty"`
+	// 归属用户标识
+	OwnerUserId string `protobuf:"bytes,2,opt,name=owner_user_id,json=ownerUserId,proto3" json:"owner_user_id,omitempty"`
+	// 业务类型类型
+	BizType FileBizType `protobuf:"varint,3,opt,name=biz_type,json=bizType,proto3,enum=whocall.file.v1.FileBizType" json:"biz_type,omitempty"`
+	// 文件名
+	FileName string `protobuf:"bytes,4,opt,name=file_name,json=fileName,proto3" json:"file_name,omitempty"`
+	// 对象存储键
+	ObjectKey string `protobuf:"bytes,5,opt,name=object_key,json=objectKey,proto3" json:"object_key,omitempty"`
+	// 访问地址
+	Url string `protobuf:"bytes,6,opt,name=url,proto3" json:"url,omitempty"`
+	// MIME 类型
+	MimeType string `protobuf:"bytes,7,opt,name=mime_type,json=mimeType,proto3" json:"mime_type,omitempty"`
+	// 大小字段
+	Size int64 `protobuf:"varint,8,opt,name=size,proto3" json:"size,omitempty"`
+	// checksum字段
+	Checksum string `protobuf:"bytes,9,opt,name=checksum,proto3" json:"checksum,omitempty"`
+	// 创建时间ms字段
+	CreateTimeMs int64 `protobuf:"varint,10,opt,name=create_time_ms,json=createTimeMs,proto3" json:"create_time_ms,omitempty"`
+	// IM 扩展字段
+	Ex            string `protobuf:"bytes,11,opt,name=ex,proto3" json:"ex,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -269,12 +297,17 @@ func (x *FileInfo) GetEx() string {
 	return ""
 }
 
+// 上传part描述业务数据结构
 type UploadPart struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	PartNumber    int32                  `protobuf:"varint,1,opt,name=part_number,json=partNumber,proto3" json:"part_number,omitempty"`
-	UploadUrl     string                 `protobuf:"bytes,2,opt,name=upload_url,json=uploadUrl,proto3" json:"upload_url,omitempty"`
-	Headers       map[string]string      `protobuf:"bytes,3,rep,name=headers,proto3" json:"headers,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	PartSize      int64                  `protobuf:"varint,4,opt,name=part_size,json=partSize,proto3" json:"part_size,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// partnumber字段
+	PartNumber int32 `protobuf:"varint,1,opt,name=part_number,json=partNumber,proto3" json:"part_number,omitempty"`
+	// 上传地址
+	UploadUrl string `protobuf:"bytes,2,opt,name=upload_url,json=uploadUrl,proto3" json:"upload_url,omitempty"`
+	// headers字段
+	Headers map[string]string `protobuf:"bytes,3,rep,name=headers,proto3" json:"headers,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	// part大小字段
+	PartSize      int64 `protobuf:"varint,4,opt,name=part_size,json=partSize,proto3" json:"part_size,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -337,17 +370,27 @@ func (x *UploadPart) GetPartSize() int64 {
 	return 0
 }
 
+// 创建上传请求承载请求参数
 type CreateUploadRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	OwnerUserId   string                 `protobuf:"bytes,2,opt,name=owner_user_id,json=ownerUserId,proto3" json:"owner_user_id,omitempty"`
-	BizType       FileBizType            `protobuf:"varint,3,opt,name=biz_type,json=bizType,proto3,enum=whocall.file.v1.FileBizType" json:"biz_type,omitempty"`
-	FileName      string                 `protobuf:"bytes,4,opt,name=file_name,json=fileName,proto3" json:"file_name,omitempty"`
-	MimeType      string                 `protobuf:"bytes,5,opt,name=mime_type,json=mimeType,proto3" json:"mime_type,omitempty"`
-	Size          int64                  `protobuf:"varint,6,opt,name=size,proto3" json:"size,omitempty"`
-	Checksum      string                 `protobuf:"bytes,7,opt,name=checksum,proto3" json:"checksum,omitempty"`
-	PartCount     int32                  `protobuf:"varint,8,opt,name=part_count,json=partCount,proto3" json:"part_count,omitempty"`
-	Ex            string                 `protobuf:"bytes,9,opt,name=ex,proto3" json:"ex,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 归属用户标识
+	OwnerUserId string `protobuf:"bytes,2,opt,name=owner_user_id,json=ownerUserId,proto3" json:"owner_user_id,omitempty"`
+	// 业务类型类型
+	BizType FileBizType `protobuf:"varint,3,opt,name=biz_type,json=bizType,proto3,enum=whocall.file.v1.FileBizType" json:"biz_type,omitempty"`
+	// 文件名
+	FileName string `protobuf:"bytes,4,opt,name=file_name,json=fileName,proto3" json:"file_name,omitempty"`
+	// MIME 类型
+	MimeType string `protobuf:"bytes,5,opt,name=mime_type,json=mimeType,proto3" json:"mime_type,omitempty"`
+	// 大小字段
+	Size int64 `protobuf:"varint,6,opt,name=size,proto3" json:"size,omitempty"`
+	// checksum字段
+	Checksum string `protobuf:"bytes,7,opt,name=checksum,proto3" json:"checksum,omitempty"`
+	// part数量数量
+	PartCount int32 `protobuf:"varint,8,opt,name=part_count,json=partCount,proto3" json:"part_count,omitempty"`
+	// IM 扩展字段
+	Ex            string `protobuf:"bytes,9,opt,name=ex,proto3" json:"ex,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -445,15 +488,23 @@ func (x *CreateUploadRequest) GetEx() string {
 	return ""
 }
 
+// 创建上传响应承载响应数据
 type CreateUploadResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	UploadId      string                 `protobuf:"bytes,2,opt,name=upload_id,json=uploadId,proto3" json:"upload_id,omitempty"`
-	FileId        string                 `protobuf:"bytes,3,opt,name=file_id,json=fileId,proto3" json:"file_id,omitempty"`
-	ObjectKey     string                 `protobuf:"bytes,4,opt,name=object_key,json=objectKey,proto3" json:"object_key,omitempty"`
-	UploadUrl     string                 `protobuf:"bytes,5,opt,name=upload_url,json=uploadUrl,proto3" json:"upload_url,omitempty"`
-	Parts         []*UploadPart          `protobuf:"bytes,6,rep,name=parts,proto3" json:"parts,omitempty"`
-	ExpireTimeMs  int64                  `protobuf:"varint,7,opt,name=expire_time_ms,json=expireTimeMs,proto3" json:"expire_time_ms,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 上传标识标识
+	UploadId string `protobuf:"bytes,2,opt,name=upload_id,json=uploadId,proto3" json:"upload_id,omitempty"`
+	// 文件业务标识
+	FileId string `protobuf:"bytes,3,opt,name=file_id,json=fileId,proto3" json:"file_id,omitempty"`
+	// 对象存储键
+	ObjectKey string `protobuf:"bytes,4,opt,name=object_key,json=objectKey,proto3" json:"object_key,omitempty"`
+	// 上传地址
+	UploadUrl string `protobuf:"bytes,5,opt,name=upload_url,json=uploadUrl,proto3" json:"upload_url,omitempty"`
+	// parts列表
+	Parts []*UploadPart `protobuf:"bytes,6,rep,name=parts,proto3" json:"parts,omitempty"`
+	// expire时间ms字段
+	ExpireTimeMs  int64 `protobuf:"varint,7,opt,name=expire_time_ms,json=expireTimeMs,proto3" json:"expire_time_ms,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -537,12 +588,17 @@ func (x *CreateUploadResponse) GetExpireTimeMs() int64 {
 	return 0
 }
 
+// 完成上传请求承载请求参数
 type CompleteUploadRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UploadId      string                 `protobuf:"bytes,2,opt,name=upload_id,json=uploadId,proto3" json:"upload_id,omitempty"`
-	FileId        string                 `protobuf:"bytes,3,opt,name=file_id,json=fileId,proto3" json:"file_id,omitempty"`
-	PartEtags     []string               `protobuf:"bytes,4,rep,name=part_etags,json=partEtags,proto3" json:"part_etags,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 上传标识标识
+	UploadId string `protobuf:"bytes,2,opt,name=upload_id,json=uploadId,proto3" json:"upload_id,omitempty"`
+	// 文件业务标识
+	FileId string `protobuf:"bytes,3,opt,name=file_id,json=fileId,proto3" json:"file_id,omitempty"`
+	// partetags列表
+	PartEtags     []string `protobuf:"bytes,4,rep,name=part_etags,json=partEtags,proto3" json:"part_etags,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -605,10 +661,13 @@ func (x *CompleteUploadRequest) GetPartEtags() []string {
 	return nil
 }
 
+// 完成上传响应承载响应数据
 type CompleteUploadResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	File          *FileInfo              `protobuf:"bytes,2,opt,name=file,proto3" json:"file,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 文件字段
+	File          *FileInfo `protobuf:"bytes,2,opt,name=file,proto3" json:"file,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -657,11 +716,15 @@ func (x *CompleteUploadResponse) GetFile() *FileInfo {
 	return nil
 }
 
+// get下载地址请求承载请求参数
 type GetDownloadUrlRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	FileId        string                 `protobuf:"bytes,2,opt,name=file_id,json=fileId,proto3" json:"file_id,omitempty"`
-	UserId        string                 `protobuf:"bytes,3,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 文件业务标识
+	FileId string `protobuf:"bytes,2,opt,name=file_id,json=fileId,proto3" json:"file_id,omitempty"`
+	// IM 用户业务标识
+	UserId        string `protobuf:"bytes,3,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -717,13 +780,19 @@ func (x *GetDownloadUrlRequest) GetUserId() string {
 	return ""
 }
 
+// get下载地址响应承载响应数据
 type GetDownloadUrlResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	DownloadUrl   string                 `protobuf:"bytes,2,opt,name=download_url,json=downloadUrl,proto3" json:"download_url,omitempty"`
-	Headers       map[string]string      `protobuf:"bytes,3,rep,name=headers,proto3" json:"headers,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	ExpireTimeMs  int64                  `protobuf:"varint,4,opt,name=expire_time_ms,json=expireTimeMs,proto3" json:"expire_time_ms,omitempty"`
-	File          *FileInfo              `protobuf:"bytes,5,opt,name=file,proto3" json:"file,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 下载地址
+	DownloadUrl string `protobuf:"bytes,2,opt,name=download_url,json=downloadUrl,proto3" json:"download_url,omitempty"`
+	// headers字段
+	Headers map[string]string `protobuf:"bytes,3,rep,name=headers,proto3" json:"headers,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	// expire时间ms字段
+	ExpireTimeMs int64 `protobuf:"varint,4,opt,name=expire_time_ms,json=expireTimeMs,proto3" json:"expire_time_ms,omitempty"`
+	// 文件字段
+	File          *FileInfo `protobuf:"bytes,5,opt,name=file,proto3" json:"file,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -793,11 +862,15 @@ func (x *GetDownloadUrlResponse) GetFile() *FileInfo {
 	return nil
 }
 
+// 删除文件请求承载请求参数
 type DeleteFileRequest struct {
-	state          protoimpl.MessageState `protogen:"open.v1"`
-	Meta           *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	FileId         string                 `protobuf:"bytes,2,opt,name=file_id,json=fileId,proto3" json:"file_id,omitempty"`
-	OperatorUserId string                 `protobuf:"bytes,3,opt,name=operator_user_id,json=operatorUserId,proto3" json:"operator_user_id,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 文件业务标识
+	FileId string `protobuf:"bytes,2,opt,name=file_id,json=fileId,proto3" json:"file_id,omitempty"`
+	// 操作人用户标识
+	OperatorUserId string `protobuf:"bytes,3,opt,name=operator_user_id,json=operatorUserId,proto3" json:"operator_user_id,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -853,9 +926,11 @@ func (x *DeleteFileRequest) GetOperatorUserId() string {
 	return ""
 }
 
+// 删除文件响应承载响应数据
 type DeleteFileResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header        *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }

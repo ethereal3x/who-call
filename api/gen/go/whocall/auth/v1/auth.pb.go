@@ -24,14 +24,20 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// 令牌状态定义可选枚举值
 type TokenStatus int32
 
 const (
+	// 未指定枚举值
 	TokenStatus_TOKEN_STATUS_UNSPECIFIED TokenStatus = 0
-	TokenStatus_TOKEN_STATUS_VALID       TokenStatus = 1
-	TokenStatus_TOKEN_STATUS_EXPIRED     TokenStatus = 2
-	TokenStatus_TOKEN_STATUS_REVOKED     TokenStatus = 3
-	TokenStatus_TOKEN_STATUS_KICKED      TokenStatus = 4
+	// 有效状态枚举值
+	TokenStatus_TOKEN_STATUS_VALID TokenStatus = 1
+	// 过期状态枚举值
+	TokenStatus_TOKEN_STATUS_EXPIRED TokenStatus = 2
+	// 撤销状态枚举值
+	TokenStatus_TOKEN_STATUS_REVOKED TokenStatus = 3
+	// 踢出状态枚举值
+	TokenStatus_TOKEN_STATUS_KICKED TokenStatus = 4
 )
 
 // Enum value maps for TokenStatus.
@@ -79,13 +85,18 @@ func (TokenStatus) EnumDescriptor() ([]byte, []int) {
 	return file_whocall_auth_v1_auth_proto_rawDescGZIP(), []int{0}
 }
 
+// 登录策略定义可选枚举值
 type LoginPolicy int32
 
 const (
-	LoginPolicy_LOGIN_POLICY_UNSPECIFIED        LoginPolicy = 0
-	LoginPolicy_LOGIN_POLICY_MULTI_PLATFORM     LoginPolicy = 1
+	// 未指定枚举值
+	LoginPolicy_LOGIN_POLICY_UNSPECIFIED LoginPolicy = 0
+	// 登录策略多端平台枚举值
+	LoginPolicy_LOGIN_POLICY_MULTI_PLATFORM LoginPolicy = 1
+	// 登录策略踢出same平台枚举值
 	LoginPolicy_LOGIN_POLICY_KICK_SAME_PLATFORM LoginPolicy = 2
-	LoginPolicy_LOGIN_POLICY_KICK_ALL_OLD       LoginPolicy = 3
+	// 登录策略踢出全部旧会话枚举值
+	LoginPolicy_LOGIN_POLICY_KICK_ALL_OLD LoginPolicy = 3
 )
 
 // Enum value maps for LoginPolicy.
@@ -131,15 +142,23 @@ func (LoginPolicy) EnumDescriptor() ([]byte, []int) {
 	return file_whocall_auth_v1_auth_proto_rawDescGZIP(), []int{1}
 }
 
+// 注册请求承载请求参数
 type RegisterRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	Username      string                 `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
-	Password      string                 `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
-	Nickname      string                 `protobuf:"bytes,4,opt,name=nickname,proto3" json:"nickname,omitempty"`
-	AvatarUrl     string                 `protobuf:"bytes,5,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
-	Phone         string                 `protobuf:"bytes,6,opt,name=phone,proto3" json:"phone,omitempty"`
-	Email         string                 `protobuf:"bytes,7,opt,name=email,proto3" json:"email,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 登录用户名
+	Username string `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
+	// 登录密码或凭据载荷
+	Password string `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
+	// 用户昵称
+	Nickname string `protobuf:"bytes,4,opt,name=nickname,proto3" json:"nickname,omitempty"`
+	// 头像地址
+	AvatarUrl string `protobuf:"bytes,5,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
+	// 手机号字段
+	Phone string `protobuf:"bytes,6,opt,name=phone,proto3" json:"phone,omitempty"`
+	// 邮箱地址
+	Email         string `protobuf:"bytes,7,opt,name=email,proto3" json:"email,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -223,10 +242,13 @@ func (x *RegisterRequest) GetEmail() string {
 	return ""
 }
 
+// 注册响应承载响应数据
 type RegisterResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// IM 用户业务标识
+	UserId        string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -275,16 +297,25 @@ func (x *RegisterResponse) GetUserId() string {
 	return ""
 }
 
+// 登录请求承载请求参数
 type LoginRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	Username      string                 `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
-	Password      string                 `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
-	Platform      v1.Platform            `protobuf:"varint,4,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
-	DeviceId      string                 `protobuf:"bytes,5,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
-	DeviceName    string                 `protobuf:"bytes,6,opt,name=device_name,json=deviceName,proto3" json:"device_name,omitempty"`
-	ClientVersion string                 `protobuf:"bytes,7,opt,name=client_version,json=clientVersion,proto3" json:"client_version,omitempty"`
-	LoginPolicy   LoginPolicy            `protobuf:"varint,8,opt,name=login_policy,json=loginPolicy,proto3,enum=whocall.auth.v1.LoginPolicy" json:"login_policy,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 登录用户名
+	Username string `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
+	// 登录密码或凭据载荷
+	Password string `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
+	// 客户端平台
+	Platform v1.Platform `protobuf:"varint,4,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
+	// 客户端设备标识
+	DeviceId string `protobuf:"bytes,5,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
+	// 设备名称名称
+	DeviceName string `protobuf:"bytes,6,opt,name=device_name,json=deviceName,proto3" json:"device_name,omitempty"`
+	// 客户端版本
+	ClientVersion string `protobuf:"bytes,7,opt,name=client_version,json=clientVersion,proto3" json:"client_version,omitempty"`
+	// 登录策略字段
+	LoginPolicy   LoginPolicy `protobuf:"varint,8,opt,name=login_policy,json=loginPolicy,proto3,enum=whocall.auth.v1.LoginPolicy" json:"login_policy,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -375,13 +406,20 @@ func (x *LoginRequest) GetLoginPolicy() LoginPolicy {
 	return LoginPolicy_LOGIN_POLICY_UNSPECIFIED
 }
 
+// 登录响应承载响应数据
 type LoginResponse struct {
-	state                protoimpl.MessageState `protogen:"open.v1"`
-	Header               *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	UserId               string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	AccessToken          string                 `protobuf:"bytes,3,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
-	RefreshToken         string                 `protobuf:"bytes,4,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
-	AccessTokenExpireAt  *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=access_token_expire_at,json=accessTokenExpireAt,proto3" json:"access_token_expire_at,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 访问令牌
+	AccessToken string `protobuf:"bytes,3,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	// 刷新令牌
+	RefreshToken string `protobuf:"bytes,4,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
+	// access令牌expire时间时间
+	AccessTokenExpireAt *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=access_token_expire_at,json=accessTokenExpireAt,proto3" json:"access_token_expire_at,omitempty"`
+	// 刷新令牌expire时间时间
 	RefreshTokenExpireAt *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=refresh_token_expire_at,json=refreshTokenExpireAt,proto3" json:"refresh_token_expire_at,omitempty"`
 	unknownFields        protoimpl.UnknownFields
 	sizeCache            protoimpl.SizeCache
@@ -459,11 +497,15 @@ func (x *LoginResponse) GetRefreshTokenExpireAt() *timestamppb.Timestamp {
 	return nil
 }
 
+// 刷新令牌请求承载请求参数
 type RefreshTokenRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	RefreshToken  string                 `protobuf:"bytes,2,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
-	DeviceId      string                 `protobuf:"bytes,3,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 刷新令牌
+	RefreshToken string `protobuf:"bytes,2,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
+	// 客户端设备标识
+	DeviceId      string `protobuf:"bytes,3,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -519,12 +561,18 @@ func (x *RefreshTokenRequest) GetDeviceId() string {
 	return ""
 }
 
+// 刷新令牌响应承载响应数据
 type RefreshTokenResponse struct {
-	state                protoimpl.MessageState `protogen:"open.v1"`
-	Header               *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	AccessToken          string                 `protobuf:"bytes,2,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
-	RefreshToken         string                 `protobuf:"bytes,3,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
-	AccessTokenExpireAt  *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=access_token_expire_at,json=accessTokenExpireAt,proto3" json:"access_token_expire_at,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 访问令牌
+	AccessToken string `protobuf:"bytes,2,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	// 刷新令牌
+	RefreshToken string `protobuf:"bytes,3,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
+	// access令牌expire时间时间
+	AccessTokenExpireAt *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=access_token_expire_at,json=accessTokenExpireAt,proto3" json:"access_token_expire_at,omitempty"`
+	// 刷新令牌expire时间时间
 	RefreshTokenExpireAt *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=refresh_token_expire_at,json=refreshTokenExpireAt,proto3" json:"refresh_token_expire_at,omitempty"`
 	unknownFields        protoimpl.UnknownFields
 	sizeCache            protoimpl.SizeCache
@@ -595,13 +643,19 @@ func (x *RefreshTokenResponse) GetRefreshTokenExpireAt() *timestamppb.Timestamp 
 	return nil
 }
 
+// 退出登录请求承载请求参数
 type LogoutRequest struct {
-	state            protoimpl.MessageState `protogen:"open.v1"`
-	Meta             *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserId           string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Platform         v1.Platform            `protobuf:"varint,3,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
-	DeviceId         string                 `protobuf:"bytes,4,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
-	LogoutAllDevices bool                   `protobuf:"varint,5,opt,name=logout_all_devices,json=logoutAllDevices,proto3" json:"logout_all_devices,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 客户端平台
+	Platform v1.Platform `protobuf:"varint,3,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
+	// 客户端设备标识
+	DeviceId string `protobuf:"bytes,4,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
+	// 退出登录全部设备字段
+	LogoutAllDevices bool `protobuf:"varint,5,opt,name=logout_all_devices,json=logoutAllDevices,proto3" json:"logout_all_devices,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
@@ -671,9 +725,11 @@ func (x *LogoutRequest) GetLogoutAllDevices() bool {
 	return false
 }
 
+// 退出登录响应承载响应数据
 type LogoutResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header        *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -715,13 +771,19 @@ func (x *LogoutResponse) GetHeader() *v1.ResponseHeader {
 	return nil
 }
 
+// 强制退出登录请求承载请求参数
 type ForceLogoutRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Platform      v1.Platform            `protobuf:"varint,3,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
-	DeviceId      string                 `protobuf:"bytes,4,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
-	Reason        string                 `protobuf:"bytes,5,opt,name=reason,proto3" json:"reason,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 客户端平台
+	Platform v1.Platform `protobuf:"varint,3,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
+	// 客户端设备标识
+	DeviceId string `protobuf:"bytes,4,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
+	// 业务原因
+	Reason        string `protobuf:"bytes,5,opt,name=reason,proto3" json:"reason,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -791,10 +853,13 @@ func (x *ForceLogoutRequest) GetReason() string {
 	return ""
 }
 
+// 强制退出登录响应承载响应数据
 type ForceLogoutResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	KickedCount   int32                  `protobuf:"varint,2,opt,name=kicked_count,json=kickedCount,proto3" json:"kicked_count,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 踢出数量数量
+	KickedCount   int32 `protobuf:"varint,2,opt,name=kicked_count,json=kickedCount,proto3" json:"kicked_count,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -843,10 +908,13 @@ func (x *ForceLogoutResponse) GetKickedCount() int32 {
 	return 0
 }
 
+// 解析令牌请求承载请求参数
 type ParseTokenRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	AccessToken   string                 `protobuf:"bytes,2,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// 访问令牌
+	AccessToken   string `protobuf:"bytes,2,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -895,13 +963,20 @@ func (x *ParseTokenRequest) GetAccessToken() string {
 	return ""
 }
 
+// 解析令牌响应承载响应数据
 type ParseTokenResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Platform      v1.Platform            `protobuf:"varint,3,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
-	DeviceId      string                 `protobuf:"bytes,4,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
-	TokenStatus   TokenStatus            `protobuf:"varint,5,opt,name=token_status,json=tokenStatus,proto3,enum=whocall.auth.v1.TokenStatus" json:"token_status,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 客户端平台
+	Platform v1.Platform `protobuf:"varint,3,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
+	// 客户端设备标识
+	DeviceId string `protobuf:"bytes,4,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
+	// 令牌状态
+	TokenStatus TokenStatus `protobuf:"varint,5,opt,name=token_status,json=tokenStatus,proto3,enum=whocall.auth.v1.TokenStatus" json:"token_status,omitempty"`
+	// expire时间时间
 	ExpireAt      *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=expire_at,json=expireAt,proto3" json:"expire_at,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -979,20 +1054,31 @@ func (x *ParseTokenResponse) GetExpireAt() *timestamppb.Timestamp {
 	return nil
 }
 
+// 登录设备描述业务数据结构
 type LoginDevice struct {
-	state            protoimpl.MessageState `protogen:"open.v1"`
-	UserId           string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Platform         v1.Platform            `protobuf:"varint,2,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
-	DeviceId         string                 `protobuf:"bytes,3,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
-	DeviceName       string                 `protobuf:"bytes,4,opt,name=device_name,json=deviceName,proto3" json:"device_name,omitempty"`
-	ClientVersion    string                 `protobuf:"bytes,5,opt,name=client_version,json=clientVersion,proto3" json:"client_version,omitempty"`
-	ConnId           string                 `protobuf:"bytes,6,opt,name=conn_id,json=connId,proto3" json:"conn_id,omitempty"`
-	LastLoginIp      string                 `protobuf:"bytes,7,opt,name=last_login_ip,json=lastLoginIp,proto3" json:"last_login_ip,omitempty"`
-	LastLoginTimeMs  int64                  `protobuf:"varint,8,opt,name=last_login_time_ms,json=lastLoginTimeMs,proto3" json:"last_login_time_ms,omitempty"`
-	LastActiveTimeMs int64                  `protobuf:"varint,9,opt,name=last_active_time_ms,json=lastActiveTimeMs,proto3" json:"last_active_time_ms,omitempty"`
-	TokenStatus      TokenStatus            `protobuf:"varint,10,opt,name=token_status,json=tokenStatus,proto3,enum=whocall.auth.v1.TokenStatus" json:"token_status,omitempty"`
-	unknownFields    protoimpl.UnknownFields
-	sizeCache        protoimpl.SizeCache
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 客户端平台
+	Platform v1.Platform `protobuf:"varint,2,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
+	// 客户端设备标识
+	DeviceId string `protobuf:"bytes,3,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
+	// 设备名称名称
+	DeviceName string `protobuf:"bytes,4,opt,name=device_name,json=deviceName,proto3" json:"device_name,omitempty"`
+	// 客户端版本
+	ClientVersion string `protobuf:"bytes,5,opt,name=client_version,json=clientVersion,proto3" json:"client_version,omitempty"`
+	// 网关连接标识
+	ConnId string `protobuf:"bytes,6,opt,name=conn_id,json=connId,proto3" json:"conn_id,omitempty"`
+	// last登录ip字段
+	LastLoginIp string `protobuf:"bytes,7,opt,name=last_login_ip,json=lastLoginIp,proto3" json:"last_login_ip,omitempty"`
+	// last登录时间ms字段
+	LastLoginTimeMs int64 `protobuf:"varint,8,opt,name=last_login_time_ms,json=lastLoginTimeMs,proto3" json:"last_login_time_ms,omitempty"`
+	// lastactive时间ms字段
+	LastActiveTimeMs int64 `protobuf:"varint,9,opt,name=last_active_time_ms,json=lastActiveTimeMs,proto3" json:"last_active_time_ms,omitempty"`
+	// 令牌状态
+	TokenStatus   TokenStatus `protobuf:"varint,10,opt,name=token_status,json=tokenStatus,proto3,enum=whocall.auth.v1.TokenStatus" json:"token_status,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *LoginDevice) Reset() {
@@ -1095,10 +1181,13 @@ func (x *LoginDevice) GetTokenStatus() TokenStatus {
 	return TokenStatus_TOKEN_STATUS_UNSPECIFIED
 }
 
+// 列表登录设备请求承载请求参数
 type ListLoginDevicesRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识
+	UserId        string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1147,10 +1236,13 @@ func (x *ListLoginDevicesRequest) GetUserId() string {
 	return ""
 }
 
+// 列表登录设备响应承载响应数据
 type ListLoginDevicesResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	Devices       []*LoginDevice         `protobuf:"bytes,2,rep,name=devices,proto3" json:"devices,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 设备列表
+	Devices       []*LoginDevice `protobuf:"bytes,2,rep,name=devices,proto3" json:"devices,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1199,13 +1291,19 @@ func (x *ListLoginDevicesResponse) GetDevices() []*LoginDevice {
 	return nil
 }
 
+// 踢出设备请求承载请求参数
 type KickDeviceRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Meta          *v1.RequestMeta        `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Platform      v1.Platform            `protobuf:"varint,3,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
-	DeviceId      string                 `protobuf:"bytes,4,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
-	Reason        string                 `protobuf:"bytes,5,opt,name=reason,proto3" json:"reason,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 请求元信息用于追踪和调用方上下文
+	Meta *v1.RequestMeta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 客户端平台
+	Platform v1.Platform `protobuf:"varint,3,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
+	// 客户端设备标识
+	DeviceId string `protobuf:"bytes,4,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
+	// 业务原因
+	Reason        string `protobuf:"bytes,5,opt,name=reason,proto3" json:"reason,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1275,10 +1373,13 @@ func (x *KickDeviceRequest) GetReason() string {
 	return ""
 }
 
+// 踢出设备响应承载响应数据
 type KickDeviceResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Header        *v1.ResponseHeader     `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	KickedCount   int32                  `protobuf:"varint,2,opt,name=kicked_count,json=kickedCount,proto3" json:"kicked_count,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 响应头包含状态码和追踪信息
+	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// 踢出数量数量
+	KickedCount   int32 `protobuf:"varint,2,opt,name=kicked_count,json=kickedCount,proto3" json:"kicked_count,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }

@@ -31,13 +31,22 @@ const (
 // UserServiceClient is the client API for UserService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+//
+// 用户服务定义该领域的 RPC 接口
 type UserServiceClient interface {
+	// 处理get资料操作
 	GetProfile(ctx context.Context, in *GetProfileRequest, opts ...grpc.CallOption) (*GetProfileResponse, error)
+	// 处理批量getprofiles操作
 	BatchGetProfiles(ctx context.Context, in *BatchGetProfilesRequest, opts ...grpc.CallOption) (*BatchGetProfilesResponse, error)
+	// 处理更新资料操作
 	UpdateProfile(ctx context.Context, in *UpdateProfileRequest, opts ...grpc.CallOption) (*UpdateProfileResponse, error)
+	// 处理搜索用户操作
 	SearchUsers(ctx context.Context, in *SearchUsersRequest, opts ...grpc.CallOption) (*SearchUsersResponse, error)
+	// 处理get用户在线状态操作
 	GetUsersOnlineStatus(ctx context.Context, in *GetUsersOnlineStatusRequest, opts ...grpc.CallOption) (*GetUsersOnlineStatusResponse, error)
+	// 处理set用户状态操作
 	SetUserStatus(ctx context.Context, in *SetUserStatusRequest, opts ...grpc.CallOption) (*SetUserStatusResponse, error)
+	// 处理setglobal接收消息opt操作
 	SetGlobalRecvMsgOpt(ctx context.Context, in *SetGlobalRecvMsgOptRequest, opts ...grpc.CallOption) (*SetGlobalRecvMsgOptResponse, error)
 }
 
@@ -122,13 +131,22 @@ func (c *userServiceClient) SetGlobalRecvMsgOpt(ctx context.Context, in *SetGlob
 // UserServiceServer is the server API for UserService service.
 // All implementations should embed UnimplementedUserServiceServer
 // for forward compatibility.
+//
+// 用户服务定义该领域的 RPC 接口
 type UserServiceServer interface {
+	// 处理get资料操作
 	GetProfile(context.Context, *GetProfileRequest) (*GetProfileResponse, error)
+	// 处理批量getprofiles操作
 	BatchGetProfiles(context.Context, *BatchGetProfilesRequest) (*BatchGetProfilesResponse, error)
+	// 处理更新资料操作
 	UpdateProfile(context.Context, *UpdateProfileRequest) (*UpdateProfileResponse, error)
+	// 处理搜索用户操作
 	SearchUsers(context.Context, *SearchUsersRequest) (*SearchUsersResponse, error)
+	// 处理get用户在线状态操作
 	GetUsersOnlineStatus(context.Context, *GetUsersOnlineStatusRequest) (*GetUsersOnlineStatusResponse, error)
+	// 处理set用户状态操作
 	SetUserStatus(context.Context, *SetUserStatusRequest) (*SetUserStatusResponse, error)
+	// 处理setglobal接收消息opt操作
 	SetGlobalRecvMsgOpt(context.Context, *SetGlobalRecvMsgOptRequest) (*SetGlobalRecvMsgOptResponse, error)
 }
 

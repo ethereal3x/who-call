@@ -21,18 +21,28 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// 平台定义可选枚举值
 type Platform int32
 
 const (
+	// 未指定枚举值
 	Platform_PLATFORM_UNSPECIFIED Platform = 0
-	Platform_PLATFORM_IOS         Platform = 1
-	Platform_PLATFORM_ANDROID     Platform = 2
-	Platform_PLATFORM_WEB         Platform = 3
-	Platform_PLATFORM_WINDOWS     Platform = 4
-	Platform_PLATFORM_MACOS       Platform = 5
-	Platform_PLATFORM_LINUX       Platform = 6
-	Platform_PLATFORM_ADMIN       Platform = 100
-	Platform_PLATFORM_SERVER      Platform = 101
+	// 平台iOS枚举值
+	Platform_PLATFORM_IOS Platform = 1
+	// 平台Android枚举值
+	Platform_PLATFORM_ANDROID Platform = 2
+	// 平台Web枚举值
+	Platform_PLATFORM_WEB Platform = 3
+	// 平台Windows枚举值
+	Platform_PLATFORM_WINDOWS Platform = 4
+	// 平台macOS枚举值
+	Platform_PLATFORM_MACOS Platform = 5
+	// 平台Linux枚举值
+	Platform_PLATFORM_LINUX Platform = 6
+	// 平台管理员枚举值
+	Platform_PLATFORM_ADMIN Platform = 100
+	// 平台服务端枚举值
+	Platform_PLATFORM_SERVER Platform = 101
 )
 
 // Enum value maps for Platform.
@@ -88,14 +98,20 @@ func (Platform) EnumDescriptor() ([]byte, []int) {
 	return file_whocall_common_v1_common_proto_rawDescGZIP(), []int{0}
 }
 
+// 会话类型定义可选枚举值
 type ConversationType int32
 
 const (
-	ConversationType_CONVERSATION_TYPE_UNSPECIFIED  ConversationType = 0
-	ConversationType_CONVERSATION_TYPE_SINGLE       ConversationType = 1
-	ConversationType_CONVERSATION_TYPE_GROUP        ConversationType = 2
+	// 未指定枚举值
+	ConversationType_CONVERSATION_TYPE_UNSPECIFIED ConversationType = 0
+	// 会话类型单聊枚举值
+	ConversationType_CONVERSATION_TYPE_SINGLE ConversationType = 1
+	// 会话类型群组枚举值
+	ConversationType_CONVERSATION_TYPE_GROUP ConversationType = 2
+	// 会话类型通知枚举值
 	ConversationType_CONVERSATION_TYPE_NOTIFICATION ConversationType = 3
-	ConversationType_CONVERSATION_TYPE_SYSTEM       ConversationType = 4
+	// 会话类型系统枚举值
+	ConversationType_CONVERSATION_TYPE_SYSTEM ConversationType = 4
 )
 
 // Enum value maps for ConversationType.
@@ -143,12 +159,17 @@ func (ConversationType) EnumDescriptor() ([]byte, []int) {
 	return file_whocall_common_v1_common_proto_rawDescGZIP(), []int{1}
 }
 
+// 接收消息option定义可选枚举值
 type ReceiveMessageOption int32
 
 const (
+	// 未指定枚举值
 	ReceiveMessageOption_RECEIVE_MESSAGE_OPTION_UNSPECIFIED ReceiveMessageOption = 0
-	ReceiveMessageOption_RECEIVE_MESSAGE_OPTION_RECEIVE     ReceiveMessageOption = 1
-	ReceiveMessageOption_RECEIVE_MESSAGE_OPTION_NOT_NOTIFY  ReceiveMessageOption = 2
+	// 接收消息option接收枚举值
+	ReceiveMessageOption_RECEIVE_MESSAGE_OPTION_RECEIVE ReceiveMessageOption = 1
+	// 接收消息option不提醒枚举值
+	ReceiveMessageOption_RECEIVE_MESSAGE_OPTION_NOT_NOTIFY ReceiveMessageOption = 2
+	// 接收消息option不接收枚举值
 	ReceiveMessageOption_RECEIVE_MESSAGE_OPTION_NOT_RECEIVE ReceiveMessageOption = 3
 )
 
@@ -195,13 +216,18 @@ func (ReceiveMessageOption) EnumDescriptor() ([]byte, []int) {
 	return file_whocall_common_v1_common_proto_rawDescGZIP(), []int{2}
 }
 
+// 性别定义可选枚举值
 type Gender int32
 
 const (
+	// 未指定枚举值
 	Gender_GENDER_UNSPECIFIED Gender = 0
-	Gender_GENDER_MALE        Gender = 1
-	Gender_GENDER_FEMALE      Gender = 2
-	Gender_GENDER_OTHER       Gender = 3
+	// 性别男性枚举值
+	Gender_GENDER_MALE Gender = 1
+	// 性别女性枚举值
+	Gender_GENDER_FEMALE Gender = 2
+	// 性别其他枚举值
+	Gender_GENDER_OTHER Gender = 3
 )
 
 // Enum value maps for Gender.
@@ -247,12 +273,16 @@ func (Gender) EnumDescriptor() ([]byte, []int) {
 	return file_whocall_common_v1_common_proto_rawDescGZIP(), []int{3}
 }
 
+// 排序顺序定义可选枚举值
 type SortOrder int32
 
 const (
+	// 未指定枚举值
 	SortOrder_SORT_ORDER_UNSPECIFIED SortOrder = 0
-	SortOrder_SORT_ORDER_ASC         SortOrder = 1
-	SortOrder_SORT_ORDER_DESC        SortOrder = 2
+	// 排序顺序升序枚举值
+	SortOrder_SORT_ORDER_ASC SortOrder = 1
+	// 排序顺序降序枚举值
+	SortOrder_SORT_ORDER_DESC SortOrder = 2
 )
 
 // Enum value maps for SortOrder.
@@ -296,17 +326,27 @@ func (SortOrder) EnumDescriptor() ([]byte, []int) {
 	return file_whocall_common_v1_common_proto_rawDescGZIP(), []int{4}
 }
 
+// 请求元信息描述业务数据结构
 type RequestMeta struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	OperationId   string                 `protobuf:"bytes,1,opt,name=operation_id,json=operationId,proto3" json:"operation_id,omitempty"`
-	TraceId       string                 `protobuf:"bytes,2,opt,name=trace_id,json=traceId,proto3" json:"trace_id,omitempty"`
-	Caller        string                 `protobuf:"bytes,3,opt,name=caller,proto3" json:"caller,omitempty"`
-	Platform      Platform               `protobuf:"varint,4,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
-	DeviceId      string                 `protobuf:"bytes,5,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
-	ConnId        string                 `protobuf:"bytes,6,opt,name=conn_id,json=connId,proto3" json:"conn_id,omitempty"`
-	UserId        string                 `protobuf:"bytes,7,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	ClientVersion string                 `protobuf:"bytes,8,opt,name=client_version,json=clientVersion,proto3" json:"client_version,omitempty"`
-	Locale        string                 `protobuf:"bytes,9,opt,name=locale,proto3" json:"locale,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识
+	OperationId string `protobuf:"bytes,1,opt,name=operation_id,json=operationId,proto3" json:"operation_id,omitempty"`
+	// 链路追踪标识
+	TraceId string `protobuf:"bytes,2,opt,name=trace_id,json=traceId,proto3" json:"trace_id,omitempty"`
+	// 调用方标识
+	Caller string `protobuf:"bytes,3,opt,name=caller,proto3" json:"caller,omitempty"`
+	// 客户端平台
+	Platform Platform `protobuf:"varint,4,opt,name=platform,proto3,enum=whocall.common.v1.Platform" json:"platform,omitempty"`
+	// 客户端设备标识
+	DeviceId string `protobuf:"bytes,5,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
+	// 网关连接标识
+	ConnId string `protobuf:"bytes,6,opt,name=conn_id,json=connId,proto3" json:"conn_id,omitempty"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,7,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 客户端版本
+	ClientVersion string `protobuf:"bytes,8,opt,name=client_version,json=clientVersion,proto3" json:"client_version,omitempty"`
+	// 语言区域
+	Locale        string `protobuf:"bytes,9,opt,name=locale,proto3" json:"locale,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -404,13 +444,19 @@ func (x *RequestMeta) GetLocale() string {
 	return ""
 }
 
+// 响应响应头描述业务数据结构
 type ResponseHeader struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Code          int32                  `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
-	Message       string                 `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
-	OperationId   string                 `protobuf:"bytes,3,opt,name=operation_id,json=operationId,proto3" json:"operation_id,omitempty"`
-	TraceId       string                 `protobuf:"bytes,4,opt,name=trace_id,json=traceId,proto3" json:"trace_id,omitempty"`
-	ServerTimeMs  int64                  `protobuf:"varint,5,opt,name=server_time_ms,json=serverTimeMs,proto3" json:"server_time_ms,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 业务状态码
+	Code int32 `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
+	// 业务提示消息
+	Message string `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
+	// 跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识
+	OperationId string `protobuf:"bytes,3,opt,name=operation_id,json=operationId,proto3" json:"operation_id,omitempty"`
+	// 链路追踪标识
+	TraceId string `protobuf:"bytes,4,opt,name=trace_id,json=traceId,proto3" json:"trace_id,omitempty"`
+	// 服务端时间ms字段
+	ServerTimeMs  int64 `protobuf:"varint,5,opt,name=server_time_ms,json=serverTimeMs,proto3" json:"server_time_ms,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -480,11 +526,15 @@ func (x *ResponseHeader) GetServerTimeMs() int64 {
 	return 0
 }
 
+// 分页请求承载请求参数
 type PaginationRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Page          int32                  `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
-	Size          int32                  `protobuf:"varint,2,opt,name=size,proto3" json:"size,omitempty"`
-	Cursor        string                 `protobuf:"bytes,3,opt,name=cursor,proto3" json:"cursor,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 分页页码
+	Page int32 `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
+	// 大小字段
+	Size int32 `protobuf:"varint,2,opt,name=size,proto3" json:"size,omitempty"`
+	// 游标字段
+	Cursor        string `protobuf:"bytes,3,opt,name=cursor,proto3" json:"cursor,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -540,11 +590,15 @@ func (x *PaginationRequest) GetCursor() string {
 	return ""
 }
 
+// 分页响应承载响应数据
 type PaginationResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Total         int64                  `protobuf:"varint,1,opt,name=total,proto3" json:"total,omitempty"`
-	NextCursor    string                 `protobuf:"bytes,2,opt,name=next_cursor,json=nextCursor,proto3" json:"next_cursor,omitempty"`
-	HasMore       bool                   `protobuf:"varint,3,opt,name=has_more,json=hasMore,proto3" json:"has_more,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 总记录数
+	Total int64 `protobuf:"varint,1,opt,name=total,proto3" json:"total,omitempty"`
+	// 下一页游标
+	NextCursor string `protobuf:"bytes,2,opt,name=next_cursor,json=nextCursor,proto3" json:"next_cursor,omitempty"`
+	// 是否还有更多数据
+	HasMore       bool `protobuf:"varint,3,opt,name=has_more,json=hasMore,proto3" json:"has_more,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -600,11 +654,15 @@ func (x *PaginationResponse) GetHasMore() bool {
 	return false
 }
 
+// 用户ref描述业务数据结构
 type UserRef struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Nickname      string                 `protobuf:"bytes,2,opt,name=nickname,proto3" json:"nickname,omitempty"`
-	AvatarUrl     string                 `protobuf:"bytes,3,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// IM 用户业务标识
+	UserId string `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// 用户昵称
+	Nickname string `protobuf:"bytes,2,opt,name=nickname,proto3" json:"nickname,omitempty"`
+	// 头像地址
+	AvatarUrl     string `protobuf:"bytes,3,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -660,14 +718,21 @@ func (x *UserRef) GetAvatarUrl() string {
 	return ""
 }
 
+// offline推送info描述业务数据结构
 type OfflinePushInfo struct {
-	state                protoimpl.MessageState `protogen:"open.v1"`
-	Title                string                 `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
-	Desc                 string                 `protobuf:"bytes,2,opt,name=desc,proto3" json:"desc,omitempty"`
-	Ext                  string                 `protobuf:"bytes,3,opt,name=ext,proto3" json:"ext,omitempty"`
-	IosBadgeCount        string                 `protobuf:"bytes,4,opt,name=ios_badge_count,json=iosBadgeCount,proto3" json:"ios_badge_count,omitempty"`
-	IosPushSound         string                 `protobuf:"bytes,5,opt,name=ios_push_sound,json=iosPushSound,proto3" json:"ios_push_sound,omitempty"`
-	IosBadgeCountEnabled bool                   `protobuf:"varint,6,opt,name=ios_badge_count_enabled,json=iosBadgeCountEnabled,proto3" json:"ios_badge_count_enabled,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// title字段
+	Title string `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
+	// 降序字段
+	Desc string `protobuf:"bytes,2,opt,name=desc,proto3" json:"desc,omitempty"`
+	// ext字段
+	Ext string `protobuf:"bytes,3,opt,name=ext,proto3" json:"ext,omitempty"`
+	// iOSbadge数量数量
+	IosBadgeCount string `protobuf:"bytes,4,opt,name=ios_badge_count,json=iosBadgeCount,proto3" json:"ios_badge_count,omitempty"`
+	// iOS推送sound字段
+	IosPushSound string `protobuf:"bytes,5,opt,name=ios_push_sound,json=iosPushSound,proto3" json:"ios_push_sound,omitempty"`
+	// iOSbadge数量启用字段
+	IosBadgeCountEnabled bool `protobuf:"varint,6,opt,name=ios_badge_count_enabled,json=iosBadgeCountEnabled,proto3" json:"ios_badge_count_enabled,omitempty"`
 	unknownFields        protoimpl.UnknownFields
 	sizeCache            protoimpl.SizeCache
 }
@@ -744,10 +809,13 @@ func (x *OfflinePushInfo) GetIosBadgeCountEnabled() bool {
 	return false
 }
 
+// 键值描述业务数据结构
 type KeyValue struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
-	Value         string                 `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 字段键
+	Key string `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	// 字段值
+	Value         string `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }

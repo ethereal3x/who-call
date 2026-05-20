@@ -8,158 +8,256 @@ import "google/api/annotations.proto";
 import "whocall/common/v1/common.proto";
 import "whocall/msg/v1/msg.proto";
 
+// 会话服务定义该领域的 RPC 接口
 service ConversationService {
+    // 处理get会话操作
     rpc GetConversation(GetConversationRequest) returns (GetConversationResponse) {
         option (google.api.http) = { get: "/api/v1/conversations/{conversation_id}" };
     }
 
+    // 处理列表会话操作
     rpc ListConversations(ListConversationsRequest) returns (ListConversationsResponse) {
         option (google.api.http) = { get: "/api/v1/users/{user_id}/conversations" };
     }
 
+    // 处理创建orget单聊会话操作
     rpc CreateOrGetSingleConversation(CreateOrGetSingleConversationRequest) returns (CreateOrGetSingleConversationResponse) {
         option (google.api.http) = { post: "/api/v1/conversations/single" body: "*" };
     }
 
+    // 处理更新会话设置操作
     rpc UpdateConversationSettings(UpdateConversationSettingsRequest) returns (UpdateConversationSettingsResponse) {
         option (google.api.http) = { patch: "/api/v1/conversations/{conversation_id}/settings" body: "*" };
     }
 
+    // 处理删除会话操作
     rpc DeleteConversation(DeleteConversationRequest) returns (DeleteConversationResponse) {
         option (google.api.http) = { delete: "/api/v1/users/{user_id}/conversations/{conversation_id}" };
     }
 
+    // 处理clear会话消息操作
     rpc ClearConversationMessages(ClearConversationMessagesRequest) returns (ClearConversationMessagesResponse) {
         option (google.api.http) = { post: "/api/v1/conversations/{conversation_id}:clear-messages" body: "*" };
     }
 
+    // 处理get会话序号操作
     rpc GetConversationSeq(GetConversationSeqRequest) returns (GetConversationSeqResponse) {
         option (google.api.http) = { post: "/api/v1/conversations/seq" body: "*" };
     }
 }
 
+// 会话状态定义可选枚举值
 enum ConversationStatus {
+    // 未指定枚举值
     CONVERSATION_STATUS_UNSPECIFIED = 0;
+    // 正常状态枚举值
     CONVERSATION_STATUS_NORMAL = 1;
+    // 会话状态deleted枚举值
     CONVERSATION_STATUS_DELETED = 2;
+    // 会话状态archived枚举值
     CONVERSATION_STATUS_ARCHIVED = 3;
 }
 
+// 群组时间类型定义可选枚举值
 enum GroupAtType {
+    // 未指定枚举值
     GROUP_AT_TYPE_UNSPECIFIED = 0;
+    // 群组时间类型无枚举值
     GROUP_AT_TYPE_NONE = 1;
+    // 群组时间类型时间me枚举值
     GROUP_AT_TYPE_AT_ME = 2;
+    // 群组时间类型时间全部枚举值
     GROUP_AT_TYPE_AT_ALL = 3;
+    // 群组时间类型时间全部时间me枚举值
     GROUP_AT_TYPE_AT_ALL_AT_ME = 4;
 }
 
+// 会话设置描述业务数据结构
 message ConversationSettings {
+    // ispinned字段
     bool is_pinned = 1;
+    // 接收消息opt字段
     whocall.common.v1.ReceiveMessageOption recv_msg_opt = 2;
+    // is私有chat字段
     bool is_private_chat = 3;
+    // is消息destruct字段
     bool is_msg_destruct = 4;
+    // burn时长seconds字段
     int64 burn_duration_seconds = 5;
+    // 消息destruct时间ms字段
     int64 msg_destruct_time_ms = 6;
+    // attachedinfo字段
     string attached_info = 7;
+    // IM 扩展字段
     string ex = 8;
 }
 
+// 会话info描述业务数据结构
 message ConversationInfo {
+    // 归属用户标识
     string owner_user_id = 1;
+    // 会话业务标识
     string conversation_id = 2;
+    // 会话类型
     whocall.common.v1.ConversationType conversation_type = 3;
+    // IM 用户业务标识
     string user_id = 4;
+    // 群组业务标识
     string group_id = 5;
+    // show名称名称
     string show_name = 6;
+    // 头像地址
     string face_url = 7;
+    // 业务状态
     ConversationStatus status = 8;
+    // 设置字段
     ConversationSettings settings = 9;
+    // 群组时间类型类型
     GroupAtType group_at_type = 10;
+    // 最小消息序号
     int64 min_seq = 11;
+    // 最大消息序号
     int64 max_seq = 12;
+    // 用户已读消息序号
     int64 read_seq = 13;
+    // unread数量数量
     int64 unread_count = 14;
+    // 最新消息字段
     whocall.msg.v1.MsgData latest_msg = 15;
+    // 最新消息发送时间ms字段
     int64 latest_msg_send_time_ms = 16;
+    // 创建时间ms字段
     int64 create_time_ms = 17;
+    // 更新时间ms字段
     int64 update_time_ms = 18;
 }
 
+// get会话请求承载请求参数
 message GetConversationRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // 会话业务标识
     string conversation_id = 3;
 }
 
+// get会话响应承载响应数据
 message GetConversationResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 会话数据
     ConversationInfo conversation = 2;
 }
 
+// 列表会话请求承载请求参数
 message ListConversationsRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // 分页字段
     whocall.common.v1.PaginationRequest pagination = 3;
 }
 
+// 列表会话响应承载响应数据
 message ListConversationsResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 会话数据列表
     repeated ConversationInfo conversations = 2;
+    // 分页字段
     whocall.common.v1.PaginationResponse pagination = 3;
 }
 
+// 创建orget单聊会话请求承载请求参数
 message CreateOrGetSingleConversationRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // 归属用户标识
     string owner_user_id = 2;
+    // peer用户标识标识
     string peer_user_id = 3;
 }
 
+// 创建orget单聊会话响应承载响应数据
 message CreateOrGetSingleConversationResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 会话数据
     ConversationInfo conversation = 2;
 }
 
+// 更新会话设置请求承载请求参数
 message UpdateConversationSettingsRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // 会话业务标识
     string conversation_id = 3;
+    // 设置字段
     ConversationSettings settings = 4;
 }
 
+// 更新会话设置响应承载响应数据
 message UpdateConversationSettingsResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 会话数据
     ConversationInfo conversation = 2;
 }
 
+// 删除会话请求承载请求参数
 message DeleteConversationRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // 会话业务标识
     string conversation_id = 3;
 }
 
+// 删除会话响应承载响应数据
 message DeleteConversationResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
 }
 
+// clear会话消息请求承载请求参数
 message ClearConversationMessagesRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // 会话业务标识
     string conversation_id = 3;
+    // clearbefore序号序号
     int64 clear_before_seq = 4;
 }
 
+// clear会话消息响应承载响应数据
 message ClearConversationMessagesResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // cleared最大序号序号
     int64 cleared_max_seq = 2;
 }
 
+// get会话序号请求承载请求参数
 message GetConversationSeqRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // 会话业务标识列表
     repeated string conversation_ids = 3;
 }
 
+// get会话序号响应承载响应数据
 message GetConversationSeqResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 消息序号列表
     repeated whocall.msg.v1.ConversationSeq seqs = 2;
 }

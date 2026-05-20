@@ -7,340 +7,576 @@ option go_package = "github.com/ethereal3x/who-call/api/gen/go/whocall/msg/v1;ms
 import "google/api/annotations.proto";
 import "whocall/common/v1/common.proto";
 
+// 消息服务定义该领域的 RPC 接口
 service MsgService {
+    // 处理发送消息操作
     rpc SendMsg(SendMsgRequest) returns (SendMsgResponse) {
         option (google.api.http) = { post: "/api/v1/messages/send" body: "*" };
     }
 
+    // 处理批量发送消息操作
     rpc BatchSendMsg(BatchSendMsgRequest) returns (BatchSendMsgResponse) {
         option (google.api.http) = { post: "/api/v1/messages/batch-send" body: "*" };
     }
 
+    // 处理getnewest序号操作
     rpc GetNewestSeq(GetNewestSeqRequest) returns (GetNewestSeqResponse) {
         option (google.api.http) = { post: "/api/v1/messages/newest-seq" body: "*" };
     }
 
+    // 处理拉取消息by序号列表操作
     rpc PullMsgBySeqList(PullMsgBySeqListRequest) returns (PullMsgBySeqListResponse) {
         option (google.api.http) = { post: "/api/v1/messages/pull-by-seq-list" body: "*" };
     }
 
+    // 处理拉取消息by序号range操作
     rpc PullMsgBySeqRange(PullMsgBySeqRangeRequest) returns (PullMsgBySeqRangeResponse) {
         option (google.api.http) = { post: "/api/v1/messages/pull-by-seq-range" body: "*" };
     }
 
+    // 处理mark会话已读操作
     rpc MarkConversationRead(MarkConversationReadRequest) returns (MarkConversationReadResponse) {
         option (google.api.http) = { post: "/api/v1/messages/mark-read" body: "*" };
     }
 
+    // 处理撤回消息操作
     rpc RevokeMsg(RevokeMsgRequest) returns (RevokeMsgResponse) {
         option (google.api.http) = { post: "/api/v1/messages/revoke" body: "*" };
     }
 
+    // 处理删除消息操作
     rpc DeleteMsg(DeleteMsgRequest) returns (DeleteMsgResponse) {
         option (google.api.http) = { post: "/api/v1/messages/delete" body: "*" };
     }
 
+    // 处理get消息操作
     rpc GetMsg(GetMsgRequest) returns (GetMsgResponse) {
         option (google.api.http) = { get: "/api/v1/messages/{server_msg_id}" };
     }
 }
 
+// 内容类型定义可选枚举值
 enum ContentType {
+    // 未指定枚举值
     CONTENT_TYPE_UNSPECIFIED = 0;
+    // 内容类型text枚举值
     CONTENT_TYPE_TEXT = 101;
+    // 内容类型image枚举值
     CONTENT_TYPE_IMAGE = 102;
+    // 内容类型voice枚举值
     CONTENT_TYPE_VOICE = 103;
+    // 内容类型video枚举值
     CONTENT_TYPE_VIDEO = 104;
+    // 内容类型文件枚举值
     CONTENT_TYPE_FILE = 105;
+    // 内容类型location枚举值
     CONTENT_TYPE_LOCATION = 106;
+    // 内容类型card枚举值
     CONTENT_TYPE_CARD = 107;
+    // 内容类型merger枚举值
     CONTENT_TYPE_MERGER = 108;
+    // 内容类型时间text枚举值
     CONTENT_TYPE_AT_TEXT = 109;
+    // 内容类型custom枚举值
     CONTENT_TYPE_CUSTOM = 110;
+    // 内容类型typing枚举值
     CONTENT_TYPE_TYPING = 200;
+    // 内容类型撤回枚举值
     CONTENT_TYPE_REVOKE = 201;
+    // 内容类型已读回执枚举值
     CONTENT_TYPE_READ_RECEIPT = 202;
+    // 内容类型好友申请通知枚举值
     CONTENT_TYPE_FRIEND_APPLICATION_NOTIFICATION = 301;
+    // 内容类型群组申请通知枚举值
     CONTENT_TYPE_GROUP_APPLICATION_NOTIFICATION = 302;
+    // 内容类型群组成员changed通知枚举值
     CONTENT_TYPE_GROUP_MEMBER_CHANGED_NOTIFICATION = 303;
+    // 内容类型会话changed通知枚举值
     CONTENT_TYPE_CONVERSATION_CHANGED_NOTIFICATION = 304;
+    // 内容类型系统通知枚举值
     CONTENT_TYPE_SYSTEM_NOTIFICATION = 900;
 }
 
+// 消息状态定义可选枚举值
 enum MessageStatus {
+    // 未指定枚举值
     MESSAGE_STATUS_UNSPECIFIED = 0;
+    // 消息状态sending枚举值
     MESSAGE_STATUS_SENDING = 1;
+    // 消息状态sent枚举值
     MESSAGE_STATUS_SENT = 2;
+    // 消息状态persisted枚举值
     MESSAGE_STATUS_PERSISTED = 3;
+    // 消息状态delivered枚举值
     MESSAGE_STATUS_DELIVERED = 4;
+    // 消息状态已读枚举值
     MESSAGE_STATUS_READ = 5;
+    // 撤销状态枚举值
     MESSAGE_STATUS_REVOKED = 6;
+    // 消息状态deleted枚举值
     MESSAGE_STATUS_DELETED = 7;
+    // 消息状态失败枚举值
     MESSAGE_STATUS_FAILED = 8;
 }
 
+// 拉取顺序定义可选枚举值
 enum PullOrder {
+    // 未指定枚举值
     PULL_ORDER_UNSPECIFIED = 0;
+    // 拉取顺序升序枚举值
     PULL_ORDER_ASC = 1;
+    // 拉取顺序降序枚举值
     PULL_ORDER_DESC = 2;
 }
 
+// 删除scope定义可选枚举值
 enum DeleteScope {
+    // 未指定枚举值
     DELETE_SCOPE_UNSPECIFIED = 0;
+    // 删除scopelocal枚举值
     DELETE_SCOPE_LOCAL = 1;
+    // 删除scope全部枚举值
     DELETE_SCOPE_ALL = 2;
 }
 
+// 消息options描述业务数据结构
 message MsgOptions {
+    // ispersistent字段
     bool is_persistent = 1;
+    // isoffline推送字段
     bool is_offline_push = 2;
+    // ishistory字段
     bool is_history = 3;
+    // issender同步字段
     bool is_sender_sync = 4;
+    // isunread数量数量
     bool is_unread_count = 5;
+    // is会话更新字段
     bool is_conversation_update = 6;
+    // is通知字段
     bool is_notification = 7;
+    // is已读回执字段
     bool is_read_receipt = 8;
 }
 
+// 消息数据描述业务数据结构
 message MsgData {
+    // 客户端消息幂等标识
     string client_msg_id = 1;
+    // 服务端消息唯一标识
     string server_msg_id = 2;
+    // 发送方用户标识
     string send_id = 3;
+    // 接收方用户标识
     string recv_id = 4;
+    // 群组业务标识
     string group_id = 5;
+    // 会话业务标识
     string conversation_id = 6;
+    // 会话内消息序号
     int64 conversation_seq = 7;
+    // 会话类型
     whocall.common.v1.ConversationType conversation_type = 8;
+    // sender平台字段
     whocall.common.v1.Platform sender_platform = 9;
+    // sender昵称字段
     string sender_nickname = 10;
+    // sender头像地址地址
     string sender_avatar_url = 11;
+    // 消息内容类型
     ContentType content_type = 12;
+    // 消息内容载荷
     bytes content = 13;
+    // 业务状态
     MessageStatus status = 14;
+    // is已读字段
     bool is_read = 15;
+    // options字段
     MsgOptions options = 16;
+    // offline推送info字段
     whocall.common.v1.OfflinePushInfo offline_push_info = 17;
+    // 时间用户标识列表列表
     repeated string at_user_ids = 18;
+    // 发送时间ms字段
     int64 send_time_ms = 19;
+    // 创建时间ms字段
     int64 create_time_ms = 20;
+    // 跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识
     string operation_id = 21;
+    // attachedinfo字段
     string attached_info = 22;
+    // IM 扩展字段
     string ex = 23;
+    // quote服务端消息标识标识
     string quote_server_msg_id = 24;
 }
 
+// text内容描述业务数据结构
 message TextContent {
+    // text字段
     string text = 1;
 }
 
+// image内容描述业务数据结构
 message ImageContent {
+    // 文件业务标识
     string file_id = 1;
+    // 访问地址
     string url = 2;
+    // width字段
     int32 width = 3;
+    // height字段
     int32 height = 4;
+    // 大小字段
     int64 size = 5;
+    // MIME 类型
     string mime_type = 6;
+    // 缩略图地址地址
     string thumbnail_url = 7;
 }
 
+// voice内容描述业务数据结构
 message VoiceContent {
+    // 文件业务标识
     string file_id = 1;
+    // 访问地址
     string url = 2;
+    // 时长seconds字段
     int32 duration_seconds = 3;
+    // 大小字段
     int64 size = 4;
+    // MIME 类型
     string mime_type = 5;
 }
 
+// video内容描述业务数据结构
 message VideoContent {
+    // 文件业务标识
     string file_id = 1;
+    // 访问地址
     string url = 2;
+    // snapshot地址地址
     string snapshot_url = 3;
+    // width字段
     int32 width = 4;
+    // height字段
     int32 height = 5;
+    // 时长seconds字段
     int32 duration_seconds = 6;
+    // 大小字段
     int64 size = 7;
+    // MIME 类型
     string mime_type = 8;
 }
 
+// 文件内容描述业务数据结构
 message FileContent {
+    // 文件业务标识
     string file_id = 1;
+    // 文件名
     string file_name = 2;
+    // 访问地址
     string url = 3;
+    // 大小字段
     int64 size = 4;
+    // MIME 类型
     string mime_type = 5;
+    // checksum字段
     string checksum = 6;
 }
 
+// location内容描述业务数据结构
 message LocationContent {
+    // longitude字段
     double longitude = 1;
+    // latitude字段
     double latitude = 2;
+    // description字段
     string description = 3;
 }
 
+// card内容描述业务数据结构
 message CardContent {
+    // IM 用户业务标识
     string user_id = 1;
+    // 用户昵称
     string nickname = 2;
+    // 头像地址
     string avatar_url = 3;
 }
 
+// 时间text内容描述业务数据结构
 message AtTextContent {
+    // text字段
     string text = 1;
+    // 时间用户标识列表列表
     repeated string at_user_ids = 2;
+    // 时间全部字段
     bool at_all = 3;
 }
 
+// custom内容描述业务数据结构
 message CustomContent {
+    // 业务类型
     string type = 1;
+    // 数据字段
     string data = 2;
+    // description字段
     string description = 3;
+    // extension字段
     string extension = 4;
 }
 
+// 撤回内容描述业务数据结构
 message RevokeContent {
+    // revoker用户标识标识
     string revoker_user_id = 1;
+    // 服务端消息唯一标识
     string server_msg_id = 2;
+    // 客户端消息幂等标识
     string client_msg_id = 3;
+    // 撤回时间ms字段
     int64 revoke_time_ms = 4;
+    // 业务原因
     string reason = 5;
 }
 
+// 已读回执内容描述业务数据结构
 message ReadReceiptContent {
+    // 会话业务标识
     string conversation_id = 1;
+    // reader用户标识标识
     string reader_user_id = 2;
+    // 用户已读消息序号
     int64 read_seq = 3;
+    // 服务端消息唯一标识列表
     repeated string server_msg_ids = 4;
+    // 已读时间ms字段
     int64 read_time_ms = 5;
 }
 
+// 发送消息请求承载请求参数
 message SendMsgRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // 消息数据字段
     MsgData msg_data = 2;
 }
 
+// 发送消息响应承载响应数据
 message SendMsgResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 服务端消息唯一标识
     string server_msg_id = 2;
+    // 客户端消息幂等标识
     string client_msg_id = 3;
+    // 发送时间ms字段
     int64 send_time_ms = 4;
+    // 会话内消息序号
     int64 conversation_seq = 5;
+    // 消息数据字段
     MsgData msg_data = 6;
 }
 
+// 批量发送消息请求承载请求参数
 message BatchSendMsgRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // 消息列表
     repeated MsgData messages = 2;
 }
 
+// 发送消息结果描述业务数据结构
 message SendMsgResult {
+    // 客户端消息幂等标识
     string client_msg_id = 1;
+    // 服务端消息唯一标识
     string server_msg_id = 2;
+    // 会话内消息序号
     int64 conversation_seq = 3;
+    // 业务状态码
     int32 code = 4;
+    // 业务提示消息
     string message = 5;
 }
 
+// 批量发送消息响应承载响应数据
 message BatchSendMsgResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // results列表
     repeated SendMsgResult results = 2;
 }
 
+// getnewest序号请求承载请求参数
 message GetNewestSeqRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // 会话业务标识列表
     repeated string conversation_ids = 3;
 }
 
+// 会话序号描述业务数据结构
 message ConversationSeq {
+    // 会话业务标识
     string conversation_id = 1;
+    // 最小消息序号
     int64 min_seq = 2;
+    // 最大消息序号
     int64 max_seq = 3;
+    // 用户已读消息序号
     int64 read_seq = 4;
 }
 
+// getnewest序号响应承载响应数据
 message GetNewestSeqResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 消息序号列表
     repeated ConversationSeq seqs = 2;
 }
 
+// 拉取消息by序号列表请求承载请求参数
 message PullMsgBySeqListRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // 会话业务标识
     string conversation_id = 3;
+    // 消息序号列表
     repeated int64 seqs = 4;
 }
 
+// 拉取消息by序号列表响应承载响应数据
 message PullMsgBySeqListResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 消息列表
     repeated MsgData messages = 2;
+    // missingseqs列表
     repeated int64 missing_seqs = 3;
 }
 
+// 拉取消息by序号range请求承载请求参数
 message PullMsgBySeqRangeRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // 会话业务标识
     string conversation_id = 3;
+    // begin序号序号
     int64 begin_seq = 4;
+    // 结束消息序号
     int64 end_seq = 5;
+    // 限制字段
     int32 limit = 6;
+    // 顺序字段
     PullOrder order = 7;
 }
 
+// 拉取消息by序号range响应承载响应数据
 message PullMsgBySeqRangeResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 消息列表
     repeated MsgData messages = 2;
+    // 下一页begin序号序号
     int64 next_begin_seq = 3;
+    // 是否还有更多数据
     bool has_more = 4;
+    // missingseqs列表
     repeated int64 missing_seqs = 5;
 }
 
+// mark会话已读请求承载请求参数
 message MarkConversationReadRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // 会话业务标识
     string conversation_id = 3;
+    // 用户已读消息序号
     int64 read_seq = 4;
 }
 
+// mark会话已读响应承载响应数据
 message MarkConversationReadResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 会话业务标识
     string conversation_id = 2;
+    // 用户已读消息序号
     int64 read_seq = 3;
+    // unread数量数量
     int64 unread_count = 4;
 }
 
+// 撤回消息请求承载请求参数
 message RevokeMsgRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // 操作人用户标识
     string operator_user_id = 2;
+    // 会话业务标识
     string conversation_id = 3;
+    // 服务端消息唯一标识
     string server_msg_id = 4;
+    // 业务原因
     string reason = 5;
 }
 
+// 撤回消息响应承载响应数据
 message RevokeMsgResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 撤回消息字段
     MsgData revoke_msg = 2;
 }
 
+// 删除消息请求承载请求参数
 message DeleteMsgRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // 操作人用户标识
     string operator_user_id = 2;
+    // 会话业务标识
     string conversation_id = 3;
+    // 服务端消息唯一标识列表
     repeated string server_msg_ids = 4;
+    // 删除scope字段
     DeleteScope delete_scope = 5;
 }
 
+// 删除消息响应承载响应数据
 message DeleteMsgResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // deleted服务端消息标识列表列表
     repeated string deleted_server_msg_ids = 2;
 }
 
+// get消息请求承载请求参数
 message GetMsgRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // 会话业务标识
     string conversation_id = 3;
+    // 服务端消息唯一标识
     string server_msg_id = 4;
 }
 
+// get消息响应承载响应数据
 message GetMsgResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 消息数据字段
     MsgData msg_data = 2;
 }

@@ -7,119 +7,206 @@ option go_package = "github.com/ethereal3x/who-call/api/gen/go/whocall/gateway/v
 import "whocall/common/v1/common.proto";
 import "whocall/msg/v1/msg.proto";
 
+// 网关内部服务定义该领域的 RPC 接口
 service GatewayInternalService {
+    // 处理推送消息操作
     rpc PushMsg(PushMsgRequest) returns (PushMsgResponse);
+    // 处理推送事件操作
     rpc PushEvent(PushEventRequest) returns (PushEventResponse);
+    // 处理踢出在线操作
     rpc KickOnline(KickOnlineRequest) returns (KickOnlineResponse);
+    // 处理get在线连接操作
     rpc GetOnlineConnections(GetOnlineConnectionsRequest) returns (GetOnlineConnectionsResponse);
 }
 
+// WebSocket命令定义可选枚举值
 enum WsCommand {
+    // 未指定枚举值
     WS_COMMAND_UNSPECIFIED = 0;
+    // WebSocket命令connect枚举值
     WS_COMMAND_CONNECT = 1;
+    // WebSocket命令heartbeat枚举值
     WS_COMMAND_HEARTBEAT = 2;
+    // WebSocket命令发送消息枚举值
     WS_COMMAND_SEND_MSG = 1001;
+    // WebSocket命令发送消息响应枚举值
     WS_COMMAND_SEND_MSG_RESP = 1002;
+    // WebSocket命令推送消息枚举值
     WS_COMMAND_PUSH_MSG = 1003;
+    // WebSocket命令拉取消息枚举值
     WS_COMMAND_PULL_MSG = 1004;
+    // WebSocket命令mark已读枚举值
     WS_COMMAND_MARK_READ = 1005;
+    // 踢出状态枚举值
     WS_COMMAND_KICKED = 2001;
+    // WebSocket命令用户状态changed枚举值
     WS_COMMAND_USER_STATUS_CHANGED = 2002;
+    // WebSocket命令会话changed枚举值
     WS_COMMAND_CONVERSATION_CHANGED = 2003;
+    // WebSocket命令群组changed枚举值
     WS_COMMAND_GROUP_CHANGED = 2004;
+    // WebSocket命令好友changed枚举值
     WS_COMMAND_FRIEND_CHANGED = 2005;
 }
 
+// WebSocket帧类型定义可选枚举值
 enum WsFrameType {
+    // 未指定枚举值
     WS_FRAME_TYPE_UNSPECIFIED = 0;
+    // WebSocket帧类型请求枚举值
     WS_FRAME_TYPE_REQUEST = 1;
+    // WebSocket帧类型响应枚举值
     WS_FRAME_TYPE_RESPONSE = 2;
+    // WebSocket帧类型推送枚举值
     WS_FRAME_TYPE_PUSH = 3;
+    // WebSocket帧类型确认枚举值
     WS_FRAME_TYPE_ACK = 4;
 }
 
+// 连接状态定义可选枚举值
 enum ConnectionStatus {
+    // 未指定枚举值
     CONNECTION_STATUS_UNSPECIFIED = 0;
+    // 连接状态在线枚举值
     CONNECTION_STATUS_ONLINE = 1;
+    // 连接状态offline枚举值
     CONNECTION_STATUS_OFFLINE = 2;
 }
 
+// WebSocket帧描述业务数据结构
 message WsFrame {
+    // 请求标识标识
     string request_id = 1;
+    // 命令字段
     WsCommand command = 2;
+    // 帧类型类型
     WsFrameType frame_type = 3;
+    // 会话内递增消息序号
     int64 seq = 4;
+    // 事件负载
     bytes payload = 5;
+    // 跨 HTTP gRPC WebSocket 和 MQ 的操作追踪标识
     string operation_id = 6;
+    // timestampms字段
     int64 timestamp_ms = 7;
 }
 
+// WebSocket确认描述业务数据结构
 message WsAck {
+    // 请求标识标识
     string request_id = 1;
+    // 命令字段
     WsCommand command = 2;
+    // 业务状态码
     int32 code = 3;
+    // 业务提示消息
     string message = 4;
+    // 确认时间ms字段
     int64 ack_time_ms = 5;
 }
 
+// 连接info描述业务数据结构
 message ConnectionInfo {
+    // 网关连接标识
     string conn_id = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // 客户端平台
     whocall.common.v1.Platform platform = 3;
+    // 客户端设备标识
     string device_id = 4;
+    // 客户端版本
     string client_version = 5;
+    // remoteaddr字段
     string remote_addr = 6;
+    // 业务状态
     ConnectionStatus status = 7;
+    // connected时间ms字段
     int64 connected_time_ms = 8;
+    // lastactive时间ms字段
     int64 last_active_time_ms = 9;
 }
 
+// 推送消息请求承载请求参数
 message PushMsgRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识列表
     repeated string user_ids = 2;
+    // 消息数据字段
     whocall.msg.v1.MsgData msg_data = 3;
+    // offline推送字段
     bool offline_push = 4;
 }
 
+// 推送消息响应承载响应数据
 message PushMsgResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // deliveredconn标识列表列表
     repeated string delivered_conn_ids = 2;
+    // offline用户标识列表列表
     repeated string offline_user_ids = 3;
 }
 
+// 推送事件请求承载请求参数
 message PushEventRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识列表
     repeated string user_ids = 2;
+    // 命令字段
     WsCommand command = 3;
+    // 事件负载
     bytes payload = 4;
+    // 事件标识标识
     string event_id = 5;
 }
 
+// 推送事件响应承载响应数据
 message PushEventResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // deliveredconn标识列表列表
     repeated string delivered_conn_ids = 2;
+    // offline用户标识列表列表
     repeated string offline_user_ids = 3;
 }
 
+// 踢出在线请求承载请求参数
 message KickOnlineRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // 客户端平台
     whocall.common.v1.Platform platform = 3;
+    // 客户端设备标识
     string device_id = 4;
+    // 业务原因
     string reason = 5;
 }
 
+// 踢出在线响应承载响应数据
 message KickOnlineResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 踢出数量数量
     int32 kicked_count = 2;
 }
 
+// get在线连接请求承载请求参数
 message GetOnlineConnectionsRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识列表
     repeated string user_ids = 2;
 }
 
+// get在线连接响应承载响应数据
 message GetOnlineConnectionsResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 连接列表
     repeated ConnectionInfo connections = 2;
 }

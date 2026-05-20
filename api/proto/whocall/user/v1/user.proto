@@ -7,150 +7,240 @@ option go_package = "github.com/ethereal3x/who-call/api/gen/go/whocall/user/v1;u
 import "google/api/annotations.proto";
 import "whocall/common/v1/common.proto";
 
+// 用户服务定义该领域的 RPC 接口
 service UserService {
+    // 处理get资料操作
     rpc GetProfile(GetProfileRequest) returns (GetProfileResponse) {
         option (google.api.http) = { get: "/api/v1/users/{user_id}" };
     }
 
+    // 处理批量getprofiles操作
     rpc BatchGetProfiles(BatchGetProfilesRequest) returns (BatchGetProfilesResponse) {
         option (google.api.http) = { post: "/api/v1/users:batch-get" body: "*" };
     }
 
+    // 处理更新资料操作
     rpc UpdateProfile(UpdateProfileRequest) returns (UpdateProfileResponse) {
         option (google.api.http) = { patch: "/api/v1/users/{user_id}" body: "*" };
     }
 
+    // 处理搜索用户操作
     rpc SearchUsers(SearchUsersRequest) returns (SearchUsersResponse) {
         option (google.api.http) = { get: "/api/v1/users:search" };
     }
 
+    // 处理get用户在线状态操作
     rpc GetUsersOnlineStatus(GetUsersOnlineStatusRequest) returns (GetUsersOnlineStatusResponse) {
         option (google.api.http) = { post: "/api/v1/users/online-status" body: "*" };
     }
 
+    // 处理set用户状态操作
     rpc SetUserStatus(SetUserStatusRequest) returns (SetUserStatusResponse) {
         option (google.api.http) = { post: "/api/v1/users/{user_id}/status" body: "*" };
     }
 
+    // 处理setglobal接收消息opt操作
     rpc SetGlobalRecvMsgOpt(SetGlobalRecvMsgOptRequest) returns (SetGlobalRecvMsgOptResponse) {
         option (google.api.http) = { post: "/api/v1/users/{user_id}/recv-msg-opt" body: "*" };
     }
 }
 
+// 用户状态定义可选枚举值
 enum UserStatus {
+    // 未指定枚举值
     USER_STATUS_UNSPECIFIED = 0;
+    // 正常状态枚举值
     USER_STATUS_NORMAL = 1;
+    // 用户状态banned枚举值
     USER_STATUS_BANNED = 2;
+    // 用户状态deleted枚举值
     USER_STATUS_DELETED = 3;
 }
 
+// 在线状态定义可选枚举值
 enum OnlineStatus {
+    // 未指定枚举值
     ONLINE_STATUS_UNSPECIFIED = 0;
+    // 在线状态offline枚举值
     ONLINE_STATUS_OFFLINE = 1;
+    // 在线状态在线枚举值
     ONLINE_STATUS_ONLINE = 2;
+    // 在线状态away枚举值
     ONLINE_STATUS_AWAY = 3;
 }
 
+// 用户资料描述业务数据结构
 message UserProfile {
+    // IM 用户业务标识
     string user_id = 1;
+    // 登录用户名
     string username = 2;
+    // 用户昵称
     string nickname = 3;
+    // 头像地址
     string avatar_url = 4;
+    // 手机号字段
     string phone = 5;
+    // 邮箱地址
     string email = 6;
+    // 性别
     whocall.common.v1.Gender gender = 7;
+    // 业务状态
     UserStatus status = 8;
+    // global接收消息opt字段
     whocall.common.v1.ReceiveMessageOption global_recv_msg_opt = 9;
+    // 创建时间ms字段
     int64 create_time_ms = 10;
+    // 更新时间ms字段
     int64 update_time_ms = 11;
+    // IM 扩展字段
     string ex = 12;
 }
 
+// get资料请求承载请求参数
 message GetProfileRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
 }
 
+// get资料响应承载响应数据
 message GetProfileResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 用户字段
     UserProfile user = 2;
 }
 
+// 批量getprofiles请求承载请求参数
 message BatchGetProfilesRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识列表
     repeated string user_ids = 2;
 }
 
+// 批量getprofiles响应承载响应数据
 message BatchGetProfilesResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 用户列表
     repeated UserProfile users = 2;
 }
 
+// 更新资料请求承载请求参数
 message UpdateProfileRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // 用户昵称
     string nickname = 3;
+    // 头像地址
     string avatar_url = 4;
+    // 手机号字段
     string phone = 5;
+    // 邮箱地址
     string email = 6;
+    // 性别
     whocall.common.v1.Gender gender = 7;
+    // global接收消息opt字段
     whocall.common.v1.ReceiveMessageOption global_recv_msg_opt = 8;
+    // IM 扩展字段
     string ex = 9;
 }
 
+// 更新资料响应承载响应数据
 message UpdateProfileResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 用户字段
     UserProfile user = 2;
 }
 
+// 搜索用户请求承载请求参数
 message SearchUsersRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // keyword字段
     string keyword = 2;
+    // 分页字段
     whocall.common.v1.PaginationRequest pagination = 3;
 }
 
+// 搜索用户响应承载响应数据
 message SearchUsersResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 用户列表
     repeated UserProfile users = 2;
+    // 分页字段
     whocall.common.v1.PaginationResponse pagination = 3;
 }
 
+// get用户在线状态请求承载请求参数
 message GetUsersOnlineStatusRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识列表
     repeated string user_ids = 2;
 }
 
+// 用户在线状态描述业务数据结构
 message UserOnlineStatus {
+    // IM 用户业务标识
     string user_id = 1;
+    // 在线状态状态
     OnlineStatus online_status = 2;
+    // platforms列表
     repeated whocall.common.v1.Platform platforms = 3;
+    // lastactive时间ms字段
     int64 last_active_time_ms = 4;
 }
 
+// get用户在线状态响应承载响应数据
 message GetUsersOnlineStatusResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // statuses列表
     repeated UserOnlineStatus statuses = 2;
 }
 
+// set用户状态请求承载请求参数
 message SetUserStatusRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // 业务状态
     UserStatus status = 3;
+    // 业务原因
     string reason = 4;
 }
 
+// set用户状态响应承载响应数据
 message SetUserStatusResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 用户字段
     UserProfile user = 2;
 }
 
+// setglobal接收消息opt请求承载请求参数
 message SetGlobalRecvMsgOptRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // 接收消息opt字段
     whocall.common.v1.ReceiveMessageOption recv_msg_opt = 3;
 }
 
+// setglobal接收消息opt响应承载响应数据
 message SetGlobalRecvMsgOptResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 接收消息opt字段
     whocall.common.v1.ReceiveMessageOption recv_msg_opt = 2;
 }

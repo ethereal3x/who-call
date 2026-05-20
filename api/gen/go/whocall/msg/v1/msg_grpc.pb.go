@@ -33,15 +33,26 @@ const (
 // MsgServiceClient is the client API for MsgService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+//
+// 消息服务定义该领域的 RPC 接口
 type MsgServiceClient interface {
+	// 处理发送消息操作
 	SendMsg(ctx context.Context, in *SendMsgRequest, opts ...grpc.CallOption) (*SendMsgResponse, error)
+	// 处理批量发送消息操作
 	BatchSendMsg(ctx context.Context, in *BatchSendMsgRequest, opts ...grpc.CallOption) (*BatchSendMsgResponse, error)
+	// 处理getnewest序号操作
 	GetNewestSeq(ctx context.Context, in *GetNewestSeqRequest, opts ...grpc.CallOption) (*GetNewestSeqResponse, error)
+	// 处理拉取消息by序号列表操作
 	PullMsgBySeqList(ctx context.Context, in *PullMsgBySeqListRequest, opts ...grpc.CallOption) (*PullMsgBySeqListResponse, error)
+	// 处理拉取消息by序号range操作
 	PullMsgBySeqRange(ctx context.Context, in *PullMsgBySeqRangeRequest, opts ...grpc.CallOption) (*PullMsgBySeqRangeResponse, error)
+	// 处理mark会话已读操作
 	MarkConversationRead(ctx context.Context, in *MarkConversationReadRequest, opts ...grpc.CallOption) (*MarkConversationReadResponse, error)
+	// 处理撤回消息操作
 	RevokeMsg(ctx context.Context, in *RevokeMsgRequest, opts ...grpc.CallOption) (*RevokeMsgResponse, error)
+	// 处理删除消息操作
 	DeleteMsg(ctx context.Context, in *DeleteMsgRequest, opts ...grpc.CallOption) (*DeleteMsgResponse, error)
+	// 处理get消息操作
 	GetMsg(ctx context.Context, in *GetMsgRequest, opts ...grpc.CallOption) (*GetMsgResponse, error)
 }
 
@@ -146,15 +157,26 @@ func (c *msgServiceClient) GetMsg(ctx context.Context, in *GetMsgRequest, opts .
 // MsgServiceServer is the server API for MsgService service.
 // All implementations should embed UnimplementedMsgServiceServer
 // for forward compatibility.
+//
+// 消息服务定义该领域的 RPC 接口
 type MsgServiceServer interface {
+	// 处理发送消息操作
 	SendMsg(context.Context, *SendMsgRequest) (*SendMsgResponse, error)
+	// 处理批量发送消息操作
 	BatchSendMsg(context.Context, *BatchSendMsgRequest) (*BatchSendMsgResponse, error)
+	// 处理getnewest序号操作
 	GetNewestSeq(context.Context, *GetNewestSeqRequest) (*GetNewestSeqResponse, error)
+	// 处理拉取消息by序号列表操作
 	PullMsgBySeqList(context.Context, *PullMsgBySeqListRequest) (*PullMsgBySeqListResponse, error)
+	// 处理拉取消息by序号range操作
 	PullMsgBySeqRange(context.Context, *PullMsgBySeqRangeRequest) (*PullMsgBySeqRangeResponse, error)
+	// 处理mark会话已读操作
 	MarkConversationRead(context.Context, *MarkConversationReadRequest) (*MarkConversationReadResponse, error)
+	// 处理撤回消息操作
 	RevokeMsg(context.Context, *RevokeMsgRequest) (*RevokeMsgResponse, error)
+	// 处理删除消息操作
 	DeleteMsg(context.Context, *DeleteMsgRequest) (*DeleteMsgResponse, error)
+	// 处理get消息操作
 	GetMsg(context.Context, *GetMsgRequest) (*GetMsgResponse, error)
 }
 

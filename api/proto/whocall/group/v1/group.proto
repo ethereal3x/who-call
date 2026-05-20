@@ -7,361 +7,591 @@ option go_package = "github.com/ethereal3x/who-call/api/gen/go/whocall/group/v1;
 import "google/api/annotations.proto";
 import "whocall/common/v1/common.proto";
 
+// 群组服务定义该领域的 RPC 接口
 service GroupService {
+    // 处理创建群组操作
     rpc CreateGroup(CreateGroupRequest) returns (CreateGroupResponse) {
         option (google.api.http) = { post: "/api/v1/groups" body: "*" };
     }
 
+    // 处理get群组操作
     rpc GetGroup(GetGroupRequest) returns (GetGroupResponse) {
         option (google.api.http) = { get: "/api/v1/groups/{group_id}" };
     }
 
+    // 处理更新群组操作
     rpc UpdateGroup(UpdateGroupRequest) returns (UpdateGroupResponse) {
         option (google.api.http) = { patch: "/api/v1/groups/{group_id}" body: "*" };
     }
 
+    // 处理dismiss群组操作
     rpc DismissGroup(DismissGroupRequest) returns (DismissGroupResponse) {
         option (google.api.http) = { post: "/api/v1/groups/{group_id}:dismiss" body: "*" };
     }
 
+    // 处理加入群组操作
     rpc JoinGroup(JoinGroupRequest) returns (JoinGroupResponse) {
         option (google.api.http) = { post: "/api/v1/groups/{group_id}/applications" body: "*" };
     }
 
+    // 处理处理群组申请操作
     rpc RespondGroupApplication(RespondGroupApplicationRequest) returns (RespondGroupApplicationResponse) {
         option (google.api.http) = { post: "/api/v1/groups/applications/{application_id}:respond" body: "*" };
     }
 
+    // 处理列表群组申请操作
     rpc ListGroupApplications(ListGroupApplicationsRequest) returns (ListGroupApplicationsResponse) {
         option (google.api.http) = { get: "/api/v1/groups/{group_id}/applications" };
     }
 
+    // 处理退出群组操作
     rpc QuitGroup(QuitGroupRequest) returns (QuitGroupResponse) {
         option (google.api.http) = { post: "/api/v1/groups/{group_id}:quit" body: "*" };
     }
 
+    // 处理invite用户目标群组操作
     rpc InviteUsersToGroup(InviteUsersToGroupRequest) returns (InviteUsersToGroupResponse) {
         option (google.api.http) = { post: "/api/v1/groups/{group_id}/members:invite" body: "*" };
     }
 
+    // 处理踢出群组成员操作
     rpc KickGroupMembers(KickGroupMembersRequest) returns (KickGroupMembersResponse) {
         option (google.api.http) = { post: "/api/v1/groups/{group_id}/members:kick" body: "*" };
     }
 
+    // 处理列表群组成员操作
     rpc ListGroupMembers(ListGroupMembersRequest) returns (ListGroupMembersResponse) {
         option (google.api.http) = { get: "/api/v1/groups/{group_id}/members" };
     }
 
+    // 处理set群组成员角色操作
     rpc SetGroupMemberRole(SetGroupMemberRoleRequest) returns (SetGroupMemberRoleResponse) {
         option (google.api.http) = { post: "/api/v1/groups/{group_id}/members/{member_user_id}/role" body: "*" };
     }
 
+    // 处理禁言群组成员操作
     rpc MuteGroupMember(MuteGroupMemberRequest) returns (MuteGroupMemberResponse) {
         option (google.api.http) = { post: "/api/v1/groups/{group_id}/members/{member_user_id}/mute" body: "*" };
     }
 
+    // 处理set群组禁言操作
     rpc SetGroupMute(SetGroupMuteRequest) returns (SetGroupMuteResponse) {
         option (google.api.http) = { post: "/api/v1/groups/{group_id}/mute" body: "*" };
     }
 
+    // 处理转让群组群主操作
     rpc TransferGroupOwner(TransferGroupOwnerRequest) returns (TransferGroupOwnerResponse) {
         option (google.api.http) = { post: "/api/v1/groups/{group_id}:transfer-owner" body: "*" };
     }
 
+    // 处理列表joined群组操作
     rpc ListJoinedGroups(ListJoinedGroupsRequest) returns (ListJoinedGroupsResponse) {
         option (google.api.http) = { get: "/api/v1/users/{user_id}/groups" };
     }
 }
 
+// 群组类型定义可选枚举值
 enum GroupType {
+    // 未指定枚举值
     GROUP_TYPE_UNSPECIFIED = 0;
+    // 正常状态枚举值
     GROUP_TYPE_NORMAL = 1;
+    // 群组类型super枚举值
     GROUP_TYPE_SUPER = 2;
 }
 
+// 群组状态定义可选枚举值
 enum GroupStatus {
+    // 未指定枚举值
     GROUP_STATUS_UNSPECIFIED = 0;
+    // 正常状态枚举值
     GROUP_STATUS_NORMAL = 1;
+    // 群组状态muted枚举值
     GROUP_STATUS_MUTED = 2;
+    // 群组状态dismissed枚举值
     GROUP_STATUS_DISMISSED = 3;
 }
 
+// 群组角色定义可选枚举值
 enum GroupRole {
+    // 未指定枚举值
     GROUP_ROLE_UNSPECIFIED = 0;
+    // 群组角色成员枚举值
     GROUP_ROLE_MEMBER = 1;
+    // 群组角色管理员枚举值
     GROUP_ROLE_ADMIN = 2;
+    // 群组角色群主枚举值
     GROUP_ROLE_OWNER = 3;
 }
 
+// 群组申请状态定义可选枚举值
 enum GroupApplicationStatus {
+    // 未指定枚举值
     GROUP_APPLICATION_STATUS_UNSPECIFIED = 0;
+    // 待处理状态枚举值
     GROUP_APPLICATION_STATUS_PENDING = 1;
+    // 已接受状态枚举值
     GROUP_APPLICATION_STATUS_ACCEPTED = 2;
+    // 已拒绝状态枚举值
     GROUP_APPLICATION_STATUS_REJECTED = 3;
+    // 群组申请状态canceled枚举值
     GROUP_APPLICATION_STATUS_CANCELED = 4;
 }
 
+// 群组加入来源定义可选枚举值
 enum GroupJoinSource {
+    // 未指定枚举值
     GROUP_JOIN_SOURCE_UNSPECIFIED = 0;
+    // 群组加入来源搜索枚举值
     GROUP_JOIN_SOURCE_SEARCH = 1;
+    // 群组加入来源invite枚举值
     GROUP_JOIN_SOURCE_INVITE = 2;
+    // 群组加入来源qr编码枚举值
     GROUP_JOIN_SOURCE_QR_CODE = 3;
+    // 群组加入来源管理员枚举值
     GROUP_JOIN_SOURCE_ADMIN = 4;
 }
 
+// 群组info描述业务数据结构
 message GroupInfo {
+    // 群组业务标识
     string group_id = 1;
+    // 群组名称
     string group_name = 2;
+    // 头像地址
     string avatar_url = 3;
+    // 群简介
     string introduction = 4;
+    // 群公告内容
     string notification = 5;
+    // 归属用户标识
     string owner_user_id = 6;
+    // 群组类型类型
     GroupType group_type = 7;
+    // 业务状态
     GroupStatus status = 8;
+    // 成员数量数量
     int32 member_count = 9;
+    // needverification字段
     bool need_verification = 10;
+    // 创建时间ms字段
     int64 create_time_ms = 11;
+    // 更新时间ms字段
     int64 update_time_ms = 12;
+    // IM 扩展字段
     string ex = 13;
 }
 
+// 群组成员info描述业务数据结构
 message GroupMemberInfo {
+    // 群组业务标识
     string group_id = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // 用户昵称
     string nickname = 3;
+    // 头像地址
     string avatar_url = 4;
+    // 群组昵称字段
     string group_nickname = 5;
+    // 角色
     GroupRole role = 6;
+    // 接收消息opt字段
     whocall.common.v1.ReceiveMessageOption recv_msg_opt = 7;
+    // 禁言end时间ms字段
     int64 mute_end_time_ms = 8;
+    // 加入时间ms字段
     int64 join_time_ms = 9;
+    // 加入来源字段
     GroupJoinSource join_source = 10;
+    // inviter用户标识标识
     string inviter_user_id = 11;
+    // IM 扩展字段
     string ex = 12;
 }
 
+// 群组申请描述业务数据结构
 message GroupApplication {
+    // 申请标识标识
     string application_id = 1;
+    // 群组业务标识
     string group_id = 2;
+    // 发起方用户标识
     string from_user_id = 3;
+    // inviter用户标识标识
     string inviter_user_id = 4;
+    // handle用户标识标识
     string handle_user_id = 5;
+    // 请求消息字段
     string request_message = 6;
+    // handle消息字段
     string handle_message = 7;
+    // 业务状态
     GroupApplicationStatus status = 8;
+    // 加入来源字段
     GroupJoinSource join_source = 9;
+    // 创建时间ms字段
     int64 create_time_ms = 10;
+    // handle时间ms字段
     int64 handle_time_ms = 11;
+    // IM 扩展字段
     string ex = 12;
 }
 
+// 创建群组请求承载请求参数
 message CreateGroupRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // 归属用户标识
     string owner_user_id = 2;
+    // 群组名称
     string group_name = 3;
+    // 头像地址
     string avatar_url = 4;
+    // 群简介
     string introduction = 5;
+    // 群组类型类型
     GroupType group_type = 6;
+    // 成员用户标识列表列表
     repeated string member_user_ids = 7;
+    // 管理员用户标识列表列表
     repeated string admin_user_ids = 8;
+    // needverification字段
     bool need_verification = 9;
+    // IM 扩展字段
     string ex = 10;
 }
 
+// 创建群组响应承载响应数据
 message CreateGroupResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 群组数据
     GroupInfo group = 2;
+    // 群成员列表
     repeated GroupMemberInfo members = 3;
 }
 
+// get群组请求承载请求参数
 message GetGroupRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // 群组业务标识
     string group_id = 2;
 }
 
+// get群组响应承载响应数据
 message GetGroupResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 群组数据
     GroupInfo group = 2;
 }
 
+// 更新群组请求承载请求参数
 message UpdateGroupRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // 群组业务标识
     string group_id = 2;
+    // 操作人用户标识
     string operator_user_id = 3;
+    // 群组名称
     string group_name = 4;
+    // 头像地址
     string avatar_url = 5;
+    // 群简介
     string introduction = 6;
+    // 群公告内容
     string notification = 7;
+    // needverification字段
     bool need_verification = 8;
+    // IM 扩展字段
     string ex = 9;
 }
 
+// 更新群组响应承载响应数据
 message UpdateGroupResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 群组数据
     GroupInfo group = 2;
 }
 
+// dismiss群组请求承载请求参数
 message DismissGroupRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // 群组业务标识
     string group_id = 2;
+    // 操作人用户标识
     string operator_user_id = 3;
+    // 业务原因
     string reason = 4;
 }
 
+// dismiss群组响应承载响应数据
 message DismissGroupResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
 }
 
+// 加入群组请求承载请求参数
 message JoinGroupRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // 群组业务标识
     string group_id = 2;
+    // IM 用户业务标识
     string user_id = 3;
+    // 请求消息字段
     string request_message = 4;
+    // 加入来源字段
     GroupJoinSource join_source = 5;
+    // inviter用户标识标识
     string inviter_user_id = 6;
 }
 
+// 加入群组响应承载响应数据
 message JoinGroupResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 申请字段
     GroupApplication application = 2;
+    // 成员字段
     GroupMemberInfo member = 3;
 }
 
+// 处理群组申请请求承载请求参数
 message RespondGroupApplicationRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // 申请标识标识
     string application_id = 2;
+    // 处理人用户标识
     string handler_user_id = 3;
+    // accept字段
     bool accept = 4;
+    // handle消息字段
     string handle_message = 5;
 }
 
+// 处理群组申请响应承载响应数据
 message RespondGroupApplicationResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 申请字段
     GroupApplication application = 2;
+    // 成员字段
     GroupMemberInfo member = 3;
 }
 
+// 列表群组申请请求承载请求参数
 message ListGroupApplicationsRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // 群组业务标识
     string group_id = 2;
+    // 业务状态
     GroupApplicationStatus status = 3;
+    // 分页字段
     whocall.common.v1.PaginationRequest pagination = 4;
 }
 
+// 列表群组申请响应承载响应数据
 message ListGroupApplicationsResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 申请列表
     repeated GroupApplication applications = 2;
+    // 分页字段
     whocall.common.v1.PaginationResponse pagination = 3;
 }
 
+// 退出群组请求承载请求参数
 message QuitGroupRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // 群组业务标识
     string group_id = 2;
+    // IM 用户业务标识
     string user_id = 3;
 }
 
+// 退出群组响应承载响应数据
 message QuitGroupResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
 }
 
+// invite用户目标群组请求承载请求参数
 message InviteUsersToGroupRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // 群组业务标识
     string group_id = 2;
+    // inviter用户标识标识
     string inviter_user_id = 3;
+    // 成员用户标识列表列表
     repeated string member_user_ids = 4;
+    // 业务原因
     string reason = 5;
 }
 
+// invite用户目标群组响应承载响应数据
 message InviteUsersToGroupResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // added成员列表
     repeated GroupMemberInfo added_members = 2;
+    // 申请列表
     repeated GroupApplication applications = 3;
 }
 
+// 踢出群组成员请求承载请求参数
 message KickGroupMembersRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // 群组业务标识
     string group_id = 2;
+    // 操作人用户标识
     string operator_user_id = 3;
+    // 成员用户标识列表列表
     repeated string member_user_ids = 4;
+    // 业务原因
     string reason = 5;
 }
 
+// 踢出群组成员响应承载响应数据
 message KickGroupMembersResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 踢出用户标识列表列表
     repeated string kicked_user_ids = 2;
 }
 
+// 列表群组成员请求承载请求参数
 message ListGroupMembersRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // 群组业务标识
     string group_id = 2;
+    // 角色
     GroupRole role = 3;
+    // 分页字段
     whocall.common.v1.PaginationRequest pagination = 4;
 }
 
+// 列表群组成员响应承载响应数据
 message ListGroupMembersResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 群成员列表
     repeated GroupMemberInfo members = 2;
+    // 分页字段
     whocall.common.v1.PaginationResponse pagination = 3;
 }
 
+// set群组成员角色请求承载请求参数
 message SetGroupMemberRoleRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // 群组业务标识
     string group_id = 2;
+    // 操作人用户标识
     string operator_user_id = 3;
+    // 成员用户标识标识
     string member_user_id = 4;
+    // 角色
     GroupRole role = 5;
 }
 
+// set群组成员角色响应承载响应数据
 message SetGroupMemberRoleResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 成员字段
     GroupMemberInfo member = 2;
 }
 
+// 禁言群组成员请求承载请求参数
 message MuteGroupMemberRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // 群组业务标识
     string group_id = 2;
+    // 操作人用户标识
     string operator_user_id = 3;
+    // 成员用户标识标识
     string member_user_id = 4;
+    // 禁言end时间ms字段
     int64 mute_end_time_ms = 5;
 }
 
+// 禁言群组成员响应承载响应数据
 message MuteGroupMemberResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 成员字段
     GroupMemberInfo member = 2;
 }
 
+// set群组禁言请求承载请求参数
 message SetGroupMuteRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // 群组业务标识
     string group_id = 2;
+    // 操作人用户标识
     string operator_user_id = 3;
+    // muted字段
     bool muted = 4;
 }
 
+// set群组禁言响应承载响应数据
 message SetGroupMuteResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 群组数据
     GroupInfo group = 2;
 }
 
+// 转让群组群主请求承载请求参数
 message TransferGroupOwnerRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // 群组业务标识
     string group_id = 2;
+    // 旧会话群主用户标识标识
     string old_owner_user_id = 3;
+    // new群主用户标识标识
     string new_owner_user_id = 4;
 }
 
+// 转让群组群主响应承载响应数据
 message TransferGroupOwnerResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 群组数据
     GroupInfo group = 2;
 }
 
+// 列表joined群组请求承载请求参数
 message ListJoinedGroupsRequest {
+    // 请求元信息用于追踪和调用方上下文
     whocall.common.v1.RequestMeta meta = 1;
+    // IM 用户业务标识
     string user_id = 2;
+    // 分页字段
     whocall.common.v1.PaginationRequest pagination = 3;
 }
 
+// 列表joined群组响应承载响应数据
 message ListJoinedGroupsResponse {
+    // 响应头包含状态码和追踪信息
     whocall.common.v1.ResponseHeader header = 1;
+    // 群组数据列表
     repeated GroupInfo groups = 2;
+    // 分页字段
     whocall.common.v1.PaginationResponse pagination = 3;
 }
